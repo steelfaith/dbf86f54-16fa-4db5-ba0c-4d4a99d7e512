@@ -31,6 +31,41 @@ public class ActorMovementController : MonoBehaviour
 	{
         _animator.SetFloat("Speed", 0.0f);
 
+	    if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
+	    {
+            transform.position += 0.5f * _up;
+	        transform.position += 0.5f * _right;
+            _unityChan.transform.forward = new Vector3(-0.5f, 0, -0.5f);
+            _animator.SetFloat("Speed", 0.5f);
+	        return;
+	    }
+
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
+        {
+            transform.position += 0.5f * _up;
+            transform.position += 0.5f * _left;
+            _unityChan.transform.forward = new Vector3(0.5f, 0, -0.5f);
+            _animator.SetFloat("Speed", 0.5f);
+            return;
+        }
+
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
+        {
+            transform.position += 0.5f * _down;
+            transform.position += 0.5f * _right;
+            _unityChan.transform.forward = new Vector3(-0.5f, 0, 0.5f);
+            _animator.SetFloat("Speed", 0.5f);
+            return;
+        }
+
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A))
+        {
+            transform.position += 0.5f * _down;
+            transform.position += 0.5f * _left;
+            _unityChan.transform.forward = new Vector3(0.5f, 0, 0.5f);
+            _animator.SetFloat("Speed", 0.5f);
+            return;
+        }
 
         if (Input.GetKey(KeyCode.W))
 	    {
@@ -38,6 +73,7 @@ public class ActorMovementController : MonoBehaviour
             //transform.Rotate(0.0f, 180.0f, 0.0f);
             _unityChan.transform.forward = new Vector3(0,0,-1f);
             _animator.SetFloat("Speed", 0.5f);
+            return;
         }
 
 	    if (Input.GetKey(KeyCode.A))
@@ -46,6 +82,7 @@ public class ActorMovementController : MonoBehaviour
             //transform.Rotate(0.0f, 90.0f, 0.0f);
             _unityChan.transform.forward = new Vector3(1f, 0, 0);
             _animator.SetFloat("Speed", 0.5f);
+            return;
         }
 
 	    if (Input.GetKey(KeyCode.S))
@@ -54,6 +91,7 @@ public class ActorMovementController : MonoBehaviour
             //transform.Rotate(0.0f, 0.0f, 0.0f);
             _unityChan.transform.forward = new Vector3(0, 0, 1f);
             _animator.SetFloat("Speed", 0.5f);
+            return;
         }
 
 	    if (Input.GetKey(KeyCode.D))
@@ -62,6 +100,7 @@ public class ActorMovementController : MonoBehaviour
             //transform.Rotate(0.0f, 270.0f, 0.0f);
             _unityChan.transform.forward = new Vector3(-1f, 0, 0);
             _animator.SetFloat("Speed", 0.5f);
+            return;
         }
 	}
 

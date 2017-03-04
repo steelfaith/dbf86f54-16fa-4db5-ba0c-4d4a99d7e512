@@ -20,8 +20,4 @@ public class Shadow : MonoBehaviour
 		
 	}
 
-    internal void SpawnOpponent()
-    {
-        
-    }
 }

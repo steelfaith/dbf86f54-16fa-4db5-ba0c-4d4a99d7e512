@@ -77,10 +77,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Infrastructure\BaseCreature.cs" />
+    <Compile Include="Assets\Infrastructure\CreatureInfo.cs" />
+    <Compile Include="Assets\Infrastructure\EnumHelper.cs" />
+    <Compile Include="Assets\Infrastructure\IMonster.cs" />
+    <Compile Include="Assets\Infrastructure\MonsterList.cs" />
     <Compile Include="Assets\Scripts\ActorMovementController.cs" />
+    <Compile Include="Assets\Scripts\BeginCombatPopup.cs" />
+    <Compile Include="Assets\Scripts\BringToFront.cs" />
+    <Compile Include="Assets\Scripts\CombatController.cs" />
     <Compile Include="Assets\Scripts\MonsterSpawner.cs" />
+    <Compile Include="Assets\Scripts\PlantBallOfDoom.cs" />
     <Compile Include="Assets\Scripts\Shadow.cs" />
     <Compile Include="Assets\Scripts\SimpleFollowCamera.cs" />
+    <Compile Include="Assets\ServerStub.cs" />
     <Compile Include="Assets\UnityChan\Scripts\CameraController.cs" />
     <Compile Include="Assets\UnityChan\Scripts\FaceUpdate.cs" />
     <Compile Include="Assets\UnityChan\Scripts\IdleChanger.cs" />

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,8 +7,9 @@ public class Shadow : MonoBehaviour
 {
     public int GhostType;
 
-	// Use this for initialization
-	void Start ()
+
+    // Use this for initialization
+    void Start ()
     {
 		
 	}
@@ -17,4 +19,9 @@ public class Shadow : MonoBehaviour
     {
 		
 	}
+
+    internal void SpawnOpponent()
+    {
+        
+    }
 }

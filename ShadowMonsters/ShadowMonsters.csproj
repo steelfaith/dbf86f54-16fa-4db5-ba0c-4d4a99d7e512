@@ -77,6 +77,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Infrastructure\AnnouncementTypeEnum.cs" />
     <Compile Include="Assets\Infrastructure\BaseCreature.cs" />
     <Compile Include="Assets\Infrastructure\CreatureInfo.cs" />
     <Compile Include="Assets\Infrastructure\EnumHelper.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Shadow.cs" />
     <Compile Include="Assets\Scripts\SimpleFollowCamera.cs" />
+    <Compile Include="Assets\Scripts\TextLogDisplayManager.cs" />
     <Compile Include="Assets\ServerStub.cs" />
     <Compile Include="Assets\UnityChan\Scripts\CameraController.cs" />
     <Compile Include="Assets\UnityChan\Scripts\FaceUpdate.cs" />

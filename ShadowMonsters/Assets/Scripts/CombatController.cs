@@ -13,6 +13,7 @@ namespace Assets.Scripts
         private MonsterSpawner _monsterSpawner;
         private Player _player;
         private GameObject _enemy;
+        private TextLogDisplayManager _textLogDisplayManager;
         private BaseCreature _enemyInfo;
 
         // Use this for initialization
@@ -20,6 +21,7 @@ namespace Assets.Scripts
         {
             _beginCombatPopup = BeginCombatPopup.Instance();
             _monsterSpawner = MonsterSpawner.Instance();
+            _textLogDisplayManager = TextLogDisplayManager.Instance();
             _player = Player.Instance();
 
             _enemy = _monsterSpawner.SpawnRandomEnemyMonster();
@@ -39,14 +41,17 @@ namespace Assets.Scripts
         void OnFight() { }
         void OnRun()
         {
+            _textLogDisplayManager.AddText("You attempt to run away.", AnnouncementType.Friendly);
             if(_player.ControlledCreatures.Any(x=>x.GetComponent<BaseCreature>().Level > _enemyInfo.Level ))
             {
                 SceneManager.LoadScene("TestScene");
                 //SceneManager.UnloadSceneAsync("CombatScene");
+                _textLogDisplayManager.AddText("You successfully ran away.", AnnouncementType.Friendly);
             }
             else
             {
                 //start combat
+                _textLogDisplayManager.AddText(string.Format("The {0} blocks your path! You have been forced into combat.", _enemyInfo.Name), AnnouncementType.Enemy);
             }
         }
         void OnBond() { }

@@ -7,7 +7,21 @@ namespace Assets.Infrastructure
 {
     public class CreatureInfo
     {
-        public string NameKey { get; set; }
-        public string DisplayName { get; set; }
+        private MonsterList _monsterValue;
+        public CreatureInfo(MonsterList value)
+        {
+            _monsterValue = value;
+        }
+
+        public string NameKey
+        {
+            get { return _monsterValue.ToString(); }
+        }
+        public string DisplayName
+        {
+            get { return EnumHelper<MonsterList>.GetEnumDescription(NameKey); }
+        }
+        public int Level { get; set; }
+        
     }
 }

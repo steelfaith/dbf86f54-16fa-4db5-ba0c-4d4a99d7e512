@@ -10,12 +10,28 @@ namespace Assets
     {
         public static CreatureInfo GetRandomMonster()
         {
-            var nameKey = GetRandomKey();
-            return new CreatureInfo
+            MonsterList monster = (MonsterList)Enum.Parse(typeof(MonsterList), GetRandomKey());
+            return new CreatureInfo(monster) { Level = UnityEngine.Random.Range(0, 101) };
+        }
+
+        internal static PlayerData GetPlayerData(Guid id)
+        {
+            var creature1 = new CreatureInfo(MonsterList.PlantBallOfDoom);
+
+            return new PlayerData
             {
-                DisplayName = EnumHelper<MonsterList>.GetEnumDescription(nameKey),
-                NameKey = nameKey
-            };
+                CurrentTeam = new List<CreatureInfo>
+                                {
+                                    new CreatureInfo(MonsterList.PlantBallOfDoom) {Level = UnityEngine.Random.Range(0,101) },
+                                    new CreatureInfo(MonsterList.SquareOfMountainDeath) {Level = UnityEngine.Random.Range(0,101) }
+                                }
+            };           
+            
+        }
+
+        internal static Guid Authenticate()
+        {
+            return Guid.NewGuid();
         }
 
         private static string GetRandomKey()

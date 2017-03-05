@@ -10,19 +10,19 @@ namespace Assets.Scripts
     //this class would likely need to be partially server side yet the transforms map to actual game objects...??
     public class MonsterSpawner : MonoBehaviour
     {
-        public Transform SphereOfDoom;
-        public Transform MountainDeath;
-        private Dictionary<string, Transform> _monsterList = new Dictionary<string, Transform>();
-
+        private Vector3 _enemyLocation = new Vector3(-5, 1, -11);
+        private Vector3 _friendlyLocation = new Vector3(6, 1, 12);
+        private Vector3 _enemyRotation = new Vector3(0, 15, 0);
+        private Vector3 _friendlyRotation = new Vector3(0, 195, 0);
+        private MonsterCave _monsterCave;
         private void Awake()
         {
-            _monsterList.Add(SphereOfDoom.gameObject.name,SphereOfDoom);
-            _monsterList.Add(MountainDeath.gameObject.name,MountainDeath);
+
         }
 
         void Start()
-        {            
-
+        {
+            InitializeMonsterCave();
         }
 
         private static MonsterSpawner _monsterSpawner;
@@ -37,25 +37,37 @@ namespace Assets.Scripts
             }
             return _monsterSpawner;
         }
-
-        public GameObject SpawnMonster()
+        public GameObject SpawnRandomEnemyMonster()
         {
-            var creatureInfo = ServerStub.GetRandomMonster();
+            return SpawnMonster(ServerStub.GetRandomMonster(), false);
+        }
 
-            Transform monsterToSpawn;            
-            _monsterList.TryGetValue(creatureInfo.NameKey, out monsterToSpawn);
+        public GameObject SpawnMonster(CreatureInfo creatureInfo, bool friendly)
+        {
+            InitializeMonsterCave();
+            var monsterToSpawn = _monsterCave.TryGetMonster(creatureInfo);
             if (monsterToSpawn == null)
             {
                 Debug.LogError(string.Format("Could not find Monster Prefab named {0}. Add to Monster List enumeration.", creatureInfo.DisplayName));
                 return null;
             }
 
-            Instantiate(monsterToSpawn, new Vector3(-5, 1, -11), Quaternion.identity);
+            monsterToSpawn.localScale = friendly ? new Vector3(5, 5, 5) : new Vector3(10, 10, 10);
+            //monsterToSpawn.GetComponent<MeshRenderer>().enabled = friendly ? false : true;
+            var spawnedMonster = Instantiate(monsterToSpawn, friendly?_friendlyLocation:_enemyLocation, Quaternion.Euler(friendly?_friendlyRotation:_enemyRotation));
 
-            var y = monsterToSpawn.gameObject.GetComponent<BaseCreature>();
-            y.Name = creatureInfo.DisplayName;
+            var bc = spawnedMonster.gameObject.GetComponent<BaseCreature>();            
+            bc.Name = creatureInfo.DisplayName;
+            bc.Level = creatureInfo.Level;
 
-            return monsterToSpawn.gameObject;
+
+            return spawnedMonster.gameObject;
+        }
+
+        private void InitializeMonsterCave()
+        {
+            if (!_monsterCave)
+                _monsterCave = MonsterCave.Instance();
         }
 
 

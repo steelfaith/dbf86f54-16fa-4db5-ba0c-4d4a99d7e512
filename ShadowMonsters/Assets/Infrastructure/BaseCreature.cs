@@ -8,5 +8,7 @@ namespace Assets.Infrastructure
     {
         public string Name { get; set; }
 
+        public int Level { get; set; }
+
     }
 }

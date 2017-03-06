@@ -16,7 +16,7 @@ namespace Assets.Scripts
             if (!unloaded)
             {
                 unloaded = true;
-                AnyManager._anyManager.UnloadScene(scene);
+                AnyManager._anyManager.SafeUnloadScene(scene);
             }
         }
     }

@@ -56,8 +56,10 @@ public class AnyManager : MonoBehaviour {
     /// using this to keep track of last scene loaded
     /// </summary>
     /// <param name="_scene"></param>
-    public void LoadScene(int _scene)
+    public void SafeLoadScene(int _scene)
     {
+        var scene = SceneManager.GetSceneByBuildIndex(_scene);
+        if (scene.isLoaded) return;
         SceneManager.LoadSceneAsync(_scene, LoadSceneMode.Additive);
         LastSceneLoaded = _scene;
     }
@@ -66,7 +68,7 @@ public class AnyManager : MonoBehaviour {
 
     public void UnloadCombatScene()
     {
-        UnloadScene(CombatSceneIndex);
+        SafeUnloadScene(CombatSceneIndex);
         MainCameraOn(true);
         PlayerOn(true);
         LoadPreviousScene();
@@ -75,12 +77,13 @@ public class AnyManager : MonoBehaviour {
     public void LoadCombatScene()
     {
         UnloadPreviousScene();    
-        LoadScene(CombatSceneIndex);       
+        SafeLoadScene(CombatSceneIndex);       
 
     }
 
-    public void UnloadScene(int scene)
+    public void SafeUnloadScene(int scene)
     {
+        if (!SceneManager.GetSceneByBuildIndex(scene).isLoaded) return;
         StartCoroutine(Unload(scene));
     }
 
@@ -100,7 +103,7 @@ public class AnyManager : MonoBehaviour {
 
     private void UnloadPreviousScene()
     {
-        UnloadScene(LastSceneLoaded);
+        SafeUnloadScene(LastSceneLoaded);
     }
 
 

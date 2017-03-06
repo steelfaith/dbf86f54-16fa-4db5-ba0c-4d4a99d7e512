@@ -15,6 +15,7 @@ namespace Assets.Scripts
         private GameObject _enemy;
         private TextLogDisplayManager _textLogDisplayManager;
         private BaseCreature _enemyInfo;
+        
 
         // Use this for initialization
         void Start()
@@ -44,8 +45,7 @@ namespace Assets.Scripts
             _textLogDisplayManager.AddText("You attempt to run away.", AnnouncementType.Friendly);
             if(_player.ControlledCreatures.Any(x=>x.GetComponent<BaseCreature>().Level > _enemyInfo.Level ))
             {
-                SceneManager.LoadScene("TestScene");
-                //SceneManager.UnloadSceneAsync("CombatScene");
+                UnloadCombatScene();
                 _textLogDisplayManager.AddText("You successfully ran away.", AnnouncementType.Friendly);
             }
             else
@@ -55,5 +55,11 @@ namespace Assets.Scripts
             }
         }
         void OnBond() { }
+
+       private void UnloadCombatScene()
+        {
+            _monsterSpawner.DestroyAllSpawns();
+            AnyManager._anyManager.UnloadCombatScene();
+        }
     }
 }

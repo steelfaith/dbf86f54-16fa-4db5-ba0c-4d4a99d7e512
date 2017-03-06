@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Shadow : MonoBehaviour
 {
-    public int GhostType;
-
 
     // Use this for initialization
     void Start ()

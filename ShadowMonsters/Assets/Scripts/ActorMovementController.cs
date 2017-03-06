@@ -124,10 +124,13 @@ public class ActorMovementController : MonoBehaviour
 
         if (shadow == null)
             return;
-        
+
+        shadow.enabled = false;
+        shadow.gameObject.SetActive(false);
+        collider.enabled = false;
+        collider.gameObject.SetActive(false);
         //we will eventually need to pass data through this more research on that later i suppose
         //this is also currently nasty it just flash switches the entire view lol 
-        SceneManager.LoadScene("CombatScene");
-
+        AnyManager._anyManager.LoadCombatScene();
     }
 }

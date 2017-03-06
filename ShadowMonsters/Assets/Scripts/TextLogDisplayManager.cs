@@ -17,10 +17,6 @@ namespace Assets.Scripts
 
         private static TextLogDisplayManager _textLogDisplayManager;
 
-        private void Awake()
-        {
-            DontDestroyOnLoad(_panel);
-        }
 
         public static TextLogDisplayManager Instance()
         {
@@ -49,7 +45,6 @@ namespace Assets.Scripts
                     break;
                 case AnnouncementType.Friendly:
                     colorHexString = "#00ff00ff";
-                    //colorHexString = "#008000ff";
                     break;
                 case AnnouncementType.System:
                     colorHexString = "#0000ffff";

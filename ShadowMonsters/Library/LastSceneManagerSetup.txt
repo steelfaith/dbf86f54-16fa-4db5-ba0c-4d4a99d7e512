@@ -1,7 +1,13 @@
 sceneSetups:
-- path: Assets/TestScene.unity
-  isLoaded: 0
-  isActive: 0
-- path: Assets/CombatScene.unity
+- path: Assets/NeverUnload.unity
   isLoaded: 1
   isActive: 1
+- path: Assets/CombatScene.unity
+  isLoaded: 0
+  isActive: 0
+- path: Assets/TestScene.unity
+  isLoaded: 1
+  isActive: 0
+- path: Assets/Scene3.unity
+  isLoaded: 0
+  isActive: 0

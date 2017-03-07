@@ -15,6 +15,7 @@ namespace Assets.Scripts
         private GameObject _enemy;
         private TextLogDisplayManager _textLogDisplayManager;
         private BaseCreature _enemyInfo;
+        private AreaSpawnManager _areaSpawnManager;
         
 
         // Use this for initialization
@@ -23,12 +24,13 @@ namespace Assets.Scripts
             _beginCombatPopup = BeginCombatPopup.Instance();
             _monsterSpawner = MonsterSpawner.Instance();
             _textLogDisplayManager = TextLogDisplayManager.Instance();
+            _areaSpawnManager = AreaSpawnManager.Instance();
             _player = Player.Instance();
 
             _enemy = _monsterSpawner.SpawnRandomEnemyMonster();
             _enemy.SetActive(true);
             _enemyInfo = _enemy.GetComponent<BaseCreature>();
-
+            
             _beginCombatPopup.PromptUserAction(_enemyInfo.Name, OnFight, OnRun, OnBond);
 
         }
@@ -59,6 +61,7 @@ namespace Assets.Scripts
        private void UnloadCombatScene()
         {
             _monsterSpawner.DestroyAllSpawns();
+            _areaSpawnManager.DestroyAllSpawns();
             AnyManager._anyManager.UnloadCombatScene();
         }
     }

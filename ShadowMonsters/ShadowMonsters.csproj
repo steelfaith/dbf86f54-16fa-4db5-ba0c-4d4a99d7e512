@@ -85,6 +85,8 @@
     <Compile Include="Assets\Infrastructure\PlayerData.cs" />
     <Compile Include="Assets\Scripts\ActorMovementController.cs" />
     <Compile Include="Assets\Scripts\AnyManager.cs" />
+    <Compile Include="Assets\Scripts\AreaSpawner.cs" />
+    <Compile Include="Assets\Scripts\AreaSpawnManager.cs" />
     <Compile Include="Assets\Scripts\BeginCombatPopup.cs" />
     <Compile Include="Assets\Scripts\BringToFront.cs" />
     <Compile Include="Assets\Scripts\CombatController.cs" />

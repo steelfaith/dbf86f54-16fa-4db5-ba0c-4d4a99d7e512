@@ -40,15 +40,20 @@ namespace Assets.Scripts
                 return;
             }
 
-            var spawnLocation = spawner.localPosition;
+            //var spawnLocation = spawner.localPosition;
 
 
-            spawnLocation.x = spawnLocation.x + Random.Range(0, 50);
-            spawnLocation.z = spawnLocation.z + Random.Range(0, 50);
+            //spawnLocation.x = spawnLocation.x + Random.Range(0, 50);
+            //spawnLocation.z = spawnLocation.z + Random.Range(0, 50);
 
-            var spawnedMonster = Instantiate(monsterToSpawn, spawnLocation, Quaternion.identity);
+            var spawnTrigger = spawner.GetComponent<SphereCollider>();
 
+            var spawnPosition = new Vector3(Random.insideUnitSphere.x* spawnTrigger.radius + spawner.localPosition.x,
+                transform.position.y, Random.insideUnitSphere.z* spawnTrigger.radius+ spawner.localPosition.z );
 
+            var spawnedMonster = Instantiate(monsterToSpawn, spawnPosition, Quaternion.identity);
+
+            
 
             spawnedMonsters.Add(spawnedMonster.gameObject);
             _spawnManager.AddSpawn(spawnedMonster.gameObject);

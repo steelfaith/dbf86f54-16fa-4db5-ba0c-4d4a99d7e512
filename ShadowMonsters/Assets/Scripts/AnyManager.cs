@@ -61,6 +61,7 @@ public class AnyManager : MonoBehaviour {
         var scene = SceneManager.GetSceneByBuildIndex(_scene);
         if (scene.isLoaded) return;
         SceneManager.LoadSceneAsync(_scene, LoadSceneMode.Additive);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(_scene));
         LastSceneLoaded = _scene;
     }
 
@@ -74,17 +75,25 @@ public class AnyManager : MonoBehaviour {
         LoadPreviousScene();
     }
 
-    public void LoadCombatScene()
+    public bool LoadCombatScene()
     {
+        if (IsCombatSceneLoaded()) return false;
         UnloadPreviousScene();    
-        SafeLoadScene(CombatSceneIndex);       
-
+        SafeLoadScene(CombatSceneIndex);
+        return true;
     }
 
     public void SafeUnloadScene(int scene)
     {
         if (!SceneManager.GetSceneByBuildIndex(scene).isLoaded) return;
         StartCoroutine(Unload(scene));
+    }
+
+    private bool IsCombatSceneLoaded()
+    {
+        var scene = SceneManager.GetSceneByBuildIndex(CombatSceneIndex);
+        if (scene.isLoaded) return true;
+        return false;
     }
 
     private void SceneManager_sceneLoaded(Scene scene, LoadSceneMode arg1)

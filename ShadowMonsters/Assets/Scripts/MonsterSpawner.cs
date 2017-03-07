@@ -10,8 +10,8 @@ namespace Assets.Scripts
     //this class would likely need to be partially server side yet the transforms map to actual game objects...??
     public class MonsterSpawner : MonoBehaviour
     {
-        private Vector3 _enemyLocation = new Vector3(-5, 1, -11);
-        private Vector3 _friendlyLocation = new Vector3(6, 1, 12);
+        private Vector3 _enemyLocation = new Vector3(-5, 301, -11);
+        private Vector3 _friendlyLocation = new Vector3(6, 301, 12);
         private Vector3 _enemyRotation = new Vector3(0, 15, 0);
         private Vector3 _friendlyRotation = new Vector3(0, 195, 0);
         private MonsterCave _monsterCave;

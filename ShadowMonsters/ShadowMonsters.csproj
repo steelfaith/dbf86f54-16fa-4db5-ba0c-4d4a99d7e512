@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.5.2f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -75,11 +77,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\ButtonScript.cs" />
     <Compile Include="Assets\Infrastructure\AnnouncementTypeEnum.cs" />
+    <Compile Include="Assets\Infrastructure\AttackInfo.cs" />
     <Compile Include="Assets\Infrastructure\BaseCreature.cs" />
     <Compile Include="Assets\Infrastructure\CreatureInfo.cs" />
     <Compile Include="Assets\Infrastructure\EnumHelper.cs" />
     <Compile Include="Assets\Infrastructure\MonsterList.cs" />
+    <Compile Include="Assets\Infrastructure\MonsterTypeEnum.cs" />
     <Compile Include="Assets\Infrastructure\PlayerData.cs" />
     <Compile Include="Assets\Scripts\ActorMovementController.cs" />
     <Compile Include="Assets\Scripts\AnyManager.cs" />
@@ -88,6 +93,7 @@
     <Compile Include="Assets\Scripts\BeginCombatPopup.cs" />
     <Compile Include="Assets\Scripts\BringToFront.cs" />
     <Compile Include="Assets\Scripts\CombatController.cs" />
+    <Compile Include="Assets\Scripts\FatbicController.cs" />
     <Compile Include="Assets\Scripts\LoadScene.cs" />
     <Compile Include="Assets\Scripts\MonsterCave.cs" />
     <Compile Include="Assets\Scripts\MonsterSpawner.cs" />

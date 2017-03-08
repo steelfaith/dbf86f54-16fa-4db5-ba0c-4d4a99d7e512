@@ -16,6 +16,7 @@ namespace Assets.Scripts
         private TextLogDisplayManager _textLogDisplayManager;
         private BaseCreature _enemyInfo;
         private AreaSpawnManager _areaSpawnManager;
+        private FatbicController fatbicController;
         
 
         // Use this for initialization
@@ -25,6 +26,7 @@ namespace Assets.Scripts
             _monsterSpawner = MonsterSpawner.Instance();
             _textLogDisplayManager = TextLogDisplayManager.Instance();
             _areaSpawnManager = AreaSpawnManager.Instance();
+            fatbicController = FatbicController.Instance();
             _player = Player.Instance();
 
             _enemy = _monsterSpawner.SpawnRandomEnemyMonster();
@@ -41,7 +43,52 @@ namespace Assets.Scripts
 
         }
 
-        void OnFight() { }
+        void OnFight()
+        {
+            //fatbicController.LoadAttacks()
+            fatbicController.BeginAttack(OnAttackOnePressed, OnAttackTwoPressed, OnAttackThreePressed, OnAttackFourPressed, OnAttackFivePressed, OnAttackSixPressed);
+        }
+
+        private void OnAttackOnePressed()
+        {
+            //TODO unhardcode 5
+            fatbicController.attackOneButton.GetComponent<ButtonScript>().StartRecharge(5);
+
+        }
+
+        private void OnAttackTwoPressed()
+        {
+            //TODO unhardcode 5
+            fatbicController.attackTwoButton.GetComponent<ButtonScript>().StartRecharge(5);
+
+        }
+
+        private void OnAttackThreePressed()
+        {
+            //TODO unhardcode 5
+            fatbicController.attackThreeButton.GetComponent<ButtonScript>().StartRecharge(5);
+
+        }
+
+        private void OnAttackFourPressed()
+        {
+            //TODO unhardcode 5
+            fatbicController.attackFourButton.GetComponent<ButtonScript>().StartRecharge(5);
+
+        }
+
+        private void OnAttackFivePressed()
+        {
+            //TODO unhardcode 5
+            fatbicController.attackFiveButton.GetComponent<ButtonScript>().StartRecharge(5);
+
+        }
+        private void OnAttackSixPressed()
+        {
+            //TODO unhardcode 5
+            fatbicController.attackSixButton.GetComponent<ButtonScript>().StartRecharge(5);
+
+        }
         void OnRun()
         {
             _textLogDisplayManager.AddText("You attempt to run away.", AnnouncementType.Friendly);

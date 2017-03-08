@@ -1,0 +1,5 @@
+C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\ShadowMonstersServer\bin\Debug\ShadowMonstersServer.dll
+C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\ShadowMonstersServer\bin\Debug\ShadowMonstersServer.pdb
+C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\ShadowMonstersServer\obj\Debug\ShadowMonstersServer.csprojResolveAssemblyReference.cache
+C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\ShadowMonstersServer\obj\Debug\ShadowMonstersServer.dll
+C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\ShadowMonstersServer\obj\Debug\ShadowMonstersServer.pdb

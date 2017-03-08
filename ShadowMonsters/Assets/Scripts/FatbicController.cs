@@ -16,16 +16,26 @@ namespace Assets.Scripts
         public Button attackFourButton;      
         public Button attackFiveButton;
         public Button attackSixButton;
+        public Button bondButton;
+        public Button runButton;
+        public List<ButtonScript> buttonScripts = new List<ButtonScript>();
 
 
         private void Awake()
         {
-
+            buttonScripts.Add(attackOneButton.GetComponent<ButtonScript>());
+            buttonScripts.Add(attackTwoButton.GetComponent<ButtonScript>());
+            buttonScripts.Add(attackThreeButton.GetComponent<ButtonScript>());
+            buttonScripts.Add(attackFourButton.GetComponent<ButtonScript>());
+            buttonScripts.Add(attackFiveButton.GetComponent<ButtonScript>());
+            buttonScripts.Add(attackSixButton.GetComponent<ButtonScript>());
+            buttonScripts.Add(bondButton.GetComponent<ButtonScript>());
+            buttonScripts.Add(runButton.GetComponent<ButtonScript>());
         }
 
         private void Start()
         {
-
+            
         }
 
 
@@ -42,7 +52,8 @@ namespace Assets.Scripts
             return fatbicController;
         }
 
-        public void BeginAttack(UnityAction attackOne, UnityAction attackTwo, UnityAction attackThree, UnityAction attackFour, UnityAction attackFive, UnityAction attackSix)
+        public void BeginAttack(UnityAction attackOne, UnityAction attackTwo, UnityAction attackThree, UnityAction attackFour, UnityAction attackFive, UnityAction attackSix,
+                                    UnityAction bondEssence, UnityAction runAway)
         {
             _modalPanel.SetActive(true);
 
@@ -64,8 +75,22 @@ namespace Assets.Scripts
             attackSixButton.onClick.RemoveAllListeners();
             attackSixButton.onClick.AddListener(attackSix);
 
+            bondButton.onClick.RemoveAllListeners();
+            bondButton.onClick.AddListener(bondEssence);
+
+            runButton.onClick.RemoveAllListeners();
+            runButton.onClick.AddListener(runAway);
         }
 
+
+        public void StartGlobalRecharge()
+        {
+            foreach (ButtonScript item in buttonScripts)
+            {
+                //TODO: global cooldown should be reduced by speed /1000 ***monster speed should absolutely cap at 499
+                item.StartRecharge(1);
+            }
+        }
 
         public void LoadAttacks(List<AttackInfo> orderedAttackInfo)
         {

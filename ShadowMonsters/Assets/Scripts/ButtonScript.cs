@@ -10,7 +10,7 @@ namespace Assets.Scripts
 
         public Button button;
         public Image cooldownImage;
-        public float rechargeEnd;
+        private float rechargeEnd;
         private float rechargeTime;
         public Color startColor;
         public Color endColor;
@@ -27,6 +27,7 @@ namespace Assets.Scripts
 
         public void StartRecharge(float recharge)
         {
+            if (button.enabled == false) return;
             button.enabled = false;
             rechargeTime = recharge;
             rechargeEnd = Time.time + rechargeTime;

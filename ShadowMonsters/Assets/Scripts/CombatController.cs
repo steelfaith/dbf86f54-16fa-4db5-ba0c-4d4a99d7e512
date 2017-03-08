@@ -46,53 +46,56 @@ namespace Assets.Scripts
         void OnFight()
         {
             //fatbicController.LoadAttacks()
-            fatbicController.BeginAttack(OnAttackOnePressed, OnAttackTwoPressed, OnAttackThreePressed, OnAttackFourPressed, OnAttackFivePressed, OnAttackSixPressed);
+            fatbicController.BeginAttack(OnAttackOnePressed, OnAttackTwoPressed, OnAttackThreePressed, OnAttackFourPressed, OnAttackFivePressed, OnAttackSixPressed, OnBond,OnRun);
+            
         }
 
         private void OnAttackOnePressed()
         {
             //TODO unhardcode 5
             fatbicController.attackOneButton.GetComponent<ButtonScript>().StartRecharge(5);
-
+            fatbicController.StartGlobalRecharge();
         }
 
         private void OnAttackTwoPressed()
         {
             //TODO unhardcode 5
             fatbicController.attackTwoButton.GetComponent<ButtonScript>().StartRecharge(5);
-
+            fatbicController.StartGlobalRecharge();
         }
 
         private void OnAttackThreePressed()
         {
             //TODO unhardcode 5
             fatbicController.attackThreeButton.GetComponent<ButtonScript>().StartRecharge(5);
-
+            fatbicController.StartGlobalRecharge();
         }
 
         private void OnAttackFourPressed()
         {
             //TODO unhardcode 5
             fatbicController.attackFourButton.GetComponent<ButtonScript>().StartRecharge(5);
-
+            fatbicController.StartGlobalRecharge();
         }
 
         private void OnAttackFivePressed()
         {
             //TODO unhardcode 5
             fatbicController.attackFiveButton.GetComponent<ButtonScript>().StartRecharge(5);
-
+            fatbicController.StartGlobalRecharge();
         }
         private void OnAttackSixPressed()
         {
             //TODO unhardcode 5
             fatbicController.attackSixButton.GetComponent<ButtonScript>().StartRecharge(5);
-
+            fatbicController.StartGlobalRecharge();
         }
         void OnRun()
         {
+            fatbicController.runButton.GetComponent<ButtonScript>().StartRecharge(2);
+            fatbicController.StartGlobalRecharge();
             _textLogDisplayManager.AddText("You attempt to run away.", AnnouncementType.Friendly);
-            if(_player.ControlledCreatures.Any(x=>x.GetComponent<BaseCreature>().Level > _enemyInfo.Level ))
+            if(_player.ControlledCreatures.Any(x=>x.GetComponent<BaseCreature>().Level + Random.Range(1,15) > _enemyInfo.Level ))
             {
                 UnloadCombatScene();
                 _textLogDisplayManager.AddText("You successfully ran away.", AnnouncementType.Friendly);
@@ -103,7 +106,11 @@ namespace Assets.Scripts
                 _textLogDisplayManager.AddText(string.Format("The {0} blocks your path! You have been forced into combat.", _enemyInfo.Name), AnnouncementType.Enemy);
             }
         }
-        void OnBond() { }
+        void OnBond()
+        {
+            fatbicController.bondButton.GetComponent<ButtonScript>().StartRecharge(10);
+            fatbicController.StartGlobalRecharge();
+        }
 
        private void UnloadCombatScene()
         {

@@ -9,8 +9,12 @@ namespace Assets.Infrastructure
     {
         public string Name { get; set; }
 
-        public MonsterType Type { get; set; }
+        public MonsterType MonsterType { get; set; }
 
         public int Cooldown { get; set; }
+
+        public DamageStyle DamageStyle { get; set; }
+
+        public int CastTime { get; set; }
     }
 }

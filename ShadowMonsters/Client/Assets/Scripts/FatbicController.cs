@@ -1,4 +1,5 @@
 ﻿using Assets.Infrastructure;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -15,22 +16,30 @@ namespace Assets.Scripts
         public Button attackThreeButton;
         public Button attackFourButton;      
         public Button attackFiveButton;
-        public Button attackSixButton;
+        public Button stopAttackButton;
         public Button bondButton;
         public Button runButton;
-        public List<ButtonScript> buttonScripts = new List<ButtonScript>();
+        public List<ButtonScript> attackButtonScripts = new List<ButtonScript>();
+        private List<AttackInfo> attackInfoList;
 
 
         private void Awake()
         {
-            buttonScripts.Add(attackOneButton.GetComponent<ButtonScript>());
-            buttonScripts.Add(attackTwoButton.GetComponent<ButtonScript>());
-            buttonScripts.Add(attackThreeButton.GetComponent<ButtonScript>());
-            buttonScripts.Add(attackFourButton.GetComponent<ButtonScript>());
-            buttonScripts.Add(attackFiveButton.GetComponent<ButtonScript>());
-            buttonScripts.Add(attackSixButton.GetComponent<ButtonScript>());
-            buttonScripts.Add(bondButton.GetComponent<ButtonScript>());
-            buttonScripts.Add(runButton.GetComponent<ButtonScript>());
+            attackButtonScripts.Add(attackOneButton.GetComponent<ButtonScript>());
+            attackButtonScripts.Add(attackTwoButton.GetComponent<ButtonScript>());
+            attackButtonScripts.Add(attackThreeButton.GetComponent<ButtonScript>());
+            attackButtonScripts.Add(attackFourButton.GetComponent<ButtonScript>());
+            attackButtonScripts.Add(attackFiveButton.GetComponent<ButtonScript>());
+            LoadAttacks();
+        }
+
+        public AttackInfo GetAttackInformation(int attackIndex)
+        {
+            if(attackInfoList == null)
+            {
+                Debug.LogError("Need to get attacks from server");
+            }
+            return attackInfoList[attackIndex];
         }
 
         private void Start()
@@ -52,7 +61,7 @@ namespace Assets.Scripts
             return fatbicController;
         }
 
-        public void BeginAttack(UnityAction attackOne, UnityAction attackTwo, UnityAction attackThree, UnityAction attackFour, UnityAction attackFive, UnityAction attackSix,
+        public void BeginAttack(UnityAction attackOne, UnityAction attackTwo, UnityAction attackThree, UnityAction attackFour, UnityAction attackFive, UnityAction stopAttack,
                                     UnityAction bondEssence, UnityAction runAway)
         {
             _modalPanel.SetActive(true);
@@ -72,8 +81,8 @@ namespace Assets.Scripts
             attackFiveButton.onClick.RemoveAllListeners();
             attackFiveButton.onClick.AddListener(attackFive);
 
-            attackSixButton.onClick.RemoveAllListeners();
-            attackSixButton.onClick.AddListener(attackSix);
+            stopAttackButton.onClick.RemoveAllListeners();
+            stopAttackButton.onClick.AddListener(stopAttack);
 
             bondButton.onClick.RemoveAllListeners();
             bondButton.onClick.AddListener(bondEssence);
@@ -83,24 +92,25 @@ namespace Assets.Scripts
         }
 
 
-        public void StartGlobalRecharge()
+        public void StartGlobalRecharge(int recharge, int exclusionIndex)
         {
-            foreach (ButtonScript item in buttonScripts)
+            foreach (ButtonScript item in attackButtonScripts)
             {
+                if(item.attackIndex != exclusionIndex)
                 //TODO: global cooldown should be reduced by speed /1000 ***monster speed should absolutely cap at 499
-                item.StartRecharge(1);
+                item.StartGlobalCooldown(recharge);
             }
         }
 
-        public void LoadAttacks(List<AttackInfo> orderedAttackInfo)
+        public void LoadAttacks() //prob need to pass monster id
         {
-            if(orderedAttackInfo.Count == 0 || orderedAttackInfo.Count > 5)
+            var attacks = ServerStub.GetAttackInfo(Guid.NewGuid());
+            if (attacks.Count == 0 || attacks.Count > 5)
             {
-                Debug.LogError("Attack count outside valid value of 1 to 6");
+                Debug.LogError("Attack count outside valid value of 1 to 5");
                 return;
             }
-
-
+            attackInfoList = attacks;
         }
     }
 }

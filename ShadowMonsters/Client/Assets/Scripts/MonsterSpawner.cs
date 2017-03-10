@@ -59,6 +59,7 @@ namespace Assets.Scripts
             var bc = spawnedMonster.gameObject.GetComponent<BaseCreature>();            
             bc.Name = creatureInfo.DisplayName;
             bc.Level = creatureInfo.Level;
+            bc.Health = creatureInfo.MaxHealth;
 
             _spawns.Add(spawnedMonster.gameObject);
             return spawnedMonster.gameObject;

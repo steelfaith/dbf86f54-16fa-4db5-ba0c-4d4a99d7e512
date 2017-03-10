@@ -17,6 +17,8 @@ namespace Assets.Scripts
         private BaseCreature _enemyInfo;
         private AreaSpawnManager _areaSpawnManager;
         private FatbicController fatbicController;
+        private StatusController enemyStatusController;
+
         
 
         // Use this for initialization
@@ -27,11 +29,13 @@ namespace Assets.Scripts
             _textLogDisplayManager = TextLogDisplayManager.Instance();
             _areaSpawnManager = AreaSpawnManager.Instance();
             fatbicController = FatbicController.Instance();
+            enemyStatusController = StatusController.Instance();
             _player = Player.Instance();
 
             _enemy = _monsterSpawner.SpawnRandomEnemyMonster();
             _enemy.SetActive(true);
             _enemyInfo = _enemy.GetComponent<BaseCreature>();
+            enemyStatusController.SetCreature(_enemyInfo);
             
             _beginCombatPopup.PromptUserAction(_enemyInfo.Name, OnFight, OnRun, OnBond);
 

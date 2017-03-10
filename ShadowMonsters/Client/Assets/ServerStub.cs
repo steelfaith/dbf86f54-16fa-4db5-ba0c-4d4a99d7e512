@@ -11,7 +11,7 @@ namespace Assets
         public static CreatureInfo GetRandomMonster()
         {
             MonsterList monster = (MonsterList)Enum.Parse(typeof(MonsterList), GetRandomKey());
-            return new CreatureInfo(monster) { Level = UnityEngine.Random.Range(0, 101) };
+            return new CreatureInfo(monster) { Level = UnityEngine.Random.Range(0, 101), MaxHealth =500 };
         }
 
         internal static PlayerData GetPlayerData(Guid id)
@@ -22,8 +22,8 @@ namespace Assets
             {
                 CurrentTeam = new List<CreatureInfo>
                                 {
-                                    new CreatureInfo(MonsterList.PlantBallOfDoom) {Level = UnityEngine.Random.Range(0,101) },
-                                    new CreatureInfo(MonsterList.SquareOfMountainDeath) {Level = UnityEngine.Random.Range(0,101) }
+                                    new CreatureInfo(MonsterList.PlantBallOfDoom) {Level = UnityEngine.Random.Range(0,101), MaxHealth = 300 },
+                                    new CreatureInfo(MonsterList.SquareOfMountainDeath) {Level = UnityEngine.Random.Range(0,101), MaxHealth = 500 }
                                 }
             };           
             

@@ -10,5 +10,7 @@ namespace Assets.Infrastructure
 
         public int Level { get; set; }
 
+        public int Health { get; set; }
+
     }
 }

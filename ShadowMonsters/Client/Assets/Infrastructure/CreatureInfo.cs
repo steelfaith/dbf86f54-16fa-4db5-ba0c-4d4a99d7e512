@@ -15,6 +15,8 @@ namespace Assets.Infrastructure
             monsterValue = value;
         }
 
+        public int MaxHealth { get; set; }
+
         public string NameKey
         {
             get { return monsterValue.ToString(); }

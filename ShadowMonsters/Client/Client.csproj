@@ -77,6 +77,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\IndicatorBarScript.cs" />
     <Compile Include="Assets\Infrastructure\AnnouncementTypeEnum.cs" />
     <Compile Include="Assets\Infrastructure\AttackInfo.cs" />
     <Compile Include="Assets\Infrastructure\BaseCreature.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Assets\Scripts\ButtonScript.cs" />
     <Compile Include="Assets\Scripts\CombatController.cs" />
     <Compile Include="Assets\Scripts\FatbicController.cs" />
+    <Compile Include="Assets\Scripts\StatusController.cs" />
     <Compile Include="Assets\Scripts\LoadScene.cs" />
     <Compile Include="Assets\Scripts\MonsterCave.cs" />
     <Compile Include="Assets\Scripts\MonsterSpawner.cs" />

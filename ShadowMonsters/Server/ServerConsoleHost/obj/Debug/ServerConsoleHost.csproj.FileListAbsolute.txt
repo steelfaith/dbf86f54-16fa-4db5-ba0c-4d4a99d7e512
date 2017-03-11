@@ -1,6 +1,0 @@
-C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\ServerConsoleHost\bin\Debug\ServerConsoleHost.exe.config
-C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\ServerConsoleHost\bin\Debug\ServerConsoleHost.exe
-C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\ServerConsoleHost\bin\Debug\ServerConsoleHost.pdb
-C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\ServerConsoleHost\obj\Debug\ServerConsoleHost.csprojResolveAssemblyReference.cache
-C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\ServerConsoleHost\obj\Debug\ServerConsoleHost.exe
-C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\ServerConsoleHost\obj\Debug\ServerConsoleHost.pdb

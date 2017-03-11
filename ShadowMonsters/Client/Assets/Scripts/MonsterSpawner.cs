@@ -62,6 +62,7 @@ namespace Assets.Scripts
             bc.Name = creatureInfo.DisplayName;
             bc.Level = creatureInfo.Level;
             bc.Health = creatureInfo.MaxHealth;
+            bc.MonsterId = creatureInfo.MonsterId;
 
             _spawns.Add(spawnedMonster.gameObject);
             return spawnedMonster.gameObject;

@@ -38,7 +38,7 @@ namespace Assets.Scripts
             return statusController;
         }
 
-        internal void UpdateCreature(CreatureInfo creatureUpdate)
+        internal void UpdateCreature(AttackResolution creatureUpdate)
         {
             currentHealth = creatureUpdate.CurrentHealth;
             indicatorBar.AdjustHealth(creatureUpdate.CurrentHealth, creatureUpdate.MaxHealth);

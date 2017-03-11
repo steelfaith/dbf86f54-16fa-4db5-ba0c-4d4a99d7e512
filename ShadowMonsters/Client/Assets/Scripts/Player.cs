@@ -13,18 +13,20 @@ namespace Assets.Scripts
         public List<GameObject> ControlledCreatures { get; set; }
         private MonsterSpawner _monsterSpawner;
         private PlayerData _currentData;
-
+        private ServerStub serverStub;
 
         private void Awake()
         {
             //this would probably be in some login object somewhere when we have that.  this would need to get that data.
             Id = ServerStub.Authenticate();
-            _currentData = ServerStub.GetPlayerData(Id);
+            
             ControlledCreatures = new List<GameObject>();        
         }
 
         private void Start()
         {
+            serverStub = ServerStub.Instance();
+            _currentData = serverStub.GetPlayerData(Id);
             _monsterSpawner = MonsterSpawner.Instance();            
             AddControlledCreatures();
         }

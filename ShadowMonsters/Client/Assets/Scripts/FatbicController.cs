@@ -22,6 +22,7 @@ namespace Assets.Scripts
         public List<ButtonScript> attackButtonScripts = new List<ButtonScript>();
         public event EventHandler<DataEventArgs<AttackInfo>> AttackAttempt;
         private List<AttackInfo> attackInfoList;
+        private ServerStub serverStub;
 
         public AttackInfo GetAttackInformation(int attackIndex)
         {
@@ -34,7 +35,8 @@ namespace Assets.Scripts
 
         private void Start()
         {
-            
+            serverStub = ServerStub.Instance();
+            LoadAttacks();
         }
 
 
@@ -94,7 +96,7 @@ namespace Assets.Scripts
 
         public void LoadAttacks() //prob need to pass monster id
         {
-            var attacks = ServerStub.GetAttackInfo(Guid.NewGuid());
+            var attacks = serverStub.GetAttackInfo(Guid.NewGuid());
             if (attacks.Count == 0 || attacks.Count > 5)
             {
                 Debug.LogError("Attack count outside valid value of 1 to 5");
@@ -116,8 +118,7 @@ namespace Assets.Scripts
             attackButtonScripts.Add(attackTwoButton.GetComponent<ButtonScript>());
             attackButtonScripts.Add(attackThreeButton.GetComponent<ButtonScript>());
             attackButtonScripts.Add(attackFourButton.GetComponent<ButtonScript>());
-            attackButtonScripts.Add(attackFiveButton.GetComponent<ButtonScript>());
-            LoadAttacks();
+            attackButtonScripts.Add(attackFiveButton.GetComponent<ButtonScript>());            
             AttachButtonScriptEvents();
         }
 

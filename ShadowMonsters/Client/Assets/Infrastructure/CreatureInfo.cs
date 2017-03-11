@@ -19,6 +19,8 @@ namespace Assets.Infrastructure
 
         public float CurrentHealth { get; set; }
 
+        public Guid MonsterId { get; set; }
+
         public string NameKey
         {
             get { return monsterValue.ToString(); }

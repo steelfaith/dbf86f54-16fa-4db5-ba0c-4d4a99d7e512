@@ -80,6 +80,8 @@
     <Compile Include="Assets\IndicatorBarScript.cs" />
     <Compile Include="Assets\Infrastructure\AnnouncementTypeEnum.cs" />
     <Compile Include="Assets\Infrastructure\AttackInfo.cs" />
+    <Compile Include="Assets\Infrastructure\AttackRequest.cs" />
+    <Compile Include="Assets\Infrastructure\AttackResolution.cs" />
     <Compile Include="Assets\Infrastructure\BaseCreature.cs" />
     <Compile Include="Assets\Infrastructure\CreatureInfo.cs" />
     <Compile Include="Assets\Infrastructure\DamageStyle.cs" />

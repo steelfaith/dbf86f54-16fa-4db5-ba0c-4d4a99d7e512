@@ -7,6 +7,8 @@ namespace Assets.Infrastructure
 {
     public class AttackInfo
     {
+        public Guid AttackId { get; set; }
+
         public string Name { get; set; }
 
         public MonsterType MonsterType { get; set; }

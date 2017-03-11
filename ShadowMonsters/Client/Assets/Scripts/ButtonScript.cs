@@ -144,7 +144,8 @@ namespace Assets.Scripts
             castTimeImage.fillAmount = 0.0f;
             castGlowImage.enabled = false;
             button.enabled = true;
-            FireAttackAttempt();
+            if(attackInfo.DamageStyle == DamageStyle.Delayed)
+                FireAttackAttempt();
         }
 
         private void ProcessAttackInfo()

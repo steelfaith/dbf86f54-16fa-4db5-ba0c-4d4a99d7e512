@@ -4,6 +4,7 @@ using UnityEngine;
 using Assets.Infrastructure;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using System;
 
 namespace Assets.Scripts
 {
@@ -31,7 +32,7 @@ namespace Assets.Scripts
             _textLogDisplayManager = TextLogDisplayManager.Instance();
             _areaSpawnManager = AreaSpawnManager.Instance();
             fatbicController = FatbicController.Instance();
-            fatbicController.AttackAttempt += AttackAttempt;
+            fatbicController.AttackAttempt += AttackEnemyAttempt;
             enemyStatusController = StatusController.Instance();
             _player = Player.Instance();
 
@@ -39,16 +40,36 @@ namespace Assets.Scripts
             _enemy.SetActive(true);
             _enemyInfo = _enemy.GetComponent<BaseCreature>();
             enemyStatusController.SetCreature(_enemyInfo);
-            
+
+            _textLogDisplayManager.AddText(string.Format("You have been attack by a {0}!", _enemyInfo.Name), AnnouncementType.Enemy);
             _beginCombatPopup.PromptUserAction(_enemyInfo.Name, OnFight, OnRun, OnBond);
 
         }
 
-        private void AttackAttempt(object sender, DataEventArgs<AttackInfo> e)
+        private void AttackEnemyAttempt(object sender, DataEventArgs<AttackInfo> e)
         {
             //this would probably be an id to an attack instead of the attack
-            CreatureInfo creatureUpdate = serverStub.SendAttack(e.Data);
-            enemyStatusController.UpdateCreature(creatureUpdate);
+            AttackResolution attackResult = serverStub.SendAttack(
+                new AttackRequest {
+                                     AttackId = e.Data.AttackId,
+                                     TargetId = _enemyInfo.MonsterId
+                                  });
+            if (attackResult == null) return;
+            enemyStatusController.UpdateCreature(attackResult);
+            if (attackResult.WasFatal)
+            {
+                EndCombat();                
+            }
+
+               
+        }
+
+        private void EndCombat()
+        {
+            Destroy(_enemy);
+            UnloadCombatScene();
+            _textLogDisplayManager.AddText(string.Format("You have defeated {0}!",_enemyInfo.Name), AnnouncementType.Friendly);
+            _enemyInfo = null;
         }
 
         // Update is called once per frame
@@ -98,7 +119,7 @@ namespace Assets.Scripts
             runButtonScript.StartCooldown(2);
             fatbicController.StartGlobalRecharge(2, runButtonScript.attackIndex);
             _textLogDisplayManager.AddText("You attempt to run away.", AnnouncementType.Friendly);
-            if(_player.ControlledCreatures.Any(x=>x.GetComponent<BaseCreature>().Level + Random.Range(1,15) > _enemyInfo.Level ))
+            if(_player.ControlledCreatures.Any(x=>x.GetComponent<BaseCreature>().Level + UnityEngine.Random.Range(1,15) > _enemyInfo.Level ))
             {
                 UnloadCombatScene();
                 _textLogDisplayManager.AddText("You successfully ran away.", AnnouncementType.Friendly);

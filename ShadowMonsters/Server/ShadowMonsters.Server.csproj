@@ -30,20 +30,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ExitGames.Logging.Log4Net">
-      <HintPath>..\..\Lib\ExitGames.Logging.Log4Net.dll</HintPath>
+    <Reference Include="ExitGames.Logging.Log4Net, Version=1.0.4.0, Culture=neutral, PublicKeyToken=eac0edd9746a4aa0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Library\ExitGames.Logging.Log4Net.dll</HintPath>
     </Reference>
-    <Reference Include="ExitGamesLibs">
-      <HintPath>..\..\Lib\ExitGamesLibs.dll</HintPath>
+    <Reference Include="ExitGamesLibs, Version=1.0.4.0, Culture=neutral, PublicKeyToken=eac0edd9746a4aa0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Library\ExitGamesLibs.dll</HintPath>
     </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\Lib\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Library\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Photon.SocketServer">
-      <HintPath>..\..\Lib\Photon.SocketServer.dll</HintPath>
+    <Reference Include="Photon.SocketServer, Version=4.0.28.11245, Culture=neutral, PublicKeyToken=48c2fa3b6988090e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Library\Photon.SocketServer.dll</HintPath>
     </Reference>
     <Reference Include="PhotonHostRuntimeInterfaces">
-      <HintPath>..\Lib\PhotonHostRuntimeInterfaces.dll</HintPath>
+      <HintPath>..\Library\PhotonHostRuntimeInterfaces.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />

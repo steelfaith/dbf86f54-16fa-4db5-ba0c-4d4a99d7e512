@@ -43,7 +43,7 @@
       <HintPath>..\..\Lib\Photon.SocketServer.dll</HintPath>
     </Reference>
     <Reference Include="PhotonHostRuntimeInterfaces">
-      <HintPath>..\..\Lib\PhotonHostRuntimeInterfaces.dll</HintPath>
+      <HintPath>..\Lib\PhotonHostRuntimeInterfaces.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />

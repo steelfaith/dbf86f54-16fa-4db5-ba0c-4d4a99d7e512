@@ -18,17 +18,20 @@ namespace Assets.Scripts
         private AreaSpawnManager _areaSpawnManager;
         private FatbicController fatbicController;
         private StatusController enemyStatusController;
+        private ServerStub serverStub;
 
         
 
         // Use this for initialization
         void Start()
         {
+            serverStub = ServerStub.Instance();
             _beginCombatPopup = BeginCombatPopup.Instance();
             _monsterSpawner = MonsterSpawner.Instance();
             _textLogDisplayManager = TextLogDisplayManager.Instance();
             _areaSpawnManager = AreaSpawnManager.Instance();
             fatbicController = FatbicController.Instance();
+            fatbicController.AttackAttempt += AttackAttempt;
             enemyStatusController = StatusController.Instance();
             _player = Player.Instance();
 
@@ -39,6 +42,13 @@ namespace Assets.Scripts
             
             _beginCombatPopup.PromptUserAction(_enemyInfo.Name, OnFight, OnRun, OnBond);
 
+        }
+
+        private void AttackAttempt(object sender, DataEventArgs<AttackInfo> e)
+        {
+            //this would probably be an id to an attack instead of the attack
+            CreatureInfo creatureUpdate = serverStub.SendAttack(e.Data);
+            enemyStatusController.UpdateCreature(creatureUpdate);
         }
 
         // Update is called once per frame

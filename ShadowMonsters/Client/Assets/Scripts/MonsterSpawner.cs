@@ -16,6 +16,7 @@ namespace Assets.Scripts
         private Vector3 _friendlyRotation = new Vector3(0, 195, 0);
         private MonsterCave _monsterCave;
         private List<GameObject> _spawns = new List<GameObject>();
+        private ServerStub serverStub;
         private void Awake()
         {
 
@@ -23,6 +24,7 @@ namespace Assets.Scripts
 
         void Start()
         {
+            serverStub = ServerStub.Instance();
             InitializeMonsterCave();
         }
 
@@ -40,7 +42,7 @@ namespace Assets.Scripts
         }
         public GameObject SpawnRandomEnemyMonster()
         {
-            return SpawnMonster(ServerStub.GetRandomMonster(), false);
+            return SpawnMonster(serverStub.GetRandomMonster(), false);
         }
 
         public GameObject SpawnMonster(CreatureInfo creatureInfo, bool friendly)

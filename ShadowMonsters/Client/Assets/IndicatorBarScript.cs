@@ -12,7 +12,7 @@ namespace Assets.Scripts
         public Color startColor;
         public Color endColor;
 
-        public void AdjustHealth(int currentHealth, int maxHealth)
+        public void AdjustHealth(float currentHealth, float maxHealth)
         {
             if (maxHealth == 0) return;
             healthBarImage.fillAmount = currentHealth / maxHealth;

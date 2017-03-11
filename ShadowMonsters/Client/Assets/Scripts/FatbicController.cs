@@ -20,18 +20,8 @@ namespace Assets.Scripts
         public Button bondButton;
         public Button runButton;
         public List<ButtonScript> attackButtonScripts = new List<ButtonScript>();
+        public event EventHandler<DataEventArgs<AttackInfo>> AttackAttempt;
         private List<AttackInfo> attackInfoList;
-
-
-        private void Awake()
-        {
-            attackButtonScripts.Add(attackOneButton.GetComponent<ButtonScript>());
-            attackButtonScripts.Add(attackTwoButton.GetComponent<ButtonScript>());
-            attackButtonScripts.Add(attackThreeButton.GetComponent<ButtonScript>());
-            attackButtonScripts.Add(attackFourButton.GetComponent<ButtonScript>());
-            attackButtonScripts.Add(attackFiveButton.GetComponent<ButtonScript>());
-            LoadAttacks();
-        }
 
         public AttackInfo GetAttackInformation(int attackIndex)
         {
@@ -111,6 +101,38 @@ namespace Assets.Scripts
                 return;
             }
             attackInfoList = attacks;
+        }
+
+        private void OnDestroy()
+        {
+            foreach (var item in attackButtonScripts)
+            {
+                item.AttackAttempt -= AttackAttemptFromButton;
+            }
+        }
+        private void Awake()
+        {
+            attackButtonScripts.Add(attackOneButton.GetComponent<ButtonScript>());
+            attackButtonScripts.Add(attackTwoButton.GetComponent<ButtonScript>());
+            attackButtonScripts.Add(attackThreeButton.GetComponent<ButtonScript>());
+            attackButtonScripts.Add(attackFourButton.GetComponent<ButtonScript>());
+            attackButtonScripts.Add(attackFiveButton.GetComponent<ButtonScript>());
+            LoadAttacks();
+            AttachButtonScriptEvents();
+        }
+
+        private void AttachButtonScriptEvents()
+        {
+            foreach (var item in attackButtonScripts)
+            {
+                item.AttackAttempt += AttackAttemptFromButton;
+            }
+        }
+
+        private void AttackAttemptFromButton(object sender, DataEventArgs<AttackInfo> e)
+        {
+            var handler = AttackAttempt;
+            if (handler != null) AttackAttempt(this, e);
         }
     }
 }

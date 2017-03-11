@@ -15,7 +15,9 @@ namespace Assets.Infrastructure
             monsterValue = value;
         }
 
-        public int MaxHealth { get; set; }
+        public float MaxHealth { get; set; }
+
+        public float CurrentHealth { get; set; }
 
         public string NameKey
         {

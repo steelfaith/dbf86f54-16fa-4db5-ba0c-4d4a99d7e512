@@ -16,5 +16,7 @@ namespace Assets.Infrastructure
         public DamageStyle DamageStyle { get; set; }
 
         public int CastTime { get; set; }
+
+        public int BaseDamage { get; set; }
     }
 }

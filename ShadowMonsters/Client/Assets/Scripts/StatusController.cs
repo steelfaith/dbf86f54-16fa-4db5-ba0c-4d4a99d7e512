@@ -9,33 +9,9 @@ namespace Assets.Scripts
 {
     public class StatusController : MonoBehaviour
     {
-        public int maxHealth;
-        public int currentHealth;
+        public float maxHealth;
+        public float currentHealth;
         public IndicatorBarScript indicatorBar;
-
-        public void TakeDamage(int damage)
-        {
-            var tempHealth =currentHealth - damage;
-
-            if(tempHealth < 0)
-            {
-                currentHealth = 0; }
-            else
-            {
-                currentHealth = tempHealth;
-            }
-            indicatorBar.AdjustHealth(currentHealth, maxHealth);
-        }
-
-        public void HealDamage(int amount)
-        {
-            var tempHealth = currentHealth + amount;
-            if (currentHealth > maxHealth)
-            { currentHealth = maxHealth; }
-            else
-            { currentHealth = tempHealth; }
-            indicatorBar.AdjustHealth(currentHealth, maxHealth);
-        }
 
         public void SetCreature(BaseCreature creature)
         {
@@ -60,6 +36,12 @@ namespace Assets.Scripts
                     Debug.LogError("Could not find Health Controller!");
             }
             return statusController;
+        }
+
+        internal void UpdateCreature(CreatureInfo creatureUpdate)
+        {
+            currentHealth = creatureUpdate.CurrentHealth;
+            indicatorBar.AdjustHealth(creatureUpdate.CurrentHealth, creatureUpdate.MaxHealth);
         }
     }
 }

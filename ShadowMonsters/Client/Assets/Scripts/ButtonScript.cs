@@ -21,16 +21,21 @@ namespace Assets.Scripts
         public int attackIndex;
         private float rechargeEnd;
         private float rechargeTime;
-        private AttackInfo attackInfo;
+        public AttackInfo attackInfo;
         private FatbicController fatbic;
         private bool onGlobalCooldown;
+        public event EventHandler<DataEventArgs<AttackInfo>> AttackAttempt;
+        bool attackInProgress;
+        float nextSecond = 0;
 
         private void Update()
         {
+            if (!attackInProgress && !onGlobalCooldown) return;
             if(rechargeEnd <= Time.time)
-            {
+            {                
                 EndCooldown();
                 EndCastTime();
+                attackInProgress = false;
                 return;
             }
             if(onGlobalCooldown || attackInfo.DamageStyle == DamageStyle.Instant || attackInfo.DamageStyle == DamageStyle.Tick)
@@ -51,11 +56,14 @@ namespace Assets.Scripts
         }
 
         public void StartButtonAction()
-        {
+        {            
             if (onGlobalCooldown) return;
+            attackInProgress = true;
             castGlowImage.enabled = true;
             if (attackInfo.DamageStyle == DamageStyle.Instant || attackInfo.DamageStyle == DamageStyle.Tick)
             {
+                if (attackInfo.DamageStyle == DamageStyle.Instant)
+                    FireAttackAttempt();
                 StartCooldown(attackInfo.Cooldown);
                 fatbic.StartGlobalRecharge(attackInfo.Cooldown, attackIndex);
             }
@@ -78,7 +86,6 @@ namespace Assets.Scripts
 
         public void StartGlobalCooldown(float recharge)
         {           
-            EndCastTime();
             onGlobalCooldown = true;
             StartCooldown(recharge);
         }
@@ -100,16 +107,26 @@ namespace Assets.Scripts
 
         public void CoolDownTick()
         {
-            if (cooldownImage == null) return;
+            if (cooldownImage == null || !attackInProgress && !onGlobalCooldown) return;
             cooldownImage.fillAmount = (rechargeEnd - Time.time) / rechargeTime;
             cooldownImage.color = Color.Lerp(startColor, endColor, 1 - cooldownImage.fillAmount);
+            if(attackInfo.DamageStyle == DamageStyle.Tick && attackInProgress)
+            {
+                if (Time.time >= nextSecond)
+                {
+                    nextSecond = Mathf.FloorToInt(Time.time) + 1;
+                    FireAttackAttempt();
+
+                }
+            }
         }
 
         public void CastTimeTick()
         {
-            if (castTimeImage == null) return;
+            if (castTimeImage == null || !attackInProgress && !onGlobalCooldown) return;
             castTimeImage.fillAmount = (rechargeEnd - Time.time) / rechargeTime; ;
             castTimeImage.color = Color.Lerp(castTimeStartColor, castTimeEndColor, 1 - castTimeImage.fillAmount);
+
         }
 
         public void EndCooldown()
@@ -123,10 +140,11 @@ namespace Assets.Scripts
 
         public void EndCastTime()
         {
-            if (castTimeImage == null) return;
+            if (castTimeImage == null || !attackInProgress) return;
             castTimeImage.fillAmount = 0.0f;
             castGlowImage.enabled = false;
             button.enabled = true;
+            FireAttackAttempt();
         }
 
         private void ProcessAttackInfo()
@@ -173,6 +191,13 @@ namespace Assets.Scripts
                 default:
                     break;
             }
+        }
+
+        private void FireAttackAttempt()
+        {
+            var handler = AttackAttempt;
+            if (handler != null)
+                AttackAttempt(this, new DataEventArgs<AttackInfo> { Data = attackInfo });
         }
     }
 }

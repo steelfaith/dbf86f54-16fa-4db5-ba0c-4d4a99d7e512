@@ -14,6 +14,7 @@ namespace Assets.Scripts
         private MonsterSpawner _monsterSpawner;
         private PlayerData _currentData;
 
+
         private void Awake()
         {
             //this would probably be in some login object somewhere when we have that.  this would need to get that data.

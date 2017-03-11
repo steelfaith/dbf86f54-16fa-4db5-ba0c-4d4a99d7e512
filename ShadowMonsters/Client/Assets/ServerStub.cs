@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Assets.Infrastructure;
+using UnityEngine;
 
 namespace Assets
 {
-    public static class ServerStub
+    public class ServerStub : MonoBehaviour
     {
-        public static CreatureInfo GetRandomMonster()
+
+        CreatureInfo enemyMonster;
+
+        public CreatureInfo GetRandomMonster()
         {
             MonsterList monster = (MonsterList)Enum.Parse(typeof(MonsterList), GetRandomKey());
-            return new CreatureInfo(monster) { Level = UnityEngine.Random.Range(0, 101), MaxHealth =500 };
+            enemyMonster = new CreatureInfo(monster) { Level = UnityEngine.Random.Range(0, 101), MaxHealth =500, CurrentHealth = 500 };
+            return enemyMonster;
         }
+        
 
         internal static PlayerData GetPlayerData(Guid id)
         {
@@ -41,7 +47,7 @@ namespace Assets
             return list[UnityEngine.Random.Range(0, list.Count)];
         }
 
-        internal static List<AttackInfo> GetAttackInfo(Guid guid)
+        internal static  List<AttackInfo> GetAttackInfo(Guid guid)
         {
             return new List<AttackInfo>
             {
@@ -51,7 +57,8 @@ namespace Assets
                     DamageStyle = DamageStyle.Delayed,
                     MonsterType =MonsterType.Fire,
                     CastTime = 3,
-                    Cooldown = 0
+                    Cooldown = 0,
+                    BaseDamage = 50
                 },
                 new AttackInfo
                 {
@@ -59,7 +66,8 @@ namespace Assets
                     DamageStyle = DamageStyle.Delayed,
                     MonsterType =MonsterType.Demon,
                     CastTime = 5,
-                    Cooldown = 0
+                    Cooldown = 0,
+                    BaseDamage = 70
                 },
                  new AttackInfo
                 {
@@ -67,7 +75,8 @@ namespace Assets
                     DamageStyle = DamageStyle.Tick,
                     MonsterType =MonsterType.Mechanical,
                     CastTime = 0,
-                    Cooldown = 5
+                    Cooldown = 5,
+                    BaseDamage =15
                 },
                 new AttackInfo
                 {
@@ -75,7 +84,8 @@ namespace Assets
                     DamageStyle = DamageStyle.Instant,
                     MonsterType = MonsterType.Wind,
                     CastTime = 0,
-                    Cooldown = 2
+                    Cooldown = 2,
+                    BaseDamage = 35
                 },
                 new AttackInfo
                 {
@@ -83,9 +93,29 @@ namespace Assets
                     DamageStyle = DamageStyle.Instant,
                     MonsterType =MonsterType.Fae,
                     CastTime = 0,
-                    Cooldown = 4
+                    Cooldown = 4,
+                    BaseDamage = 60
                 }
             };
+        }
+
+        internal  CreatureInfo SendAttack(AttackInfo data)
+        {
+            enemyMonster.CurrentHealth = enemyMonster.CurrentHealth - data.BaseDamage;
+            return enemyMonster;
+        }
+
+        private static ServerStub serverStub;
+
+        public static ServerStub Instance()
+        {
+            if (!serverStub)
+            {
+                serverStub = FindObjectOfType(typeof(ServerStub)) as ServerStub;
+                if (!serverStub)
+                    Debug.LogError("Could not find server!");
+            }
+            return serverStub;
         }
     }
 }

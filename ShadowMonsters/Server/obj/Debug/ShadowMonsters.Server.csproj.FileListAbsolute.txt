@@ -20,3 +20,14 @@ C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonste
 C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\bin\Debug\ExitGamesLibs.dll
 C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\bin\Debug\log4net.dll
 C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\bin\Debug\Photon.SocketServer.dll
+C:\Users\Tom\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\bin\Debug\ShadowMonstersServer.dll
+C:\Users\Tom\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\bin\Debug\ShadowMonstersServer.pdb
+C:\Users\Tom\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\bin\Debug\ExitGames.Logging.Log4Net.dll
+C:\Users\Tom\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\bin\Debug\ExitGamesLibs.dll
+C:\Users\Tom\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\bin\Debug\log4net.dll
+C:\Users\Tom\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\bin\Debug\Photon.SocketServer.dll
+C:\Users\Tom\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\bin\Debug\ShadowMonsters.Common.dll
+C:\Users\Tom\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\bin\Debug\ShadowMonsters.Common.pdb
+C:\Users\Tom\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\obj\Debug\ShadowMonsters.Server.csprojResolveAssemblyReference.cache
+C:\Users\Tom\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\obj\Debug\ShadowMonstersServer.dll
+C:\Users\Tom\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Server\obj\Debug\ShadowMonstersServer.pdb

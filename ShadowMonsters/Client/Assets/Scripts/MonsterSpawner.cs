@@ -10,13 +10,14 @@ namespace Assets.Scripts
     //this class would likely need to be partially server side yet the transforms map to actual game objects...??
     public class MonsterSpawner : MonoBehaviour
     {
-        private Vector3 _enemyLocation = new Vector3(-5, 301, -11);
-        private Vector3 _friendlyLocation = new Vector3(6, 301, 12);
+        private Vector3 _enemyLocation = new Vector3(-5, 300, -11);
+        private Vector3 _friendlyLocation = new Vector3(6, 300, 12);
         private Vector3 _enemyRotation = new Vector3(0, 15, 0);
         private Vector3 _friendlyRotation = new Vector3(0, 195, 0);
         private MonsterCave _monsterCave;
         private List<GameObject> _spawns = new List<GameObject>();
         private ServerStub serverStub;
+        private const int CombatSceneHeight = 300;
         private void Awake()
         {
 
@@ -56,13 +57,21 @@ namespace Assets.Scripts
             }
 
             monsterToSpawn.localScale = friendly ? new Vector3(5, 5, 5) : new Vector3(10, 10, 10);
-            var spawnedMonster = Instantiate(monsterToSpawn, friendly?_friendlyLocation:_enemyLocation, Quaternion.Euler(friendly?_friendlyRotation:_enemyRotation));
+            var spawnLocation = friendly ? _friendlyLocation : _enemyLocation;
+            
+            var spawnedMonster = Instantiate(monsterToSpawn, spawnLocation, Quaternion.Euler(friendly?_friendlyRotation:_enemyRotation));
 
             var bc = spawnedMonster.gameObject.GetComponent<BaseCreature>();            
             bc.Name = creatureInfo.DisplayName;
             bc.Level = creatureInfo.Level;
             bc.Health = creatureInfo.MaxHealth;
             bc.MonsterId = creatureInfo.MonsterId;
+            bc.NickName = creatureInfo.NickName;
+
+            var newSize = spawnedMonster.GetComponent<Renderer>().bounds.size.y /2;
+            var localPosition = spawnedMonster.localPosition;
+
+            spawnedMonster.localPosition = new Vector3(localPosition.x,CombatSceneHeight + newSize, localPosition.z);
 
             _spawns.Add(spawnedMonster.gameObject);
             return spawnedMonster.gameObject;

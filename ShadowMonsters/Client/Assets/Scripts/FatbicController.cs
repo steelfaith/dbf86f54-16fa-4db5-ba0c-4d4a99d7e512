@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using System.Linq;
 
 namespace Assets.Scripts
 {
@@ -23,6 +24,7 @@ namespace Assets.Scripts
         public event EventHandler<DataEventArgs<AttackInfo>> AttackAttempt;
         private List<AttackInfo> attackInfoList;
         private ServerStub serverStub;
+        private Player player;
 
         public AttackInfo GetAttackInformation(int attackIndex)
         {
@@ -36,6 +38,7 @@ namespace Assets.Scripts
         private void Start()
         {
             serverStub = ServerStub.Instance();
+            player = Player.Instance();
             LoadAttacks();
         }
 
@@ -96,7 +99,10 @@ namespace Assets.Scripts
 
         public void LoadAttacks() //prob need to pass monster id
         {
-            var attacks = serverStub.GetAttackInfo(Guid.NewGuid());
+            var teamLead = player.LeadMonsterId;
+            var alive = serverStub.CheckPulse(teamLead);
+
+            var attacks = alive ? serverStub.GetAttacksForMonster(teamLead) : serverStub.GetAttacksForPlayer(player.Id);
             if (attacks.Count == 0 || attacks.Count > 5)
             {
                 Debug.LogError("Attack count outside valid value of 1 to 5");

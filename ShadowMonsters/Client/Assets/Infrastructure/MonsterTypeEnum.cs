@@ -16,6 +16,7 @@ namespace Assets.Infrastructure
         Wood,
         Wind,
         Fire,
-        Water
+        Water,
+        Human
     }
 }

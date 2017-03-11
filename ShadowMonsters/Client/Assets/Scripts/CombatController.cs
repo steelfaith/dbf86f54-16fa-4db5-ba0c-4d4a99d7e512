@@ -35,13 +35,12 @@ namespace Assets.Scripts
             fatbicController.AttackAttempt += AttackEnemyAttempt;
             enemyStatusController = StatusController.Instance();
             _player = Player.Instance();
-
             _enemy = _monsterSpawner.SpawnRandomEnemyMonster();
             _enemy.SetActive(true);
             _enemyInfo = _enemy.GetComponent<BaseCreature>();
             enemyStatusController.SetCreature(_enemyInfo);
 
-            _textLogDisplayManager.AddText(string.Format("You have been attack by a {0}!", _enemyInfo.Name), AnnouncementType.Enemy);
+            _textLogDisplayManager.AddText(string.Format("You have been attacked by a {0}!", _enemyInfo.Name), AnnouncementType.Enemy);
             _beginCombatPopup.PromptUserAction(_enemyInfo.Name, OnFight, OnRun, OnBond);
 
         }
@@ -66,9 +65,10 @@ namespace Assets.Scripts
 
         private void EndCombat()
         {
-            Destroy(_enemy);
+            _player.RevertIncarnation();
+            Destroy(_enemy);            
             UnloadCombatScene();
-            _textLogDisplayManager.AddText(string.Format("You have defeated {0}!",_enemyInfo.Name), AnnouncementType.Friendly);
+            _textLogDisplayManager.AddText(string.Format("You have defeated a {0}!",_enemyInfo.Name), AnnouncementType.Friendly);
             _enemyInfo = null;
         }
 
@@ -80,6 +80,7 @@ namespace Assets.Scripts
 
         void OnFight()
         {
+            _player.IncarnateMonster();
             fatbicController.BeginAttack(OnAttackOnePressed, OnAttackTwoPressed, OnAttackThreePressed, OnAttackFourPressed, OnAttackFivePressed, OnStopAttackPressed, OnBond,OnRun);            
         }
 

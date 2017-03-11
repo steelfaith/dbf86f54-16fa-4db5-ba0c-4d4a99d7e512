@@ -77,7 +77,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\IndicatorBarScript.cs" />
     <Compile Include="Assets\Infrastructure\AnnouncementTypeEnum.cs" />
     <Compile Include="Assets\Infrastructure\AttackInfo.cs" />
     <Compile Include="Assets\Infrastructure\AttackRequest.cs" />
@@ -90,6 +89,7 @@
     <Compile Include="Assets\Infrastructure\MonsterList.cs" />
     <Compile Include="Assets\Infrastructure\MonsterTypeEnum.cs" />
     <Compile Include="Assets\Infrastructure\PlayerData.cs" />
+    <Compile Include="Assets\KnownAttacks.cs" />
     <Compile Include="Assets\Scripts\ActorMovementController.cs" />
     <Compile Include="Assets\Scripts\AnyManager.cs" />
     <Compile Include="Assets\Scripts\AreaSpawnManager.cs" />
@@ -99,13 +99,14 @@
     <Compile Include="Assets\Scripts\ButtonScript.cs" />
     <Compile Include="Assets\Scripts\CombatController.cs" />
     <Compile Include="Assets\Scripts\FatbicController.cs" />
-    <Compile Include="Assets\Scripts\StatusController.cs" />
+    <Compile Include="Assets\Scripts\IndicatorBarScript.cs" />
     <Compile Include="Assets\Scripts\LoadScene.cs" />
     <Compile Include="Assets\Scripts\MonsterCave.cs" />
     <Compile Include="Assets\Scripts\MonsterSpawner.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Shadow.cs" />
     <Compile Include="Assets\Scripts\SimpleFollowCamera.cs" />
+    <Compile Include="Assets\Scripts\StatusController.cs" />
     <Compile Include="Assets\Scripts\TextLogDisplayManager.cs" />
     <Compile Include="Assets\Scripts\UnloadSceneTrigger.cs" />
     <Compile Include="Assets\ServerStub.cs" />

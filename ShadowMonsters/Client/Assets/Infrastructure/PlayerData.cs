@@ -8,6 +8,7 @@ namespace Assets.Infrastructure
     public class PlayerData
     {
         public List<CreatureInfo> CurrentTeam { get; set; }
+        public List<Guid> AttackIds { get; set; }
         
     }
 }

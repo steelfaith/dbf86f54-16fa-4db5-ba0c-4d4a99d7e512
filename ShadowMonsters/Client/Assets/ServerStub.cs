@@ -10,14 +10,16 @@ namespace Assets
     public class ServerStub : MonoBehaviour
     {
         Dictionary<Guid,CreatureInfo> spawnedMonsters = new Dictionary<Guid,CreatureInfo>();
-        Dictionary<Guid, AttackInfo> knownAttacks = new Dictionary<Guid, AttackInfo>();
+        Dictionary<Guid, PlayerData> players = new Dictionary<Guid, PlayerData>();
+        KnownAttacks knownAttacks;
 
         CreatureInfo enemyMonster;
 
         public CreatureInfo GetRandomMonster()
         {
             MonsterList monster = (MonsterList)Enum.Parse(typeof(MonsterList), GetRandomKey());
-            enemyMonster = new CreatureInfo(monster) { Level = UnityEngine.Random.Range(0, 101), MaxHealth =500, CurrentHealth = 500, MonsterId = Guid.NewGuid()};
+
+            enemyMonster = new CreatureInfo(monster, 500) { Level = UnityEngine.Random.Range(0, 101), MonsterId = Guid.NewGuid()};
             spawnedMonsters[enemyMonster.MonsterId] = enemyMonster;
             return enemyMonster;
         }
@@ -27,8 +29,21 @@ namespace Assets
         {
             var team = new List<CreatureInfo>
                                 {
-                                    new CreatureInfo(MonsterList.PlantBallOfDoom) {Level = UnityEngine.Random.Range(0,101), MaxHealth = 300, MonsterId = Guid.NewGuid() },
-                                    new CreatureInfo(MonsterList.SquareOfMountainDeath) {Level = UnityEngine.Random.Range(0,101), MaxHealth = 500, MonsterId = Guid.NewGuid() }
+                                    new CreatureInfo(MonsterList.PlantBallOfDoom, 300)
+                                    {
+                                        NickName = "Fluffy",
+                                        Level = UnityEngine.Random.Range(0,101),
+                                        MonsterId = Guid.NewGuid(),
+                                        IsTeamLead = true,
+                                        AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
+                                    },
+                                    new CreatureInfo(MonsterList.SquareOfMountainDeath, 500)
+                                    {
+                                        NickName = "Ralph",
+                                        Level = UnityEngine.Random.Range(0,101),
+                                        MonsterId = Guid.NewGuid(),
+                                        AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList)
+                                    }
                                 };
 
             foreach (CreatureInfo creature in team)
@@ -36,15 +51,54 @@ namespace Assets
                 spawnedMonsters[creature.MonsterId] = creature;
             }
 
-            return new PlayerData
+            var data = new PlayerData
             {
-                CurrentTeam = team            
-            };    
+                CurrentTeam = team,
+                AttackIds = GetAttackIdList(knownAttacks.KnownPlayerAttackList)            
+            };
+            players.Add(id, data);
+            return data;
+        }
+
+        private List<Guid> GetAttackIdList(Dictionary<Guid,AttackInfo> fromDictionary)
+        {
+            var attackList = new List<Guid>();
+
+            while (attackList.Count < 5)
+            {
+                var attack = fromDictionary.ElementAt(UnityEngine.Random.Range(0, knownAttacks.KnownMonsterAttackList.Count));
+                if (!attackList.Contains(attack.Key))
+                { attackList.Add(attack.Key); }
+            }
+            return attackList;
         }
 
         internal static Guid Authenticate()
         {
             return Guid.NewGuid();
+        }
+
+        public List<AttackInfo> GetAttacksForMonster(Guid monsterId)
+        {
+            var monster = spawnedMonsters[monsterId];
+            return GetAttackInfoFromIds(monster.AttackIds);
+        }
+
+        public List<AttackInfo> GetAttacksForPlayer(Guid playerId)
+        {
+            var player = players[playerId];
+            return GetAttackInfoFromIds(player.AttackIds);
+        }
+
+        private List<AttackInfo> GetAttackInfoFromIds(List<Guid> attackIds)
+        {
+            var returnList = new List<AttackInfo>();
+            foreach (var attackId in attackIds)
+            {
+               returnList.Add(knownAttacks.AllKnownAttackList[attackId]);
+            }
+
+            return returnList;
         }
 
         private static string GetRandomKey()
@@ -54,69 +108,19 @@ namespace Assets
             return list[UnityEngine.Random.Range(0, list.Count)];
         }
 
-        internal List<AttackInfo> GetAttackInfo(Guid guid)
+        internal bool CheckPulse(Guid monsterId)
         {
-            var attackList = new List<AttackInfo>
-            {
-                new AttackInfo
-                {
-                    AttackId = Guid.NewGuid(),
-                    Name = "Fire Ball",
-                    DamageStyle = DamageStyle.Delayed,
-                    MonsterType =MonsterType.Fire,
-                    CastTime = 3,
-                    Cooldown = 0,
-                    BaseDamage = 50
-                },
-                new AttackInfo
-                {
-                    AttackId = Guid.NewGuid(),
-                    Name = "Doom Bolt",
-                    DamageStyle = DamageStyle.Delayed,
-                    MonsterType =MonsterType.Demon,
-                    CastTime = 5,
-                    Cooldown = 0,
-                    BaseDamage = 70
-                },
-                 new AttackInfo
-                {
-                    AttackId = Guid.NewGuid(),
-                    Name = "Axe Flurry",
-                    DamageStyle = DamageStyle.Tick,
-                    MonsterType =MonsterType.Mechanical,
-                    CastTime = 0,
-                    Cooldown = 5,
-                    BaseDamage =15
-                },
-                new AttackInfo
-                {
-                    AttackId = Guid.NewGuid(),
-                    Name = "Air Jab",
-                    DamageStyle = DamageStyle.Instant,
-                    MonsterType = MonsterType.Wind,
-                    CastTime = 0,
-                    Cooldown = 2,
-                    BaseDamage = 35
-                },
-                new AttackInfo
-                {
-                    AttackId = Guid.NewGuid(),
-                    Name = "Wing Smash",
-                    DamageStyle = DamageStyle.Instant,
-                    MonsterType =MonsterType.Fae,
-                    CastTime = 0,
-                    Cooldown = 4,
-                    BaseDamage = 60
-                }
-            };
-
-            foreach (AttackInfo info in attackList)
-            {
-                knownAttacks[info.AttackId] = info;
-            }
-
-            return attackList;
+            var target = spawnedMonsters[monsterId];
+            if (target == null) return false;
+            if (target.CurrentHealth < 1) return false;
+            return true;
         }
+
+        private void Start()
+        {
+            knownAttacks = new KnownAttacks();
+        }
+
 
         internal  AttackResolution SendAttack(AttackRequest data)
         {
@@ -128,7 +132,7 @@ namespace Assets
                 return null;
             }
             AttackInfo attack = null;
-            knownAttacks.TryGetValue(data.AttackId, out attack);
+            knownAttacks.AllKnownAttackList.TryGetValue(data.AttackId, out attack);
             if(attack == null)
             {
                 Debug.LogError("Attack does not exist. You cannot attack without knowledge.");

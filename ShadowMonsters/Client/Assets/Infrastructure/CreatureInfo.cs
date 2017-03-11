@@ -10,10 +10,17 @@ namespace Assets.Infrastructure
         public MonsterType Type { get; set; }
 
         private MonsterList monsterValue;
-        public CreatureInfo(MonsterList value)
+        public CreatureInfo(MonsterList value, float maxHealth)
         {
             monsterValue = value;
+            AttackIds = new List<Guid>();
+            MaxHealth = maxHealth;
+            CurrentHealth = maxHealth;
         }
+
+        public string NickName { get; set; }
+
+        public bool IsTeamLead { get; set; }
 
         public float MaxHealth { get; set; }
 
@@ -31,17 +38,7 @@ namespace Assets.Infrastructure
         }
         public int Level { get; set; }
 
-        public AttackInfo Attack1 { get; set; }
-
-        public AttackInfo Attack2 { get; set; }
-
-        public AttackInfo Attack3 { get; set; }
-
-        public AttackInfo Attack4 { get; set; }
-
-        public AttackInfo Attack5 { get; set; }
-
-        public AttackInfo Attack6 { get; set; }
+        public List<Guid> AttackIds;
 
     }
 }

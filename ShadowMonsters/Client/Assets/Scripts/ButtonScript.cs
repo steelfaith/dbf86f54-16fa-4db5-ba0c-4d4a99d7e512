@@ -187,6 +187,9 @@ namespace Assets.Scripts
                 case MonsterType.Fire:
                     buttonImage.color = Color.red;
                     break;
+                case MonsterType.Human:
+                    buttonImage.color = new UnityEngine.Color32(255, 224, 189,255); //fleshy!
+                    break;
                 case MonsterType.Water:
                     break;
                 default:

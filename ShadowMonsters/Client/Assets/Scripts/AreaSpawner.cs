@@ -40,12 +40,6 @@ namespace Assets.Scripts
                 return;
             }
 
-            //var spawnLocation = spawner.localPosition;
-
-
-            //spawnLocation.x = spawnLocation.x + Random.Range(0, 50);
-            //spawnLocation.z = spawnLocation.z + Random.Range(0, 50);
-
             var spawnTrigger = spawner.GetComponent<SphereCollider>();
 
             var spawnPosition = new Vector3(Random.insideUnitSphere.x* spawnTrigger.radius + spawner.localPosition.x,

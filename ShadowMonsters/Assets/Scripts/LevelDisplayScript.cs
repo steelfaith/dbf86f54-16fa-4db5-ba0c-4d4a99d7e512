@@ -12,10 +12,18 @@ namespace Assets.Scripts
     {
         public Image image;
         public Text levelText;
+        public Image blurBorder;
 
         public void UpdateLevelDisplay(string level, MonsterRarity rarity)
         {
-            image.color = rarity.GetColorFromRarity();
+            var rarityColor = rarity.GetColorFromRarity();
+            blurBorder.color = rarityColor;
+            if ((int)rarity<3)
+            {
+                blurBorder.enabled = false;
+                
+            }
+            image.color = rarityColor;
             levelText.text = level;
         }
 

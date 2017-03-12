@@ -7,6 +7,12 @@ namespace Assets.Infrastructure
         [Description("Plant Ball of Doom")]
         PlantBallOfDoom,
         [Description("Square Mountain of Death")]
-        SquareOfMountainDeath
+        SquareOfMountainDeath,
+        [Description("Demon Enforcer")]
+        DemonEnforcer,
+        [Description("Rhino Virus")]
+        RhinoVirus,
+        [Description("Robot Shock Trooper")]
+        RobotShockTrooper
     }
 }

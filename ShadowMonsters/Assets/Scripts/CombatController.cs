@@ -120,7 +120,7 @@ namespace Assets.Scripts
             runButtonScript.StartCooldown(2);
             fatbicController.StartGlobalRecharge(2, runButtonScript.attackIndex);
             _textLogDisplayManager.AddText("You attempt to run away.", AnnouncementType.Friendly);
-            if(_player.ControlledCreatures.Any(x=>x.GetComponent<BaseCreature>().Level + UnityEngine.Random.Range(1,15) > _enemyInfo.Level ))
+            if(_player.ControlledCreatures.Any(x=>x.GetComponent<BaseCreature>().Level + UnityEngine.Random.Range(100,150) > _enemyInfo.Level ))
             {
                 UnloadCombatScene();
                 _textLogDisplayManager.AddText("You successfully ran away.", AnnouncementType.Friendly);
@@ -129,6 +129,7 @@ namespace Assets.Scripts
             {
                 //start combat
                 _textLogDisplayManager.AddText(string.Format("The {0} blocks your path! You have been forced into combat.", _enemyInfo.Name), AnnouncementType.Enemy);
+                OnFight();
             }
         }
         void OnBond()

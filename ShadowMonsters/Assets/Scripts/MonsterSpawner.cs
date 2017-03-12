@@ -56,7 +56,6 @@ namespace Assets.Scripts
                 return null;
             }
 
-            monsterToSpawn.localScale = friendly ? new Vector3(5, 5, 5) : new Vector3(10, 10, 10);
             var spawnLocation = friendly ? _friendlyLocation : _enemyLocation;
             
             var spawnedMonster = Instantiate(monsterToSpawn, spawnLocation, Quaternion.Euler(friendly?_friendlyRotation:_enemyRotation));
@@ -68,10 +67,23 @@ namespace Assets.Scripts
             bc.MonsterId = creatureInfo.MonsterId;
             bc.NickName = creatureInfo.NickName;
 
-            var newSize = spawnedMonster.GetComponent<Renderer>().bounds.size.y /2;
-            var localPosition = spawnedMonster.localPosition;
+            //adjust down friendly creatures..they are close to camera
+            
+            if(friendly)
+            {
+                var scaleX = spawnedMonster.localScale.x;
+                var scaleY = spawnedMonster.localScale.y;
+                var scaleZ = spawnedMonster.localScale.z;
+                spawnedMonster.localScale = new Vector3(scaleX / 2, scaleY / 2, scaleZ / 2);
+            }
 
-            spawnedMonster.localPosition = new Vector3(localPosition.x,CombatSceneHeight + newSize, localPosition.z);
+            var renderer = spawnedMonster.GetComponent<Renderer>();
+            if(renderer != null)
+            {
+                var newSize = renderer.bounds.size.y /2;
+                var localPosition = spawnedMonster.localPosition;
+                spawnedMonster.localPosition = new Vector3(localPosition.x, CombatSceneHeight + newSize, localPosition.z);
+            }            
 
             _spawns.Add(spawnedMonster.gameObject);
             return spawnedMonster.gameObject;

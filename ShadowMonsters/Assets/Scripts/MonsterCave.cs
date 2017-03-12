@@ -14,6 +14,9 @@ namespace Assets.Scripts
     {
         public Transform SphereOfDoom;
         public Transform MountainDeath;
+        public Transform DemonEnforcer;
+        public Transform RhinoVirus;
+        public Transform RobotShockTrooper;
 
         private Dictionary<string, Transform> _monsterList = new Dictionary<string, Transform>();
 
@@ -23,6 +26,9 @@ namespace Assets.Scripts
         {
             _monsterList.Add(SphereOfDoom.gameObject.name, SphereOfDoom);
             _monsterList.Add(MountainDeath.gameObject.name, MountainDeath);
+            _monsterList.Add(DemonEnforcer.gameObject.name, DemonEnforcer);
+            _monsterList.Add(RhinoVirus.gameObject.name, RhinoVirus);
+            _monsterList.Add(RobotShockTrooper.gameObject.name, RobotShockTrooper);
         }
         private void Start()
         {

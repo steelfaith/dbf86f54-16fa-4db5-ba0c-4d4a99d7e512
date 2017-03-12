@@ -9,6 +9,7 @@ namespace Assets
 {
     public class ServerStub : MonoBehaviour
     {
+        Dictionary<MonsterList, MonsterType> monsterTypeMatchup = new Dictionary<MonsterList, MonsterType>();
         Dictionary<Guid,CreatureInfo> spawnedMonsters = new Dictionary<Guid,CreatureInfo>();
         Dictionary<Guid, PlayerData> players = new Dictionary<Guid, PlayerData>();
         KnownAttacks knownAttacks;
@@ -19,7 +20,7 @@ namespace Assets
         {
             MonsterList monster = (MonsterList)Enum.Parse(typeof(MonsterList), GetRandomKey());
 
-            enemyMonster = new CreatureInfo(monster, 500) { Level = UnityEngine.Random.Range(0, 101), MonsterId = Guid.NewGuid()};
+            enemyMonster = new CreatureInfo(monster, UnityEngine.Random.Range(0, 101)) { Type = monsterTypeMatchup[monster], MonsterId = Guid.NewGuid()};
             spawnedMonsters[enemyMonster.MonsterId] = enemyMonster;
             return enemyMonster;
         }
@@ -29,18 +30,18 @@ namespace Assets
         {
             var team = new List<CreatureInfo>
                                 {
-                                    new CreatureInfo(MonsterList.PlantBallOfDoom, 300)
-                                    {
+                                    new CreatureInfo(MonsterList.PlantBallOfDoom,  UnityEngine.Random.Range(0,101))
+                                    {   
+                                        Type = monsterTypeMatchup[MonsterList.PlantBallOfDoom],                                     
                                         NickName = "Fluffy",
-                                        Level = UnityEngine.Random.Range(0,101),
                                         MonsterId = Guid.NewGuid(),
                                         IsTeamLead = true,
                                         AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
                                     },
-                                    new CreatureInfo(MonsterList.SquareOfMountainDeath, 500)
+                                    new CreatureInfo(MonsterList.SquareOfMountainDeath,UnityEngine.Random.Range(0,101) )
                                     {
+                                        Type = monsterTypeMatchup[MonsterList.SquareOfMountainDeath],
                                         NickName = "Ralph",
-                                        Level = UnityEngine.Random.Range(0,101),
                                         MonsterId = Guid.NewGuid(),
                                         AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList)
                                     }
@@ -103,6 +104,7 @@ namespace Assets
 
         private static string GetRandomKey()
         {
+            //return "RobotShockTrooper";
             var list = Enum.GetNames(typeof(MonsterList)).ToList();
 
             return list[UnityEngine.Random.Range(0, list.Count)];
@@ -114,6 +116,20 @@ namespace Assets
             if (target == null) return false;
             if (target.CurrentHealth < 1) return false;
             return true;
+        }
+
+        private void Awake()
+        {
+            GenerateMonsterTypeListMatchup();
+        }
+
+        private void GenerateMonsterTypeListMatchup()
+        {
+            monsterTypeMatchup.Add(MonsterList.DemonEnforcer, MonsterType.Demon);
+            monsterTypeMatchup.Add(MonsterList.PlantBallOfDoom, MonsterType.Wood);
+            monsterTypeMatchup.Add(MonsterList.SquareOfMountainDeath, MonsterType.Light);
+            monsterTypeMatchup.Add(MonsterList.RhinoVirus, MonsterType.Shadow);
+            monsterTypeMatchup.Add(MonsterList.RobotShockTrooper, MonsterType.Mechanical);
         }
 
         private void Start()

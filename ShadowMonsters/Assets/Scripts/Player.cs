@@ -20,6 +20,7 @@ namespace Assets.Scripts
         private TextLogDisplayManager textLogDisplayManager;
         public List<Guid> AttackIds { get; set; }
         private GameObject incarnatedMonster;
+        private Animator anim;
 
         public Guid LeadMonsterId { get; set; }
 
@@ -35,6 +36,7 @@ namespace Assets.Scripts
         {
             serverStub = ServerStub.Instance();
             textLogDisplayManager = TextLogDisplayManager.Instance();
+            anim = GetComponent<Animator>();
             _currentData = serverStub.GetPlayerData(Id);
             AttackIds = _currentData.AttackIds;
             _monsterSpawner = MonsterSpawner.Instance();            
@@ -74,6 +76,11 @@ namespace Assets.Scripts
 
             incarnatedMonster = lead;
 
+        }
+
+        public void DoAttackAnimation()
+        {
+            anim.Play("", -1, 0f);
         }
 
         private GameObject GetLeadMonster()

@@ -29,5 +29,7 @@ namespace Assets.Infrastructure
 
         public string NickName { get; set; }
 
+        public MonsterRarity MonsterRarity { get; set; }
+
     }
 }

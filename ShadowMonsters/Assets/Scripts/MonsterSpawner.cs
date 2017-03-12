@@ -66,6 +66,7 @@ namespace Assets.Scripts
             bc.Health = creatureInfo.MaxHealth;
             bc.MonsterId = creatureInfo.MonsterId;
             bc.NickName = creatureInfo.NickName;
+            bc.MonsterRarity = creatureInfo.MonsterRarity;
 
             //adjust down friendly creatures..they are close to camera
             

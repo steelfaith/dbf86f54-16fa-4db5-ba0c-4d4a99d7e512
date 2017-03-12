@@ -174,7 +174,7 @@ namespace Assets.Scripts
                     buttonImage.color = Color.black;
                     break;
                 case MonsterType.Demon:
-                    
+                    buttonImage.color = new Color32(125, 25, 25, 255); //reddish brown
                     break;
                 case MonsterType.Mechanical:
                     buttonImage.color = Color.gray;
@@ -188,7 +188,7 @@ namespace Assets.Scripts
                     buttonImage.color = Color.red;
                     break;
                 case MonsterType.Human:
-                    buttonImage.color = new UnityEngine.Color32(255, 224, 189,255); //fleshy!
+                    buttonImage.color = new Color32(255, 224, 189,255); //fleshy!
                     break;
                 case MonsterType.Water:
                     break;

@@ -20,8 +20,8 @@ namespace Assets.Scripts
         private FatbicController fatbicController;
         private StatusController enemyStatusController;
         private ServerStub serverStub;
+        private ScrollingCombatTextController scrollingCombatTextController;
 
-        
 
         // Use this for initialization
         void Start()
@@ -34,6 +34,7 @@ namespace Assets.Scripts
             fatbicController = FatbicController.Instance();
             fatbicController.AttackAttempt += AttackEnemyAttempt;
             enemyStatusController = StatusController.Instance();
+            scrollingCombatTextController = ScrollingCombatTextController.Instance();
             _player = Player.Instance();
             _enemy = _monsterSpawner.SpawnRandomEnemyMonster();
             _enemy.SetActive(true);
@@ -55,6 +56,7 @@ namespace Assets.Scripts
                                   });
             if (attackResult == null) return;
             enemyStatusController.UpdateCreature(attackResult);
+            scrollingCombatTextController.CreateScrollingCombatTextInstance(attackResult.Damage.ToString(), attackResult.WasCritical,_enemy.transform);
             if (attackResult.WasFatal)
             {
                 EndCombat();                

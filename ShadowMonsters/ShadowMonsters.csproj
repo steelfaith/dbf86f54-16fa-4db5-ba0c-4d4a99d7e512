@@ -107,6 +107,8 @@
     <Compile Include="Assets\Scripts\MonsterCave.cs" />
     <Compile Include="Assets\Scripts\MonsterSpawner.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\ScrollingCombatText.cs" />
+    <Compile Include="Assets\Scripts\ScrollingCombatTextController.cs" />
     <Compile Include="Assets\Scripts\Shadow.cs" />
     <Compile Include="Assets\Scripts\SimpleFollowCamera.cs" />
     <Compile Include="Assets\Scripts\StatusController.cs" />

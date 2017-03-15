@@ -5,7 +5,6 @@ C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonste
 C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\ShadowMonsters.Common\obj\Debug\ShadowMonsters.Common.pdb
 C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Common\bin\Debug\ShadowMonsters.Common.dll
 C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Common\bin\Debug\ShadowMonsters.Common.pdb
-C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Common\obj\Debug\ShadowMonsters.Common.csprojResolveAssemblyReference.cache
 C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Common\obj\Debug\ShadowMonsters.Common.dll
 C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Common\obj\Debug\ShadowMonsters.Common.pdb
 C:\Users\Tom\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Common\bin\Debug\ShadowMonsters.Common.dll

@@ -5,11 +5,11 @@ using ExitGames.Logging.Log4Net;
 using log4net.Config;
 using Photon.SocketServer;
 
-namespace ShadowMonsters.Server
+namespace ShadowMonstersServer
 {
     public class ServerHost : ApplicationBase
     {
-        private static readonly ILogger log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
 
         protected override PeerBase CreatePeer(InitRequest initRequest)
         {
@@ -18,8 +18,8 @@ namespace ShadowMonsters.Server
 
         protected override void Setup()
         {
-            log4net.GlobalContext.Properties["Photon:ApplicationLogPath"] = Path.Combine(this.ApplicationRootPath, "log");
-            var configFileInfo = new FileInfo(Path.Combine(this.BinaryPath, "log4net.config"));
+            log4net.GlobalContext.Properties["Photon:ApplicationLogPath"] = Path.Combine(ApplicationRootPath, "_logger");
+            var configFileInfo = new FileInfo(Path.Combine(BinaryPath, "log4net.config"));
             if (configFileInfo.Exists)
             {
                 LogManager.SetLoggerFactory(Log4NetLoggerFactory.Instance);
@@ -36,7 +36,7 @@ namespace ShadowMonsters.Server
 
         private static void AppDomain_OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            log.Error(e.ExceptionObject);
+            Logger.Error(e.ExceptionObject);
         }
     }
 }

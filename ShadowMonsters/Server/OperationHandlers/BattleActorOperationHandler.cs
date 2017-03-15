@@ -1,7 +1,7 @@
 ﻿using Photon.SocketServer;
 using Photon.SocketServer.Rpc;
 
-namespace ShadowMonsters.Server.OperationHandlers
+namespace ShadowMonstersServer.OperationHandlers
 {
     public class BattleActorOperationHandler : IOperationHandler
     {

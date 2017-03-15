@@ -1,4 +1,4 @@
-﻿namespace ShadowMonsters.Server.Operations
+﻿namespace ShadowMonstersServer.Operations
 {
     public class StartBattle
     {

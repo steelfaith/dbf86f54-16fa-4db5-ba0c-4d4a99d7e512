@@ -2,7 +2,7 @@
 using Photon.SocketServer.Rpc;
 using ShadowMonsters.Common;
 
-namespace ShadowMonsters.Server.OperationHandlers
+namespace ShadowMonstersServer.OperationHandlers
 {
     public class WorldActorOperationHandler : IOperationHandler
     {
@@ -34,10 +34,33 @@ namespace ShadowMonsters.Server.OperationHandlers
 
             return null;
         }
+        public static OperationResponse InvalidOperation(OperationRequest request)
+        {
+            return new OperationResponse(request.OperationCode)
+            {
+                ReturnCode = (int)ReturnCode.InvalidOperation,
+                DebugMessage = "InvalidOperation: " + (OperationCode)request.OperationCode
+            };
+        }
 
+        //public OperationResponse OperationCreateWorld(PeerBase peer, OperationRequest request)
+        //{
+        //    var operation = new CreateWorld(peer.Protocol, request);
+        //    if (!operation.IsValid)
+        //    {
+        //        return new OperationResponse(request.OperationCode) { ReturnCode = (int)ReturnCode.InvalidOperationParameter, DebugMessage = operation.GetErrorMessage() };
+        //    }
 
-        public
-            OperationResponse OperationEnterWorld(PeerBase peer, OperationRequest request, SendParameters sendParameters)
+        //    World world;
+        //    MethodReturnValue result = WorldCache.Instance.TryCreate(
+        //        operation.WorldName, operation.BoundingBox, operation.TileDimensions, out world)
+        //                                   ? MethodReturnValue.Ok
+        //                                   : MethodReturnValue.New((int)ReturnCode.WorldAlreadyExists, "WorldAlreadyExists");
+
+        //    return operation.GetOperationResponse(result);
+        //}
+
+        public OperationResponse OperationEnterWorld(PeerBase peer, OperationRequest request, SendParameters sendParameters)
         {
             return null;
         }

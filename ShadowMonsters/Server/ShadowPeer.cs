@@ -1,8 +1,8 @@
 ﻿using Photon.SocketServer;
 using Photon.SocketServer.Rpc;
-using ShadowMonsters.Server.OperationHandlers;
+using ShadowMonstersServer.OperationHandlers;
 
-namespace ShadowMonsters.Server
+namespace ShadowMonstersServer
 {
     public class ShadowPeer : Peer
     {

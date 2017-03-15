@@ -13,16 +13,13 @@ namespace Assets.Scripts
     {
         private BeginCombatPopup _beginCombatPopup;
         private MonsterSpawner _monsterSpawner;
-        private Player _player;
-        private GameObject _enemy;
-        private TextLogDisplayManager _textLogDisplayManager;
-        private BaseCreature _enemyInfo;
+        private Player _player;        
+        private TextLogDisplayManager _textLogDisplayManager;        
         private AreaSpawnManager _areaSpawnManager;
         private FatbicController fatbicController;
-        private StatusController enemyStatusController;
         private ServerStub serverStub;
-        private ScrollingCombatTextController scrollingCombatTextController;
-        private AnimationController animationController;
+
+        private EnemyController enemyController;
 
         // Use this for initialization
         void Start()
@@ -34,17 +31,15 @@ namespace Assets.Scripts
             _areaSpawnManager = AreaSpawnManager.Instance();
             fatbicController = FatbicController.Instance();
             fatbicController.AttackAttempt += AttackEnemyAttempt;
-            enemyStatusController = StatusController.Instance();
-            scrollingCombatTextController = ScrollingCombatTextController.Instance();
-            animationController = AnimationController.Instance();
-            _player = Player.Instance();
-            _enemy = _monsterSpawner.SpawnRandomEnemyMonster();
-            _enemy.SetActive(true);
-            _enemyInfo = _enemy.GetComponent<BaseCreature>();
-            enemyStatusController.SetCreature(_enemyInfo);
+            enemyController = EnemyController.Instance();
 
-            _textLogDisplayManager.AddText(string.Format("You have been attacked by a {0}!", _enemyInfo.Name), AnnouncementType.Enemy);
-            _beginCombatPopup.PromptUserAction(_enemyInfo.Name, OnFight, OnRun, OnBond);
+            _player = Player.Instance();
+            enemyController.SpawnEnemy();
+            
+
+
+            _textLogDisplayManager.AddText(string.Format("You have been attacked by a {0}!", enemyController.enemyInfo.Name), AnnouncementType.Enemy);
+            _beginCombatPopup.PromptUserAction(enemyController.enemyInfo.Name, OnFight, OnRun, OnBond);
 
         }
 
@@ -54,18 +49,16 @@ namespace Assets.Scripts
             AttackResolution attackResult = serverStub.SendAttack(
                 new AttackRequest {
                                      AttackId = e.Data.AttackId,
-                                     TargetId = _enemyInfo.MonsterId
+                                     TargetId = enemyController.enemyInfo.MonsterId
                                   });
+            enemyController.ResolveAttack(attackResult);
             if (attackResult == null) return;
-            enemyStatusController.UpdateCreature(attackResult);
-            animationController.PlayAnimation(_enemy, AnimationAction.GetHit);
-            scrollingCombatTextController.CreateScrollingCombatTextInstance(attackResult.Damage.ToString(), attackResult.WasCritical,_enemy.transform);
+
 
             if (attackResult.WasFatal)
             {                
-                animationController.PlayAnimation(_enemy, AnimationAction.Die);
                 _player.RevertIncarnation();
-                _textLogDisplayManager.AddText(string.Format("You have defeated a {0}!", _enemyInfo.Name), AnnouncementType.Friendly);
+                _textLogDisplayManager.AddText(string.Format("You have defeated a {0}!", enemyController.enemyInfo.Name), AnnouncementType.Friendly);
                 StartCoroutine(EndCombat());               
             }
 
@@ -76,10 +69,9 @@ namespace Assets.Scripts
             while (true)
             {
                 yield return new WaitForSeconds(4f);
-                Destroy(_enemy);            
+         
                 UnloadCombatScene();
-                _enemyInfo = null;
-
+                enemyController.EndCombat();
             }
         }
 
@@ -93,6 +85,7 @@ namespace Assets.Scripts
         void OnFight()
         {
             _player.IncarnateMonster();
+
             fatbicController.BeginAttack(OnAttackOnePressed, OnAttackTwoPressed, OnAttackThreePressed, OnAttackFourPressed, OnAttackFivePressed, OnStopAttackPressed, OnBond,OnRun);            
         }
 
@@ -132,7 +125,7 @@ namespace Assets.Scripts
             runButtonScript.StartCooldown(2);
             fatbicController.StartGlobalRecharge(2, runButtonScript.attackIndex);
             _textLogDisplayManager.AddText("You attempt to run away.", AnnouncementType.Friendly);
-            if(_player.ControlledCreatures.Any(x=>x.GetComponent<BaseCreature>().Level + UnityEngine.Random.Range(100,150) > _enemyInfo.Level ))
+            if(_player.ControlledCreatures.Any(x=>x.GetComponent<BaseCreature>().Level + UnityEngine.Random.Range(100,150) > enemyController.enemyInfo.Level ))
             {
                 UnloadCombatScene();
                 _textLogDisplayManager.AddText("You successfully ran away.", AnnouncementType.Friendly);
@@ -140,7 +133,7 @@ namespace Assets.Scripts
             else
             {
                 //start combat
-                _textLogDisplayManager.AddText(string.Format("The {0} blocks your path! You have been forced into combat.", _enemyInfo.Name), AnnouncementType.Enemy);
+                _textLogDisplayManager.AddText(string.Format("The {0} blocks your path! You have been forced into combat.", enemyController.enemyInfo.Name), AnnouncementType.Enemy);
                 OnFight();
             }
         }

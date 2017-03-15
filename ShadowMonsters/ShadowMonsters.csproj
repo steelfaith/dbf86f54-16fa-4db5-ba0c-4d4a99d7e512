@@ -104,6 +104,7 @@
     <Compile Include="Assets\Scripts\BringToFront.cs" />
     <Compile Include="Assets\Scripts\ButtonScript.cs" />
     <Compile Include="Assets\Scripts\CombatController.cs" />
+    <Compile Include="Assets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\Scripts\FatbicController.cs" />
     <Compile Include="Assets\Scripts\IndicatorBarScript.cs" />
     <Compile Include="Assets\Scripts\LevelDisplayScript.cs" />

@@ -21,9 +21,18 @@ namespace Assets
             MonsterList monster = MonsterList.RobotShockTrooper;// (MonsterList)Enum.Parse(typeof(MonsterList), GetRandomKey<MonsterList>());
             MonsterRarity rarity = (MonsterRarity)Enum.Parse(typeof(MonsterRarity), GetRandomKey<MonsterRarity>());
 
-            enemyMonster = new CreatureInfo(monster, UnityEngine.Random.Range(1, 101)) { MonsterType = monsterTypeMatchup[monster], MonsterId = Guid.NewGuid(), MonsterRarity =rarity};
+            enemyMonster = new CreatureInfo(monster, UnityEngine.Random.Range(1, 101)) {
+                                                                                            MonsterType = monsterTypeMatchup[monster],
+                                                                                            MonsterId = Guid.NewGuid(), MonsterRarity =rarity,
+                                                                                            AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList)
+                                                                                       };
             spawnedMonsters[enemyMonster.MonsterId] = enemyMonster;
             return enemyMonster;
+        }
+
+        public AttackResolution PerformRandomAttack(Guid monsterId)
+        {
+            return new AttackResolution();
         }
         
 

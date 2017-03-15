@@ -18,10 +18,10 @@ namespace Assets
 
         public CreatureInfo GetRandomMonster()
         {
-            MonsterList monster = (MonsterList)Enum.Parse(typeof(MonsterList), GetRandomKey<MonsterList>());
+            MonsterList monster = MonsterList.RobotShockTrooper;// (MonsterList)Enum.Parse(typeof(MonsterList), GetRandomKey<MonsterList>());
             MonsterRarity rarity = (MonsterRarity)Enum.Parse(typeof(MonsterRarity), GetRandomKey<MonsterRarity>());
 
-            enemyMonster = new CreatureInfo(monster, UnityEngine.Random.Range(1, 101)) { Type = monsterTypeMatchup[monster], MonsterId = Guid.NewGuid(), MonsterRarity =rarity};
+            enemyMonster = new CreatureInfo(monster, UnityEngine.Random.Range(1, 101)) { MonsterType = monsterTypeMatchup[monster], MonsterId = Guid.NewGuid(), MonsterRarity =rarity};
             spawnedMonsters[enemyMonster.MonsterId] = enemyMonster;
             return enemyMonster;
         }
@@ -33,26 +33,19 @@ namespace Assets
                                 {
                                     new CreatureInfo(MonsterList.RhinoVirus,  UnityEngine.Random.Range(1,101))
                                     {
-                                        Type = monsterTypeMatchup[MonsterList.RhinoVirus],
+                                        MonsterType = monsterTypeMatchup[MonsterList.RhinoVirus],
                                         NickName = "Rhinasephalasaurus",
                                         MonsterId = Guid.NewGuid(),
                                         IsTeamLead = true,
                                         AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
                                     },
-                                    new CreatureInfo(MonsterList.PlantBallOfDoom,  UnityEngine.Random.Range(1,101))
+                                    new CreatureInfo(MonsterList.DemonEnforcer,  UnityEngine.Random.Range(1,101))
                                     {   
-                                        Type = monsterTypeMatchup[MonsterList.PlantBallOfDoom],                                     
+                                        MonsterType = monsterTypeMatchup[MonsterList.DemonEnforcer],                                     
                                         NickName = "Fluffy",
                                         MonsterId = Guid.NewGuid(),
                                         AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
                                     },
-                                    new CreatureInfo(MonsterList.SquareOfMountainDeath,UnityEngine.Random.Range(1,101) )
-                                    {
-                                        Type = monsterTypeMatchup[MonsterList.SquareOfMountainDeath],
-                                        NickName = "Ralph",
-                                        MonsterId = Guid.NewGuid(),
-                                        AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList)
-                                    }
                                 };
 
             foreach (CreatureInfo creature in team)
@@ -134,10 +127,11 @@ namespace Assets
         private void GenerateMonsterTypeListMatchup()
         {
             monsterTypeMatchup.Add(MonsterList.DemonEnforcer, MonsterType.Demon);
-            monsterTypeMatchup.Add(MonsterList.PlantBallOfDoom, MonsterType.Wood);
-            monsterTypeMatchup.Add(MonsterList.SquareOfMountainDeath, MonsterType.Light);
             monsterTypeMatchup.Add(MonsterList.RhinoVirus, MonsterType.Shadow);
             monsterTypeMatchup.Add(MonsterList.RobotShockTrooper, MonsterType.Mechanical);
+            monsterTypeMatchup.Add(MonsterList.GreenSpider, MonsterType.Wood);
+            monsterTypeMatchup.Add(MonsterList.Dragonling, MonsterType.Dragon);
+            monsterTypeMatchup.Add(MonsterList.Humpback, MonsterType.Water);
         }
 
         private void Start()

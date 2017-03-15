@@ -12,8 +12,8 @@ namespace Assets.Scripts
     {
         private Vector3 _enemyLocation = new Vector3(-5, 300, -11);
         private Vector3 _friendlyLocation = new Vector3(6, 300, 12);
-        private Vector3 _enemyRotation = new Vector3(0, 15, 0);
-        private Vector3 _friendlyRotation = new Vector3(0, 195, 0);
+        private const int EnemyRotation = 15;
+        private const int FriendlyRotation = 195;
         private MonsterCave _monsterCave;
         private List<GameObject> _spawns = new List<GameObject>();
         private ServerStub serverStub;
@@ -57,8 +57,16 @@ namespace Assets.Scripts
             }
 
             var spawnLocation = friendly ? _friendlyLocation : _enemyLocation;
-            
-            var spawnedMonster = Instantiate(monsterToSpawn, spawnLocation, Quaternion.Euler(friendly?_friendlyRotation:_enemyRotation));
+
+            //rotation
+            var currentRot = monsterToSpawn.rotation;
+
+            var friendlyYRot = ((int)currentRot.y + FriendlyRotation) % 360;
+            var friendlyRot = new Vector3(currentRot.x, friendlyYRot, currentRot.z);
+            var enemyYRot = ((int)currentRot.y + EnemyRotation) % 360;
+            var enemyRot = new Vector3(currentRot.x, enemyYRot, currentRot.z);
+
+            var spawnedMonster = Instantiate(monsterToSpawn, spawnLocation, Quaternion.Euler(friendly? friendlyRot:enemyRot));
 
             var bc = spawnedMonster.gameObject.GetComponent<BaseCreature>();            
             bc.Name = creatureInfo.DisplayName;
@@ -67,6 +75,14 @@ namespace Assets.Scripts
             bc.MonsterId = creatureInfo.MonsterId;
             bc.NickName = creatureInfo.NickName;
             bc.MonsterRarity = creatureInfo.MonsterRarity;
+            bc.MonsterType = creatureInfo.MonsterType;
+            bc.NameKey = creatureInfo.NameKey;
+
+            if(bc.Name == "Humpback Whale")
+            {
+                //reset rotation for stupid whale
+                bc.transform.rotation = Quaternion.Euler(new Vector3(0, 195, 0));
+            }
 
             //adjust down friendly creatures..they are close to camera
             
@@ -78,7 +94,7 @@ namespace Assets.Scripts
                 spawnedMonster.localScale = new Vector3(scaleX / 2, scaleY / 2, scaleZ / 2);
             }
 
-            var renderer = spawnedMonster.GetComponent<Renderer>();
+            var renderer = spawnedMonster.GetComponentInChildren<MeshRenderer>();
             if(renderer != null)
             {
                 var newSize = renderer.bounds.size.y /2;

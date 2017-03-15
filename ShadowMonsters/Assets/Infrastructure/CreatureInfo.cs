@@ -7,7 +7,7 @@ namespace Assets.Infrastructure
 {
     public class CreatureInfo
     {
-        public MonsterType Type { get; set; }
+        public MonsterType MonsterType { get; set; }
 
         public MonsterRarity MonsterRarity { get; set; }
 
@@ -41,7 +41,7 @@ namespace Assets.Infrastructure
         }
         public int Level { get; set; }
 
-        public List<Guid> AttackIds;
+        public List<Guid> AttackIds;        
 
     }
 }

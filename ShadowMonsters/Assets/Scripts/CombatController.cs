@@ -5,6 +5,7 @@ using Assets.Infrastructure;
 using System.Linq;
 using UnityEngine.SceneManagement;
 using System;
+using System.Threading;
 
 namespace Assets.Scripts
 {
@@ -21,7 +22,7 @@ namespace Assets.Scripts
         private StatusController enemyStatusController;
         private ServerStub serverStub;
         private ScrollingCombatTextController scrollingCombatTextController;
-
+        private AnimationController animationController;
 
         // Use this for initialization
         void Start()
@@ -35,6 +36,7 @@ namespace Assets.Scripts
             fatbicController.AttackAttempt += AttackEnemyAttempt;
             enemyStatusController = StatusController.Instance();
             scrollingCombatTextController = ScrollingCombatTextController.Instance();
+            animationController = AnimationController.Instance();
             _player = Player.Instance();
             _enemy = _monsterSpawner.SpawnRandomEnemyMonster();
             _enemy.SetActive(true);
@@ -56,23 +58,31 @@ namespace Assets.Scripts
                                   });
             if (attackResult == null) return;
             enemyStatusController.UpdateCreature(attackResult);
+            animationController.PlayAnimation(_enemy, AnimationAction.GetHit);
             scrollingCombatTextController.CreateScrollingCombatTextInstance(attackResult.Damage.ToString(), attackResult.WasCritical,_enemy.transform);
+
             if (attackResult.WasFatal)
-            {
-                EndCombat();                
+            {                
+                animationController.PlayAnimation(_enemy, AnimationAction.Die);
+                _player.RevertIncarnation();
+                _textLogDisplayManager.AddText(string.Format("You have defeated a {0}!", _enemyInfo.Name), AnnouncementType.Friendly);
+                StartCoroutine(EndCombat());               
             }
 
                
         }
-
-        private void EndCombat()
+        private IEnumerator EndCombat()
         {
-            _player.RevertIncarnation();
-            Destroy(_enemy);            
-            UnloadCombatScene();
-            _textLogDisplayManager.AddText(string.Format("You have defeated a {0}!",_enemyInfo.Name), AnnouncementType.Friendly);
-            _enemyInfo = null;
+            while (true)
+            {
+                yield return new WaitForSeconds(4f);
+                Destroy(_enemy);            
+                UnloadCombatScene();
+                _enemyInfo = null;
+
+            }
         }
+
 
         // Update is called once per frame
         void Update()

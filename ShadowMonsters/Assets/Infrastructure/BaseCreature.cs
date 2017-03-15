@@ -31,5 +31,9 @@ namespace Assets.Infrastructure
 
         public MonsterRarity MonsterRarity { get; set; }
 
+        public MonsterType MonsterType { get; set; }
+
+        public string NameKey { get; set; }
+
     }
 }

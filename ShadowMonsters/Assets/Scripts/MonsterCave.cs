@@ -12,28 +12,50 @@ namespace Assets.Scripts
     /// </summary>
     public class MonsterCave : MonoBehaviour
     {
-        public Transform SphereOfDoom;
-        public Transform MountainDeath;
         public Transform DemonEnforcer;
         public Transform RhinoVirus;
         public Transform RobotShockTrooper;
+        public Transform GreenSpider;
+        public Transform Dragonling;
+        public Transform Humpback;
 
         private Dictionary<string, Transform> _monsterList = new Dictionary<string, Transform>();
+        private Dictionary<string, Dictionary<AnimationAction, string>> animationMapping = new Dictionary<string, Dictionary<AnimationAction, string>>();
 
-        private static MonsterCave _monsterCave;
+
+
 
         private void Awake()
         {
-            _monsterList.Add(SphereOfDoom.gameObject.name, SphereOfDoom);
-            _monsterList.Add(MountainDeath.gameObject.name, MountainDeath);
             _monsterList.Add(DemonEnforcer.gameObject.name, DemonEnforcer);
             _monsterList.Add(RhinoVirus.gameObject.name, RhinoVirus);
             _monsterList.Add(RobotShockTrooper.gameObject.name, RobotShockTrooper);
+            _monsterList.Add(GreenSpider.gameObject.name, GreenSpider);
+            _monsterList.Add(Dragonling.gameObject.name, Dragonling);
+            _monsterList.Add(Humpback.gameObject.name, Humpback);
+
+            
+            animationMapping[DemonEnforcer.gameObject.name] = new Dictionary<AnimationAction, string>
+                                                                            {
+
+                                                                                { AnimationAction.Attack, "creature1Attack1" },
+                                                                                { AnimationAction.Die, "creature1Die" },
+                                                                                { AnimationAction.GetHit, "creature1GetHit" }
+                                                                            };
+            animationMapping[RobotShockTrooper.gameObject.name] = new Dictionary<AnimationAction, string>
+                                                                            {
+
+                                                                                { AnimationAction.Attack, "hook" },
+                                                                                { AnimationAction.Die, "death" },
+                                                                                { AnimationAction.GetHit, "bit hit" }
+                                                                            };
+
         }
         private void Start()
         {
 
         }
+        private static MonsterCave _monsterCave;
         public static MonsterCave Instance()
         {
             if (!_monsterCave)
@@ -55,6 +77,15 @@ namespace Assets.Scripts
             Transform monsterTransform;
             _monsterList.TryGetValue(creatureInfo.NameKey, out monsterTransform);
             return monsterTransform;
+        }
+
+        public string TryGetAnimationName(string nameKey, AnimationAction action)
+        {
+            Dictionary<AnimationAction, string> animationToStringDict;
+            animationMapping.TryGetValue(nameKey, out animationToStringDict);
+
+            if (animationToStringDict == null) return string.Empty;
+            return animationToStringDict.FirstOrDefault(x => x.Key == action).Value;
         }
     }
 }

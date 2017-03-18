@@ -46,13 +46,13 @@ namespace Assets.Scripts
             return SpawnMonster(serverStub.GetRandomMonster(), false);
         }
 
-        public GameObject SpawnMonster(CreatureInfo creatureInfo, bool friendly)
+        public GameObject SpawnMonster(MonsterInfo MonsterInfo, bool friendly)
         {
             InitializeMonsterCave();
-            var monsterToSpawn = _monsterCave.TryGetMonster(creatureInfo);
+            var monsterToSpawn = _monsterCave.TryGetMonster(MonsterInfo);
             if (monsterToSpawn == null)
             {
-                Debug.LogError(string.Format("Could not find Monster Prefab named {0}. Add to Monster List enumeration.", creatureInfo.DisplayName));
+                Debug.LogError(string.Format("Could not find Monster Prefab named {0}. Add to Monster List enumeration.", MonsterInfo.DisplayName));
                 return null;
             }
 
@@ -68,15 +68,15 @@ namespace Assets.Scripts
 
             var spawnedMonster = Instantiate(monsterToSpawn, spawnLocation, Quaternion.Euler(friendly? friendlyRot:enemyRot));
 
-            var bc = spawnedMonster.gameObject.GetComponent<BaseCreature>();            
-            bc.Name = creatureInfo.DisplayName;
-            bc.Level = creatureInfo.Level;
-            bc.Health = creatureInfo.MaxHealth;
-            bc.MonsterId = creatureInfo.MonsterId;
-            bc.NickName = creatureInfo.NickName;
-            bc.MonsterRarity = creatureInfo.MonsterPresence;
-            bc.MonsterType = creatureInfo.MonsterType;
-            bc.NameKey = creatureInfo.NameKey;
+            var bc = spawnedMonster.gameObject.GetComponent<BaseMonster>();            
+            bc.Name = MonsterInfo.DisplayName;
+            bc.Level = MonsterInfo.Level;
+            bc.Health = MonsterInfo.MaxHealth;
+            bc.MonsterId = MonsterInfo.MonsterId;
+            bc.NickName = MonsterInfo.NickName;
+            bc.MonsterRarity = MonsterInfo.MonsterPresence;
+            bc.MonsterAffinity = MonsterInfo.MonsterAffinity;
+            bc.NameKey = MonsterInfo.NameKey;
 
             if(bc.Name == "Humpback Whale")
             {
@@ -84,7 +84,7 @@ namespace Assets.Scripts
                 bc.transform.rotation = Quaternion.Euler(new Vector3(0, 195, 0));
             }
 
-            //adjust down friendly creatures..they are close to camera
+            //adjust down friendly Monsters..they are close to camera
             
             if(friendly)
             {

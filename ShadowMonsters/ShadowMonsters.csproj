@@ -83,8 +83,8 @@
     <Compile Include="Assets\Infrastructure\AttackInfo.cs" />
     <Compile Include="Assets\Infrastructure\AttackRequest.cs" />
     <Compile Include="Assets\Infrastructure\AttackResolution.cs" />
-    <Compile Include="Assets\Infrastructure\BaseCreature.cs" />
-    <Compile Include="Assets\Infrastructure\CreatureInfo.cs" />
+    <Compile Include="Assets\Infrastructure\BaseMonster.cs" />
+    <Compile Include="Assets\Infrastructure\MonsterInfo.cs" />
     <Compile Include="Assets\Infrastructure\DamageStyle.cs" />
     <Compile Include="Assets\Infrastructure\DataEventArgs.cs" />
     <Compile Include="Assets\Infrastructure\EnumHelper.cs" />

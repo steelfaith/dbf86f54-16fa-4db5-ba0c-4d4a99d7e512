@@ -159,7 +159,7 @@ namespace Assets.Scripts
         private void SetButtonColors()
         {
             var buttonImage = button.GetComponent<Image>();
-            var backgroundColor = attackInfo.MonsterType.GetColorFromMonsterType();
+            var backgroundColor = attackInfo.MonsterAffinity.GetColorFromMonsterAffinity();
             buttonImage.color = backgroundColor;
             var text = button.GetComponentInChildren<Text>();
             text.color = ContrastColor(backgroundColor);

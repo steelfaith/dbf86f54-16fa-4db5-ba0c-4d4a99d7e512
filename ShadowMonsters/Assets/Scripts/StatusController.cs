@@ -16,12 +16,12 @@ namespace Assets.Scripts
         public IndicatorBarScript indicatorBar;
         public LevelDisplayScript levelDisplay;
 
-        public void SetCreature(BaseCreature creature)
+        public void SetMonster(BaseMonster Monster)
         {
-            displayName.text = creature.Name;
-            maxHealth = creature.Health;
+            displayName.text = Monster.Name;
+            maxHealth = Monster.Health;
             currentHealth = maxHealth;
-            levelDisplay.UpdateLevelDisplay(creature.Level.ToString(), creature.MonsterRarity);
+            levelDisplay.UpdateLevelDisplay(Monster.Level.ToString(), Monster.MonsterRarity);
             indicatorBar.AdjustHealth(currentHealth, maxHealth);
         }
 
@@ -44,10 +44,10 @@ namespace Assets.Scripts
             return statusController;
         }
 
-        internal void UpdateCreature(AttackResolution creatureUpdate)
+        internal void UpdateMonster(AttackResolution MonsterUpdate)
         {
-            currentHealth = creatureUpdate.CurrentHealth;
-            indicatorBar.AdjustHealth(creatureUpdate.CurrentHealth, creatureUpdate.MaxHealth);
+            currentHealth = MonsterUpdate.CurrentHealth;
+            indicatorBar.AdjustHealth(MonsterUpdate.CurrentHealth, MonsterUpdate.MaxHealth);
         }
     }
 }

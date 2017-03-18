@@ -31,7 +31,7 @@ namespace Assets
                     AttackId = Guid.NewGuid(),
                     Name = "Fire Ball",
                     DamageStyle = DamageStyle.Delayed,
-                    MonsterType =MonsterType.Fire,
+                    MonsterAffinity =ElementalAffinity.Fire,
                     CastTime = 3,
                     Cooldown = 0,
                     BaseDamage = 50
@@ -41,7 +41,7 @@ namespace Assets
                     AttackId = Guid.NewGuid(),
                     Name = "Doom Bolt",
                     DamageStyle = DamageStyle.Delayed,
-                    MonsterType =MonsterType.Demon,
+                    MonsterAffinity =ElementalAffinity.Demon,
                     CastTime = 5,
                     Cooldown = 0,
                     BaseDamage = 70
@@ -51,7 +51,7 @@ namespace Assets
                     AttackId = Guid.NewGuid(),
                     Name = "Axe Flurry",
                     DamageStyle = DamageStyle.Tick,
-                    MonsterType =MonsterType.Mechanical,
+                    MonsterAffinity =ElementalAffinity.Mechanical,
                     CastTime = 0,
                     Cooldown = 5,
                     BaseDamage =15
@@ -61,7 +61,7 @@ namespace Assets
                     AttackId = Guid.NewGuid(),
                     Name = "Air Jab",
                     DamageStyle = DamageStyle.Instant,
-                    MonsterType = MonsterType.Wind,
+                    MonsterAffinity = ElementalAffinity.Wind,
                     CastTime = 0,
                     Cooldown = 2,
                     BaseDamage = 35
@@ -71,7 +71,7 @@ namespace Assets
                     AttackId = Guid.NewGuid(),
                     Name = "Wing Smash",
                     DamageStyle = DamageStyle.Instant,
-                    MonsterType =MonsterType.Fae,
+                    MonsterAffinity =ElementalAffinity.Fae,
                     CastTime = 0,
                     Cooldown = 4,
                     BaseDamage = 60
@@ -93,7 +93,7 @@ namespace Assets
                     AttackId = Guid.NewGuid(),
                     Name = "Scream",
                     DamageStyle = DamageStyle.Tick,
-                    MonsterType =MonsterType.Human,
+                    MonsterAffinity =ElementalAffinity.Human,
                     CastTime = 0,
                     Cooldown = 5,
                     BaseDamage = 5
@@ -103,7 +103,7 @@ namespace Assets
                     AttackId = Guid.NewGuid(),
                     Name = "Kick",
                     DamageStyle = DamageStyle.Instant,
-                    MonsterType =MonsterType.Human,
+                    MonsterAffinity =ElementalAffinity.Human,
                     CastTime = 0,
                     Cooldown = 5,
                     BaseDamage = 15
@@ -113,7 +113,7 @@ namespace Assets
                     AttackId = Guid.NewGuid(),
                     Name = "Punch",
                     DamageStyle = DamageStyle.Instant,
-                    MonsterType =MonsterType.Human,
+                    MonsterAffinity =ElementalAffinity.Human,
                     CastTime = 0,
                     Cooldown = 3,
                     BaseDamage =10
@@ -123,7 +123,7 @@ namespace Assets
                     AttackId = Guid.NewGuid(),
                     Name = "Clout",
                     DamageStyle = DamageStyle.Delayed,
-                    MonsterType = MonsterType.Human,
+                    MonsterAffinity = ElementalAffinity.Human,
                     CastTime = 5,
                     Cooldown = 0,
                     BaseDamage = 20
@@ -133,7 +133,7 @@ namespace Assets
                     AttackId = Guid.NewGuid(),
                     Name = "Tackle",
                     DamageStyle = DamageStyle.Instant,
-                    MonsterType =MonsterType.Human,
+                    MonsterAffinity =ElementalAffinity.Human,
                     CastTime = 0,
                     Cooldown = 6,
                     BaseDamage = 25

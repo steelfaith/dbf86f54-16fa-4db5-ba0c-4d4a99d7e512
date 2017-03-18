@@ -10,7 +10,7 @@ namespace Assets.Scripts
     public class EnemyController : MonoBehaviour
     {
         private GameObject enemy;
-        public BaseCreature enemyInfo;
+        public BaseMonster enemyInfo;
         private MonsterSpawner monsterSpawner;
         private StatusController enemyStatusController;
         private ScrollingCombatTextController scrollingCombatTextController;
@@ -43,8 +43,8 @@ namespace Assets.Scripts
         {
             enemy = monsterSpawner.SpawnRandomEnemyMonster();
             enemy.SetActive(true);
-            enemyInfo = enemy.GetComponent<BaseCreature>();
-            enemyStatusController.SetCreature(enemyInfo);
+            enemyInfo = enemy.GetComponent<BaseMonster>();
+            enemyStatusController.SetMonster(enemyInfo);
 
         }
 
@@ -55,7 +55,7 @@ namespace Assets.Scripts
 
         public void ResolveAttack(AttackResolution results)
         {
-            enemyStatusController.UpdateCreature(results);
+            enemyStatusController.UpdateMonster(results);
             animationController.PlayAnimation(enemy, AnimationAction.GetHit);
             scrollingCombatTextController.CreateScrollingCombatTextInstance(results.Damage.ToString(), results.WasCritical, enemy.transform);
 

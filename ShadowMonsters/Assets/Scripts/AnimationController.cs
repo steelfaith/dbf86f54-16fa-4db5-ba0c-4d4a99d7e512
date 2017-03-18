@@ -38,14 +38,14 @@ namespace Assets.Scripts
                 PlayAnimationLegacy(monster, action);
                 return;
             }
-            var info = monster.GetComponent<BaseCreature>();
+            var info = monster.GetComponent<BaseMonster>();
             anim.Play(monsterCave.TryGetAnimationName(info.NameKey,action));
         }
 
         private void PlayAnimationLegacy(GameObject monster, AnimationAction action)
         {
             var anim = monster.GetComponent<Animation>();
-            var info = monster.GetComponent<BaseCreature>();
+            var info = monster.GetComponent<BaseMonster>();
             anim.Play(monsterCave.TryGetAnimationName(info.NameKey, action));
         }
 
@@ -66,7 +66,7 @@ namespace Assets.Scripts
         {
             var anim = monster.GetComponent<Animation>();
             if (anim == null) yield return null ;
-            var info = monster.GetComponent<BaseCreature>();
+            var info = monster.GetComponent<BaseMonster>();
             anim.CrossFade(monsterCave.TryGetAnimationName(info.NameKey, action));
             yield return new WaitForSeconds(2f); // wait for two seconds.
         }

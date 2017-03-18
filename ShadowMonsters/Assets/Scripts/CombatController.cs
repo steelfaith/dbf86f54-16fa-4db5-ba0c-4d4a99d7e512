@@ -126,7 +126,7 @@ namespace Assets.Scripts
             runButtonScript.StartCooldown(2);
             fatbicController.StartGlobalRecharge(2, runButtonScript.attackIndex);
             _textLogDisplayManager.AddText("You attempt to run away.", AnnouncementType.Friendly);
-            if(_player.ControlledCreatures.Any(x=>x.GetComponent<BaseCreature>().Level + UnityEngine.Random.Range(100,150) > enemyController.enemyInfo.Level ))
+            if(_player.ControlledMonsters.Any(x=>x.GetComponent<BaseMonster>().Level + UnityEngine.Random.Range(100,150) > enemyController.enemyInfo.Level ))
             {
                 UnloadCombatScene();
                 _textLogDisplayManager.AddText("You successfully ran away.", AnnouncementType.Friendly);

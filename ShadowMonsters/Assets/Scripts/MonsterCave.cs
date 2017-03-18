@@ -41,10 +41,10 @@ namespace Assets.Scripts
             animationMapping[DemonEnforcer.gameObject.name] = new Dictionary<AnimationAction, string>
                                                                             {
 
-                                                                                { AnimationAction.Attack, "creature1Attack1" },
-                                                                                { AnimationAction.Die, "creature1Die" },
-                                                                                { AnimationAction.GetHit, "creature1GetHit" },
-                                                                                { AnimationAction.Victory, "creature1Taunt" }
+                                                                                { AnimationAction.Attack, "Monster1Attack1" },
+                                                                                { AnimationAction.Die, "Monster1Die" },
+                                                                                { AnimationAction.GetHit, "Monster1GetHit" },
+                                                                                { AnimationAction.Victory, "Monster1Taunt" }
                                                                             };
             animationMapping[RobotShockTrooper.gameObject.name] = new Dictionary<AnimationAction, string>
                                                                             {
@@ -109,12 +109,12 @@ namespace Assets.Scripts
         /// <summary>
         /// Gets a monsters transform from the cave.  careful sometimes they bite when disturbed.
         /// </summary>
-        /// <param name="creatureInfo"></param>
+        /// <param name="MonsterInfo"></param>
         /// <returns>null if monster doesn't want to play</returns>
-        public Transform TryGetMonster(CreatureInfo creatureInfo)
+        public Transform TryGetMonster(MonsterInfo MonsterInfo)
         {
             Transform monsterTransform;
-            _monsterList.TryGetValue(creatureInfo.NameKey, out monsterTransform);
+            _monsterList.TryGetValue(MonsterInfo.NameKey, out monsterTransform);
             return monsterTransform;
         }
 

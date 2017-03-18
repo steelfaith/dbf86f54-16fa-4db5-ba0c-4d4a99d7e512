@@ -30,10 +30,10 @@ namespace Assets.Scripts
 
         }
 
-        public void FillNextImage(MonsterType attackType)
+        public void FillNextImage(ElementalAffinity attackType)
         {
             var unfilled = images.First(x => x.color.a < 1);
-            unfilled.color = attackType.GetColorFromMonsterType();            
+            unfilled.color = attackType.GetColorFromMonsterAffinity();            
         }
     }
 }

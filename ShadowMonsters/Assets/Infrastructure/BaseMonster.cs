@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets.Infrastructure
 {
-    public class BaseCreature : MonoBehaviour
+    public class BaseMonster : MonoBehaviour
     {
         private string originalName;
         public string Name
@@ -31,7 +31,7 @@ namespace Assets.Infrastructure
 
         public MonsterPresence MonsterRarity { get; set; }
 
-        public MonsterType MonsterType { get; set; }
+        public ElementalAffinity MonsterAffinity { get; set; }
 
         public string NameKey { get; set; }
 

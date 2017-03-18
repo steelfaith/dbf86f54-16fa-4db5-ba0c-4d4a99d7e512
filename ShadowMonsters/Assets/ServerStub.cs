@@ -9,20 +9,20 @@ namespace Assets
 {
     public class ServerStub : MonoBehaviour
     {
-        Dictionary<MonsterList, MonsterType> monsterTypeMatchup = new Dictionary<MonsterList, MonsterType>();
-        Dictionary<Guid,CreatureInfo> spawnedMonsters = new Dictionary<Guid,CreatureInfo>();
+        Dictionary<MonsterList, ElementalAffinity> monsterAffinityMatchup = new Dictionary<MonsterList, ElementalAffinity>();
+        Dictionary<Guid,MonsterInfo> spawnedMonsters = new Dictionary<Guid,MonsterInfo>();
         Dictionary<Guid, PlayerData> players = new Dictionary<Guid, PlayerData>();
         KnownAttacks knownAttacks;
 
-        CreatureInfo enemyMonster;
+        MonsterInfo enemyMonster;
 
-        public CreatureInfo GetRandomMonster()
+        public MonsterInfo GetRandomMonster()
         {
             MonsterList monster = (MonsterList)Enum.Parse(typeof(MonsterList), GetRandomKey<MonsterList>());
             MonsterPresence presence = (MonsterPresence)Enum.Parse(typeof(MonsterPresence), GetRandomKey<MonsterPresence>());
 
-            enemyMonster = new CreatureInfo(monster, UnityEngine.Random.Range(1, 101)) {
-                                                                                            MonsterType = monsterTypeMatchup[monster],
+            enemyMonster = new MonsterInfo(monster, UnityEngine.Random.Range(1, 101)) {
+                                                                                            MonsterAffinity = monsterAffinityMatchup[monster],
                                                                                             MonsterId = Guid.NewGuid(), MonsterPresence =presence,
                                                                                             AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList)
                                                                                        };
@@ -46,28 +46,28 @@ namespace Assets
 
         internal PlayerData GetPlayerData(Guid id)
         {
-            var team = new List<CreatureInfo>
+            var team = new List<MonsterInfo>
                                 {
-                                    new CreatureInfo(MonsterList.RhinoVirus,  UnityEngine.Random.Range(1,101))
+                                    new MonsterInfo(MonsterList.RhinoVirus,  UnityEngine.Random.Range(1,101))
                                     {
-                                        MonsterType = monsterTypeMatchup[MonsterList.RhinoVirus],
+                                        MonsterAffinity = monsterAffinityMatchup[MonsterList.RhinoVirus],
                                         NickName = "Rhinasephalasaurus",
                                         MonsterId = Guid.NewGuid(),
                                         IsTeamLead = true,
                                         AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
                                     },
-                                    new CreatureInfo(MonsterList.DemonEnforcer,  UnityEngine.Random.Range(1,101))
+                                    new MonsterInfo(MonsterList.DemonEnforcer,  UnityEngine.Random.Range(1,101))
                                     {   
-                                        MonsterType = monsterTypeMatchup[MonsterList.DemonEnforcer],                                     
+                                        MonsterAffinity = monsterAffinityMatchup[MonsterList.DemonEnforcer],                                     
                                         NickName = "Fluffy",
                                         MonsterId = Guid.NewGuid(),
                                         AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
                                     },
                                 };
 
-            foreach (CreatureInfo creature in team)
+            foreach (MonsterInfo Monster in team)
             {
-                spawnedMonsters[creature.MonsterId] = creature;
+                spawnedMonsters[Monster.MonsterId] = Monster;
             }
 
             var data = new PlayerData
@@ -138,17 +138,17 @@ namespace Assets
 
         private void Awake()
         {
-            GenerateMonsterTypeListMatchup();
+            GenerateMonsterAffinityListMatchup();
         }
 
-        private void GenerateMonsterTypeListMatchup()
+        private void GenerateMonsterAffinityListMatchup()
         {
-            monsterTypeMatchup.Add(MonsterList.DemonEnforcer, MonsterType.Demon);
-            monsterTypeMatchup.Add(MonsterList.RhinoVirus, MonsterType.Shadow);
-            monsterTypeMatchup.Add(MonsterList.RobotShockTrooper, MonsterType.Mechanical);
-            monsterTypeMatchup.Add(MonsterList.GreenSpider, MonsterType.Wood);
-            monsterTypeMatchup.Add(MonsterList.Dragonling, MonsterType.Dragon);
-            monsterTypeMatchup.Add(MonsterList.Humpback, MonsterType.Water);
+            monsterAffinityMatchup.Add(MonsterList.DemonEnforcer, ElementalAffinity.Demon);
+            monsterAffinityMatchup.Add(MonsterList.RhinoVirus, ElementalAffinity.Shadow);
+            monsterAffinityMatchup.Add(MonsterList.RobotShockTrooper, ElementalAffinity.Mechanical);
+            monsterAffinityMatchup.Add(MonsterList.GreenSpider, ElementalAffinity.Wood);
+            monsterAffinityMatchup.Add(MonsterList.Dragonling, ElementalAffinity.Dragon);
+            monsterAffinityMatchup.Add(MonsterList.Humpback, ElementalAffinity.Water);
         }
 
         private void Start()
@@ -159,7 +159,7 @@ namespace Assets
 
         internal  AttackResolution SendAttack(AttackRequest data)
         {
-            CreatureInfo target = null;
+            MonsterInfo target = null;
             spawnedMonsters.TryGetValue(data.TargetId, out target);
             if(target == null)
             {

@@ -11,7 +11,7 @@ namespace Assets.Infrastructure
 
         public string Name { get; set; }
 
-        public MonsterType MonsterType { get; set; }
+        public ElementalAffinity MonsterAffinity { get; set; }
 
         public int Cooldown { get; set; }
 

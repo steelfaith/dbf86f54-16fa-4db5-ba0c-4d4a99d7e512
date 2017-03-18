@@ -5,14 +5,14 @@ using System.Text;
 
 namespace Assets.Infrastructure
 {
-    public class CreatureInfo
+    public class MonsterInfo
     {
-        public MonsterType MonsterType { get; set; }
+        public ElementalAffinity MonsterAffinity { get; set; }
 
         public MonsterPresence MonsterPresence { get; set; }
 
         private MonsterList monsterValue;
-        public CreatureInfo(MonsterList value, int level)
+        public MonsterInfo(MonsterList value, int level)
         {
             Level = level;
             MaxHealth = level * 5;

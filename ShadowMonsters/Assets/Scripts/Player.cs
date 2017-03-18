@@ -13,7 +13,7 @@ namespace Assets.Scripts
     public class Player: MonoBehaviour
     {
         public Guid Id { get; set; }
-        public List<GameObject> ControlledCreatures { get; set; }        
+        public List<GameObject> ControlledMonsters { get; set; }        
         private MonsterSpawner _monsterSpawner;
         private PlayerData _currentData;
         private ServerStub serverStub;
@@ -29,7 +29,7 @@ namespace Assets.Scripts
             //this would probably be in some login object somewhere when we have that.  this would need to get that data.
             Id = ServerStub.Authenticate();
             
-            ControlledCreatures = new List<GameObject>();        
+            ControlledMonsters = new List<GameObject>();        
         }
 
         private void Start()
@@ -40,7 +40,7 @@ namespace Assets.Scripts
             _currentData = serverStub.GetPlayerData(Id);
             AttackIds = _currentData.AttackIds;
             _monsterSpawner = MonsterSpawner.Instance();            
-            AddControlledCreatures();            
+            AddControlledMonsters();            
         }
 
         private void Update()
@@ -65,17 +65,17 @@ namespace Assets.Scripts
         {
             //perform some super sweet animation here !!! wow!!  thrilling!! amazing!!!
             GameObject lead = GetLeadMonster();
-            var leadBaseCreature = lead.GetComponent<BaseCreature>();
+            var leadBaseMonster = lead.GetComponent<BaseMonster>();
             if (lead == null) return _player.Id;
 
-            textLogDisplayManager.AddText(string.Format("You incarnate {0}.", leadBaseCreature.Name),AnnouncementType.Friendly);
+            textLogDisplayManager.AddText(string.Format("You incarnate {0}.", leadBaseMonster.Name),AnnouncementType.Friendly);
             //omg blinky
             this.gameObject.SetActive(true);
             this.gameObject.SetActive(false);
             lead.gameObject.SetActive(true);
 
             incarnatedMonster = lead;
-            return leadBaseCreature.MonsterId;
+            return leadBaseMonster.MonsterId;
         }
 
         public void DoAttackAnimation()
@@ -85,9 +85,9 @@ namespace Assets.Scripts
 
         private GameObject GetLeadMonster()
         {
-            foreach (GameObject go in ControlledCreatures)
+            foreach (GameObject go in ControlledMonsters)
             {
-                var bc = go.GetComponent<BaseCreature>();
+                var bc = go.GetComponent<BaseMonster>();
                 if (bc.MonsterId == LeadMonsterId)
                     return go;
             }
@@ -101,15 +101,15 @@ namespace Assets.Scripts
             gameObject.SetActive(true);
         }
 
-        private void AddControlledCreatures()
+        private void AddControlledMonsters()
         {
-            foreach (CreatureInfo item in _currentData.CurrentTeam)
+            foreach (MonsterInfo item in _currentData.CurrentTeam)
             {
                 if (item.IsTeamLead)
                     LeadMonsterId = item.MonsterId;
                 var x = _monsterSpawner.SpawnMonster(item, true);
                 x.gameObject.SetActive(false);
-                ControlledCreatures.Add(x);
+                ControlledMonsters.Add(x);
             }
         }
     }

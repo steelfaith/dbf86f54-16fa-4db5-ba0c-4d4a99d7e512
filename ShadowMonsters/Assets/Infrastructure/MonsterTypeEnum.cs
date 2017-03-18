@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Infrastructure
 {
-    public enum MonsterType
+    public enum ElementalAffinity
     {
         Fae,
         Dragon,
@@ -20,44 +20,44 @@ namespace Assets.Infrastructure
         Water,
         Human
     }
-    public static class MonsterTypeToColorExtension
+    public static class MonsterAffinityToColorExtension
     {
-        public static Color32 GetColorFromMonsterType(this MonsterType value)
+        public static Color32 GetColorFromMonsterAffinity(this ElementalAffinity value)
         {
             Color32 colorReturn = Color.white;
             switch (value)
             {
-                case MonsterType.Fae:
+                case ElementalAffinity.Fae:
                     colorReturn = new Color32(102, 0, 102, 255);
                     break;
-                case MonsterType.Dragon:
+                case ElementalAffinity.Dragon:
                     colorReturn = new Color32(0, 153, 76, 255);
                     break;
-                case MonsterType.Light:
+                case ElementalAffinity.Light:
                     colorReturn = new Color32(255, 239, 213, 255);
                     break;
-                case MonsterType.Shadow:
+                case ElementalAffinity.Shadow:
                     colorReturn = new Color32(119, 136, 153, 255);
                     break;
-                case MonsterType.Demon:
+                case ElementalAffinity.Demon:
                     colorReturn = new Color32(128, 0, 0, 255);
                     break;
-                case MonsterType.Mechanical:
+                case ElementalAffinity.Mechanical:
                     colorReturn = new Color32(192, 192, 192, 255);
                     break;
-                case MonsterType.Wood:
+                case ElementalAffinity.Wood:
                     colorReturn = new Color32(160, 82, 45, 255);
                     break;
-                case MonsterType.Wind:
+                case ElementalAffinity.Wind:
                     colorReturn = new Color32(245, 255, 250, 255);
                     break;
-                case MonsterType.Fire:
+                case ElementalAffinity.Fire:
                     colorReturn = new Color32(204, 0, 0, 255);
                     break;
-                case MonsterType.Water:
+                case ElementalAffinity.Water:
                     colorReturn = new Color32(30, 144, 255, 255);
                     break;
-                case MonsterType.Human:
+                case ElementalAffinity.Human:
                     colorReturn = new Color32(255, 224, 189, 255); //fleshy!
                     break;
                 default:

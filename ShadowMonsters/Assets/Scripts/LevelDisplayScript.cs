@@ -14,7 +14,7 @@ namespace Assets.Scripts
         public Text levelText;
         public Image blurBorder;
 
-        public void UpdateLevelDisplay(string level, MonsterRarity rarity)
+        public void UpdateLevelDisplay(string level, MonsterPresence rarity)
         {
             var rarityColor = rarity.GetColorFromRarity();
             blurBorder.color = rarityColor;

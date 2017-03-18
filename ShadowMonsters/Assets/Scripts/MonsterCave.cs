@@ -33,21 +33,60 @@ namespace Assets.Scripts
             _monsterList.Add(GreenSpider.gameObject.name, GreenSpider);
             _monsterList.Add(Dragonling.gameObject.name, Dragonling);
             _monsterList.Add(Humpback.gameObject.name, Humpback);
-
+            AddMonsterAnimationMappings();
+        }
+        private void AddMonsterAnimationMappings()
+        { 
             
             animationMapping[DemonEnforcer.gameObject.name] = new Dictionary<AnimationAction, string>
                                                                             {
 
                                                                                 { AnimationAction.Attack, "creature1Attack1" },
                                                                                 { AnimationAction.Die, "creature1Die" },
-                                                                                { AnimationAction.GetHit, "creature1GetHit" }
+                                                                                { AnimationAction.GetHit, "creature1GetHit" },
+                                                                                { AnimationAction.Victory, "creature1Taunt" }
                                                                             };
             animationMapping[RobotShockTrooper.gameObject.name] = new Dictionary<AnimationAction, string>
                                                                             {
 
                                                                                 { AnimationAction.Attack, "hook" },
+                                                                                { AnimationAction.Die, "death0 0" },
+                                                                                { AnimationAction.GetHit, "bit hit" },
+                                                                                { AnimationAction.Victory, "jump" }
+                                                                            };
+
+            animationMapping[RhinoVirus.gameObject.name] = new Dictionary<AnimationAction, string>
+                                                                            {
+
+                                                                                { AnimationAction.Attack, "Attack" },
+                                                                                { AnimationAction.Die, "Dead" },
+                                                                                { AnimationAction.GetHit, "Get_Hit" },
+                                                                                { AnimationAction.Victory, "Eats" }
+                                                                            };
+
+            animationMapping[GreenSpider.gameObject.name] = new Dictionary<AnimationAction, string>
+                                                                            {
+
+                                                                                { AnimationAction.Attack, "Attack" },
+                                                                                { AnimationAction.Die, "Death" },
+                                                                                { AnimationAction.GetHit, "Run" },
+                                                                                { AnimationAction.Victory, "Walk" }
+                                                                            };
+            animationMapping[Dragonling.gameObject.name] = new Dictionary<AnimationAction, string>
+                                                                            {
+
+                                                                                { AnimationAction.Attack, "HornAttack" },
+                                                                                { AnimationAction.Die, "Die" },
+                                                                                { AnimationAction.GetHit, "Get Hit" },
+                                                                                { AnimationAction.Victory, "Scream" }
+                                                                            };
+            animationMapping[Humpback.gameObject.name] = new Dictionary<AnimationAction, string>
+                                                                            {
+
+                                                                                { AnimationAction.Attack, "fastswim" },
                                                                                 { AnimationAction.Die, "death" },
-                                                                                { AnimationAction.GetHit, "bit hit" }
+                                                                                { AnimationAction.GetHit, "fastswim2" },
+                                                                                { AnimationAction.Victory, "dive" }
                                                                             };
 
         }

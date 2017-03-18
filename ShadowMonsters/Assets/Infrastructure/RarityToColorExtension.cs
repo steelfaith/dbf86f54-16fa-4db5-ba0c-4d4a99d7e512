@@ -8,27 +8,27 @@ namespace Assets.Infrastructure
 {
     public static class RarityToColorExtension
     {
-        public static Color32 GetColorFromRarity(this MonsterRarity value)
+        public static Color32 GetColorFromRarity(this MonsterPresence value)
         {
             Color32 colorReturn = Color.white;
             switch (value)
             {
-                case MonsterRarity.Common:
+                case MonsterPresence.Vapourous:
                     colorReturn = new Color32(200, 200, 200, 255);//gray
                     break;
-                case MonsterRarity.Uncommon:
+                case MonsterPresence.Intangible:
                     colorReturn = Color.green;
                     break;
-                case MonsterRarity.Rare:
+                case MonsterPresence.Discarnate:
                     colorReturn = Color.blue;
                     break;
-                case MonsterRarity.Epic:
+                case MonsterPresence.Corporeal:
                     colorReturn = new Color32(85, 15, 157, 255); //purple
                     break;
-                case MonsterRarity.Legendary:
+                case MonsterPresence.Carnal:
                     colorReturn = new Color32(212,175,55,255);//gold
                     break;
-                case MonsterRarity.Prime:
+                case MonsterPresence.Prime:
                     colorReturn = new Color32(183, 110, 121, 255); //rose gold
                     break;
                 default:

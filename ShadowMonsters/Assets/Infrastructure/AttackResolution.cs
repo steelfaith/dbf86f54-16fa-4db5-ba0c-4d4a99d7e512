@@ -13,5 +13,6 @@ namespace Assets.Infrastructure
         public float MaxHealth { get; set; }
         public float CurrentHealth { get; set; }
         public bool WasFatal { get; set; }
+        public AttackInfo AttackPerformed { get; set; }
     }
 }

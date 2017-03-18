@@ -29,7 +29,7 @@ namespace Assets.Infrastructure
 
         public string NickName { get; set; }
 
-        public MonsterRarity MonsterRarity { get; set; }
+        public MonsterPresence MonsterRarity { get; set; }
 
         public MonsterType MonsterType { get; set; }
 

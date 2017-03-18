@@ -61,12 +61,12 @@ namespace Assets.Scripts
             return _player;
         }
 
-        internal void IncarnateMonster()
+        internal Guid IncarnateMonster()
         {
             //perform some super sweet animation here !!! wow!!  thrilling!! amazing!!!
             GameObject lead = GetLeadMonster();
             var leadBaseCreature = lead.GetComponent<BaseCreature>();
-            if (lead == null) return;
+            if (lead == null) return _player.Id;
 
             textLogDisplayManager.AddText(string.Format("You incarnate {0}.", leadBaseCreature.Name),AnnouncementType.Friendly);
             //omg blinky
@@ -75,7 +75,7 @@ namespace Assets.Scripts
             lead.gameObject.SetActive(true);
 
             incarnatedMonster = lead;
-
+            return leadBaseCreature.MonsterId;
         }
 
         public void DoAttackAnimation()

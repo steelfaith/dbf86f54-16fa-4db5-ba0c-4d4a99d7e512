@@ -9,7 +9,8 @@ namespace Assets.Infrastructure
     {
         Attack,
         Die,
-        GetHit
+        GetHit,
+        Victory
     }
 }
 

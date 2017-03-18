@@ -84,7 +84,8 @@ namespace Assets.Scripts
 
         void OnFight()
         {
-            _player.IncarnateMonster();
+            var leadMonster =_player.IncarnateMonster();
+            enemyController.StartEnemyAttack(leadMonster);
 
             fatbicController.BeginAttack(OnAttackOnePressed, OnAttackTwoPressed, OnAttackThreePressed, OnAttackFourPressed, OnAttackFivePressed, OnStopAttackPressed, OnBond,OnRun);            
         }

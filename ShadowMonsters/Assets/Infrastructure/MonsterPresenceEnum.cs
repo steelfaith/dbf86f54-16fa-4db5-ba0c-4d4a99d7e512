@@ -5,13 +5,13 @@ using System.Text;
 
 namespace Assets.Infrastructure
 {
-    public enum MonsterRarity
+    public enum MonsterPresence
     { 
-        Common,
-        Uncommon,
-        Rare,
-        Epic,
-        Legendary,
+        Vapourous,
+        Intangible,
+        Discarnate,
+        Corporeal,
+        Carnal,
         Prime
 
     }

@@ -9,7 +9,7 @@ namespace Assets.Infrastructure
     {
         public MonsterType MonsterType { get; set; }
 
-        public MonsterRarity MonsterRarity { get; set; }
+        public MonsterPresence MonsterPresence { get; set; }
 
         private MonsterList monsterValue;
         public CreatureInfo(MonsterList value, int level)

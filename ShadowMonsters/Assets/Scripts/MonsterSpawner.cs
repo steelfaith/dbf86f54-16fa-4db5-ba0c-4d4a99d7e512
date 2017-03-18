@@ -74,7 +74,7 @@ namespace Assets.Scripts
             bc.Health = creatureInfo.MaxHealth;
             bc.MonsterId = creatureInfo.MonsterId;
             bc.NickName = creatureInfo.NickName;
-            bc.MonsterRarity = creatureInfo.MonsterRarity;
+            bc.MonsterRarity = creatureInfo.MonsterPresence;
             bc.MonsterType = creatureInfo.MonsterType;
             bc.NameKey = creatureInfo.NameKey;
 

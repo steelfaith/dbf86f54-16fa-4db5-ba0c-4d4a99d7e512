@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
@@ -11,11 +12,13 @@ namespace Assets.Scripts
     {
         public float maxHealth;
         public float currentHealth;
+        public Text displayName;
         public IndicatorBarScript indicatorBar;
         public LevelDisplayScript levelDisplay;
 
         public void SetCreature(BaseCreature creature)
         {
+            displayName.text = creature.Name;
             maxHealth = creature.Health;
             currentHealth = maxHealth;
             levelDisplay.UpdateLevelDisplay(creature.Level.ToString(), creature.MonsterRarity);

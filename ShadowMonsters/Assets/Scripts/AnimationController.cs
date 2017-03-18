@@ -32,9 +32,21 @@ namespace Assets.Scripts
         public void PlayAnimation(GameObject monster, AnimationAction action)
         {
             var anim = monster.GetComponent<Animator>();
-            if (anim == null) return;
+            if (anim == null)
+            {
+                //older assets might not have animator, just animation
+                PlayAnimationLegacy(monster, action);
+                return;
+            }
             var info = monster.GetComponent<BaseCreature>();
             anim.Play(monsterCave.TryGetAnimationName(info.NameKey,action));
+        }
+
+        private void PlayAnimationLegacy(GameObject monster, AnimationAction action)
+        {
+            var anim = monster.GetComponent<Animation>();
+            var info = monster.GetComponent<BaseCreature>();
+            anim.Play(monsterCave.TryGetAnimationName(info.NameKey, action));
         }
 
         public void PlayAnimationWithWait(GameObject monster, AnimationAction action)

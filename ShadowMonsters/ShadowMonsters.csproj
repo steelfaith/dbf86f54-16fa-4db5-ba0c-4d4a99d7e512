@@ -77,6 +77,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AttackInstance.cs" />
     <Compile Include="Assets\Infrastructure\AnimationActionEnum.cs" />
     <Compile Include="Assets\Infrastructure\AnnouncementTypeEnum.cs" />
     <Compile Include="Assets\Infrastructure\AttackInfo.cs" />
@@ -89,7 +90,7 @@
     <Compile Include="Assets\Infrastructure\EnumHelper.cs" />
     <Compile Include="Assets\Infrastructure\GameToScreenUtility.cs" />
     <Compile Include="Assets\Infrastructure\MonsterList.cs" />
-    <Compile Include="Assets\Infrastructure\MonsterRarityEnum.cs" />
+    <Compile Include="Assets\Infrastructure\MonsterPresenceEnum.cs" />
     <Compile Include="Assets\Infrastructure\MonsterTypeEnum.cs" />
     <Compile Include="Assets\Infrastructure\PlayerData.cs" />
     <Compile Include="Assets\Infrastructure\RarityToColorExtension.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Assets\Scripts\BeginCombatPopup.cs" />
     <Compile Include="Assets\Scripts\BringToFront.cs" />
     <Compile Include="Assets\Scripts\ButtonScript.cs" />
+    <Compile Include="Assets\Scripts\CastbarScript.cs" />
     <Compile Include="Assets\Scripts\CombatController.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\Scripts\FatbicController.cs" />
@@ -112,6 +114,7 @@
     <Compile Include="Assets\Scripts\MonsterCave.cs" />
     <Compile Include="Assets\Scripts\MonsterSpawner.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\ResourceCollectorScript.cs" />
     <Compile Include="Assets\Scripts\ScrollingCombatText.cs" />
     <Compile Include="Assets\Scripts\ScrollingCombatTextController.cs" />
     <Compile Include="Assets\Scripts\Shadow.cs" />

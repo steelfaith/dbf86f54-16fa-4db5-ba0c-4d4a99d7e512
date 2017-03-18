@@ -152,49 +152,17 @@ namespace Assets.Scripts
         {
             var buttonText = button.GetComponentInChildren<Text>();
             buttonText.text = attackInfo.Name;
-            SetButtonColor();
+            SetButtonColors();
             castGlowImage.color = button.image.color;
         }
 
-        private void SetButtonColor()
+        private void SetButtonColors()
         {
             var buttonImage = button.GetComponent<Image>();
-            switch (attackInfo.MonsterType)
-            {
-                case MonsterType.Fae:
-                    buttonImage.color = Color.cyan;
-                    break;
-                case MonsterType.Dragon:
-                    buttonImage.color = Color.green;
-                    break;
-                case MonsterType.Light:
-                    buttonImage.color = Color.white;
-                    break;
-                case MonsterType.Shadow:
-                    buttonImage.color = Color.black;
-                    break;
-                case MonsterType.Demon:
-                    buttonImage.color = new Color32(125, 25, 25, 255); //reddish brown
-                    break;
-                case MonsterType.Mechanical:
-                    buttonImage.color = Color.gray;
-                    break;
-                case MonsterType.Wood:
-                    break;
-                case MonsterType.Wind:
-                    buttonImage.color = Color.blue;
-                    break;
-                case MonsterType.Fire:
-                    buttonImage.color = Color.red;
-                    break;
-                case MonsterType.Human:
-                    buttonImage.color = new Color32(255, 224, 189,255); //fleshy!
-                    break;
-                case MonsterType.Water:
-                    break;
-                default:
-                    break;
-            }
+            var backgroundColor = attackInfo.MonsterType.GetColorFromMonsterType();
+            buttonImage.color = backgroundColor;
+            var text = button.GetComponentInChildren<Text>();
+            text.color = ContrastColor(backgroundColor);
         }
 
         private void FireAttackAttempt()
@@ -202,6 +170,26 @@ namespace Assets.Scripts
             var handler = AttackAttempt;
             if (handler != null)
                 AttackAttempt(this, new DataEventArgs<AttackInfo> { Data = attackInfo });
+        }
+
+        private void SetFontColor()
+        {
+
+        }
+
+        Color32 ContrastColor(Color32 color)
+        {
+            byte d = 0;
+
+            // Counting the perceptive luminance - human eye favors green color... 
+            double a = 1 - (0.299 * color.r + 0.587 * color.g + 0.114 * color.b) / 255;
+
+            if (a < 0.5)
+                d = 0; // bright colors - black font
+            else
+                d = 255; // dark colors - white font
+
+            return new Color32(d, d, d, color.a);
         }
     }
 }

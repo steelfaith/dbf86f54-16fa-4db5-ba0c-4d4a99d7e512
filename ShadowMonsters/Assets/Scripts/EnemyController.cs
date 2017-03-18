@@ -15,6 +15,7 @@ namespace Assets.Scripts
         private StatusController enemyStatusController;
         private ScrollingCombatTextController scrollingCombatTextController;
         private AnimationController animationController;
+        private ServerStub serverStub;
 
         private void Start()
         {
@@ -44,6 +45,12 @@ namespace Assets.Scripts
             enemy.SetActive(true);
             enemyInfo = enemy.GetComponent<BaseCreature>();
             enemyStatusController.SetCreature(enemyInfo);
+
+        }
+
+        public void StartEnemyAttack(Guid target)
+        {
+            //serverStub.PerformRandomAttackSequence(enemyInfo.MonsterId, target, new Guid());
         }
 
         public void ResolveAttack(AttackResolution results)

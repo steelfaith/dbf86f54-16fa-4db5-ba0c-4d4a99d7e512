@@ -41,10 +41,10 @@ namespace Assets.Scripts
             animationMapping[DemonEnforcer.gameObject.name] = new Dictionary<AnimationAction, string>
                                                                             {
 
-                                                                                { AnimationAction.Attack, "Monster1Attack1" },
-                                                                                { AnimationAction.Die, "Monster1Die" },
-                                                                                { AnimationAction.GetHit, "Monster1GetHit" },
-                                                                                { AnimationAction.Victory, "Monster1Taunt" }
+                                                                                { AnimationAction.Attack, "creature1Attack1" },
+                                                                                { AnimationAction.Die, "creature1Die" },
+                                                                                { AnimationAction.GetHit, "creature1GetHit" },
+                                                                                { AnimationAction.Victory, "creature1Taunt" }
                                                                             };
             animationMapping[RobotShockTrooper.gameObject.name] = new Dictionary<AnimationAction, string>
                                                                             {

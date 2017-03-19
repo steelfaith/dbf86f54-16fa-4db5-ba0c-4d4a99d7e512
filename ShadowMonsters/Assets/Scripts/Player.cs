@@ -8,21 +8,23 @@ using System.Threading;
 using UnityEngine.SceneManagement;
 
 
+
 namespace Assets.Scripts
 {
     public class Player: MonoBehaviour
     {
         public Guid Id { get; set; }
-        public List<GameObject> ControlledMonsters { get; set; }        
-        private MonsterSpawner _monsterSpawner;
-        private PlayerData _currentData;
+        public List<GameObject> ControlledMonsters { get; set; }
+        public GameObject statusDisplay;
+        private MonsterSpawner monsterSpawner;
+        private PlayerData currentData;
         private ServerStub serverStub;
         private TextLogDisplayManager textLogDisplayManager;
         public List<Guid> AttackIds { get; set; }
         private GameObject incarnatedMonster;
-        private Animator anim;
-
-        public Guid LeadMonsterId { get; set; }
+        private StatusController statusController;
+        private BaseMonster baseMonster; //we are all monsters inside....
+        private AnimationController animationController;
 
         private void Awake()
         {
@@ -35,12 +37,24 @@ namespace Assets.Scripts
         private void Start()
         {
             serverStub = ServerStub.Instance();
+            monsterSpawner = MonsterSpawner.Instance();
+            animationController = AnimationController.Instance();
+            baseMonster = GetComponent<BaseMonster>();
+            currentData = serverStub.GetPlayerData(Id);
+            baseMonster.DisplayName = currentData.DisplayName;
+            baseMonster.CurrentHealth = currentData.CurrentHealth;
+            baseMonster.MaxHealth = currentData.MaximumHealth;
+            baseMonster.MonsterAffinity = ElementalAffinity.Human;
+            baseMonster.NameKey = "unitychan";
             textLogDisplayManager = TextLogDisplayManager.Instance();
-            anim = GetComponent<Animator>();
-            _currentData = serverStub.GetPlayerData(Id);
-            AttackIds = _currentData.AttackIds;
-            _monsterSpawner = MonsterSpawner.Instance();            
-            AddControlledMonsters();            
+            
+            
+            AttackIds = currentData.AttackIds;
+        
+            AddControlledMonsters();
+            statusController = statusDisplay.GetComponentInChildren<StatusController>();
+            statusController.displayName.color = Color.green;
+            statusController.SetMonster(baseMonster);      
         }
 
         private void Update()
@@ -64,38 +78,55 @@ namespace Assets.Scripts
         internal Guid IncarnateMonster()
         {
             //perform some super sweet animation here !!! wow!!  thrilling!! amazing!!!
-            GameObject lead = GetLeadMonster();
-            var leadBaseMonster = lead.GetComponent<BaseMonster>();
+            GameObject lead = GetLeadMonster();           
             if (lead == null) return _player.Id;
+            var leadBaseMonster = lead.GetComponent<BaseMonster>();
 
-            textLogDisplayManager.AddText(string.Format("You incarnate {0}.", leadBaseMonster.Name),AnnouncementType.Friendly);
+            textLogDisplayManager.AddText(string.Format("You incarnate {0}.", leadBaseMonster.DisplayName),AnnouncementType.Friendly);
             //omg blinky
-            this.gameObject.SetActive(true);
-            this.gameObject.SetActive(false);
+            gameObject.SetActive(true);
+            gameObject.SetActive(false);
             lead.gameObject.SetActive(true);
 
             incarnatedMonster = lead;
             return leadBaseMonster.MonsterId;
         }
 
-        public void DoAttackAnimation()
+        public void DoAnimation(AnimationAction action)
         {
-            anim.Play("", -1, 0f);
+            GameObject lead = GetLeadMonster();
+            var leadIsActive = lead != null && lead.activeSelf;
+            {
+                animationController.PlayAnimation(leadIsActive?lead:gameObject, action);
+            }
         }
 
-        private GameObject GetLeadMonster()
+        public GameObject GetLeadMonster()
         {
             foreach (GameObject go in ControlledMonsters)
             {
                 var bc = go.GetComponent<BaseMonster>();
-                if (bc.MonsterId == LeadMonsterId)
-                    return go;
+                if (bc.IsPlayerTeamLead && bc.CurrentHealth > 0)
+                { return go; }
             }
-            return null;
+            var newLead = ControlledMonsters.FirstOrDefault(monster=>monster.GetComponent<BaseMonster>().CurrentHealth > 0);
+            UpdateLead(newLead);
+            return newLead;
+        }
+
+        private void UpdateLead(GameObject newLead)
+        {
+            foreach (GameObject go in ControlledMonsters)
+            {
+                var lead = newLead.GetComponent<BaseMonster>();
+                var bm = go.GetComponent<BaseMonster>();
+                bm.IsPlayerTeamLead = (bm.MonsterId == lead.MonsterId);
+            }
         }
 
         internal void RevertIncarnation()
         {
+            if (gameObject.activeSelf) return;
             textLogDisplayManager.AddText("You revert from your incarnated state.", AnnouncementType.Friendly);
             incarnatedMonster.SetActive(false);
             gameObject.SetActive(true);
@@ -103,11 +134,9 @@ namespace Assets.Scripts
 
         private void AddControlledMonsters()
         {
-            foreach (MonsterInfo item in _currentData.CurrentTeam)
+            foreach (MonsterInfo item in currentData.CurrentTeam)
             {
-                if (item.IsTeamLead)
-                    LeadMonsterId = item.MonsterId;
-                var x = _monsterSpawner.SpawnMonster(item, true);
+                var x = monsterSpawner.SpawnMonster(item, true);
                 x.gameObject.SetActive(false);
                 ControlledMonsters.Add(x);
             }

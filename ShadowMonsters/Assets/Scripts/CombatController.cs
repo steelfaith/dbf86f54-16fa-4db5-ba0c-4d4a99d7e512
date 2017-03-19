@@ -13,11 +13,12 @@ namespace Assets.Scripts
     {
         private BeginCombatPopup _beginCombatPopup;
         private MonsterSpawner _monsterSpawner;
-        private Player _player;        
+        private Player player;        
         private TextLogDisplayManager _textLogDisplayManager;        
         private AreaSpawnManager _areaSpawnManager;
         private FatbicController fatbicController;
         private ServerStub serverStub;
+        private bool combatEnded;
 
         private EnemyController enemyController;
 
@@ -33,18 +34,21 @@ namespace Assets.Scripts
             fatbicController.AttackAttempt += AttackEnemyAttempt;
             enemyController = EnemyController.Instance();
 
-            _player = Player.Instance();
+            player = Player.Instance();
             enemyController.SpawnEnemy();
             
 
 
-            _textLogDisplayManager.AddText(string.Format("You have been attacked by a {0}!", enemyController.enemyInfo.Name), AnnouncementType.Enemy);
-            _beginCombatPopup.PromptUserAction(enemyController.enemyInfo.Name, OnFight, OnRun, OnBond);
+            _textLogDisplayManager.AddText(string.Format("You have been attacked by a {0}!", enemyController.enemyInfo.DisplayName), AnnouncementType.Enemy);
+            _beginCombatPopup.PromptUserAction(enemyController.enemyInfo.DisplayName, OnFight, OnRun, OnBond);
 
         }
 
         private void AttackEnemyAttempt(object sender, DataEventArgs<AttackInfo> e)
         {
+            if (combatEnded) return;
+            //eventually attacks would need to be mapped to animations
+            player.DoAnimation(AnimationAction.Attack);
             //this would probably be an id to an attack instead of the attack
             AttackResolution attackResult = serverStub.SendAttack(
                 new AttackRequest {
@@ -56,9 +60,11 @@ namespace Assets.Scripts
 
 
             if (attackResult.WasFatal)
-            {                
-                _player.RevertIncarnation();
-                _textLogDisplayManager.AddText(string.Format("You have defeated a {0}!", enemyController.enemyInfo.Name), AnnouncementType.Friendly);
+            {
+                combatEnded = true;
+                player.RevertIncarnation();
+                player.DoAnimation(AnimationAction.Victory);
+                _textLogDisplayManager.AddText(string.Format("You have defeated a {0}!", enemyController.enemyInfo.DisplayName), AnnouncementType.Friendly);
                 StartCoroutine(EndCombat());               
             }
 
@@ -72,6 +78,7 @@ namespace Assets.Scripts
          
                 UnloadCombatScene();
                 enemyController.EndCombat();
+                combatEnded = false;
             }
         }
 
@@ -84,7 +91,7 @@ namespace Assets.Scripts
 
         void OnFight()
         {
-            var leadMonster =_player.IncarnateMonster();
+            var leadMonster =player.IncarnateMonster();
             enemyController.StartEnemyAttack(leadMonster);
 
             fatbicController.BeginAttack(OnAttackOnePressed, OnAttackTwoPressed, OnAttackThreePressed, OnAttackFourPressed, OnAttackFivePressed, OnStopAttackPressed, OnBond,OnRun);            
@@ -93,6 +100,7 @@ namespace Assets.Scripts
         private void OnAttackOnePressed()
         {
             fatbicController.attackOneButton.GetComponent<ButtonScript>().StartButtonAction();
+            
         }
 
         private void OnAttackTwoPressed()
@@ -126,7 +134,7 @@ namespace Assets.Scripts
             runButtonScript.StartCooldown(2);
             fatbicController.StartGlobalRecharge(2, runButtonScript.attackIndex);
             _textLogDisplayManager.AddText("You attempt to run away.", AnnouncementType.Friendly);
-            if(_player.ControlledMonsters.Any(x=>x.GetComponent<BaseMonster>().Level + UnityEngine.Random.Range(100,150) > enemyController.enemyInfo.Level ))
+            if(player.ControlledMonsters.Any(x=>x.GetComponent<BaseMonster>().Level + UnityEngine.Random.Range(100,150) > enemyController.enemyInfo.Level ))
             {
                 UnloadCombatScene();
                 _textLogDisplayManager.AddText("You successfully ran away.", AnnouncementType.Friendly);
@@ -134,7 +142,7 @@ namespace Assets.Scripts
             else
             {
                 //start combat
-                _textLogDisplayManager.AddText(string.Format("The {0} blocks your path! You have been forced into combat.", enemyController.enemyInfo.Name), AnnouncementType.Enemy);
+                _textLogDisplayManager.AddText(string.Format("The {0} blocks your path! You have been forced into combat.", enemyController.enemyInfo.DisplayName), AnnouncementType.Enemy);
                 OnFight();
             }
         }

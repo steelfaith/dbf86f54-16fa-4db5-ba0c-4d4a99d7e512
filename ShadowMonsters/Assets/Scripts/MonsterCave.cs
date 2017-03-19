@@ -18,6 +18,7 @@ namespace Assets.Scripts
         public Transform GreenSpider;
         public Transform Dragonling;
         public Transform Humpback;
+        public Transform UnityChan;
 
         private Dictionary<string, Transform> _monsterList = new Dictionary<string, Transform>();
         private Dictionary<string, Dictionary<AnimationAction, string>> animationMapping = new Dictionary<string, Dictionary<AnimationAction, string>>();
@@ -87,6 +88,14 @@ namespace Assets.Scripts
                                                                                 { AnimationAction.Die, "death" },
                                                                                 { AnimationAction.GetHit, "fastswim2" },
                                                                                 { AnimationAction.Victory, "dive" }
+                                                                            };
+            animationMapping[UnityChan.gameObject.name] = new Dictionary<AnimationAction, string>
+                                                                            {
+
+                                                                                { AnimationAction.Attack, "WAIT04" },
+                                                                                { AnimationAction.Die, "LOSE00" },
+                                                                                { AnimationAction.GetHit, "DAMAGED00" },
+                                                                                { AnimationAction.Victory, "WIN00" }
                                                                             };
 
         }

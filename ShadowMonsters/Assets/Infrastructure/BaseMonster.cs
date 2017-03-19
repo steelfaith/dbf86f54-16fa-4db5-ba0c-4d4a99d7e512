@@ -8,7 +8,7 @@ namespace Assets.Infrastructure
     public class BaseMonster : MonoBehaviour
     {
         private string originalName;
-        public string Name
+        public string DisplayName
         {
             get
             {
@@ -23,7 +23,9 @@ namespace Assets.Infrastructure
 
         public int Level { get; set; }
 
-        public float Health { get; set; }
+        public float MaxHealth { get; set; }
+
+        public float CurrentHealth { get; set; }
 
         public Guid MonsterId { get; set; }
 
@@ -34,6 +36,8 @@ namespace Assets.Infrastructure
         public ElementalAffinity MonsterAffinity { get; set; }
 
         public string NameKey { get; set; }
+
+        public bool IsPlayerTeamLead { get; set; }
 
     }
 }

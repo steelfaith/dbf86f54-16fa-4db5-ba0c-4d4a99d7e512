@@ -99,10 +99,10 @@ namespace Assets.Scripts
 
         public void LoadAttacks() //prob need to pass monster id
         {
-            var teamLead = player.LeadMonsterId;
-            var alive = serverStub.CheckPulse(teamLead);
+            var teamLeadId = player.GetLeadMonster().GetComponent<BaseMonster>().MonsterId;
+            var alive = serverStub.CheckPulse(teamLeadId);
 
-            var attacks = alive ? serverStub.GetAttacksForMonster(teamLead) : serverStub.GetAttacksForPlayer(player.Id);
+            var attacks = alive ? serverStub.GetAttacksForMonster(teamLeadId) : serverStub.GetAttacksForPlayer(player.Id);
             if (attacks.Count == 0 || attacks.Count > 5)
             {
                 Debug.LogError("Attack count outside valid value of 1 to 5");

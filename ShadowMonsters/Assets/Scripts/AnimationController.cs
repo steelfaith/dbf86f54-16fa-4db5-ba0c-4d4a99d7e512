@@ -29,16 +29,16 @@ namespace Assets.Scripts
             return animationController;
         }
 
-        public void PlayAnimation(GameObject monster, AnimationAction action)
+        public void PlayAnimation(GameObject gameObject, AnimationAction action)
         {
-            var anim = monster.GetComponent<Animator>();
+            var anim = gameObject.GetComponent<Animator>();
             if (anim == null)
             {
                 //older assets might not have animator, just animation
-                PlayAnimationLegacy(monster, action);
+                PlayAnimationLegacy(gameObject, action);
                 return;
             }
-            var info = monster.GetComponent<BaseMonster>();
+            var info = gameObject.GetComponent<BaseMonster>();
             anim.Play(monsterCave.TryGetAnimationName(info.NameKey,action));
         }
 

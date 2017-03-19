@@ -20,18 +20,5 @@ namespace Assets.Scripts
             healthBarImage.color = Color.Lerp(startColor, endColor, 1 - healthBarImage.fillAmount);
         }
 
-        private static IndicatorBarScript indicatorBarScript;
-
-        public static IndicatorBarScript Instance()
-        {
-            if (!indicatorBarScript)
-            {
-                indicatorBarScript = FindObjectOfType(typeof(IndicatorBarScript)) as IndicatorBarScript;
-                if (!indicatorBarScript)
-                    Debug.LogError("Could not find Indicator Bar Script!");
-            }
-            return indicatorBarScript;
-        }
-
     }
 }

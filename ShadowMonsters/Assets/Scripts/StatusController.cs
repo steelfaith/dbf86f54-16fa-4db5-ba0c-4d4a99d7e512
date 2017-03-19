@@ -10,25 +10,21 @@ namespace Assets.Scripts
 {
     public class StatusController : MonoBehaviour
     {
-        public float maxHealth;
-        public float currentHealth;
         public Text displayName;
-        public IndicatorBarScript indicatorBar;
+        public IndicatorBarScript healthBar;
         public LevelDisplayScript levelDisplay;
+        public CastbarScript castBar;
+        public ResourceCollectorScript resourceCollector;
 
-        public void SetMonster(BaseMonster Monster)
+        public void SetMonster(BaseMonster monster)
         {
-            displayName.text = Monster.Name;
-            maxHealth = Monster.Health;
-            currentHealth = maxHealth;
-            levelDisplay.UpdateLevelDisplay(Monster.Level.ToString(), Monster.MonsterRarity);
-            indicatorBar.AdjustHealth(currentHealth, maxHealth);
+            displayName.text = monster.DisplayName;
+            levelDisplay.UpdateLevelDisplay(monster.Level.ToString(), monster.MonsterRarity);
+            healthBar.AdjustHealth(monster.CurrentHealth, monster.MaxHealth);
         }
 
         private void Start()
         {
-            indicatorBar = IndicatorBarScript.Instance();
-            levelDisplay = LevelDisplayScript.Instance();
         }
 
         private static StatusController statusController;
@@ -45,9 +41,13 @@ namespace Assets.Scripts
         }
 
         internal void UpdateMonster(AttackResolution MonsterUpdate)
+        {            
+            healthBar.AdjustHealth(MonsterUpdate.CurrentHealth, MonsterUpdate.MaxHealth);
+        }
+
+        internal void UpdateCastBar()
         {
-            currentHealth = MonsterUpdate.CurrentHealth;
-            indicatorBar.AdjustHealth(MonsterUpdate.CurrentHealth, MonsterUpdate.MaxHealth);
+            //castBar.UpdateCastbar()
         }
     }
 }

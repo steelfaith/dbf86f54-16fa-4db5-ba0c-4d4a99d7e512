@@ -69,16 +69,18 @@ namespace Assets.Scripts
             var spawnedMonster = Instantiate(monsterToSpawn, spawnLocation, Quaternion.Euler(friendly? friendlyRot:enemyRot));
 
             var bc = spawnedMonster.gameObject.GetComponent<BaseMonster>();            
-            bc.Name = MonsterInfo.DisplayName;
+            bc.DisplayName = MonsterInfo.DisplayName;
             bc.Level = MonsterInfo.Level;
-            bc.Health = MonsterInfo.MaxHealth;
+            bc.MaxHealth = MonsterInfo.MaxHealth;
+            bc.CurrentHealth = MonsterInfo.CurrentHealth;
             bc.MonsterId = MonsterInfo.MonsterId;
             bc.NickName = MonsterInfo.NickName;
             bc.MonsterRarity = MonsterInfo.MonsterPresence;
             bc.MonsterAffinity = MonsterInfo.MonsterAffinity;
             bc.NameKey = MonsterInfo.NameKey;
+            bc.IsPlayerTeamLead = MonsterInfo.IsTeamLead;
 
-            if(bc.Name == "Humpback Whale")
+            if(bc.DisplayName == "Humpback Whale")
             {
                 //reset rotation for stupid whale
                 bc.transform.rotation = Quaternion.Euler(new Vector3(0, 195, 0));

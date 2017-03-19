@@ -27,17 +27,5 @@ namespace Assets.Scripts
             levelText.text = level;
         }
 
-        private static LevelDisplayScript levelDisplayScript;
-
-        public static LevelDisplayScript Instance()
-        {
-            if (!levelDisplayScript)
-            {
-                levelDisplayScript = FindObjectOfType(typeof(LevelDisplayScript)) as LevelDisplayScript;
-                if (!levelDisplayScript)
-                    Debug.LogError("Could not find the level display script!");
-            }
-            return levelDisplayScript;
-        }
     }
 }

@@ -11,6 +11,7 @@ namespace Assets.Scripts
     {
         private GameObject enemy;
         public BaseMonster enemyInfo;
+        public GameObject StatusDisplay;
         private MonsterSpawner monsterSpawner;
         private StatusController enemyStatusController;
         private ScrollingCombatTextController scrollingCombatTextController;
@@ -20,8 +21,7 @@ namespace Assets.Scripts
         private void Start()
         {
             monsterSpawner = MonsterSpawner.Instance();
-            enemyStatusController = StatusController.Instance();
-            enemyStatusController = StatusController.Instance();
+            enemyStatusController = StatusDisplay.GetComponentInChildren<StatusController>();
             scrollingCombatTextController = ScrollingCombatTextController.Instance();
             animationController = AnimationController.Instance();
         }
@@ -44,6 +44,7 @@ namespace Assets.Scripts
             enemy = monsterSpawner.SpawnRandomEnemyMonster();
             enemy.SetActive(true);
             enemyInfo = enemy.GetComponent<BaseMonster>();
+
             enemyStatusController.SetMonster(enemyInfo);
 
         }

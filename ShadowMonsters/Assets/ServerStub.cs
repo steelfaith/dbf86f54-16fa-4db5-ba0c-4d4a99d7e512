@@ -48,17 +48,17 @@ namespace Assets
         {
             var team = new List<MonsterInfo>
                                 {
-                                    new MonsterInfo(MonsterList.RhinoVirus,  UnityEngine.Random.Range(1,101))
-                                    {
-                                        MonsterAffinity = monsterAffinityMatchup[MonsterList.RhinoVirus],
-                                        NickName = "Rhinasephalasaurus",
-                                        MonsterId = Guid.NewGuid(),
-                                        IsTeamLead = true,
-                                        AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
-                                    },
+                                    //new MonsterInfo(MonsterList.RhinoVirus,  UnityEngine.Random.Range(1,101))
+                                    //{
+                                    //    MonsterAffinity = monsterAffinityMatchup[MonsterList.RhinoVirus],
+                                    //    NickName = "Rhinasephalasaurus",
+                                    //    MonsterId = Guid.NewGuid(),
+                                    //    IsTeamLead = true,
+                                    //    AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
+                                    //},
                                     new MonsterInfo(MonsterList.DemonEnforcer,  UnityEngine.Random.Range(1,101))
-                                    {   
-                                        MonsterAffinity = monsterAffinityMatchup[MonsterList.DemonEnforcer],                                     
+                                    {
+                                        MonsterAffinity = monsterAffinityMatchup[MonsterList.DemonEnforcer],
                                         NickName = "Fluffy",
                                         MonsterId = Guid.NewGuid(),
                                         AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
@@ -72,8 +72,13 @@ namespace Assets
 
             var data = new PlayerData
             {
+                Id = id,
+                DisplayName = "OFFHIZMEDZ",
                 CurrentTeam = team,
-                AttackIds = GetAttackIdList(knownAttacks.KnownPlayerAttackList)            
+                AttackIds = GetAttackIdList(knownAttacks.KnownPlayerAttackList),
+                MaximumHealth = 50,
+                CurrentHealth = 50
+                        
             };
             players.Add(id, data);
             return data;
@@ -130,7 +135,8 @@ namespace Assets
 
         internal bool CheckPulse(Guid monsterId)
         {
-            var target = spawnedMonsters[monsterId];
+            MonsterInfo target;
+            spawnedMonsters.TryGetValue(monsterId, out target);
             if (target == null) return false;
             if (target.CurrentHealth < 1) return false;
             return true;

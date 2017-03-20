@@ -180,8 +180,13 @@ namespace Assets
                 return null;
             }
 
+            float powerUpBonusPercentMultiplier = (attack.PowerLevel / 10f) + 1;
+            
             var crit = IsCrit();
-            var damage = attack.BaseDamage * (crit ? 2 : 1);
+            float damage = attack.BaseDamage * (crit ? 2 : 1);
+
+            damage = damage * powerUpBonusPercentMultiplier;
+          
             target.CurrentHealth = target.CurrentHealth - damage;
 
             bool fatal = false;
@@ -192,6 +197,7 @@ namespace Assets
                 fatal = true;
             }
 
+            attack.PowerLevel = 0;
             return new AttackResolution
             {
                 WasFatal = fatal,

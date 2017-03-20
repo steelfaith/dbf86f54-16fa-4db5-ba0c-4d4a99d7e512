@@ -21,6 +21,7 @@ namespace Assets.Scripts
 
         private void Awake()
         {
+            images = new List<Image>();
             images.Add(globe1Image);
             images.Add(globe2Image);
             images.Add(globe3Image);

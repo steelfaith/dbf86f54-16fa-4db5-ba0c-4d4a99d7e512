@@ -57,6 +57,15 @@ namespace Assets.Scripts
             statusController.SetMonster(baseMonster);      
         }
 
+        internal void CollectResources(int cooldown, ElementalAffinity affinity)
+        {
+            var result = UnityEngine.Random.Range(1, 101);
+            if(result < cooldown *20)
+            {
+                statusController.AddResource(affinity);
+            }
+        }
+
         private void Update()
         {
 

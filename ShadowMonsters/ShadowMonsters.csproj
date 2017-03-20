@@ -91,7 +91,7 @@
     <Compile Include="Assets\Infrastructure\GameToScreenUtility.cs" />
     <Compile Include="Assets\Infrastructure\MonsterList.cs" />
     <Compile Include="Assets\Infrastructure\MonsterPresenceEnum.cs" />
-    <Compile Include="Assets\Infrastructure\MonsterTypeEnum.cs" />
+    <Compile Include="Assets\Infrastructure\ElementalAffinityEnum.cs" />
     <Compile Include="Assets\Infrastructure\PlayerData.cs" />
     <Compile Include="Assets\Infrastructure\RarityToColorExtension.cs" />
     <Compile Include="Assets\KnownAttacks.cs" />
@@ -103,6 +103,7 @@
     <Compile Include="Assets\Scripts\AreaSpawner.cs" />
     <Compile Include="Assets\Scripts\BeginCombatPopup.cs" />
     <Compile Include="Assets\Scripts\BringToFront.cs" />
+    <Compile Include="Assets\Scripts\ButtonPowerUpScript.cs" />
     <Compile Include="Assets\Scripts\ButtonScript.cs" />
     <Compile Include="Assets\Scripts\CastbarScript.cs" />
     <Compile Include="Assets\Scripts\CombatController.cs" />
@@ -144,6 +145,9 @@
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hair_ds.shader" />
     <None Include="Assets\UnityChan\Stage\Shader\AlphaMask.shader" />
     <None Include="Assets\UnityChan\license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\fireball.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

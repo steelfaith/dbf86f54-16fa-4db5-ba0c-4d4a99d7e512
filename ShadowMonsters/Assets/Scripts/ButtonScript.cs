@@ -25,17 +25,16 @@ namespace Assets.Scripts
         private FatbicController fatbic;
         private bool onGlobalCooldown;
         public event EventHandler<DataEventArgs<AttackInfo>> AttackAttempt;
-        bool attackInProgress;
         float nextSecond = 0;
 
         private void Update()
         {
-            if (!attackInProgress && !onGlobalCooldown) return;
+            if (!attackInfo.IsCasting && !onGlobalCooldown) return;
             if(rechargeEnd <= Time.time)
             {                
                 EndCooldown();
                 EndCastTime();
-                attackInProgress = false;
+                attackInfo.IsCasting = false;
                 return;
             }
             if(onGlobalCooldown || attackInfo.DamageStyle == DamageStyle.Instant || attackInfo.DamageStyle == DamageStyle.Tick)
@@ -53,12 +52,13 @@ namespace Assets.Scripts
         {
             fatbic = FatbicController.Instance();
             attackInfo = fatbic.GetAttackInformation(attackIndex);
+            button.image.sprite = attackInfo.Icon;
         }
 
         public void StartButtonAction()
         {            
             if (onGlobalCooldown) return;
-            attackInProgress = true;
+            attackInfo.IsCasting = true;
             castGlowImage.enabled = true;
             if (attackInfo.DamageStyle == DamageStyle.Instant || attackInfo.DamageStyle == DamageStyle.Tick)
             {
@@ -107,10 +107,10 @@ namespace Assets.Scripts
 
         public void CoolDownTick()
         {
-            if (cooldownImage == null || !attackInProgress && !onGlobalCooldown) return;
+            if (cooldownImage == null || !attackInfo.IsCasting && !onGlobalCooldown) return;
             cooldownImage.fillAmount = (rechargeEnd - Time.time) / rechargeTime;
             cooldownImage.color = Color.Lerp(startColor, endColor, 1 - cooldownImage.fillAmount);
-            if(attackInfo.DamageStyle == DamageStyle.Tick && attackInProgress)
+            if(attackInfo.DamageStyle == DamageStyle.Tick && attackInfo.IsCasting)
             {
                 if (Time.time >= nextSecond)
                 {
@@ -123,7 +123,7 @@ namespace Assets.Scripts
 
         public void CastTimeTick()
         {
-            if (castTimeImage == null || !attackInProgress && !onGlobalCooldown) return;
+            if (castTimeImage == null || !attackInfo.IsCasting && !onGlobalCooldown) return;
             castTimeImage.fillAmount = (rechargeEnd - Time.time) / rechargeTime; ;
             castTimeImage.color = Color.Lerp(castTimeStartColor, castTimeEndColor, 1 - castTimeImage.fillAmount);
 
@@ -140,7 +140,7 @@ namespace Assets.Scripts
 
         public void EndCastTime()
         {
-            if (castTimeImage == null || !attackInProgress) return;
+            if (castTimeImage == null || !attackInfo.IsCasting) return;
             castTimeImage.fillAmount = 0.0f;
             castGlowImage.enabled = false;
             button.enabled = true;
@@ -159,10 +159,10 @@ namespace Assets.Scripts
         private void SetButtonColors()
         {
             var buttonImage = button.GetComponent<Image>();
-            var backgroundColor = attackInfo.MonsterAffinity.GetColorFromMonsterAffinity();
+            var backgroundColor = attackInfo.Affinity.GetColorFromMonsterAffinity();
             buttonImage.color = backgroundColor;
             var text = button.GetComponentInChildren<Text>();
-            text.color = ContrastColor(backgroundColor);
+            //text.color = ContrastColor(backgroundColor);
         }
 
         private void FireAttackAttempt()

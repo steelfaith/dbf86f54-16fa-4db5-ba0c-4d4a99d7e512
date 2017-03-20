@@ -18,6 +18,11 @@ namespace Assets.Scripts
         public Button attackFourButton;      
         public Button attackFiveButton;
         public Button stopAttackButton;
+        public Button pUpOneButton;
+        public Button pUpTwoButton;
+        public Button pUpThreeButton;
+        public Button pUpFourButton;
+        public Button pUpFiveButton;
         public Button bondButton;
         public Button runButton;
         public List<ButtonScript> attackButtonScripts = new List<ButtonScript>();
@@ -40,6 +45,7 @@ namespace Assets.Scripts
             serverStub = ServerStub.Instance();
             player = Player.Instance();
             LoadAttacks();
+            InitializePowerUpPress(OnPowerUpOnePressed, OnPowerUpTwoPressed, OnPowerUpThreePressed, OnPowerUpFourPressed, OnPowerUpFivePressed);
         }
 
 
@@ -84,8 +90,54 @@ namespace Assets.Scripts
 
             runButton.onClick.RemoveAllListeners();
             runButton.onClick.AddListener(runAway);
+
+           // 
         }
 
+        private void InitializePowerUpPress(UnityAction pUpOne, UnityAction pUpTwo, UnityAction pUpThree, UnityAction pUpFour, UnityAction pUpFive)
+        {
+             
+            pUpOneButton.onClick.RemoveAllListeners();
+            pUpOneButton.onClick.AddListener(pUpOne);
+
+            pUpTwoButton.onClick.RemoveAllListeners();
+            pUpTwoButton.onClick.AddListener(pUpTwo);
+
+            pUpThreeButton.onClick.RemoveAllListeners();
+            pUpThreeButton.onClick.AddListener(pUpThree);
+
+            pUpFourButton.onClick.RemoveAllListeners();
+            pUpFourButton.onClick.AddListener(pUpFour);
+
+            pUpFiveButton.onClick.RemoveAllListeners();
+            pUpFiveButton.onClick.AddListener(pUpFive);
+
+        }
+
+        private void OnPowerUpOnePressed()
+        {
+            pUpOneButton.GetComponent<ButtonPowerUpScript>().PowerUpAttack();
+        }
+
+        private void OnPowerUpTwoPressed()
+        {
+            pUpTwoButton.GetComponent<ButtonPowerUpScript>().PowerUpAttack();
+        }
+
+        private void OnPowerUpThreePressed()
+        {
+            pUpThreeButton.GetComponent<ButtonPowerUpScript>().PowerUpAttack();
+        }
+
+        private void OnPowerUpFourPressed()
+        {
+            pUpFourButton.GetComponent<ButtonPowerUpScript>().PowerUpAttack();
+        }
+
+        private void OnPowerUpFivePressed()
+        {
+            pUpFiveButton.GetComponent<ButtonPowerUpScript>().PowerUpAttack();
+        }
 
         public void StartGlobalRecharge(int recharge, int exclusionIndex)
         {

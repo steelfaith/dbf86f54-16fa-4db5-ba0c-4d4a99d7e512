@@ -50,6 +50,9 @@ namespace Assets.Scripts
             //eventually attacks would need to be mapped to animations
             player.DoAnimation(AnimationAction.Attack);
             //this would probably be an id to an attack instead of the attack
+            if(e.Data.IsGenerator)
+                player.CollectResources(e.Data.Cooldown, e.Data.Affinity);
+
             AttackResolution attackResult = serverStub.SendAttack(
                 new AttackRequest {
                                      AttackId = e.Data.AttackId,
@@ -99,8 +102,7 @@ namespace Assets.Scripts
 
         private void OnAttackOnePressed()
         {
-            fatbicController.attackOneButton.GetComponent<ButtonScript>().StartButtonAction();
-            
+            fatbicController.attackOneButton.GetComponent<ButtonScript>().StartButtonAction();            
         }
 
         private void OnAttackTwoPressed()

@@ -49,7 +49,7 @@ namespace Assets.Infrastructure
                     colorReturn = new Color32(160, 82, 45, 255);
                     break;
                 case ElementalAffinity.Wind:
-                    colorReturn = new Color32(245, 255, 250, 255);
+                    colorReturn = new Color32(188, 255, 250, 255);
                     break;
                 case ElementalAffinity.Fire:
                     colorReturn = new Color32(204, 0, 0, 255);

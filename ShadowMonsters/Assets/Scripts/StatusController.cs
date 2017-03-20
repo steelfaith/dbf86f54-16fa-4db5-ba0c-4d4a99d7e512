@@ -49,5 +49,10 @@ namespace Assets.Scripts
         {
             //castBar.UpdateCastbar()
         }
+
+        internal void AddResource(ElementalAffinity affinity)
+        {
+            resourceCollector.FillNextImage(affinity);
+        }
     }
 }

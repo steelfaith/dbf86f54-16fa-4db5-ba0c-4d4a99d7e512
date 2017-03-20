@@ -27,10 +27,7 @@ namespace Assets.Scripts
         private AnimationController animationController;
 
         private void Awake()
-        {
-            //this would probably be in some login object somewhere when we have that.  this would need to get that data.
-            Id = ServerStub.Authenticate();
-            
+        {          
             ControlledMonsters = new List<GameObject>();        
         }
 
@@ -40,6 +37,8 @@ namespace Assets.Scripts
             monsterSpawner = MonsterSpawner.Instance();
             animationController = AnimationController.Instance();
             baseMonster = GetComponent<BaseMonster>();
+            //this would probably be in some login object somewhere when we have that.  this would need to get that data.
+            Id = serverStub.Authenticate();
             currentData = serverStub.GetPlayerData(Id);
             baseMonster.DisplayName = currentData.DisplayName;
             baseMonster.CurrentHealth = currentData.CurrentHealth;
@@ -59,6 +58,7 @@ namespace Assets.Scripts
 
         internal void CollectResources(int cooldown, ElementalAffinity affinity)
         {
+            //move to server
             var result = UnityEngine.Random.Range(1, 101);
             if(result < cooldown *20)
             {

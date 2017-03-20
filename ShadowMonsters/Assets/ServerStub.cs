@@ -12,6 +12,7 @@ namespace Assets
         Dictionary<MonsterList, ElementalAffinity> monsterAffinityMatchup = new Dictionary<MonsterList, ElementalAffinity>();
         Dictionary<Guid,MonsterInfo> spawnedMonsters = new Dictionary<Guid,MonsterInfo>();
         Dictionary<Guid, PlayerData> players = new Dictionary<Guid, PlayerData>();
+        Dictionary<Guid, Dictionary<ElementalAffinity, int>> playerResources = new Dictionary<Guid, Dictionary<ElementalAffinity, int>>();
         KnownAttacks knownAttacks;
 
         MonsterInfo enemyMonster;
@@ -30,6 +31,18 @@ namespace Assets
             return enemyMonster;
         }
 
+        public void AddPlayerResource(Guid iD,ElementalAffinity resource)
+        {
+            Dictionary<ElementalAffinity, int> thisPlayerDict;
+            playerResources.TryGetValue(iD, out thisPlayerDict);
+            if (thisPlayerDict == null) return;
+            int currentResource;
+            thisPlayerDict.TryGetValue(resource, out currentResource);
+
+            thisPlayerDict[resource] = currentResource++;
+
+        }
+
         public AttackResolution PerformRandomAttackSequence(Guid monsterId, Guid target, Guid callbackId)
         {
 
@@ -42,9 +55,15 @@ namespace Assets
             var attacks = GetAttacksForMonster(monsterId);
             return new AttackResolution();
         }
-        
 
         internal PlayerData GetPlayerData(Guid id)
+        {
+            PlayerData outData;
+            players.TryGetValue(id, out outData);
+            return outData;
+        }
+
+        private PlayerData CreatePlayerData(Guid id)
         {
             var team = new List<MonsterInfo>
                                 {
@@ -80,7 +99,8 @@ namespace Assets
                 CurrentHealth = 50
                         
             };
-            players.Add(id, data);
+            
+            
             return data;
         }
 
@@ -97,9 +117,15 @@ namespace Assets
             return attackList;
         }
 
-        internal static Guid Authenticate()
+        internal Guid Authenticate()
         {
-            return Guid.NewGuid();
+            //creates a player for anyone!  security
+            
+            var playerId = Guid.NewGuid();
+            var data = CreatePlayerData(playerId);
+            players.Add(playerId, data);
+            playerResources.Add(playerId, new Dictionary<ElementalAffinity, int>());
+            return playerId;
         }
 
         public List<AttackInfo> GetAttacksForMonster(Guid monsterId)

@@ -19,6 +19,8 @@ namespace Assets.Scripts
         public Transform Dragonling;
         public Transform Humpback;
         public Transform UnityChan;
+        public Transform Tripod;
+        public Transform MiniLandShark;
 
         private Dictionary<string, Transform> _monsterList = new Dictionary<string, Transform>();
         private Dictionary<string, Dictionary<AnimationAction, string>> animationMapping = new Dictionary<string, Dictionary<AnimationAction, string>>();
@@ -34,6 +36,8 @@ namespace Assets.Scripts
             _monsterList.Add(GreenSpider.gameObject.name, GreenSpider);
             _monsterList.Add(Dragonling.gameObject.name, Dragonling);
             _monsterList.Add(Humpback.gameObject.name, Humpback);
+            _monsterList.Add(Tripod.gameObject.name, Tripod);
+            _monsterList.Add(MiniLandShark.gameObject.name, MiniLandShark);
             AddMonsterAnimationMappings();
         }
         private void AddMonsterAnimationMappings()
@@ -96,6 +100,22 @@ namespace Assets.Scripts
                                                                                 { AnimationAction.Die, "LOSE00" },
                                                                                 { AnimationAction.GetHit, "DAMAGED00" },
                                                                                 { AnimationAction.Victory, "WIN00" }
+                                                                            };
+            animationMapping[Tripod.gameObject.name] = new Dictionary<AnimationAction, string>
+                                                                            {
+
+                                                                                { AnimationAction.Attack, "tripodfire" },
+                                                                                { AnimationAction.Die, "tripoddeath" },
+                                                                                { AnimationAction.GetHit, "tripodwalkback" },
+                                                                                { AnimationAction.Victory, "tripodidle" }
+                                                                            };
+            animationMapping[MiniLandShark.gameObject.name] = new Dictionary<AnimationAction, string>
+                                                                            {
+
+                                                                                { AnimationAction.Attack, "AttackBite" },
+                                                                                { AnimationAction.Die, "DeathHit" },
+                                                                                { AnimationAction.GetHit, "HitBasic" },
+                                                                                { AnimationAction.Victory, "JumpStationary" }
                                                                             };
 
         }

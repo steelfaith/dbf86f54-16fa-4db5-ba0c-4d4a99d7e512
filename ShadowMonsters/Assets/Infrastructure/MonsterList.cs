@@ -15,6 +15,10 @@ namespace Assets.Infrastructure
         [Description("Dragonling")]
         Dragonling,
         [Description("Humpback Whale")]
-        Humpback
+        Humpback,
+        [Description("Tripod")]
+        Tripod,
+        [Description("Mini Land Shark")]
+        MiniLandShark
     }
 }

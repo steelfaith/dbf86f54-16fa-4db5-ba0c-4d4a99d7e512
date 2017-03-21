@@ -96,13 +96,11 @@ namespace Assets.Scripts
                 spawnedMonster.localScale = new Vector3(scaleX / 2, scaleY / 2, scaleZ / 2);
             }
 
-            var renderer = spawnedMonster.GetComponentInChildren<MeshRenderer>();
-            if(renderer != null)
+            var renderer = spawnedMonster.GetComponentInChildren<Renderer>();
+            if (renderer != null)
             {
-                var newSize = renderer.bounds.size.y /2;
-                var localPosition = spawnedMonster.localPosition;
-                spawnedMonster.localPosition = new Vector3(localPosition.x, CombatSceneHeight + newSize, localPosition.z);
-            }            
+                renderer.material.color = new Color32(255, 223, 0, 50);
+            }
 
             _spawns.Add(spawnedMonster.gameObject);
             return spawnedMonster.gameObject;

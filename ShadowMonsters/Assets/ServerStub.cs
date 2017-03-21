@@ -75,10 +75,17 @@ namespace Assets
                                     //    IsTeamLead = true,
                                     //    AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
                                     //},
-                                    new MonsterInfo(MonsterList.DemonEnforcer,  UnityEngine.Random.Range(1,101))
+                                    //new MonsterInfo(MonsterList.DemonEnforcer,  UnityEngine.Random.Range(1,101))
+                                    //{
+                                    //    MonsterAffinity = monsterAffinityMatchup[MonsterList.DemonEnforcer],
+                                    //    NickName = "Fluffy",
+                                    //    MonsterId = Guid.NewGuid(),
+                                    //    AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
+                                    //},
+                                    new MonsterInfo(MonsterList.MiniLandShark,  UnityEngine.Random.Range(1,101))
                                     {
-                                        MonsterAffinity = monsterAffinityMatchup[MonsterList.DemonEnforcer],
-                                        NickName = "Fluffy",
+                                        MonsterAffinity = monsterAffinityMatchup[MonsterList.MiniLandShark],
+                                        NickName = "Big Eddy",
                                         MonsterId = Guid.NewGuid(),
                                         AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
                                     },
@@ -181,6 +188,8 @@ namespace Assets
             monsterAffinityMatchup.Add(MonsterList.GreenSpider, ElementalAffinity.Wood);
             monsterAffinityMatchup.Add(MonsterList.Dragonling, ElementalAffinity.Dragon);
             monsterAffinityMatchup.Add(MonsterList.Humpback, ElementalAffinity.Water);
+            monsterAffinityMatchup.Add(MonsterList.Tripod, ElementalAffinity.Mechanical);
+            monsterAffinityMatchup.Add(MonsterList.MiniLandShark, ElementalAffinity.Water);
         }
 
         private void Start()

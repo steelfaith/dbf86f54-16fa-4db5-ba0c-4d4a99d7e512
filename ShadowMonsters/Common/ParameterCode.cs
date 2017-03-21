@@ -8,9 +8,5 @@
         Position,
         Rotation,
         OldRotation,
-        Properties,
-        Username,
-        WorldName,
-
     }
 }

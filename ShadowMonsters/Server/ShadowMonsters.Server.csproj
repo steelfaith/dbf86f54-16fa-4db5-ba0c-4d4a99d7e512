@@ -70,12 +70,10 @@
     <Compile Include="Messages\ItemPositionMessage.cs" />
     <Compile Include="MethodReturnValue.cs" />
     <Compile Include="OperationHandlers\BattleActorOperationHandler.cs" />
-    <Compile Include="OperationHandlers\ConnectionOperationHandler.cs" />
     <Compile Include="OperationHandlers\WorldActorOperationHandler.cs" />
     <Compile Include="Operations\EnterWorld.cs" />
     <Compile Include="Operations\Move.cs" />
     <Compile Include="Operations\StartBattle.cs" />
-    <Compile Include="PlayerActor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerHost.cs" />
     <Compile Include="Settings.cs" />

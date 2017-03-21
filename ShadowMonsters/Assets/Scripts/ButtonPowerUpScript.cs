@@ -45,6 +45,7 @@ namespace Assets.Scripts
             {
                 
                 case 1:
+                    button.image.sprite = Resources.Load<Sprite>("power up one");
                     break;
                 case 2:
                     button.image.sprite = Resources.Load<Sprite>("power up two");
@@ -54,7 +55,7 @@ namespace Assets.Scripts
                     break;
 
                 default:
-                    button.image.sprite = Resources.Load<Sprite>("power up one");
+                    button.image.sprite = button.interactable? Resources.Load<Sprite>("power up one"): Resources.Load<Sprite>("Blank");
                     button.image.color = Color.white;
                     break;
             }

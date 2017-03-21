@@ -103,6 +103,7 @@
     <Compile Include="Assets\Scripts\AreaSpawner.cs" />
     <Compile Include="Assets\Scripts\BeginCombatPopup.cs" />
     <Compile Include="Assets\Scripts\BringToFront.cs" />
+    <Compile Include="Assets\Scripts\ButtonPowerDownScript.cs" />
     <Compile Include="Assets\Scripts\ButtonPowerUpScript.cs" />
     <Compile Include="Assets\Scripts\ButtonScript.cs" />
     <Compile Include="Assets\Scripts\CastbarScript.cs" />

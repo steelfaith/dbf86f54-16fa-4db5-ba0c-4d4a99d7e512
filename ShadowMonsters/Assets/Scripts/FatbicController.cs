@@ -25,6 +25,11 @@ namespace Assets.Scripts
         public Button pUpFiveButton;
         public Button bondButton;
         public Button runButton;
+        public Button pDownOneButton;
+        public Button pDownTwoButton;
+        public Button pDownThreeButton;
+        public Button pDownFourButton;
+        public Button pDownFiveButton;
         public List<ButtonScript> attackButtonScripts = new List<ButtonScript>();
         public event EventHandler<DataEventArgs<AttackInfo>> AttackAttempt;
         private List<AttackInfo> attackInfoList;
@@ -46,6 +51,7 @@ namespace Assets.Scripts
             player = Player.Instance();
             LoadAttacks();
             InitializePowerUpPress(OnPowerUpOnePressed, OnPowerUpTwoPressed, OnPowerUpThreePressed, OnPowerUpFourPressed, OnPowerUpFivePressed);
+            InitializePowerDownPress(OnPowerDownOnePressed, OnPowerDownTwoPressed, OnPowerDownThreePressed, OnPowerDownFourPressed, OnPowerDownFivePressed);
         }
 
 
@@ -91,7 +97,7 @@ namespace Assets.Scripts
             runButton.onClick.RemoveAllListeners();
             runButton.onClick.AddListener(runAway);
 
-           // 
+
         }
 
         private void InitializePowerUpPress(UnityAction pUpOne, UnityAction pUpTwo, UnityAction pUpThree, UnityAction pUpFour, UnityAction pUpFive)
@@ -111,6 +117,26 @@ namespace Assets.Scripts
 
             pUpFiveButton.onClick.RemoveAllListeners();
             pUpFiveButton.onClick.AddListener(pUpFive);
+
+        }
+
+        private void InitializePowerDownPress(UnityAction pDownOne, UnityAction pDownTwo, UnityAction pDownThree, UnityAction pDownFour, UnityAction pDownFive)
+        {
+
+            pDownOneButton.onClick.RemoveAllListeners();
+            pDownOneButton.onClick.AddListener(pDownOne);
+
+            pDownTwoButton.onClick.RemoveAllListeners();
+            pDownTwoButton.onClick.AddListener(pDownTwo);
+
+            pDownThreeButton.onClick.RemoveAllListeners();
+            pDownThreeButton.onClick.AddListener(pDownThree);
+
+            pDownFourButton.onClick.RemoveAllListeners();
+            pDownFourButton.onClick.AddListener(pDownFour);
+
+            pDownFiveButton.onClick.RemoveAllListeners();
+            pDownFiveButton.onClick.AddListener(pDownFive);
 
         }
 
@@ -137,6 +163,31 @@ namespace Assets.Scripts
         private void OnPowerUpFivePressed()
         {
             pUpFiveButton.GetComponent<ButtonPowerUpScript>().PowerUpAttack();
+        }
+
+        private void OnPowerDownOnePressed()
+        {
+            pDownOneButton.GetComponent<ButtonPowerDownScript>().PowerDownAttack();
+        }
+
+        private void OnPowerDownTwoPressed()
+        {
+            pDownTwoButton.GetComponent<ButtonPowerDownScript>().PowerDownAttack();
+        }
+
+        private void OnPowerDownThreePressed()
+        {
+            pDownThreeButton.GetComponent<ButtonPowerDownScript>().PowerDownAttack();
+        }
+
+        private void OnPowerDownFourPressed()
+        {          
+            pDownFourButton.GetComponent<ButtonPowerDownScript>().PowerDownAttack();
+        }
+
+        private void OnPowerDownFivePressed()
+        {
+            pDownFiveButton.GetComponent<ButtonPowerDownScript>().PowerDownAttack();
         }
 
         public void StartGlobalRecharge(int recharge, int exclusionIndex)

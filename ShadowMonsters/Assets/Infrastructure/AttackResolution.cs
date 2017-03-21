@@ -8,7 +8,7 @@ namespace Assets.Infrastructure
     public class AttackResolution
     {
         public bool WasCritical { get; set; }
-        public int Damage { get; set; }
+        public float Damage { get; set; }
         public Guid TargetId { get; set; }
         public float MaxHealth { get; set; }
         public float CurrentHealth { get; set; }

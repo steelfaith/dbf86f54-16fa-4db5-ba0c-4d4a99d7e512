@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Assets.Infrastructure;
+using Assets.ServerStubHome;
 using System;
 
 namespace Assets.Scripts
@@ -99,7 +100,8 @@ namespace Assets.Scripts
             var renderer = spawnedMonster.GetComponentInChildren<Renderer>();
             if (renderer != null)
             {
-                renderer.material.color = new Color32(255, 223, 0, 50);
+                //renderer.material.color = new Color32(255, 223, 0, 50);
+                renderer.material.color = new Color32(0, 67, 200, 50);
             }
 
             _spawns.Add(spawnedMonster.gameObject);

@@ -5,14 +5,14 @@ using System.Text;
 using Assets.Infrastructure;
 using UnityEngine;
 
-namespace Assets
+namespace Assets.ServerStubHome
 {
     public class ServerStub : MonoBehaviour
     {
         Dictionary<MonsterList, ElementalAffinity> monsterAffinityMatchup = new Dictionary<MonsterList, ElementalAffinity>();
         Dictionary<Guid,MonsterInfo> spawnedMonsters = new Dictionary<Guid,MonsterInfo>();
         Dictionary<Guid, PlayerData> players = new Dictionary<Guid, PlayerData>();
-        Dictionary<Guid, Dictionary<ElementalAffinity, int>> playerResources = new Dictionary<Guid, Dictionary<ElementalAffinity, int>>();
+        Dictionary<Guid, List<ElementalAffinity>> playerResources = new Dictionary<Guid, List<ElementalAffinity>>();
         KnownAttacks knownAttacks;
 
         MonsterInfo enemyMonster;
@@ -31,16 +31,21 @@ namespace Assets
             return enemyMonster;
         }
 
-        public void AddPlayerResource(Guid iD,ElementalAffinity resource)
+        public AddResourceResponse AddPlayerResource(AddResourceRequest request)
         {
-            Dictionary<ElementalAffinity, int> thisPlayerDict;
-            playerResources.TryGetValue(iD, out thisPlayerDict);
-            if (thisPlayerDict == null) return;
-            int currentResource;
-            thisPlayerDict.TryGetValue(resource, out currentResource);
+            List<ElementalAffinity> thisPlayerResources;
+            playerResources.TryGetValue(request.PlayerId, out thisPlayerResources);
+            if (thisPlayerResources == null) return null;
+            if(thisPlayerResources.Count<6)
+            {
+                thisPlayerResources.Add(request.Affinity);
+            }
 
-            thisPlayerDict[resource] = currentResource++;
-
+            return new AddResourceResponse
+            {
+                Resources = thisPlayerResources,
+                Id = request.PlayerId
+            };
         }
 
         public AttackResolution PerformRandomAttackSequence(Guid monsterId, Guid target, Guid callbackId)
@@ -111,6 +116,11 @@ namespace Assets
             return data;
         }
 
+        internal void ClearPlayerResources(Guid id)
+        {
+            playerResources[id] = new List<ElementalAffinity>();
+        }
+
         private List<Guid> GetAttackIdList(Dictionary<Guid,AttackInfo> fromDictionary)
         {
             var attackList = new List<Guid>();
@@ -131,7 +141,7 @@ namespace Assets
             var playerId = Guid.NewGuid();
             var data = CreatePlayerData(playerId);
             players.Add(playerId, data);
-            playerResources.Add(playerId, new Dictionary<ElementalAffinity, int>());
+            playerResources.Add(playerId, new List<ElementalAffinity>());
             return playerId;
         }
 

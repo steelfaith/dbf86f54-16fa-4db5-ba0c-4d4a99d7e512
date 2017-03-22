@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Infrastructure;
+using Assets.ServerStubHome;
 using System.Linq;
 using UnityEngine.SceneManagement;
 using System;
@@ -51,7 +52,7 @@ namespace Assets.Scripts
             player.DoAnimation(AnimationAction.Attack);
             //this would probably be an id to an attack instead of the attack
             if(e.Data.IsGenerator)
-                player.CollectResources(e.Data.Cooldown, e.Data.Affinity);
+                player.CollectResources(e.Data.Affinity);
 
             AttackResolution attackResult = serverStub.SendAttack(
                 new AttackRequest {
@@ -81,6 +82,7 @@ namespace Assets.Scripts
          
                 UnloadCombatScene();
                 enemyController.EndCombat();
+                player.EndCombat();
                 combatEnded = false;
             }
         }

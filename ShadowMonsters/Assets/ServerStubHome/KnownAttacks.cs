@@ -5,7 +5,7 @@ using System.Text;
 using Assets.Infrastructure;
 using UnityEngine;
 
-namespace Assets
+namespace Assets.ServerStubHome
 {
 
     public class KnownAttacks

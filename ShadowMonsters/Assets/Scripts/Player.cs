@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Assets.Infrastructure;
+using Assets.ServerStubHome;
 using System.Threading;
 using UnityEngine.SceneManagement;
 
@@ -56,14 +57,16 @@ namespace Assets.Scripts
             statusController.SetMonster(baseMonster);      
         }
 
-        internal void CollectResources(int cooldown, ElementalAffinity affinity)
+        internal void CollectResources(ElementalAffinity affinity)
         {
-            //move to server
-            var result = UnityEngine.Random.Range(1, 101);
-            if(result < cooldown *20)
+
+            var response = serverStub.AddPlayerResource(new AddResourceRequest
             {
-                statusController.AddResource(affinity);
-            }
+                PlayerId = Id,
+                Affinity = affinity,
+            });
+
+            statusController.UpdateResources(response.Resources);            
         }
 
         private void Update()
@@ -99,6 +102,11 @@ namespace Assets.Scripts
 
             incarnatedMonster = lead;
             return leadBaseMonster.MonsterId;
+        }
+
+        internal void EndCombat()
+        {
+            serverStub.ClearPlayerResources(Id);
         }
 
         public void DoAnimation(AnimationAction action)

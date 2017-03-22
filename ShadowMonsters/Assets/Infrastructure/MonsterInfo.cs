@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Infrastructure
 {
@@ -41,7 +42,9 @@ namespace Assets.Infrastructure
         }
         public int Level { get; set; }
 
-        public List<Guid> AttackIds;        
+        public List<Guid> AttackIds;   
+        
+        public List<Color32> ColorWheel { get; set; }     
 
     }
 }

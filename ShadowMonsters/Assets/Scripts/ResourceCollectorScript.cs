@@ -31,10 +31,23 @@ namespace Assets.Scripts
 
         }
 
-        public void FillNextImage(ElementalAffinity attackType)
+        public void UpdatePlayerResources(List<ElementalAffinity> resources)
         {
-            var unfilled = images.First(x => x.color.a < 1);
-            unfilled.color = attackType.GetColorFromMonsterAffinity();            
+            Clear();
+            int i = 0;
+            foreach (ElementalAffinity item in resources)
+            {
+                images[i].color = item.GetColorFromMonsterAffinity();                
+                i++;
+            }                  
+        }
+
+        private void Clear()
+        {
+            foreach (Image item in images)
+            {
+                item.color = new Color32(255, 255, 255, 0);
+            }
         }
     }
 }

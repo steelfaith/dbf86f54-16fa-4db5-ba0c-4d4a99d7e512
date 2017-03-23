@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Infrastructure;
 
 namespace Assets.Scripts
 {
@@ -18,7 +19,7 @@ namespace Assets.Scripts
             scrollingText = scrollingCombatTextPrefab.GetComponent<ScrollingCombatText>();
         }
 
-        public void CreateScrollingCombatTextInstance(string damage, bool crit, Transform location)
+        public void CreateScrollingCombatTextInstance(AttackResolution results, Transform location)
         {
             float height = 0;
 
@@ -37,7 +38,13 @@ namespace Assets.Scripts
 
             instance.transform.position = screenPosition;
             
-            instance.SetText(damage,crit);
+            if(!results.Success)
+            { instance.SetText("Miss!", false); }
+            else
+            {
+                instance.SetText(string.Format("-{0}", results.Damage.ToString()), results.WasCritical);
+            }
+            
         }
 
         private static ScrollingCombatTextController scrollingCombatTextController;

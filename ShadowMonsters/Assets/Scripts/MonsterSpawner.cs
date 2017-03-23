@@ -100,8 +100,9 @@ namespace Assets.Scripts
             var renderer = spawnedMonster.GetComponentInChildren<Renderer>();
             if (renderer != null)
             {
-                //renderer.material.color = new Color32(255, 223, 0, 50);
-                renderer.material.color = new Color32(0, 67, 200, 50);
+                //this is how you can change the prefab's color
+                //renderer.material.color = new Color32(255, 223, 0, 50); //gold
+                //renderer.material.color = new Color32(0, 67, 200, 50);
             }
 
             _spawns.Add(spawnedMonster.gameObject);

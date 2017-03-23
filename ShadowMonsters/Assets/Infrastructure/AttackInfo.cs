@@ -9,6 +9,8 @@ namespace Assets.Infrastructure
 {
     public class AttackInfo
     {
+        public int Accuracy { get; set; }
+
         public Guid AttackId { get; set; }
 
         public string Name { get; set; }

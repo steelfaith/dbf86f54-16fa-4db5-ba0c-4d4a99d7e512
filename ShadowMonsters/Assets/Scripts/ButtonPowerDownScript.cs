@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using Assets.Infrastructure;
 
@@ -14,6 +10,7 @@ namespace Assets.Scripts
         public int attackIndex;
         private AttackInfo attackInfo;
         private FatbicController fatbic;
+        private Player player;
 
 
         private void Awake()
@@ -24,6 +21,7 @@ namespace Assets.Scripts
         private void Start()
         {
             fatbic = FatbicController.Instance();
+            player = Player.Instance();
             attackInfo = fatbic.GetAttackInformation(attackIndex);
         }
 
@@ -35,7 +33,11 @@ namespace Assets.Scripts
         public void PowerDownAttack()
         {
             if (attackInfo.PowerLevel > 0)
+            {
+                player.PowerDownAttack(attackInfo.Affinity);
                 attackInfo.PowerLevel--;
+            }
+                
         }
 
         private void UpdateButton()

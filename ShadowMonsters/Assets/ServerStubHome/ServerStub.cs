@@ -116,6 +116,20 @@ namespace Assets.ServerStubHome
             return data;
         }
 
+        public BurnResourceResponse BurnResource(BurnResourceRequest request)
+        {
+            List<ElementalAffinity> thisPlayerResources;
+            playerResources.TryGetValue(request.PlayerId, out thisPlayerResources);
+            if (thisPlayerResources == null) return null;
+            bool success = false;
+            if(thisPlayerResources.Contains(request.NeededResource))
+            {
+                thisPlayerResources.RemoveAt(thisPlayerResources.FindLastIndex(x => x == request.NeededResource));
+                success = true;
+            }
+            return new BurnResourceResponse { PlayerId = request.PlayerId, CurrentResources = thisPlayerResources, Success = success};
+        }
+
         internal void ClearPlayerResources(Guid id)
         {
             playerResources[id] = new List<ElementalAffinity>();
@@ -225,6 +239,21 @@ namespace Assets.ServerStubHome
                 return null;
             }
 
+            //determine hit 
+            var swing = UnityEngine.Random.Range(1, 101);
+            if(swing > attack.Accuracy)
+            {
+                attack.PowerLevel = 0; //burned!
+                return new AttackResolution
+                {
+                    MaxHealth = target.MaxHealth,
+                    CurrentHealth = target.CurrentHealth,
+                    TargetId = target.MonsterId,
+                    AttackPerformed = attack,
+                    Success = false,
+                };
+            }
+
             float powerUpBonusPercentMultiplier = (attack.PowerLevel / 10f) + 1;
             
             var crit = IsCrit();
@@ -250,7 +279,9 @@ namespace Assets.ServerStubHome
                 Damage = damage,
                 MaxHealth = target.MaxHealth,
                 CurrentHealth = target.CurrentHealth,
-                TargetId = target.MonsterId
+                TargetId = target.MonsterId,
+                AttackPerformed = attack,
+                Success = true,
             };
 
         }

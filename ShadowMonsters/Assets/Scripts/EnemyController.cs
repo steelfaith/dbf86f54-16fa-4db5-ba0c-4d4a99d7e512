@@ -59,7 +59,7 @@ namespace Assets.Scripts
         {
             enemyStatusController.UpdateMonster(results);
             animationController.PlayAnimation(enemy, AnimationAction.GetHit);
-            scrollingCombatTextController.CreateScrollingCombatTextInstance(results.Damage.ToString(), results.WasCritical, enemy.transform);
+            scrollingCombatTextController.CreateScrollingCombatTextInstance(results, enemy.transform);
 
             if (results.WasFatal)
             {

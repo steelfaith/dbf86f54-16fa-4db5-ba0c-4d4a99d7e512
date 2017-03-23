@@ -39,18 +39,20 @@ namespace Assets.ServerStubHome
                     BaseDamage = 50,
                     Icon = Resources.Load<Sprite>("fireball") ,
                     CanPowerUp = true,
+                    Accuracy = 90
                 },
                 new AttackInfo
                 {
                     AttackId = Guid.NewGuid(),
-                    Name = "Doom Bolt",
+                    Name = "Wind Bolt",
                     DamageStyle = DamageStyle.Delayed,
-                    Affinity =ElementalAffinity.Demon,
+                    Affinity =ElementalAffinity.Wind,
                     CastTime = 5,
                     Cooldown = 0,
                     BaseDamage = 70,
                     Icon = Resources.Load<Sprite>("bolt"),
                     CanPowerUp = true,
+                    Accuracy = 95
                 },
                  new AttackInfo
                 {
@@ -62,6 +64,7 @@ namespace Assets.ServerStubHome
                     Cooldown = 5,
                     BaseDamage =15,
                     Icon =  Resources.Load<Sprite>("axe"),
+                    Accuracy = 65,
         },
                 new AttackInfo
                 {
@@ -74,18 +77,20 @@ namespace Assets.ServerStubHome
                     BaseDamage = 35,
                     Icon = Resources.Load<Sprite>("fist"),
                     IsGenerator = true,
+                    Accuracy = 100,
                 },
                 new AttackInfo
                 {
                     AttackId = Guid.NewGuid(),
-                    Name = "Wing Smash",
+                    Name = "Wing Smack",
                     DamageStyle = DamageStyle.Instant,
                     Affinity =ElementalAffinity.Fae,
                     CastTime = 0,
-                    Cooldown = 4,
-                    BaseDamage = 60,
+                    Cooldown = 2,
+                    BaseDamage = 35,
                     Icon = Resources.Load<Sprite>("wings"),
                     IsGenerator = true,
+                    Accuracy = 100,
                 }
             };
 

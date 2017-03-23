@@ -26,6 +26,7 @@ namespace Assets.Scripts
         private StatusController statusController;
         private BaseMonster baseMonster; //we are all monsters inside....
         private AnimationController animationController;
+        public List<ElementalAffinity> currentResources;
 
         private void Awake()
         {          
@@ -66,7 +67,26 @@ namespace Assets.Scripts
                 Affinity = affinity,
             });
 
+            currentResources = response.Resources;
+
             statusController.UpdateResources(response.Resources);            
+        }
+
+        public void PowerDownAttack(ElementalAffinity affinity)
+        {
+            CollectResources(affinity);
+            textLogDisplayManager.AddText(string.Format("You power down the attack and regain one {0} resource.", affinity.ToString()), AnnouncementType.System);
+        }
+
+        public bool TryBurnPlayerResource(ElementalAffinity resource)
+        {
+            var response = serverStub.BurnResource(new BurnResourceRequest { NeededResource = resource, PlayerId = Id });
+            if (response == null) return false;
+            if (response.PlayerId != Id) return false;
+            currentResources = response.CurrentResources;
+            statusController.UpdateResources(response.CurrentResources);
+            textLogDisplayManager.AddText(response.Success ? "You powered up the attack!" : string.Format("Not enough {0} resources to power up this attack.", resource.ToString()), AnnouncementType.System);
+            return response.Success;
         }
 
         private void Update()

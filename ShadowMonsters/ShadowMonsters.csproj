@@ -79,6 +79,8 @@
   <ItemGroup>
     <Compile Include="Assets\Infrastructure\AddResourceRequest.cs" />
     <Compile Include="Assets\Infrastructure\AddResourceResponse.cs" />
+    <Compile Include="Assets\Infrastructure\BurnResourceResponse.cs" />
+    <Compile Include="Assets\Infrastructure\BurnResourcesRequest.cs" />
     <Compile Include="Assets\Infrastructure\IMonster.cs" />
     <Compile Include="Assets\ServerStubHome\AttackInstance.cs" />
     <Compile Include="Assets\Infrastructure\AnimationActionEnum.cs" />

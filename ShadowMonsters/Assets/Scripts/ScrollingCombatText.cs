@@ -20,7 +20,7 @@ namespace Assets.Scripts
 
         public void SetText(string text, bool crit)
         {
-            damageText.text = string.Format("-{0}", text);
+            damageText.text = text;
         }
 
 

@@ -59,10 +59,19 @@ namespace Assets.Scripts
                                      AttackId = e.Data.AttackId,
                                      TargetId = enemyController.enemyInfo.MonsterId
                                   });
-            enemyController.ResolveAttack(attackResult);
             if (attackResult == null) return;
+            
 
-
+            enemyController.ResolveAttack(attackResult);
+            if (attackResult.Success)
+            {
+                _textLogDisplayManager.AddText(string.Format("Your {0}{1} hit {2} for {3} damage!", attackResult.AttackPerformed.Name, attackResult.WasCritical ? " critically" : "", enemyController.enemyInfo.DisplayName, attackResult.Damage.ToString()), AnnouncementType.Friendly);
+            }
+            else
+            {
+                _textLogDisplayManager.AddText(string.Format("Your {0} missed {1}.", attackResult.AttackPerformed.Name, enemyController.enemyInfo.DisplayName), AnnouncementType.Friendly);
+            }
+                
             if (attackResult.WasFatal)
             {
                 combatEnded = true;

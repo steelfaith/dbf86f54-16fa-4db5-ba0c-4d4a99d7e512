@@ -14,6 +14,8 @@ namespace Assets.Scripts
         public int attackIndex;
         private AttackInfo attackInfo;
         private FatbicController fatbic;
+        private Player player;
+        private TextLogDisplayManager textLogDisplayManager;
 
 
         private void Awake()
@@ -24,6 +26,8 @@ namespace Assets.Scripts
         private void Start()
         {
             fatbic = FatbicController.Instance();
+            player = Player.Instance();
+            textLogDisplayManager = TextLogDisplayManager.Instance();
             attackInfo = fatbic.GetAttackInformation(attackIndex);
         }
 
@@ -34,7 +38,13 @@ namespace Assets.Scripts
 
         public void PowerUpAttack()
         {
-            attackInfo.PowerLevel++;
+            if(attackInfo.PowerLevel >= 3)
+            {
+                textLogDisplayManager.AddText("Attack can not be powered up farther!", AnnouncementType.System);
+                return;
+            }
+            if(player.TryBurnPlayerResource(attackInfo.Affinity))
+                attackInfo.PowerLevel++;
         }
 
         private void UpdateButton()

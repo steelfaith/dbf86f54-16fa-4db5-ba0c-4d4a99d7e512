@@ -14,5 +14,6 @@ namespace Assets.Infrastructure
         public float CurrentHealth { get; set; }
         public bool WasFatal { get; set; }
         public AttackInfo AttackPerformed { get; set; }
+        public bool Success { get; set; }
     }
 }

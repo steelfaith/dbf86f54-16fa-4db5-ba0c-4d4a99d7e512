@@ -47,7 +47,7 @@ namespace Assets.Scripts
                     colorHexString = "#00ff00ff";
                     break;
                 case AnnouncementType.System:
-                    colorHexString = "#0000ffff";
+                    colorHexString = "#ADD8E6";
                     break;
                 default:
                     break;

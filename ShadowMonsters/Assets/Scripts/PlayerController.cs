@@ -82,7 +82,8 @@ namespace Assets.Scripts
 
         internal void ClearResources()
         {
-            serverStub.ClearPlayerResources(Id);
+            currentResources = serverStub.ClearPlayerResources(Id);
+            statusController.UpdateResources(currentResources);
         }
     }
 }

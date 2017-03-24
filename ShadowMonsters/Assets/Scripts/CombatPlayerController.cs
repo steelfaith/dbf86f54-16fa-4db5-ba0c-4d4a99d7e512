@@ -24,9 +24,12 @@ namespace Assets.Scripts
         private void Start()
         {
             playerController = PlayerController.Instance();
+            baseMonster = GetComponent<BaseMonster>();
             monsterSpawner = MonsterSpawner.Instance();
             animationController = AnimationController.Instance();
             textLogDisplayManager = TextLogDisplayManager.Instance();
+
+            baseMonster.NameKey = "unitychan";
         }
 
         private void Update()

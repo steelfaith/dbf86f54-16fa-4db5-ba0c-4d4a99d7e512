@@ -131,9 +131,9 @@ namespace Assets.ServerStubHome
             return new BurnResourceResponse { PlayerId = request.PlayerId, CurrentResources = thisPlayerResources, Success = success};
         }
 
-        internal void ClearPlayerResources(Guid id)
+        internal List<ElementalAffinity> ClearPlayerResources(Guid id)
         {
-            playerResources[id] = new List<ElementalAffinity>();
+            return playerResources[id] = new List<ElementalAffinity>();
         }
 
         private List<Guid> GetAttackIdList(Dictionary<Guid,AttackInfo> fromDictionary)

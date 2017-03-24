@@ -35,7 +35,7 @@ namespace Assets.Scripts
         public event EventHandler<DataEventArgs<AttackInfo>> AttackAttempt;
         private List<AttackInfo> attackInfoList;
         private ServerStub serverStub;
-        private Player player;
+        private PlayerController player;
 
         public AttackInfo GetAttackInformation(int attackIndex)
         {
@@ -49,7 +49,7 @@ namespace Assets.Scripts
         private void Start()
         {
             serverStub = ServerStub.Instance();
-            player = Player.Instance();
+            player = PlayerController.Instance();
             LoadAttacks();
             InitializePowerUpPress(OnPowerUpOnePressed, OnPowerUpTwoPressed, OnPowerUpThreePressed, OnPowerUpFourPressed, OnPowerUpFivePressed);
             InitializePowerDownPress(OnPowerDownOnePressed, OnPowerDownTwoPressed, OnPowerDownThreePressed, OnPowerDownFourPressed, OnPowerDownFivePressed);
@@ -203,7 +203,7 @@ namespace Assets.Scripts
 
         public void LoadAttacks() //prob need to pass monster id
         {
-            var teamLeadId = player.GetLeadMonster().GetComponent<BaseMonster>().MonsterId;
+            var teamLeadId = player.GetLeadMonster().MonsterId;
             var alive = serverStub.CheckPulse(teamLeadId);
 
             var attacks = alive ? serverStub.GetAttacksForMonster(teamLeadId) : serverStub.GetAttacksForPlayer(player.Id);

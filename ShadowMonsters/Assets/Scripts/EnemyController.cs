@@ -46,7 +46,7 @@ namespace Assets.Scripts
             enemy.SetActive(true);
             enemyInfo = enemy.GetComponent<BaseMonster>();
 
-            enemyStatusController.SetMonster(enemyInfo);
+            enemyStatusController.SetMonster(enemyInfo.DisplayName,enemyInfo.Level.ToString(),enemyInfo.MonsterPresence,enemyInfo.CurrentHealth, enemyInfo.MaxHealth);
 
         }
 

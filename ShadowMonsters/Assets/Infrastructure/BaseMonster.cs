@@ -31,7 +31,7 @@ namespace Assets.Infrastructure
 
         public string NickName { get; set; }
 
-        public MonsterPresence MonsterRarity { get; set; }
+        public MonsterPresence MonsterPresence { get; set; }
 
         public ElementalAffinity MonsterAffinity { get; set; }
 

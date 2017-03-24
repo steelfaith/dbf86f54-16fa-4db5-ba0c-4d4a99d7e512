@@ -14,7 +14,8 @@ namespace Assets.Scripts
     {
         private BeginCombatPopup _beginCombatPopup;
         private MonsterSpawner _monsterSpawner;
-        private Player player;        
+        private CombatPlayerController combatPlayerController;
+        private PlayerController playerController;     
         private TextLogDisplayManager _textLogDisplayManager;        
         private AreaSpawnManager _areaSpawnManager;
         private FatbicController fatbicController;
@@ -27,6 +28,7 @@ namespace Assets.Scripts
         void Start()
         {
             serverStub = ServerStub.Instance();
+            playerController = PlayerController.Instance();
             _beginCombatPopup = BeginCombatPopup.Instance();
             _monsterSpawner = MonsterSpawner.Instance();
             _textLogDisplayManager = TextLogDisplayManager.Instance();
@@ -35,7 +37,7 @@ namespace Assets.Scripts
             fatbicController.AttackAttempt += AttackEnemyAttempt;
             enemyController = EnemyController.Instance();
 
-            player = Player.Instance();
+            combatPlayerController = CombatPlayerController.Instance();
             enemyController.SpawnEnemy();
             
 
@@ -49,10 +51,10 @@ namespace Assets.Scripts
         {
             if (combatEnded) return;
             //eventually attacks would need to be mapped to animations
-            player.DoAnimation(AnimationAction.Attack);
+            combatPlayerController.DoAnimation(AnimationAction.Attack);
             //this would probably be an id to an attack instead of the attack
             if(e.Data.IsGenerator)
-                player.CollectResources(e.Data.Affinity);
+                playerController.CollectResources(e.Data.Affinity);
 
             AttackResolution attackResult = serverStub.SendAttack(
                 new AttackRequest {
@@ -75,8 +77,8 @@ namespace Assets.Scripts
             if (attackResult.WasFatal)
             {
                 combatEnded = true;
-                player.RevertIncarnation();
-                player.DoAnimation(AnimationAction.Victory);
+                combatPlayerController.RevertIncarnation();
+                combatPlayerController.DoAnimation(AnimationAction.Victory);
                 _textLogDisplayManager.AddText(string.Format("You have defeated a {0}!", enemyController.enemyInfo.DisplayName), AnnouncementType.Friendly);
                 StartCoroutine(EndCombat());               
             }
@@ -91,8 +93,8 @@ namespace Assets.Scripts
          
                 UnloadCombatScene();
                 enemyController.EndCombat();
-                player.EndCombat();
-                combatEnded = false;
+                playerController.ClearResources();
+                combatEnded = false; //reset for next fight
             }
         }
 
@@ -105,7 +107,7 @@ namespace Assets.Scripts
 
         void OnFight()
         {
-            var leadMonster =player.IncarnateMonster();
+            var leadMonster =combatPlayerController.IncarnateMonster();
             enemyController.StartEnemyAttack(leadMonster);
 
             fatbicController.BeginAttack(OnAttackOnePressed, OnAttackTwoPressed, OnAttackThreePressed, OnAttackFourPressed, OnAttackFivePressed, OnStopAttackPressed, OnBond,OnRun);            
@@ -147,7 +149,8 @@ namespace Assets.Scripts
             runButtonScript.StartCooldown(2);
             fatbicController.StartGlobalRecharge(2, runButtonScript.attackIndex);
             _textLogDisplayManager.AddText("You attempt to run away.", AnnouncementType.Friendly);
-            if(player.ControlledMonsters.Any(x=>x.GetComponent<BaseMonster>().Level + UnityEngine.Random.Range(100,150) > enemyController.enemyInfo.Level ))
+
+            if (UnityEngine.Random.Range(0, 101) < 95)
             {
                 UnloadCombatScene();
                 _textLogDisplayManager.AddText("You successfully ran away.", AnnouncementType.Friendly);
@@ -158,6 +161,7 @@ namespace Assets.Scripts
                 _textLogDisplayManager.AddText(string.Format("The {0} blocks your path! You have been forced into combat.", enemyController.enemyInfo.DisplayName), AnnouncementType.Enemy);
                 OnFight();
             }
+            playerController.ClearResources();
         }
         void OnBond()
         {

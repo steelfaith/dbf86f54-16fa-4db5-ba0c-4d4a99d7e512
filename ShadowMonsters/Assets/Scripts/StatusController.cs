@@ -16,11 +16,11 @@ namespace Assets.Scripts
         public CastbarScript castBar;
         public ResourceCollectorScript resourceCollector;
 
-        public void SetMonster(BaseMonster monster)
+        public void SetMonster(string name, string level, MonsterPresence presence, float currentHealth, float maxHealth)
         {
-            displayName.text = monster.DisplayName;
-            levelDisplay.UpdateLevelDisplay(monster.Level.ToString(), monster.MonsterRarity);
-            healthBar.AdjustHealth(monster.CurrentHealth, monster.MaxHealth);
+            displayName.text = name;
+            levelDisplay.UpdateLevelDisplay(level, presence);
+            healthBar.AdjustHealth(currentHealth, maxHealth);
         }
 
         private void Start()

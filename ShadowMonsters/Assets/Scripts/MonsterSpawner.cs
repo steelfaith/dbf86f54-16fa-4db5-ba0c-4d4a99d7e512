@@ -47,7 +47,7 @@ namespace Assets.Scripts
             return SpawnMonster(serverStub.GetRandomMonster(), false);
         }
 
-        public GameObject SpawnMonster(MonsterInfo MonsterInfo, bool friendly)
+        public GameObject SpawnMonster(MonsterDna MonsterInfo, bool friendly)
         {
             InitializeMonsterCave();
             var monsterToSpawn = _monsterCave.TryGetMonster(MonsterInfo);
@@ -76,7 +76,7 @@ namespace Assets.Scripts
             bc.CurrentHealth = MonsterInfo.CurrentHealth;
             bc.MonsterId = MonsterInfo.MonsterId;
             bc.NickName = MonsterInfo.NickName;
-            bc.MonsterRarity = MonsterInfo.MonsterPresence;
+            bc.MonsterPresence = MonsterInfo.MonsterPresence;
             bc.MonsterAffinity = MonsterInfo.MonsterAffinity;
             bc.NameKey = MonsterInfo.NameKey;
             bc.IsPlayerTeamLead = MonsterInfo.IsTeamLead;

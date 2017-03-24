@@ -14,7 +14,7 @@ namespace Assets.Scripts
         public int attackIndex;
         private AttackInfo attackInfo;
         private FatbicController fatbic;
-        private Player player;
+        private PlayerController player;
         private TextLogDisplayManager textLogDisplayManager;
 
 
@@ -26,7 +26,7 @@ namespace Assets.Scripts
         private void Start()
         {
             fatbic = FatbicController.Instance();
-            player = Player.Instance();
+            player = PlayerController.Instance();
             textLogDisplayManager = TextLogDisplayManager.Instance();
             attackInfo = fatbic.GetAttackInformation(attackIndex);
         }

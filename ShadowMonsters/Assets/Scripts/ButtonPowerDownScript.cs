@@ -10,7 +10,7 @@ namespace Assets.Scripts
         public int attackIndex;
         private AttackInfo attackInfo;
         private FatbicController fatbic;
-        private Player player;
+        private PlayerController player;
 
 
         private void Awake()
@@ -21,7 +21,7 @@ namespace Assets.Scripts
         private void Start()
         {
             fatbic = FatbicController.Instance();
-            player = Player.Instance();
+            player = PlayerController.Instance();
             attackInfo = fatbic.GetAttackInformation(attackIndex);
         }
 

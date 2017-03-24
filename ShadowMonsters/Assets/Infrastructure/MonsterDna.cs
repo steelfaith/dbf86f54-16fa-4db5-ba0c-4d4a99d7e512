@@ -6,14 +6,17 @@ using UnityEngine;
 
 namespace Assets.Infrastructure
 {
-    public class MonsterInfo
+    /// <summary>
+    /// the instructions to spawn a monster
+    /// </summary>
+    public class MonsterDna
     {
         public ElementalAffinity MonsterAffinity { get; set; }
 
         public MonsterPresence MonsterPresence { get; set; }
 
         private MonsterList monsterValue;
-        public MonsterInfo(MonsterList value, int level)
+        public MonsterDna(MonsterList value, int level)
         {
             Level = level;
             MaxHealth = level * 5;

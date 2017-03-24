@@ -10,19 +10,19 @@ namespace Assets.ServerStubHome
     public class ServerStub : MonoBehaviour
     {
         Dictionary<MonsterList, ElementalAffinity> monsterAffinityMatchup = new Dictionary<MonsterList, ElementalAffinity>();
-        Dictionary<Guid,MonsterInfo> spawnedMonsters = new Dictionary<Guid,MonsterInfo>();
+        Dictionary<Guid,MonsterDna> spawnedMonsters = new Dictionary<Guid,MonsterDna>();
         Dictionary<Guid, PlayerData> players = new Dictionary<Guid, PlayerData>();
         Dictionary<Guid, List<ElementalAffinity>> playerResources = new Dictionary<Guid, List<ElementalAffinity>>();
         KnownAttacks knownAttacks;
 
-        MonsterInfo enemyMonster;
+        MonsterDna enemyMonster;
 
-        public MonsterInfo GetRandomMonster()
+        public MonsterDna GetRandomMonster()
         {
             MonsterList monster = (MonsterList)Enum.Parse(typeof(MonsterList), GetRandomKey<MonsterList>());
             MonsterPresence presence = (MonsterPresence)Enum.Parse(typeof(MonsterPresence), GetRandomKey<MonsterPresence>());
 
-            enemyMonster = new MonsterInfo(monster, UnityEngine.Random.Range(1, 101)) {
+            enemyMonster = new MonsterDna(monster, UnityEngine.Random.Range(1, 101)) {
                                                                                             MonsterAffinity = monsterAffinityMatchup[monster],
                                                                                             MonsterId = Guid.NewGuid(), MonsterPresence =presence,
                                                                                             AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList)
@@ -70,7 +70,7 @@ namespace Assets.ServerStubHome
 
         private PlayerData CreatePlayerData(Guid id)
         {
-            var team = new List<MonsterInfo>
+            var team = new List<MonsterDna>
                                 {
                                     //new MonsterInfo(MonsterList.RhinoVirus,  UnityEngine.Random.Range(1,101))
                                     //{
@@ -87,16 +87,17 @@ namespace Assets.ServerStubHome
                                     //    MonsterId = Guid.NewGuid(),
                                     //    AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
                                     //},
-                                    new MonsterInfo(MonsterList.MiniLandShark,  UnityEngine.Random.Range(1,101))
+                                    new MonsterDna(MonsterList.MiniLandShark,  UnityEngine.Random.Range(1,101))
                                     {
                                         MonsterAffinity = monsterAffinityMatchup[MonsterList.MiniLandShark],
                                         NickName = "Big Eddy",
                                         MonsterId = Guid.NewGuid(),
                                         AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
+                                        IsTeamLead = true,
                                     },
                                 };
 
-            foreach (MonsterInfo Monster in team)
+            foreach (MonsterDna Monster in team)
             {
                 spawnedMonsters[Monster.MonsterId] = Monster;
             }
@@ -192,7 +193,7 @@ namespace Assets.ServerStubHome
 
         internal bool CheckPulse(Guid monsterId)
         {
-            MonsterInfo target;
+            MonsterDna target;
             spawnedMonsters.TryGetValue(monsterId, out target);
             if (target == null) return false;
             if (target.CurrentHealth < 1) return false;
@@ -202,6 +203,7 @@ namespace Assets.ServerStubHome
         private void Awake()
         {
             GenerateMonsterAffinityListMatchup();
+            knownAttacks = new KnownAttacks();
         }
 
         private void GenerateMonsterAffinityListMatchup()
@@ -218,13 +220,13 @@ namespace Assets.ServerStubHome
 
         private void Start()
         {
-            knownAttacks = new KnownAttacks();
+            
         }
 
 
         internal  AttackResolution SendAttack(AttackRequest data)
         {
-            MonsterInfo target = null;
+            MonsterDna target = null;
             spawnedMonsters.TryGetValue(data.TargetId, out target);
             if(target == null)
             {

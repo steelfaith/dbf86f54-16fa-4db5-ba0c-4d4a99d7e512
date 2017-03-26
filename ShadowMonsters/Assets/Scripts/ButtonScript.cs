@@ -35,6 +35,7 @@ namespace Assets.Scripts
                 EndCooldown();
                 EndCastTime();
                 attackInfo.IsCasting = false;
+                fatbic.IsBusy = false; 
                 return;
             }
             if(onGlobalCooldown || attackInfo.DamageStyle == DamageStyle.Instant || attackInfo.DamageStyle == DamageStyle.Tick)
@@ -51,14 +52,20 @@ namespace Assets.Scripts
         private void Awake()
         {
             fatbic = FatbicController.Instance();
+        }
+
+        public void InitializeButton()
+        {
             attackInfo = fatbic.GetAttackInformation(attackIndex);
             button.image.sprite = attackInfo.Icon;
+            ProcessAttackInfo();
         }
 
         public void StartButtonAction()
         {            
             if (onGlobalCooldown) return;
             attackInfo.IsCasting = true;
+            fatbic.IsBusy = true;
             castGlowImage.enabled = true;
             if (attackInfo.DamageStyle == DamageStyle.Instant || attackInfo.DamageStyle == DamageStyle.Tick)
             {
@@ -85,15 +92,11 @@ namespace Assets.Scripts
         }
 
         public void StartGlobalCooldown(float recharge)
-        {           
+        {
             onGlobalCooldown = true;
             StartCooldown(recharge);
         }
 
-        private void Start()
-        {
-            ProcessAttackInfo();
-        }
 
         private void StartCastTime(float time)
         {
@@ -162,7 +165,6 @@ namespace Assets.Scripts
             var backgroundColor = attackInfo.Affinity.GetColorFromMonsterAffinity();
             buttonImage.color = backgroundColor;
             var text = button.GetComponentInChildren<Text>();
-            //text.color = ContrastColor(backgroundColor);
         }
 
         private void FireAttackAttempt()

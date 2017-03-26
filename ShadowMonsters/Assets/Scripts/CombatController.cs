@@ -77,7 +77,7 @@ namespace Assets.Scripts
             if (attackResult.WasFatal)
             {
                 combatEnded = true;
-                combatPlayerController.RevertIncarnation();
+                combatPlayerController.EndCombat();
                 combatPlayerController.DoAnimation(AnimationAction.Victory);
                 _textLogDisplayManager.AddText(string.Format("You have defeated a {0}!", enemyController.enemyInfo.DisplayName), AnnouncementType.Friendly);
                 StartCoroutine(EndCombat());               
@@ -93,7 +93,6 @@ namespace Assets.Scripts
          
                 UnloadCombatScene();
                 enemyController.EndCombat();
-                playerController.ClearResources();
                 combatEnded = false; //reset for next fight
             }
         }
@@ -107,10 +106,9 @@ namespace Assets.Scripts
 
         void OnFight()
         {
-            var leadMonster =combatPlayerController.IncarnateMonster();
-            enemyController.StartEnemyAttack(leadMonster);
-
-            fatbicController.BeginAttack(OnAttackOnePressed, OnAttackTwoPressed, OnAttackThreePressed, OnAttackFourPressed, OnAttackFivePressed, OnStopAttackPressed, OnBond,OnRun);            
+            fatbicController.BeginAttack(OnAttackOnePressed, OnAttackTwoPressed, OnAttackThreePressed, OnAttackFourPressed, OnAttackFivePressed, OnStopAttackPressed, OnBond, OnRun);
+            var leadMonster =combatPlayerController.StartCombat();
+            enemyController.StartEnemyAttack(leadMonster);                        
         }
 
         private void OnAttackOnePressed()
@@ -152,6 +150,7 @@ namespace Assets.Scripts
 
             if (UnityEngine.Random.Range(0, 101) < 95)
             {
+                combatPlayerController.EndCombat();
                 UnloadCombatScene();
                 _textLogDisplayManager.AddText("You successfully ran away.", AnnouncementType.Friendly);
             }
@@ -161,7 +160,7 @@ namespace Assets.Scripts
                 _textLogDisplayManager.AddText(string.Format("The {0} blocks your path! You have been forced into combat.", enemyController.enemyInfo.DisplayName), AnnouncementType.Enemy);
                 OnFight();
             }
-            playerController.ClearResources();
+            
         }
         void OnBond()
         {

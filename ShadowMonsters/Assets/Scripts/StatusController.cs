@@ -15,12 +15,14 @@ namespace Assets.Scripts
         public LevelDisplayScript levelDisplay;
         public CastbarScript castBar;
         public ResourceCollectorScript resourceCollector;
+        public Guid MonsterId;
 
-        public void SetMonster(string name, string level, MonsterPresence presence, float currentHealth, float maxHealth)
+        public void SetMonster(string name, string level, MonsterPresence presence, float currentHealth, float maxHealth, Guid id)
         {
             displayName.text = name;
             levelDisplay.UpdateLevelDisplay(level, presence);
             healthBar.AdjustHealth(currentHealth, maxHealth);
+            MonsterId = id;
         }
 
         private void Start()
@@ -40,9 +42,9 @@ namespace Assets.Scripts
             return statusController;
         }
 
-        internal void UpdateMonster(AttackResolution MonsterUpdate)
+        internal void UpdateMonster(AttackResolution attack)
         {            
-            healthBar.AdjustHealth(MonsterUpdate.CurrentHealth, MonsterUpdate.MaxHealth);
+            healthBar.AdjustHealth(attack.CurrentHealth, attack.MaxHealth);
         }
 
         internal void UpdateCastBar()

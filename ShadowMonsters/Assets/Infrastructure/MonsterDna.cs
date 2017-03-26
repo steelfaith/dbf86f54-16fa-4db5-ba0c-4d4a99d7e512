@@ -27,7 +27,7 @@ namespace Assets.Infrastructure
 
         public string NickName { get; set; }
 
-        public bool IsTeamLead { get; set; }
+        public int TeamOrder { get; set; }
 
         public float MaxHealth { get; set; }
 

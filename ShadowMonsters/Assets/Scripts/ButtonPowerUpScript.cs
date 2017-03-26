@@ -20,20 +20,25 @@ namespace Assets.Scripts
 
         private void Awake()
         {
-
+            fatbic = FatbicController.Instance();
+            player = PlayerController.Instance();
         }
 
         private void Start()
         {
-            fatbic = FatbicController.Instance();
-            player = PlayerController.Instance();
-            textLogDisplayManager = TextLogDisplayManager.Instance();
-            attackInfo = fatbic.GetAttackInformation(attackIndex);
+            
+            textLogDisplayManager = TextLogDisplayManager.Instance();            
+        }
+
+        public void InitializeButton()
+        {
+            attackInfo = FatbicController.Instance().GetAttackInformation(attackIndex);
         }
 
         private void Update()
         {
-            UpdateButton();
+            if(attackInfo != null)
+                UpdateButton();
         }
 
         public void PowerUpAttack()

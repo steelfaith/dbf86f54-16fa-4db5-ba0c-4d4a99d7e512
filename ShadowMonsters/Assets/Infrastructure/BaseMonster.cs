@@ -37,7 +37,7 @@ namespace Assets.Infrastructure
 
         public string NameKey { get; set; }
 
-        public bool IsPlayerTeamLead { get; set; }
+        public int TeamOrder { get; set; }
 
     }
 }

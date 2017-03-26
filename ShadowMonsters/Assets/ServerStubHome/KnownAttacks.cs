@@ -112,7 +112,8 @@ namespace Assets.ServerStubHome
                     Affinity =ElementalAffinity.Human,
                     CastTime = 0,
                     Cooldown = 5,
-                    BaseDamage = 5
+                    BaseDamage = 5,
+                    Accuracy = 100
                 },
                 new AttackInfo
                 {
@@ -122,7 +123,8 @@ namespace Assets.ServerStubHome
                     Affinity =ElementalAffinity.Human,
                     CastTime = 0,
                     Cooldown = 5,
-                    BaseDamage = 15
+                    BaseDamage = 15,
+                    Accuracy = 75
                 },
                  new AttackInfo
                 {
@@ -132,7 +134,9 @@ namespace Assets.ServerStubHome
                     Affinity =ElementalAffinity.Human,
                     CastTime = 0,
                     Cooldown = 3,
-                    BaseDamage =10
+                    BaseDamage =10,
+                    Accuracy = 75,
+                    IsGenerator = true,
                 },
                 new AttackInfo
                 {
@@ -142,7 +146,9 @@ namespace Assets.ServerStubHome
                     Affinity = ElementalAffinity.Human,
                     CastTime = 5,
                     Cooldown = 0,
-                    BaseDamage = 20
+                    BaseDamage = 30,
+                    Accuracy = 90,
+                    CanPowerUp = true,
                 },
                 new AttackInfo
                 {
@@ -152,7 +158,8 @@ namespace Assets.ServerStubHome
                     Affinity =ElementalAffinity.Human,
                     CastTime = 0,
                     Cooldown = 6,
-                    BaseDamage = 25
+                    BaseDamage = 25,
+                    Accuracy = 50
                 }
             };
 

@@ -17,6 +17,7 @@ namespace Assets.Scripts
         private StatusController statusController;
         public List<ElementalAffinity> currentResources;
 
+
         public List<Guid> AttackIds { get; set; }
 
         private void Start()
@@ -29,11 +30,11 @@ namespace Assets.Scripts
             AttackIds = currentData.AttackIds;
             statusController = statusDisplay.GetComponentInChildren<StatusController>();
             statusController.displayName.color = Color.green;
-            statusController.SetMonster(currentData.DisplayName,"0",MonsterPresence.Carnal,currentData.CurrentHealth,currentData.MaximumHealth);
+            statusController.SetMonster(currentData.DisplayName,"0",MonsterPresence.Carnal,currentData.CurrentHealth,currentData.MaximumHealth, currentData.Id);
             
         }
 
-        private static PlayerController playerController;
+        private static PlayerController playerController;       
 
         public static PlayerController Instance()
         {
@@ -46,9 +47,20 @@ namespace Assets.Scripts
             return playerController;
         }
 
-        public MonsterDna GetLeadMonster()
+        public List<MonsterDna> GetTeam()
         {
-            return currentData.CurrentTeam.FirstOrDefault(x => x.IsTeamLead && x.CurrentHealth > 0);
+            return currentData.CurrentTeam;
+        }
+
+        public PlayerData GetCurrentPlayerData()
+        {
+            return currentData;
+        }
+
+        public MonsterDna GetMonsterFromTeam(Guid id)
+        {
+            if (!currentData.CurrentTeam.Any()) return null;
+            return currentData.CurrentTeam.FirstOrDefault(x => x.MonsterId == id);
         }
         internal void CollectResources(ElementalAffinity affinity)
         {

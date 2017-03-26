@@ -79,7 +79,7 @@ namespace Assets.Scripts
             bc.MonsterPresence = MonsterInfo.MonsterPresence;
             bc.MonsterAffinity = MonsterInfo.MonsterAffinity;
             bc.NameKey = MonsterInfo.NameKey;
-            bc.IsPlayerTeamLead = MonsterInfo.IsTeamLead;
+            bc.TeamOrder = MonsterInfo.TeamOrder;
 
             if(bc.DisplayName == "Humpback Whale")
             {

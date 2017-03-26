@@ -82,7 +82,10 @@
     <Compile Include="Assets\Infrastructure\BurnResourceResponse.cs" />
     <Compile Include="Assets\Infrastructure\BurnResourcesRequest.cs" />
     <Compile Include="Assets\Infrastructure\IMonster.cs" />
+    <Compile Include="Assets\Scripts\DragHandler.cs" />
+    <Compile Include="Assets\Scripts\IncarnationContainer.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\TeamController.cs" />
     <Compile Include="Assets\ServerStubHome\AttackInstance.cs" />
     <Compile Include="Assets\Infrastructure\AnimationActionEnum.cs" />
     <Compile Include="Assets\Infrastructure\AnnouncementTypeEnum.cs" />

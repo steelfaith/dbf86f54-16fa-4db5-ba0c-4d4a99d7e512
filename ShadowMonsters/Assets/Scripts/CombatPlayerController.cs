@@ -20,6 +20,10 @@ namespace Assets.Scripts
         private AnimationController animationController;
         private PlayerController playerController;
         private TextLogDisplayManager textLogDisplayManager;
+        private PlayerData playerData;
+        private IncarnationContainer incarnationContainer;
+        private FatbicController fatbic;
+        public bool InCombat { get; set; }
 
         private void Start()
         {
@@ -28,8 +32,19 @@ namespace Assets.Scripts
             monsterSpawner = MonsterSpawner.Instance();
             animationController = AnimationController.Instance();
             textLogDisplayManager = TextLogDisplayManager.Instance();
+            incarnationContainer = IncarnationContainer.Instance();
+            fatbic = FatbicController.Instance();
+            playerData = playerController.GetCurrentPlayerData();
+            SetupBaseMonsterForPlayer();
+            
+        }
 
+        private void SetupBaseMonsterForPlayer()
+        {
             baseMonster.NameKey = "unitychan";
+            baseMonster.NickName = playerData.DisplayName;
+            baseMonster.CurrentHealth = playerData.CurrentHealth;
+            baseMonster.MaxHealth = playerData.MaximumHealth;
         }
 
         private void Update()
@@ -37,23 +52,45 @@ namespace Assets.Scripts
 
         }
 
-        private static CombatPlayerController _player;
+        private static CombatPlayerController combatPlayerController;
 
         public static CombatPlayerController Instance()
         {
-            if (!_player)
+            if (!combatPlayerController)
             {
-                _player = FindObjectOfType(typeof(CombatPlayerController)) as CombatPlayerController;
-                if (!_player)
+                combatPlayerController = FindObjectOfType(typeof(CombatPlayerController)) as CombatPlayerController;
+                if (!combatPlayerController)
                     Debug.LogError("Could not find Player!");
             }
-            return _player;
+            return combatPlayerController;
+        }
+
+        public Guid StartCombat()
+        {
+            InCombat = true;
+
+            return IncarnateMonster();
         }
 
         internal Guid IncarnateMonster()
         {
             //perform some super sweet animation he e !!! wow!!  thrilling!! amazing!!!
-            SpawnLeadMonster();
+
+            if(incarnatedMonster != null)
+            {
+                var baseMonster = incarnatedMonster.GetComponent<BaseMonster>();
+                if(baseMonster.MonsterId == incarnationContainer.MonsterId)
+                {
+                    //no need to incarnate
+                    return baseMonster.MonsterId;
+                }
+                Destroy(baseMonster.gameObject);
+            }
+
+            
+            incarnatedMonster = SpawnLeadMonster();
+            fatbic.LoadAttacks();
+            fatbic.StartGlobalRecharge(2, null);
             if (incarnatedMonster == null) return playerController.Id;
             var incarnatedBaseMonster = incarnatedMonster.GetComponent<BaseMonster>();
 
@@ -62,7 +99,7 @@ namespace Assets.Scripts
             gameObject.SetActive(true);
             gameObject.SetActive(false);
             incarnatedMonster.gameObject.SetActive(true);
-
+            
             return incarnatedBaseMonster.MonsterId;
         }
 
@@ -72,20 +109,32 @@ namespace Assets.Scripts
             animationController.PlayAnimation(leadIsActive?incarnatedMonster:gameObject, action);            
         }
 
+        public void EndCombat()
+        {
+            InCombat = false;
+            RevertIncarnation();
+            playerController.ClearResources();
+        }
+
         internal void RevertIncarnation()
         {
             if (gameObject.activeSelf) return;
             textLogDisplayManager.AddText("You revert from your incarnated state.", AnnouncementType.Friendly);
-            incarnatedMonster.SetActive(false);
             gameObject.SetActive(true);
+            if(InCombat)
+                fatbic.LoadAttacks();
+            Destroy(incarnatedMonster);
         }
 
-        private void SpawnLeadMonster()
-        {
-            var lead = playerController.GetLeadMonster();
+        private GameObject SpawnLeadMonster()
+        {         
+            
+            var lead = playerController.GetMonsterFromTeam(incarnationContainer.MonsterId);
+            
+            if (lead == null) return null;
             var spawned = monsterSpawner.SpawnMonster(lead, true);
             spawned.gameObject.SetActive(false);
-            incarnatedMonster = spawned.gameObject;
+            return spawned.gameObject;
         }
     }
 }

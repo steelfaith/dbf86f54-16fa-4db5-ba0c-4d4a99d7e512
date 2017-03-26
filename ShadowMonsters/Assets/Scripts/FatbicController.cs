@@ -11,7 +11,7 @@ namespace Assets.Scripts
 {
     public class FatbicController : MonoBehaviour
     {
-        public GameObject _modalPanel;
+        public GameObject fatbicPanel;
 
         public Button attackOneButton;        
         public Button attackTwoButton;
@@ -32,10 +32,14 @@ namespace Assets.Scripts
         public Button pDownFourButton;
         public Button pDownFiveButton;
         public List<ButtonScript> attackButtonScripts = new List<ButtonScript>();
+        public List<ButtonPowerUpScript> powerUpButtonScripts = new List<ButtonPowerUpScript>();
+        public List<ButtonPowerDownScript> powerDownButtonScripts = new List<ButtonPowerDownScript>();
         public event EventHandler<DataEventArgs<AttackInfo>> AttackAttempt;
+        public bool IsBusy;
         private List<AttackInfo> attackInfoList;
         private ServerStub serverStub;
         private PlayerController player;
+        private IncarnationContainer incarnationContainer;
 
         public AttackInfo GetAttackInformation(int attackIndex)
         {
@@ -50,7 +54,7 @@ namespace Assets.Scripts
         {
             serverStub = ServerStub.Instance();
             player = PlayerController.Instance();
-            LoadAttacks();
+            incarnationContainer = IncarnationContainer.Instance();
             InitializePowerUpPress(OnPowerUpOnePressed, OnPowerUpTwoPressed, OnPowerUpThreePressed, OnPowerUpFourPressed, OnPowerUpFivePressed);
             InitializePowerDownPress(OnPowerDownOnePressed, OnPowerDownTwoPressed, OnPowerDownThreePressed, OnPowerDownFourPressed, OnPowerDownFivePressed);
         }
@@ -72,7 +76,7 @@ namespace Assets.Scripts
         public void BeginAttack(UnityAction attackOne, UnityAction attackTwo, UnityAction attackThree, UnityAction attackFour, UnityAction attackFive, UnityAction stopAttack,
                                     UnityAction bondEssence, UnityAction runAway)
         {
-            _modalPanel.SetActive(true);
+            fatbicPanel.SetActive(true);
 
             attackOneButton.onClick.RemoveAllListeners();
             attackOneButton.onClick.AddListener(attackOne);
@@ -191,28 +195,59 @@ namespace Assets.Scripts
             pDownFiveButton.GetComponent<ButtonPowerDownScript>().PowerDownAttack();
         }
 
-        public void StartGlobalRecharge(int recharge, int exclusionIndex)
+        public void StartGlobalRecharge(int recharge, int? exclusionIndex)
         {
             foreach (ButtonScript item in attackButtonScripts)
             {
-                if(item.attackIndex != exclusionIndex)
+
+                if (exclusionIndex == null)
+                {
+                    item.StartGlobalCooldown(recharge);
+                    continue;
+                }
+
                 //TODO: global cooldown should be reduced by speed /1000 ***monster speed should absolutely cap at 499
-                item.StartGlobalCooldown(recharge);
+                if (item.attackIndex != exclusionIndex.Value)
+                {
+                    item.StartGlobalCooldown(recharge);
+                }
+
             }
         }
 
         public void LoadAttacks() //prob need to pass monster id
         {
-            var teamLeadId = player.GetLeadMonster().MonsterId;
-            var alive = serverStub.CheckPulse(teamLeadId);
+            List<AttackInfo> attacks = null;
+            if (serverStub.CheckPulse(incarnationContainer.MonsterId))
+            { attacks = serverStub.GetAttacksForMonster(incarnationContainer.MonsterId); }
+            else
+            { attacks = serverStub.GetAttacksForPlayer(player.Id); }
 
-            var attacks = alive ? serverStub.GetAttacksForMonster(teamLeadId) : serverStub.GetAttacksForPlayer(player.Id);
-            if (attacks.Count == 0 || attacks.Count > 5)
+            if (attacks == null || attacks.Count == 0 || attacks.Count > 5)
             {
                 Debug.LogError("Attack count outside valid value of 1 to 5");
                 return;
             }
             attackInfoList = attacks;
+            InitializeButtons();
+        }
+
+        private void InitializeButtons()
+        {
+            foreach (var item in attackButtonScripts)
+            {
+                item.InitializeButton();
+            }
+
+            foreach (var item in powerUpButtonScripts)
+            {
+                item.InitializeButton();
+            }
+
+            foreach (var item in powerDownButtonScripts)
+            {
+                item.InitializeButton();
+            }
         }
 
         private void OnDestroy()
@@ -228,7 +263,20 @@ namespace Assets.Scripts
             attackButtonScripts.Add(attackTwoButton.GetComponent<ButtonScript>());
             attackButtonScripts.Add(attackThreeButton.GetComponent<ButtonScript>());
             attackButtonScripts.Add(attackFourButton.GetComponent<ButtonScript>());
-            attackButtonScripts.Add(attackFiveButton.GetComponent<ButtonScript>());            
+            attackButtonScripts.Add(attackFiveButton.GetComponent<ButtonScript>());
+
+            powerDownButtonScripts.Add(pDownOneButton.GetComponent<ButtonPowerDownScript>());
+            powerDownButtonScripts.Add(pDownTwoButton.GetComponent<ButtonPowerDownScript>());
+            powerDownButtonScripts.Add(pDownThreeButton.GetComponent<ButtonPowerDownScript>());
+            powerDownButtonScripts.Add(pDownFourButton.GetComponent<ButtonPowerDownScript>());
+            powerDownButtonScripts.Add(pDownFiveButton.GetComponent<ButtonPowerDownScript>());
+
+            powerUpButtonScripts.Add(pUpOneButton.GetComponent<ButtonPowerUpScript>());
+            powerUpButtonScripts.Add(pUpTwoButton.GetComponent<ButtonPowerUpScript>());
+            powerUpButtonScripts.Add(pUpThreeButton.GetComponent<ButtonPowerUpScript>());
+            powerUpButtonScripts.Add(pUpFourButton.GetComponent<ButtonPowerUpScript>());
+            powerUpButtonScripts.Add(pUpFiveButton.GetComponent<ButtonPowerUpScript>());
+
             AttachButtonScriptEvents();
         }
 

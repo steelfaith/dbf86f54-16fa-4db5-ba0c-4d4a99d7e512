@@ -72,28 +72,30 @@ namespace Assets.ServerStubHome
         {
             var team = new List<MonsterDna>
                                 {
-                                    //new MonsterInfo(MonsterList.RhinoVirus,  UnityEngine.Random.Range(1,101))
-                                    //{
-                                    //    MonsterAffinity = monsterAffinityMatchup[MonsterList.RhinoVirus],
-                                    //    NickName = "Rhinasephalasaurus",
-                                    //    MonsterId = Guid.NewGuid(),
-                                    //    IsTeamLead = true,
-                                    //    AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
-                                    //},
-                                    //new MonsterInfo(MonsterList.DemonEnforcer,  UnityEngine.Random.Range(1,101))
-                                    //{
-                                    //    MonsterAffinity = monsterAffinityMatchup[MonsterList.DemonEnforcer],
-                                    //    NickName = "Fluffy",
-                                    //    MonsterId = Guid.NewGuid(),
-                                    //    AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
-                                    //},
+                                    new MonsterDna(MonsterList.RhinoVirus,  UnityEngine.Random.Range(1,101))
+                                    {
+                                        MonsterAffinity = monsterAffinityMatchup[MonsterList.RhinoVirus],
+                                        NickName = "Rhinasephalasaurus",
+                                        MonsterId = Guid.NewGuid(),
+                                        TeamOrder = 1,
+                                        AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
+
+                                    },
+                                    new MonsterDna(MonsterList.DemonEnforcer,  UnityEngine.Random.Range(1,101))
+                                    {
+                                        MonsterAffinity = monsterAffinityMatchup[MonsterList.DemonEnforcer],
+                                        NickName = "Fluffy",
+                                        MonsterId = Guid.NewGuid(),
+                                        AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
+                                        TeamOrder =2,
+                                    },
                                     new MonsterDna(MonsterList.MiniLandShark,  UnityEngine.Random.Range(1,101))
                                     {
                                         MonsterAffinity = monsterAffinityMatchup[MonsterList.MiniLandShark],
                                         NickName = "Big Eddy",
                                         MonsterId = Guid.NewGuid(),
                                         AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
-                                        IsTeamLead = true,
+                                        TeamOrder = 3,
                                     },
                                 };
 

@@ -79,6 +79,7 @@ namespace Assets.ServerStubHome
                                         MonsterId = Guid.NewGuid(),
                                         TeamOrder = 1,
                                         AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
+                                        MonsterPresence = MonsterPresence.Carnal,
 
                                     },
                                     new MonsterDna(MonsterList.DemonEnforcer,  UnityEngine.Random.Range(1,101))
@@ -88,6 +89,7 @@ namespace Assets.ServerStubHome
                                         MonsterId = Guid.NewGuid(),
                                         AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
                                         TeamOrder =2,
+                                        MonsterPresence = MonsterPresence.Intangible,
                                     },
                                     new MonsterDna(MonsterList.MiniLandShark,  UnityEngine.Random.Range(1,101))
                                     {
@@ -96,6 +98,7 @@ namespace Assets.ServerStubHome
                                         MonsterId = Guid.NewGuid(),
                                         AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
                                         TeamOrder = 3,
+                                        MonsterPresence = MonsterPresence.Corporeal,
                                     },
                                 };
 

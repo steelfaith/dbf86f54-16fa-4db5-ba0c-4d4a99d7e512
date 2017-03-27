@@ -19,9 +19,9 @@ namespace Assets.ServerStubHome
             CreatePlayerAttacks();
         }
 
-        public Dictionary<Guid,AttackInfo> KnownMonsterAttackList { get; set; }
-        public Dictionary<Guid,AttackInfo> KnownPlayerAttackList { get; set; }
-        public Dictionary<Guid, AttackInfo> AllKnownAttackList { get; set; }
+        public static Dictionary<Guid,AttackInfo> KnownMonsterAttackList { get; set; }
+        public static Dictionary<Guid,AttackInfo> KnownPlayerAttackList { get; set; }
+        public static Dictionary<Guid, AttackInfo> AllKnownAttackList { get; set; }
 
         private void CreateMonsterAttacks()
         {

@@ -29,6 +29,7 @@ namespace Assets.Scripts
 
         private void Update()
         {
+
             if (!attackInfo.IsCasting && !onGlobalCooldown) return;
             if(rechargeEnd <= Time.time)
             {                

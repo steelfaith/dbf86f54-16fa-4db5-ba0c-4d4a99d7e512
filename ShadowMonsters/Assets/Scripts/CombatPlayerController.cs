@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Assets.Infrastructure;
-
+using Assets.ServerStubHome;
 using System.Threading;
 using UnityEngine.SceneManagement;
 
@@ -23,10 +23,17 @@ namespace Assets.Scripts
         private PlayerData playerData;
         private IncarnationContainer incarnationContainer;
         private FatbicController fatbic;
-        public bool InCombat { get; set; }
+        private Guid combatInstanceId;
+        private ServerStub serverStub;
+
+        public bool InCombat
+        {
+            get { return combatInstanceId != Guid.Empty; }
+        }
 
         private void Start()
         {
+            serverStub = ServerStub.Instance();
             playerController = PlayerController.Instance();
             baseMonster = GetComponent<BaseMonster>();
             monsterSpawner = MonsterSpawner.Instance();
@@ -65,16 +72,17 @@ namespace Assets.Scripts
             return combatPlayerController;
         }
 
-        public Guid StartCombat()
+        public void StartCombat(Guid instanceId)
         {
-            InCombat = true;
+            combatInstanceId = instanceId;
 
-            return IncarnateMonster();
+            IncarnateMonster();
         }
 
-        internal Guid IncarnateMonster()
+        internal void IncarnateMonster()
         {
             //perform some super sweet animation he e !!! wow!!  thrilling!! amazing!!!
+            Guid playerChampionId = Guid.Empty;
 
             if(incarnatedMonster != null)
             {
@@ -82,7 +90,7 @@ namespace Assets.Scripts
                 if(baseMonster.MonsterId == incarnationContainer.MonsterId)
                 {
                     //no need to incarnate
-                    return baseMonster.MonsterId;
+                    playerChampionId = baseMonster.MonsterId;
                 }
                 Destroy(baseMonster.gameObject);
             }
@@ -91,16 +99,28 @@ namespace Assets.Scripts
             incarnatedMonster = SpawnLeadMonster();
             fatbic.LoadAttacks();
             fatbic.StartGlobalRecharge(2, null);
-            if (incarnatedMonster == null) return playerController.Id;
-            var incarnatedBaseMonster = incarnatedMonster.GetComponent<BaseMonster>();
+               
 
-            textLogDisplayManager.AddText(string.Format("You incarnate {0}.", incarnatedBaseMonster.DisplayName),AnnouncementType.Friendly);
-            //omg blinky
-            gameObject.SetActive(true);
-            gameObject.SetActive(false);
-            incarnatedMonster.gameObject.SetActive(true);
-            
-            return incarnatedBaseMonster.MonsterId;
+            if (incarnatedMonster != null)
+            {
+                var incarnatedBaseMonster = incarnatedMonster.GetComponent<BaseMonster>();
+
+                textLogDisplayManager.AddText(string.Format("You incarnate {0}.", incarnatedBaseMonster.DisplayName), AnnouncementType.Friendly);
+                //omg blinky
+                gameObject.SetActive(true);
+                gameObject.SetActive(false);
+                incarnatedMonster.gameObject.SetActive(true);
+                playerChampionId = incarnatedBaseMonster.MonsterId;
+            }
+            else
+            {
+                playerChampionId = playerController.Id;
+            }
+
+            if(InCombat)
+            {
+                serverStub.UpdateAttackInstance(new AttackUpdateRequest { AttackInstanceId = combatInstanceId, CurrentPlayerChampionId = playerChampionId });
+            }
         }
 
         public void DoAnimation(AnimationAction action)
@@ -111,7 +131,7 @@ namespace Assets.Scripts
 
         public void EndCombat()
         {
-            InCombat = false;
+            combatInstanceId = Guid.Empty;
             RevertIncarnation();
             playerController.ClearResources();
         }
@@ -123,6 +143,7 @@ namespace Assets.Scripts
             gameObject.SetActive(true);
             if(InCombat)
                 fatbic.LoadAttacks();
+            incarnatedMonster.SetActive(false);
             Destroy(incarnatedMonster);
         }
 

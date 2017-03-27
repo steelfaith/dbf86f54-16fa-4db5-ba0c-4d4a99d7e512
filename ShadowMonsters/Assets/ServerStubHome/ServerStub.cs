@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Assets.Infrastructure;
 using UnityEngine;
+using Assets.Scripts;
 
 namespace Assets.ServerStubHome
 {
@@ -13,22 +14,28 @@ namespace Assets.ServerStubHome
         Dictionary<Guid,MonsterDna> spawnedMonsters = new Dictionary<Guid,MonsterDna>();
         Dictionary<Guid, PlayerData> players = new Dictionary<Guid, PlayerData>();
         Dictionary<Guid, List<ElementalAffinity>> playerResources = new Dictionary<Guid, List<ElementalAffinity>>();
+        Dictionary<Guid, AttackInstance> attackInstances = new Dictionary<Guid, AttackInstance>();
         KnownAttacks knownAttacks;
-
-        MonsterDna enemyMonster;
+        private CombatController combatController;  // this shouldn't be referenced in real server..temp solution for simulation
 
         public MonsterDna GetRandomMonster()
         {
             MonsterList monster = (MonsterList)Enum.Parse(typeof(MonsterList), GetRandomKey<MonsterList>());
             MonsterPresence presence = (MonsterPresence)Enum.Parse(typeof(MonsterPresence), GetRandomKey<MonsterPresence>());
 
-            enemyMonster = new MonsterDna(monster, UnityEngine.Random.Range(1, 101)) {
+             var enemyMonster = new MonsterDna(monster, UnityEngine.Random.Range(1, 101)) {
                                                                                             MonsterAffinity = monsterAffinityMatchup[monster],
                                                                                             MonsterId = Guid.NewGuid(), MonsterPresence =presence,
-                                                                                            AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList)
+                                                                                            AttackIds = GetAttackIdList(KnownAttacks.KnownMonsterAttackList)
                                                                                        };
             spawnedMonsters[enemyMonster.MonsterId] = enemyMonster;
             return enemyMonster;
+        }
+
+        internal void SetCombatInstance(CombatController cc)
+        {
+            //this is for client callback..the real server should be not like this
+            combatController = cc;
         }
 
         public AddResourceResponse AddPlayerResource(AddResourceRequest request)
@@ -48,17 +55,19 @@ namespace Assets.ServerStubHome
             };
         }
 
-        public AttackResolution PerformRandomAttackSequence(Guid monsterId, Guid target, Guid callbackId)
+        public Guid CreateAttackSequence(Guid monsterId, Guid playerId)
         {
+            var instanceId = Guid.NewGuid();
+            var attackInstance = new AttackInstance(monsterId, playerId);
+            attackInstance.EnemyAttack += HandleEnemyAttack;
+            attackInstances[instanceId] = attackInstance;
+            return instanceId;
+        }
 
-
-            //get both monsters
-            //create an attack instance
-            //save in collection
-            //sends messages to client
-            //destroy on combat end
-            var attacks = GetAttacksForMonster(monsterId);
-            return new AttackResolution();
+        private void HandleEnemyAttack(object sender, DataEventArgs<AttackResolution> e)
+        {
+            //route back to correct client
+            combatController.HandleEnemyAttackOnPlayer(e.Data);
         }
 
         internal PlayerData GetPlayerData(Guid id)
@@ -66,6 +75,13 @@ namespace Assets.ServerStubHome
             PlayerData outData;
             players.TryGetValue(id, out outData);
             return outData;
+        }
+
+        public MonsterDna GetMonsterById(Guid id)
+        {
+            MonsterDna target;
+            spawnedMonsters.TryGetValue(id, out target);
+            return target;
         }
 
         private PlayerData CreatePlayerData(Guid id)
@@ -78,7 +94,7 @@ namespace Assets.ServerStubHome
                                         NickName = "Rhinasephalasaurus",
                                         MonsterId = Guid.NewGuid(),
                                         TeamOrder = 1,
-                                        AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
+                                        AttackIds = GetAttackIdList(KnownAttacks.KnownMonsterAttackList),
                                         MonsterPresence = MonsterPresence.Carnal,
 
                                     },
@@ -87,7 +103,7 @@ namespace Assets.ServerStubHome
                                         MonsterAffinity = monsterAffinityMatchup[MonsterList.DemonEnforcer],
                                         NickName = "Fluffy",
                                         MonsterId = Guid.NewGuid(),
-                                        AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
+                                        AttackIds = GetAttackIdList(KnownAttacks.KnownMonsterAttackList),
                                         TeamOrder =2,
                                         MonsterPresence = MonsterPresence.Intangible,
                                     },
@@ -96,7 +112,7 @@ namespace Assets.ServerStubHome
                                         MonsterAffinity = monsterAffinityMatchup[MonsterList.MiniLandShark],
                                         NickName = "Big Eddy",
                                         MonsterId = Guid.NewGuid(),
-                                        AttackIds = GetAttackIdList(knownAttacks.KnownMonsterAttackList),
+                                        AttackIds = GetAttackIdList(KnownAttacks.KnownMonsterAttackList),
                                         TeamOrder = 3,
                                         MonsterPresence = MonsterPresence.Corporeal,
                                     },
@@ -112,7 +128,7 @@ namespace Assets.ServerStubHome
                 Id = id,
                 DisplayName = "OFFHIZMEDZ",
                 CurrentTeam = team,
-                AttackIds = GetAttackIdList(knownAttacks.KnownPlayerAttackList),
+                AttackIds = GetAttackIdList(KnownAttacks.KnownPlayerAttackList),
                 MaximumHealth = 50,
                 CurrentHealth = 50
                         
@@ -121,7 +137,7 @@ namespace Assets.ServerStubHome
             
             return data;
         }
-
+        
         public BurnResourceResponse BurnResource(BurnResourceRequest request)
         {
             List<ElementalAffinity> thisPlayerResources;
@@ -147,7 +163,7 @@ namespace Assets.ServerStubHome
 
             while (attackList.Count < 5)
             {
-                var attack = fromDictionary.ElementAt(UnityEngine.Random.Range(0, knownAttacks.KnownMonsterAttackList.Count));
+                var attack = fromDictionary.ElementAt(UnityEngine.Random.Range(0, KnownAttacks.KnownMonsterAttackList.Count));
                 if (!attackList.Contains(attack.Key))
                 { attackList.Add(attack.Key); }
             }
@@ -177,12 +193,17 @@ namespace Assets.ServerStubHome
             return GetAttackInfoFromIds(player.AttackIds);
         }
 
+        public void KillMonster(Guid id)
+        {
+            spawnedMonsters.Remove(id);
+        }
+
         private List<AttackInfo> GetAttackInfoFromIds(List<Guid> attackIds)
         {
             var returnList = new List<AttackInfo>();
             foreach (var attackId in attackIds)
             {
-               returnList.Add(knownAttacks.AllKnownAttackList[attackId]);
+               returnList.Add(KnownAttacks.AllKnownAttackList[attackId]);
             }
 
             return returnList;
@@ -223,74 +244,27 @@ namespace Assets.ServerStubHome
             monsterAffinityMatchup.Add(MonsterList.MiniLandShark, ElementalAffinity.Water);
         }
 
-        private void Start()
+        public AttackResolution RouteAttack(AttackRequest data)
         {
+            AttackInstance ai;
+            if(attackInstances.TryGetValue(data.InstanceId, out ai))
+                       return ai.HandlePlayerAttack(data);
             
+            return null;
         }
 
-
-        internal  AttackResolution SendAttack(AttackRequest data)
+        public void UpdateAttackInstance(AttackUpdateRequest update)
         {
-            MonsterDna target = null;
-            spawnedMonsters.TryGetValue(data.TargetId, out target);
-            if(target == null)
-            {
-                Debug.LogError("Target does not exist. You cannot beat a dead horse.");
-                return null;
-            }
-            AttackInfo attack = null;
-            knownAttacks.AllKnownAttackList.TryGetValue(data.AttackId, out attack);
-            if(attack == null)
-            {
-                Debug.LogError("Attack does not exist. You cannot attack without knowledge.");
-                return null;
-            }
+            AttackInstance ai;
+            if (attackInstances.TryGetValue(update.AttackInstanceId, out ai))
+                ai.UpdatePlayerChampion(update.CurrentPlayerChampionId);
+        }
 
-            //determine hit 
-            var swing = UnityEngine.Random.Range(1, 101);
-            if(swing > attack.Accuracy)
-            {
-                attack.PowerLevel = 0; //burned!
-                return new AttackResolution
-                {
-                    MaxHealth = target.MaxHealth,
-                    CurrentHealth = target.CurrentHealth,
-                    TargetId = target.MonsterId,
-                    AttackPerformed = attack,
-                    Success = false,
-                };
-            }
-
-            float powerUpBonusPercentMultiplier = (attack.PowerLevel / 10f) + 1;
-            
-            var crit = IsCrit();
-            float damage = attack.BaseDamage * (crit ? 2 : 1);
-
-            damage = damage * powerUpBonusPercentMultiplier;
-          
-            target.CurrentHealth = target.CurrentHealth - damage;
-
-            bool fatal = false;
-            if(target.CurrentHealth <= 0)
-            {
-                //take a moment to mourn the fallen!
-                spawnedMonsters.Remove(target.MonsterId);
-                fatal = true;
-            }
-
-            attack.PowerLevel = 0;
-            return new AttackResolution
-            {
-                WasFatal = fatal,
-                WasCritical = crit,
-                Damage = damage,
-                MaxHealth = target.MaxHealth,
-                CurrentHealth = target.CurrentHealth,
-                TargetId = target.MonsterId,
-                AttackPerformed = attack,
-                Success = true,
-            };
-
+        public void StartCombat(Guid attackInstanceId)
+        {
+            AttackInstance ai;
+            if (attackInstances.TryGetValue(attackInstanceId, out ai))
+                 ai.StartCombat();
         }
 
         private static ServerStub serverStub;
@@ -306,12 +280,6 @@ namespace Assets.ServerStubHome
             return serverStub;
         }
 
-        private bool IsCrit()
-        {
-            var hit = UnityEngine.Random.Range(0, 101);
-            if (hit < 20)
-                return true;
-            return false;
-        }
+
     }
 }

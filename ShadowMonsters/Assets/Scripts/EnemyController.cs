@@ -45,14 +45,7 @@ namespace Assets.Scripts
             enemy = monsterSpawner.SpawnRandomEnemyMonster();
             enemy.SetActive(true);
             enemyInfo = enemy.GetComponent<BaseMonster>();
-
             enemyStatusController.SetMonster(enemyInfo.DisplayName,enemyInfo.Level.ToString(),enemyInfo.MonsterPresence,enemyInfo.CurrentHealth, enemyInfo.MaxHealth, enemyInfo.MonsterId);
-
-        }
-
-        public void StartEnemyAttack(Guid target)
-        {
-            //serverStub.PerformRandomAttackSequence(enemyInfo.MonsterId, target, new Guid());
         }
 
         public void ResolveAttack(AttackResolution results)

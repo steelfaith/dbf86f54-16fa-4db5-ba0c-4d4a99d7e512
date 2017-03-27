@@ -21,6 +21,7 @@ namespace Assets.Scripts
         private FatbicController fatbicController;
         private ServerStub serverStub;
         private bool combatEnded;
+        private Guid attackInstanceId;
 
         private EnemyController enemyController;
 
@@ -36,15 +37,15 @@ namespace Assets.Scripts
             fatbicController = FatbicController.Instance();
             fatbicController.AttackAttempt += AttackEnemyAttempt;
             enemyController = EnemyController.Instance();
-
             combatPlayerController = CombatPlayerController.Instance();
-            enemyController.SpawnEnemy();
-            
 
+            serverStub.SetCombatInstance(this);
+            enemyController.SpawnEnemy();
+            attackInstanceId = serverStub.CreateAttackSequence(enemyController.enemyInfo.MonsterId, playerController.Id);
 
             _textLogDisplayManager.AddText(string.Format("You have been attacked by a {0}!", enemyController.enemyInfo.DisplayName), AnnouncementType.Enemy);
             _beginCombatPopup.PromptUserAction(enemyController.enemyInfo.DisplayName, OnFight, OnRun, OnBond);
-
+            
         }
 
         private void AttackEnemyAttempt(object sender, DataEventArgs<AttackInfo> e)
@@ -56,12 +57,12 @@ namespace Assets.Scripts
             if(e.Data.IsGenerator)
                 playerController.CollectResources(e.Data.Affinity);
 
-            AttackResolution attackResult = serverStub.SendAttack(
+            AttackResolution attackResult = serverStub.RouteAttack(
                 new AttackRequest {
+                                     InstanceId = attackInstanceId,
                                      AttackId = e.Data.AttackId,
-                                     TargetId = enemyController.enemyInfo.MonsterId
                                   });
-            if (attackResult == null) return;
+            if (attackResult == null) return;  //attack instance has closed
             
 
             enemyController.ResolveAttack(attackResult);
@@ -85,6 +86,11 @@ namespace Assets.Scripts
 
                
         }
+
+        public void HandleEnemyAttackOnPlayer(AttackResolution attack)
+        {
+            _textLogDisplayManager.AddText("You dun been tacked..you prolly be ded.", AnnouncementType.Enemy);
+        }
         private IEnumerator EndCombat()
         {
             while (true)
@@ -105,10 +111,10 @@ namespace Assets.Scripts
         }
 
         void OnFight()
-        {
+        {            
             fatbicController.BeginAttack(OnAttackOnePressed, OnAttackTwoPressed, OnAttackThreePressed, OnAttackFourPressed, OnAttackFivePressed, OnStopAttackPressed, OnBond, OnRun);
-            var leadMonster =combatPlayerController.StartCombat();
-            enemyController.StartEnemyAttack(leadMonster);                        
+            combatPlayerController.StartCombat(attackInstanceId);
+            serverStub.StartCombat(attackInstanceId);
         }
 
         private void OnAttackOnePressed()

@@ -79,13 +79,17 @@
   <ItemGroup>
     <Compile Include="Assets\Infrastructure\AddResourceRequest.cs" />
     <Compile Include="Assets\Infrastructure\AddResourceResponse.cs" />
+    <Compile Include="Assets\Infrastructure\AttackUpdateRequest.cs" />
     <Compile Include="Assets\Infrastructure\BurnResourceResponse.cs" />
     <Compile Include="Assets\Infrastructure\BurnResourcesRequest.cs" />
+    <Compile Include="Assets\Infrastructure\DelayedDamageInfo.cs" />
     <Compile Include="Assets\Infrastructure\IMonster.cs" />
     <Compile Include="Assets\Scripts\DragHandler.cs" />
     <Compile Include="Assets\Scripts\IncarnationContainer.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\TeamController.cs" />
+    <Compile Include="Assets\ServerStubHome\AiAttackStyles\ButtonMasher.cs" />
+    <Compile Include="Assets\ServerStubHome\AiAttackStyles\IAiAttackStyle.cs" />
     <Compile Include="Assets\ServerStubHome\AttackInstance.cs" />
     <Compile Include="Assets\Infrastructure\AnimationActionEnum.cs" />
     <Compile Include="Assets\Infrastructure\AnnouncementTypeEnum.cs" />
@@ -158,6 +162,7 @@
     <None Include="Assets\UnityChan\Stage\Shader\AlphaMask.shader" />
     <None Include="Assets\UnityChan\license.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>

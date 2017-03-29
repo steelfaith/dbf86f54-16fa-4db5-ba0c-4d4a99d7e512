@@ -18,6 +18,7 @@ namespace Assets.Scripts
         public GameObject teamMember5;
         public GameObject teamMember6;
         private List<GameObject> members = new List<GameObject>(); //order matters here
+        private IncarnationContainer incarnationContainer;
 
         private ServerStub serverStub;
         private PlayerController player;
@@ -26,6 +27,7 @@ namespace Assets.Scripts
         {
             player = PlayerController.Instance();
             serverStub = ServerStub.Instance();
+            incarnationContainer = IncarnationContainer.Instance();
             
             members.Add(teamMember1);
             members.Add(teamMember2);
@@ -69,7 +71,7 @@ namespace Assets.Scripts
 
         public void UpdateLead(AttackResolution attack)
         {
-            var lead = members.FirstOrDefault();
+            var lead = incarnationContainer.item;
             if (lead == null) return;
             var statusController = lead.GetComponentInChildren<StatusController>();
             statusController.UpdateMonster(attack);

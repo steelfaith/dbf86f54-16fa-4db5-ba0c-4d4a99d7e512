@@ -5,6 +5,7 @@ using System.Text;
 using Assets.Infrastructure;
 using UnityEngine;
 using Assets.Scripts;
+using System.Collections;
 
 namespace Assets.ServerStubHome
 {
@@ -15,6 +16,7 @@ namespace Assets.ServerStubHome
         Dictionary<Guid, PlayerData> players = new Dictionary<Guid, PlayerData>();
         Dictionary<Guid, List<ElementalAffinity>> playerResources = new Dictionary<Guid, List<ElementalAffinity>>();
         Dictionary<Guid, AttackInstance> attackInstances = new Dictionary<Guid, AttackInstance>();
+        Queue<AttackResolution> attackQueue = new Queue<AttackResolution>();
         KnownAttacks knownAttacks;
         private CombatController combatController;  // this shouldn't be referenced in real server..temp solution for simulation
 
@@ -30,6 +32,11 @@ namespace Assets.ServerStubHome
                                                                                        };
             spawnedMonsters[enemyMonster.MonsterId] = enemyMonster;
             return enemyMonster;
+        }
+
+        private void Update()
+        {
+            StartCoroutine(CheckAttackQueue());
         }
 
         internal void SetCombatInstance(CombatController cc)
@@ -66,8 +73,27 @@ namespace Assets.ServerStubHome
 
         private void HandleEnemyAttack(object sender, DataEventArgs<AttackResolution> e)
         {
-            //route back to correct client
-            combatController.HandleEnemyAttackOnPlayer(e.Data);
+            //have to queue these and let the main thread pick them up when it can
+            attackQueue.Enqueue(e.Data);
+            
+        }
+
+        public IEnumerator CheckAttackQueue()
+        {
+            if (!SendAttack())
+            {
+                yield return null;
+            }
+        }
+
+        public bool SendAttack()
+        {
+            if (attackQueue.Count > 1)
+            {
+                combatController.HandleEnemyAttackOnPlayer(attackQueue.Dequeue());
+                return true;
+            }
+            return false;
         }
 
         internal PlayerData GetPlayerData(Guid id)
@@ -137,7 +163,15 @@ namespace Assets.ServerStubHome
             
             return data;
         }
-        
+
+        public void EndAttackInstance(Guid attackInstanceId)
+        {
+            AttackInstance instance;
+            attackInstances.TryGetValue(attackInstanceId, out instance);
+            attackInstances.Remove(attackInstanceId);
+            instance.Dispose();
+        }
+
         public BurnResourceResponse BurnResource(BurnResourceRequest request)
         {
             List<ElementalAffinity> thisPlayerResources;

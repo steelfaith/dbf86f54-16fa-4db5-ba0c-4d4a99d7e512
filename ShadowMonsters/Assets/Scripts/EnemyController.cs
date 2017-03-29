@@ -18,6 +18,7 @@ namespace Assets.Scripts
         private ScrollingCombatTextController scrollingCombatTextController;
         private AnimationController animationController;
         private ServerStub serverStub;
+        private TextLogDisplayManager textLogDisplayManager;
 
         private void Start()
         {
@@ -25,6 +26,7 @@ namespace Assets.Scripts
             enemyStatusController = StatusDisplay.GetComponentInChildren<StatusController>();
             scrollingCombatTextController = ScrollingCombatTextController.Instance();
             animationController = AnimationController.Instance();
+            textLogDisplayManager = TextLogDisplayManager.Instance();
         }
 
         private static EnemyController enemyController;
@@ -59,6 +61,15 @@ namespace Assets.Scripts
                 animationController.PlayAnimation(enemy, AnimationAction.Die);
             }
         }
+
+        public void ResolveMyAttacks(AttackResolution results)
+        {
+            if (results.WasFatal)
+            {
+                animationController.PlayAnimation(enemy, AnimationAction.Victory);
+                textLogDisplayManager.AddText(string.Format("{0} celebrates his victory!", enemyInfo.DisplayName), AnnouncementType.System);
+            }
+    }
 
         public void EndCombat()
         {

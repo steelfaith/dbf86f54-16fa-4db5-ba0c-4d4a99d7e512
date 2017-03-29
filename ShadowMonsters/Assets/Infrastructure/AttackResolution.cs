@@ -16,5 +16,6 @@ namespace Assets.Infrastructure
         public bool WasFatal { get; set; }
         public AttackInfo AttackPerformed { get; set; }
         public bool Success { get; set; }
+        public DateTime TimeStamp { get; set; }
     }
 }

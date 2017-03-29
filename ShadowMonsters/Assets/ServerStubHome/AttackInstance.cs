@@ -8,7 +8,7 @@ using Assets.ServerStubHome.AiAttackStyles;
 
 namespace Assets.ServerStubHome
 {
-    public class AttackInstance 
+    public class AttackInstance : IDisposable
     {
         public ServerStub serverStub;
         private MonsterDna monster;
@@ -18,6 +18,7 @@ namespace Assets.ServerStubHome
         private Guid playerId;
         private PlayerData playerData;
         private Timer attackSequenceTimer;
+        private const int VictoryDance = 5000;
 
         public AttackInstance(Guid monsterId, Guid player)
         {
@@ -57,9 +58,18 @@ namespace Assets.ServerStubHome
                 var dAttack = delayedDamage.FirstOrDefault();
                 if (dAttack != null)
                 {
-                    PerformDelayedAttack(dAttack);
-                    delayedDamage.Remove(dAttack);
-                    dueTime = dAttack.NextDueTime;
+                    var result = PerformDelayedAttack(dAttack);
+                    if (!result.WasFatal)
+                    {
+                        delayedDamage.Remove(dAttack);
+                        dueTime = dAttack.NextDueTime;
+                    }
+                    else
+                    {
+                        delayedDamage.Clear();
+                        dueTime = GetAttackDelay(true, dAttack.CastTime);
+                    }
+
                 }
             }
 
@@ -67,9 +77,11 @@ namespace Assets.ServerStubHome
 
         }
 
-        private void PerformDelayedAttack(DelayedDamageInfo dAttack)
+        private AttackResolution PerformDelayedAttack(DelayedDamageInfo dAttack)
         {
-            FireEnemyAttack(CalculateAttack(playerChampion, dAttack));
+            var result = CalculateAttack(playerChampion, dAttack);
+            FireEnemyAttack(result);
+            return result;
         }
 
         private void ResetTimer(int dueTime)
@@ -96,25 +108,41 @@ namespace Assets.ServerStubHome
             switch (attack.DamageStyle)
             {
                 case DamageStyle.Instant:
-                    FireEnemyAttack(CalculateAttack(playerChampion,attack));
-                    return attack.Cooldown * 1000;
+                    var results = CalculateAttack(playerChampion, attack);
+                    FireEnemyAttack(results);                    
+                    return GetAttackDelay(results.WasFatal, attack.Cooldown);
+
                 case DamageStyle.Delayed:
-                    delayedDamage.Add(new DelayedDamageInfo { Affinity = attack.Affinity, BaseDamage = attack.BaseDamage,Accuracy = attack.Accuracy ,NextDueTime = 0, PowerLevel = attack.PowerLevel });
+                    delayedDamage.Add(new DelayedDamageInfo {Name = attack.Name, Affinity = attack.Affinity, BaseDamage = attack.BaseDamage,Accuracy = attack.Accuracy ,NextDueTime = 0, PowerLevel = attack.PowerLevel });
                     attack.PowerLevel = 0;
                     return attack.CastTime * 1000;
 
                 case DamageStyle.Tick:
-                    FireEnemyAttack(CalculateAttack(playerChampion, attack));
-                    //add rest of ticks as delayed
-                    for (int i = 0; i < attack.Cooldown; i++)
+                    var tickResult = CalculateAttack(playerChampion, attack);
+                    FireEnemyAttack(tickResult);
+                    //add rest of ticks as delayed unless fatal (then pause to celebrate)
+                    if(!tickResult.WasFatal)
                     {
-                        delayedDamage.Add(new DelayedDamageInfo { Affinity = attack.Affinity, BaseDamage = attack.BaseDamage, Accuracy = attack.Accuracy, NextDueTime = 1000 });
+                        for (int i = 0; i < attack.Cooldown; i++)
+                        {
+                            delayedDamage.Add(new DelayedDamageInfo {Name = attack.Name, Affinity = attack.Affinity, BaseDamage = attack.BaseDamage, Accuracy = attack.Accuracy, NextDueTime = 1000 });
+                        }
                     }
-                    return 1000;
+                    return GetAttackDelay(tickResult.WasFatal,1);
                 default:
                     break;
             }
             return 0;
+        }
+       
+        private int GetAttackDelay(bool fatal, int cooldown)
+        {
+            int attackDelay = cooldown * 1000;
+            if (fatal && attackDelay < VictoryDance)
+            {
+                return VictoryDance;
+            }
+            return attackDelay;
         }
 
         public void UpdatePlayerChampion(Guid newChampionId)
@@ -162,6 +190,7 @@ namespace Assets.ServerStubHome
                 TargetId = target.MonsterId,
                 AttackPerformed = attack,
                 Success = true,
+                TimeStamp = DateTime.Now,
             };
         }
 
@@ -200,6 +229,26 @@ namespace Assets.ServerStubHome
             var handler = EnemyAttack;
             if (handler != null)
                 handler.Invoke(this, new DataEventArgs<AttackResolution> { Data = resolution });
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // free managed resources  
+                if (attackSequenceTimer != null)
+                {
+                    attackSequenceTimer.Dispose();
+                    attackSequenceTimer = null;
+                }
+            }
+
         }
     }
 }

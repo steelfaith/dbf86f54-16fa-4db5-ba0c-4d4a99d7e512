@@ -25,6 +25,7 @@ namespace Assets.Scripts
         private FatbicController fatbic;
         private Guid combatInstanceId;
         private ServerStub serverStub;
+        private TeamController teamController;
 
         public bool InCombat
         {
@@ -41,6 +42,7 @@ namespace Assets.Scripts
             textLogDisplayManager = TextLogDisplayManager.Instance();
             incarnationContainer = IncarnationContainer.Instance();
             fatbic = FatbicController.Instance();
+            teamController = TeamController.Instance();
             playerData = playerController.GetCurrentPlayerData();
             SetupBaseMonsterForPlayer();
             
@@ -121,6 +123,27 @@ namespace Assets.Scripts
             {
                 serverStub.UpdateAttackInstance(new AttackUpdateRequest { AttackInstanceId = combatInstanceId, CurrentPlayerChampionId = playerChampionId });
             }
+        }
+
+        public void UpdateTeamHealth(AttackResolution attackResult)
+        {
+            DoAnimation(AnimationAction.GetHit);
+            teamController.UpdateLead(attackResult);
+            
+            if(attackResult.WasFatal)
+            {
+                //current incarnated monster has died...
+                DoAnimation(AnimationAction.Die);
+                var baseMonster = incarnatedMonster.GetComponent<BaseMonster>();
+                textLogDisplayManager.AddText(string.Format("{0} has died!", baseMonster.NickName), AnnouncementType.System);
+                IncarnateNextLivingEssence();
+            }
+            
+        }
+
+        private void IncarnateNextLivingEssence()
+        {
+            textLogDisplayManager.AddText("You quickly incarnate the next member of your team!", AnnouncementType.System);
         }
 
         public void DoAnimation(AnimationAction action)

@@ -79,41 +79,75 @@
     <Reference Include="UnityEditor.iOS.Extensions.Common">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
+    <Reference Include="Photon3Unity3D">
+      <HintPath>Assets\Plugins\Photon3Unity3D.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Infrastructure\AddResourceRequest.cs" />
+    <Compile Include="Assets\Infrastructure\AddResourceResponse.cs" />
+    <Compile Include="Assets\Infrastructure\AnimationActionEnum.cs" />
     <Compile Include="Assets\Infrastructure\AnnouncementTypeEnum.cs" />
     <Compile Include="Assets\Infrastructure\AttackInfo.cs" />
     <Compile Include="Assets\Infrastructure\AttackRequest.cs" />
     <Compile Include="Assets\Infrastructure\AttackResolution.cs" />
-    <Compile Include="Assets\Infrastructure\BaseCreature.cs" />
-    <Compile Include="Assets\Infrastructure\CreatureInfo.cs" />
+    <Compile Include="Assets\Infrastructure\AttackUpdateRequest.cs" />
+    <Compile Include="Assets\Infrastructure\BaseMonster.cs" />
+    <Compile Include="Assets\Infrastructure\BurnResourceResponse.cs" />
+    <Compile Include="Assets\Infrastructure\BurnResourcesRequest.cs" />
     <Compile Include="Assets\Infrastructure\DamageStyle.cs" />
     <Compile Include="Assets\Infrastructure\DataEventArgs.cs" />
+    <Compile Include="Assets\Infrastructure\DelayedDamageInfo.cs" />
+    <Compile Include="Assets\Infrastructure\ElementalAffinityEnum.cs" />
     <Compile Include="Assets\Infrastructure\EnumHelper.cs" />
+    <Compile Include="Assets\Infrastructure\GameToScreenUtility.cs" />
+    <Compile Include="Assets\Infrastructure\IMonster.cs" />
+    <Compile Include="Assets\Infrastructure\MonsterDna.cs" />
     <Compile Include="Assets\Infrastructure\MonsterList.cs" />
-    <Compile Include="Assets\Infrastructure\MonsterTypeEnum.cs" />
+    <Compile Include="Assets\Infrastructure\MonsterPresenceEnum.cs" />
     <Compile Include="Assets\Infrastructure\PlayerData.cs" />
-    <Compile Include="Assets\KnownAttacks.cs" />
+    <Compile Include="Assets\Infrastructure\RarityToColorExtension.cs" />
+    <Compile Include="Assets\Infrastructure\UI\Controllers\IViewController.cs" />
+    <Compile Include="Assets\Infrastructure\UI\Views\IView.cs" />
+    <Compile Include="Assets\Monsters\DragonBoar\Scripts\playerControl.cs" />
     <Compile Include="Assets\Scripts\ActorMovementController.cs" />
+    <Compile Include="Assets\Scripts\AnimationController.cs" />
     <Compile Include="Assets\Scripts\AnyManager.cs" />
     <Compile Include="Assets\Scripts\AreaSpawnManager.cs" />
     <Compile Include="Assets\Scripts\AreaSpawner.cs" />
     <Compile Include="Assets\Scripts\BeginCombatPopup.cs" />
     <Compile Include="Assets\Scripts\BringToFront.cs" />
+    <Compile Include="Assets\Scripts\ButtonPowerDownScript.cs" />
+    <Compile Include="Assets\Scripts\ButtonPowerUpScript.cs" />
     <Compile Include="Assets\Scripts\ButtonScript.cs" />
+    <Compile Include="Assets\Scripts\CastbarScript.cs" />
     <Compile Include="Assets\Scripts\CombatController.cs" />
+    <Compile Include="Assets\Scripts\CombatPlayerController.cs" />
+    <Compile Include="Assets\Scripts\DragHandler.cs" />
+    <Compile Include="Assets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\Scripts\FatbicController.cs" />
+    <Compile Include="Assets\Scripts\IncarnationContainer.cs" />
     <Compile Include="Assets\Scripts\IndicatorBarScript.cs" />
+    <Compile Include="Assets\Scripts\LevelDisplayScript.cs" />
     <Compile Include="Assets\Scripts\LoadScene.cs" />
     <Compile Include="Assets\Scripts\MonsterCave.cs" />
     <Compile Include="Assets\Scripts\MonsterSpawner.cs" />
-    <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\ResourceCollectorScript.cs" />
+    <Compile Include="Assets\Scripts\ScrollingCombatText.cs" />
+    <Compile Include="Assets\Scripts\ScrollingCombatTextController.cs" />
     <Compile Include="Assets\Scripts\Shadow.cs" />
     <Compile Include="Assets\Scripts\SimpleFollowCamera.cs" />
     <Compile Include="Assets\Scripts\StatusController.cs" />
+    <Compile Include="Assets\Scripts\TeamController.cs" />
     <Compile Include="Assets\Scripts\TextLogDisplayManager.cs" />
     <Compile Include="Assets\Scripts\UnloadSceneTrigger.cs" />
-    <Compile Include="Assets\ServerStub.cs" />
+    <Compile Include="Assets\ServerStubHome\AiAttackStyles\ButtonMasher.cs" />
+    <Compile Include="Assets\ServerStubHome\AiAttackStyles\IAiAttackStyle.cs" />
+    <Compile Include="Assets\ServerStubHome\AttackInstance.cs" />
+    <Compile Include="Assets\ServerStubHome\KnownAttacks.cs" />
+    <Compile Include="Assets\ServerStubHome\Monsters\DemonEnforcer.cs" />
+    <Compile Include="Assets\ServerStubHome\ServerStub.cs" />
     <Compile Include="Assets\UnityChan\Scripts\CameraController.cs" />
     <Compile Include="Assets\UnityChan\Scripts\FaceUpdate.cs" />
     <Compile Include="Assets\UnityChan\Scripts\IdleChanger.cs" />
@@ -122,6 +156,8 @@
     <Compile Include="Assets\UnityChan\Scripts\UnityChanControlScriptWithRgidBody.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Monsters\Rhino\Sheder\StandardDoubleSided.shader" />
+    <None Include="Assets\Monsters\tripods\Materials\lightbeam.shader" />
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_akarami_blend.shader" />
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eye.shader" />
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eye_blend.shader" />

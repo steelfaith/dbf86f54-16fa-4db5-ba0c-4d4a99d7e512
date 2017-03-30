@@ -32,6 +32,11 @@ namespace Assets.Scripts
             get { return combatInstanceId != Guid.Empty; }
         }
 
+        private bool IsIncarnated
+        {
+            get { return incarnatedMonster != null && incarnatedMonster.activeSelf; }
+        }
+
         private void Start()
         {
             serverStub = ServerStub.Instance();
@@ -51,9 +56,10 @@ namespace Assets.Scripts
         private void SetupBaseMonsterForPlayer()
         {
             baseMonster.NameKey = "unitychan";
-            baseMonster.NickName = playerData.DisplayName;
-            baseMonster.CurrentHealth = playerData.CurrentHealth;
-            baseMonster.MaxHealth = playerData.MaximumHealth;
+            baseMonster.NickName = playerData.PlayerDna.NickName;
+            baseMonster.CurrentHealth = playerData.PlayerDna.CurrentHealth;
+            baseMonster.MaxHealth = playerData.PlayerDna.MaxHealth;
+            baseMonster.MonsterId = playerData.Id;
         }
 
         private void Update()
@@ -132,11 +138,16 @@ namespace Assets.Scripts
             
             if(attackResult.WasFatal)
             {
-                //current incarnated monster has died...
-                DoAnimation(AnimationAction.Die);
-                var baseMonster = incarnatedMonster.GetComponent<BaseMonster>();
-                textLogDisplayManager.AddText(string.Format("{0} has died!", baseMonster.NickName), AnnouncementType.System);
-                IncarnateNextLivingEssence();
+                if (IsIncarnated)
+                {
+                    //current incarnated monster has died...
+                    DoAnimation(AnimationAction.Die);
+                    var baseMonster = incarnatedMonster.GetComponent<BaseMonster>();
+                    textLogDisplayManager.AddText(string.Format("{0} has died!", baseMonster.NickName), AnnouncementType.System);
+                    RevertIncarnation();
+                    teamController.HandleCodeDrop(incarnationContainer.item);
+                }
+                
             }
             
         }
@@ -147,9 +158,8 @@ namespace Assets.Scripts
         }
 
         public void DoAnimation(AnimationAction action)
-        {
-            var leadIsActive = incarnatedMonster != null && incarnatedMonster.activeSelf;            
-            animationController.PlayAnimation(leadIsActive?incarnatedMonster:gameObject, action);            
+        {        
+            animationController.PlayAnimation(IsIncarnated ? incarnatedMonster:gameObject, action);            
         }
 
         public void EndCombat()

@@ -12,7 +12,7 @@ namespace Assets.ServerStubHome
     {
         public ServerStub serverStub;
         private MonsterDna monster;
-        private MonsterDna playerChampion;
+        private MonsterDna target;
         private List<AttackInfo> monsterAttacks;
         private IAiAttackStyle aiStyle;
         private Guid playerId;
@@ -35,7 +35,7 @@ namespace Assets.ServerStubHome
 
         public void StartCombat()
         {
-            if (playerChampion == null || playerChampion.CurrentHealth < 1) return;
+            //if (target == null || target.CurrentHealth < 1) return;
             if (monster == null || monster.CurrentHealth < 1) return;
 
             PerformAttack(null);
@@ -46,6 +46,10 @@ namespace Assets.ServerStubHome
 
         private void PerformAttack(object state)
         {
+            if(target == null || target.CurrentHealth < 1)
+            {
+                target = playerData.PlayerDna;
+            }
             int dueTime = 0;
             if (!delayedDamage.Any())
             {
@@ -79,7 +83,7 @@ namespace Assets.ServerStubHome
 
         private AttackResolution PerformDelayedAttack(DelayedDamageInfo dAttack)
         {
-            var result = CalculateAttack(playerChampion, dAttack);
+            var result = CalculateAttack(target, dAttack);
             FireEnemyAttack(result);
             return result;
         }
@@ -90,7 +94,7 @@ namespace Assets.ServerStubHome
             {
                 attackSequenceTimer = new Timer(PerformAttack, null, dueTime, Timeout.Infinite);
             }
-            else if (attackSequenceTimer != null && playerData.CurrentHealth > 0 && monster.CurrentHealth > 0)
+            else if (attackSequenceTimer != null)// && playerData.PlayerDna.CurrentHealth > 0 && monster.CurrentHealth > 0)
             {
                 attackSequenceTimer.Change(dueTime, Timeout.Infinite);
             }
@@ -108,7 +112,7 @@ namespace Assets.ServerStubHome
             switch (attack.DamageStyle)
             {
                 case DamageStyle.Instant:
-                    var results = CalculateAttack(playerChampion, attack);
+                    var results = CalculateAttack(target, attack);
                     FireEnemyAttack(results);                    
                     return GetAttackDelay(results.WasFatal, attack.Cooldown);
 
@@ -118,7 +122,7 @@ namespace Assets.ServerStubHome
                     return attack.CastTime * 1000;
 
                 case DamageStyle.Tick:
-                    var tickResult = CalculateAttack(playerChampion, attack);
+                    var tickResult = CalculateAttack(target, attack);
                     FireEnemyAttack(tickResult);
                     //add rest of ticks as delayed unless fatal (then pause to celebrate)
                     if(!tickResult.WasFatal)
@@ -147,7 +151,7 @@ namespace Assets.ServerStubHome
 
         public void UpdatePlayerChampion(Guid newChampionId)
         {
-            playerChampion = serverStub.GetMonsterById(newChampionId);
+            target = serverStub.GetMonsterById(newChampionId);
         }
 
         private AttackResolution CalculateAttack(MonsterDna target, AttackInfo attack)

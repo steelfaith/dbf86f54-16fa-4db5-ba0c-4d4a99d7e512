@@ -69,6 +69,10 @@ namespace Assets.Scripts
                 animationController.PlayAnimation(enemy, AnimationAction.Victory);
                 textLogDisplayManager.AddText(string.Format("{0} celebrates his victory!", enemyInfo.DisplayName), AnnouncementType.System);
             }
+            else
+            {
+                animationController.PlayAnimation(enemy, AnimationAction.Attack);
+            }
     }
 
         public void EndCombat()

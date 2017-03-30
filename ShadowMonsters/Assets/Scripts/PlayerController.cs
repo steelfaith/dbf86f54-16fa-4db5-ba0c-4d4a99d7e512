@@ -30,7 +30,7 @@ namespace Assets.Scripts
             AttackIds = currentData.AttackIds;
             statusController = statusDisplay.GetComponentInChildren<StatusController>();
             statusController.displayName.color = Color.green;
-            statusController.SetMonster(currentData.DisplayName,"0",MonsterPresence.Carnal,currentData.CurrentHealth,currentData.MaximumHealth, currentData.Id);
+            statusController.SetMonster(currentData.PlayerDna.NickName,"0",MonsterPresence.Carnal,currentData.PlayerDna.CurrentHealth,currentData.PlayerDna.MaxHealth, currentData.Id);
             
         }
 

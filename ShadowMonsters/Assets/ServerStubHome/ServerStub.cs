@@ -152,11 +152,15 @@ namespace Assets.ServerStubHome
             var data = new PlayerData
             {
                 Id = id,
-                DisplayName = "OFFHIZMEDZ",
+                
                 CurrentTeam = team,
                 AttackIds = GetAttackIdList(KnownAttacks.KnownPlayerAttackList),
-                MaximumHealth = 50,
-                CurrentHealth = 50
+                PlayerDna = new MonsterDna(MonsterList.unitychan,50)
+                {
+                    MaxHealth = 150,
+                    CurrentHealth = 150,
+                    NickName = "OFFHIZMEDZ",
+                }
                         
             };
             
@@ -247,6 +251,7 @@ namespace Assets.ServerStubHome
         {
             
             var list = Enum.GetNames(typeof(T)).ToList();
+            list.Remove("unitychan");
 
             return list[UnityEngine.Random.Range(0, list.Count)];
         }

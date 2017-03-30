@@ -4,6 +4,8 @@ namespace Assets.Infrastructure
 {
     public enum MonsterList
     {
+        [Description("unitychan")]
+        unitychan,
         [Description("Demon Enforcer")]
         DemonEnforcer,
         [Description("Rhino Virus")]

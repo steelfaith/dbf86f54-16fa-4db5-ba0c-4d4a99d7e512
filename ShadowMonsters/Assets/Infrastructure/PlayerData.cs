@@ -10,9 +10,7 @@ namespace Assets.Infrastructure
         public Guid Id { get; set; }
         public List<MonsterDna> CurrentTeam { get; set; }
         public List<Guid> AttackIds { get; set; }
-        public string DisplayName { get; set; }
-        public float CurrentHealth { get; set; }
-        public float MaximumHealth { get; set; }
+        public MonsterDna PlayerDna { get; set; }
 
     }
 }

@@ -77,6 +77,15 @@ namespace Assets.Scripts
             statusController.UpdateMonster(attack);
         }
 
+        public void HandleCodeDrop(GameObject item)
+        {
+            item.transform.SetParent(transform);
+
+            var statusController = DragHandler.itemBeingDragged.GetComponent<StatusController>();
+            if (statusController != null)
+                statusController.displayName.color = new Color32(0, 253, 0, 255);
+        }
+
         public void OnDrop(PointerEventData eventData)
         {
             var fatbic = FatbicController.Instance();

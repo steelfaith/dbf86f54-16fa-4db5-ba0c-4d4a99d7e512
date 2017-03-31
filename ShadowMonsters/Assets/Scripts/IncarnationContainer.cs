@@ -5,11 +5,13 @@ using System.Text;
 using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.ServerStubHome;
 
 namespace Assets.Scripts
 {
     public class IncarnationContainer : MonoBehaviour, IDropHandler
     {
+        private ServerStub serverStub;
         public Guid MonsterId
         {
             get
@@ -38,12 +40,16 @@ namespace Assets.Scripts
 
         private void Start()
         {
+            serverStub = ServerStub.Instance();
         }
 
         public void OnDrop(PointerEventData eventData)
         {
             var fatbic = FatbicController.Instance();
             if (fatbic != null && fatbic.IsBusy) return;
+            var incomingMonsterId = DragHandler.itemBeingDragged.GetComponent<StatusController>().MonsterId;
+            if (!serverStub.CheckPulse(incomingMonsterId)) return;
+
             if (!item)
             {
                 DragHandler.itemBeingDragged.transform.SetParent(transform);                

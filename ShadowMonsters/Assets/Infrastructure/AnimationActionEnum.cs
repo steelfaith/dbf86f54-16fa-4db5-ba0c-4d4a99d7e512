@@ -10,7 +10,8 @@ namespace Assets.Infrastructure
         Attack,
         Die,
         GetHit,
-        Victory
+        Victory,
+        Knockback
     }
 }
 

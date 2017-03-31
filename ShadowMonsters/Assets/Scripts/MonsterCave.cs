@@ -99,7 +99,8 @@ namespace Assets.Scripts
                                                                                 { AnimationAction.Attack, "WAIT04" },
                                                                                 { AnimationAction.Die, "LOSE00" },
                                                                                 { AnimationAction.GetHit, "DAMAGED00" },
-                                                                                { AnimationAction.Victory, "WIN00" }
+                                                                                { AnimationAction.Victory, "WIN00" },
+                                                                                { AnimationAction.Knockback, "DAMAGED01" }
                                                                             };
             animationMapping[Tripod.gameObject.name] = new Dictionary<AnimationAction, string>
                                                                             {

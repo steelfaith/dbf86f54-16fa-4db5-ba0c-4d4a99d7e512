@@ -81,7 +81,7 @@ namespace Assets.Scripts
         {
             item.transform.SetParent(transform);
 
-            var statusController = DragHandler.itemBeingDragged.GetComponent<StatusController>();
+            var statusController = item.GetComponent<StatusController>();
             if (statusController != null)
                 statusController.displayName.color = new Color32(0, 253, 0, 255);
         }

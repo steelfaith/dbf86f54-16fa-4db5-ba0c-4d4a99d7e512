@@ -92,15 +92,15 @@ namespace Assets.Scripts
             if (attackResult.Success)
             {
                 _textLogDisplayManager.AddText(string.Format("{0}: {1}'s {2}{3} hit you for {4} damage!", attackResult.TimeStamp,enemyController.enemyInfo.DisplayName, attackResult.AttackPerformed.Name, attackResult.WasCritical ? " critically" : "", attackResult.Damage.ToString()), AnnouncementType.Enemy);
+                combatPlayerController.UpdateTeamHealth(attackResult);
+                enemyController.ResolveMyAttacks(attackResult);
             }
             else
             {
                 _textLogDisplayManager.AddText(string.Format("{0}: {1}'s {2} missed you.",attackResult.TimeStamp,enemyController.enemyInfo.DisplayName, attackResult.AttackPerformed.Name), AnnouncementType.Enemy);
             }
 
-            combatPlayerController.UpdateTeamHealth(attackResult);
 
-            enemyController.ResolveMyAttacks(attackResult);
         }
         private IEnumerator EndCombat()
         {

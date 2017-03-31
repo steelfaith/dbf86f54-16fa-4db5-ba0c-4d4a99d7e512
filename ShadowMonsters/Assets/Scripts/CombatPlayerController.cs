@@ -146,6 +146,7 @@ namespace Assets.Scripts
                     textLogDisplayManager.AddText(string.Format("{0} has died!", baseMonster.NickName), AnnouncementType.System);
                     RevertIncarnation();
                     teamController.HandleCodeDrop(incarnationContainer.item);
+                    DoAnimation(AnimationAction.Knockback);
                 }
                 
             }

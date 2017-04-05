@@ -1,0 +1,12 @@
+C:\Code\Testing\Common\bin\Debug\Common.dll
+C:\Code\Testing\Common\bin\Debug\Common.pdb
+C:\Code\Testing\Common\obj\Debug\Common.csprojResolveAssemblyReference.cache
+C:\Code\Testing\Common\obj\Debug\Common.dll
+C:\Code\Testing\Common\obj\Debug\Common.pdb
+C:\Code\Testing\Common\bin\Debug\log4net.dll
+E:\Downloads\Testing\Common\bin\Debug\Common.dll
+E:\Downloads\Testing\Common\bin\Debug\Common.pdb
+E:\Downloads\Testing\Common\bin\Debug\log4net.dll
+E:\Downloads\Testing\Common\obj\Debug\Common.csprojResolveAssemblyReference.cache
+E:\Downloads\Testing\Common\obj\Debug\Common.dll
+E:\Downloads\Testing\Common\obj\Debug\Common.pdb

@@ -150,14 +150,17 @@ namespace Assets.ServerStubHome
             AddPlayerResource(attack.Affinity);
         }
 
-        public void BurnResource()
+        public bool TryBurnResource()
         {
-            if (playerResources == null || !playerResources.Any()) return;
+            if (playerResources == null || !playerResources.Any()) return false;
+            bool success = false;
             if (playerResources.Contains(playerAttackHelper.currentAttack.Affinity))
             {
                 playerResources.RemoveAt(playerResources.FindLastIndex(x => x == playerAttackHelper.currentAttack.Affinity));
+                success = true;
             }
-            playerResourceUpdateQueue.Enqueue( new ResourceUpdate { Id = playerId, Resources = playerResources });
+            playerResourceUpdateQueue.Enqueue(new ResourceUpdate { Id = playerId, Resources = playerResources });
+            return success;            
         }
 
         private float GetModifiedAttackDelayInMilliseconds(float speed, AttackInfo attack)

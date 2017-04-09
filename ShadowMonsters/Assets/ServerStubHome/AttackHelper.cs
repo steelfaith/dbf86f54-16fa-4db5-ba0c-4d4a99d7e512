@@ -82,8 +82,16 @@ namespace Assets.ServerStubHome
             {
                 if (currentAttack.PowerLevel < 3)
                 {
-                    attackInstance.BurnResource();
-                    currentAttack.PowerLevel++;
+                    if (attackInstance.TryBurnResource())
+                    { currentAttack.PowerLevel++; }
+                    else
+                    {
+                        serverStub.ServerMessageQueue.Enqueue(new ServerMessage
+                        {
+                            AnnoucementType = AnnouncementType.System,
+                            Message = string.Format("Not enough {0} resources to power up attack", currentAttack.Affinity.ToString())
+                        });
+                    }
                 }
                 else
                 {

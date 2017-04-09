@@ -20,6 +20,8 @@ namespace Assets.Scripts
         public Color castTimeEndColor;
         public bool IsCasting;
         public int attackIndex;
+        public Button powerUpButton;
+        public Button powerDownButton;
         private float rechargeEnd;
         private float rechargeTime;
         public AttackInfo attackInfo;

@@ -16,10 +16,13 @@ namespace Assets.ServerStubHome
         private const int VictoryDance = 5000;
         private MonsterDna target;
         Random random = new Random();
+        public AttackInfo currentAttack;
+        private ServerStub serverStub;
 
-        public AttackHelper(AttackInstance instance)
+        public AttackHelper(AttackInstance instance, ServerStub stub)
         {
             attackInstance = instance;
+            serverStub = stub;
         }
 
         public event EventHandler AttackComplete;
@@ -36,6 +39,7 @@ namespace Assets.ServerStubHome
             if (IsBusy) return;
             IsBusy = true;
             target = attackTarget;
+            currentAttack = attack;
 
             switch (attack.DamageStyle)
             {
@@ -46,7 +50,7 @@ namespace Assets.ServerStubHome
                     ResetTimer(timeOut);
                     break;
                 case DamageStyle.Delayed:
-                    delayedDamage.Add(new DelayedDamageInfo { Name = attack.Name, Affinity = attack.Affinity, BaseDamage = attack.BaseDamage, Accuracy = attack.Accuracy, NextDueTime = 0, PowerLevel = attack.PowerLevel });
+                    delayedDamage.Add(new DelayedDamageInfo {AttackId = attack.AttackId, Name = attack.Name, Affinity = attack.Affinity, BaseDamage = attack.BaseDamage, Accuracy = attack.Accuracy, NextDueTime = 0, PowerLevel = attack.PowerLevel });
                     attack.PowerLevel = 0;
                     ResetTimer(attack.CastTime * 1000);
                     break;
@@ -59,7 +63,7 @@ namespace Assets.ServerStubHome
                     {
                         for (int i = 0; i < attack.Cooldown -1; i++)
                         {
-                            delayedDamage.Add(new DelayedDamageInfo { Name = attack.Name, Affinity = attack.Affinity, BaseDamage = attack.BaseDamage, Accuracy = attack.Accuracy, NextDueTime = 1000 });
+                            delayedDamage.Add(new DelayedDamageInfo { AttackId = attack.AttackId, Name = attack.Name, Affinity = attack.Affinity, BaseDamage = attack.BaseDamage, Accuracy = attack.Accuracy, NextDueTime = 1000 });
                         }
                     }
                     ResetTimer(GetAttackDelay(tickResult.WasFatal, 1));
@@ -70,16 +74,51 @@ namespace Assets.ServerStubHome
 
         }
 
+        public void HandleAttackPowerChange(AttackPowerChangeRequest request)
+        {
+            if (request.AttackId != currentAttack.AttackId) return;
+
+            if (request.Up)
+            {
+                if (currentAttack.PowerLevel < 3)
+                {
+                    attackInstance.BurnResource();
+                    currentAttack.PowerLevel++;
+                }
+                else
+                {
+                    serverStub.ServerMessageQueue.Enqueue(new ServerMessage
+                    {
+                        AnnoucementType = AnnouncementType.System,
+                        Message = "Attack can not be powered up farther!",
+                    });
+                }
+            }
+            else
+            {
+                if (currentAttack.PowerLevel > 0)
+                {
+                    attackInstance.AddPlayerResource(currentAttack.Affinity);
+                    currentAttack.PowerLevel--;
+                }
+
+            }
+            //update client ui
+            attackInstance.attackPowerChangeUpdateQueue.Enqueue(new AttackPowerChangeResolution
+            {
+                AttackId = currentAttack.AttackId,
+                PlayerId = attackInstance.playerId,
+                PowerLevel = currentAttack.PowerLevel
+            });
+        }
+
         private void PerformAttack(object state)
         {
 
             int dueTime = 0;
             if (!delayedDamage.Any())
             {
-                IsBusy = false;
-                var handler = AttackComplete;
-                if (handler != null)
-                    handler.Invoke(this,EventArgs.Empty);
+                EndAttack();
                 return;
             }
             else
@@ -106,6 +145,23 @@ namespace Assets.ServerStubHome
             ResetTimer(dueTime);
 
         }
+
+        private void EndAttack()
+        {
+            IsBusy = false;
+
+            attackInstance.attackPowerChangeUpdateQueue.Enqueue(new AttackPowerChangeResolution
+            {
+                AttackId = currentAttack.AttackId,
+                PlayerId = attackInstance.playerId,
+                PowerLevel = 0
+            });
+            currentAttack = null;
+            var handler = AttackComplete;
+            if (handler != null)
+                handler.Invoke(this, EventArgs.Empty);
+        }
+
         private AttackResolution PerformDelayedAttack(DelayedDamageInfo dAttack)
         {
             var result = CalculateAttack(target, dAttack);
@@ -155,7 +211,13 @@ namespace Assets.ServerStubHome
                 };
             }
 
-            float powerUpBonusPercentMultiplier = (attack.PowerLevel / 10f) + 1;
+            float powerLevel = 0;
+            //check for power ups
+            if (attack.AttackId == currentAttack.AttackId)
+            {
+                powerLevel = currentAttack.PowerLevel;
+            }
+            float powerUpBonusPercentMultiplier = (powerLevel / 10f) + 1;
 
             var crit = IsCrit();
             float damage = attack.BaseDamage * (crit ? 2 : 1);

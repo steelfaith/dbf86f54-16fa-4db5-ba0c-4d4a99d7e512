@@ -45,7 +45,7 @@ namespace Assets.Scripts
 
         public void HandleAttackResolution(AttackResolution attackResult)
         {
-
+            if (attackResult == null) return;
             if(attackResult.TargetId == combatPlayerController.CurrentCombatantId)
             {
                 HandleAttackOnPlayerDisplay(attackResult);
@@ -114,21 +114,7 @@ namespace Assets.Scripts
         void Update()
         {
             StartCoroutine(CheckForAttacks());
-            StartCoroutine(CheckForResourceGain());
-        }
-        public IEnumerator CheckForResourceGain()
-        {
-            var resourceUpdate = serverStub.GetNextAddResourceUpdate(attackInstanceId);
-            if (resourceUpdate == null)
-            {
-                yield return null;
-            }
-            HandleResourceUpdates(resourceUpdate);
-        }
-
-        private void HandleResourceUpdates(ResourceUpdate resourceUpdate)
-        {
-            playerController.DisplayResources(resourceUpdate);
+            
         }
 
         public IEnumerator CheckForAttacks()

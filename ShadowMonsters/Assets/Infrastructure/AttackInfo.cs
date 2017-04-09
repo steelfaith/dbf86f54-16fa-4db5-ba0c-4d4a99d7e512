@@ -42,5 +42,6 @@ namespace Assets.Infrastructure
                 powerLevel = value;
             }
         }
+
     }
 }

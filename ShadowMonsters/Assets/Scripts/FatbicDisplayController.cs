@@ -77,6 +77,22 @@ namespace Assets.Scripts
         void Update()
         {
             StartCoroutine(CheckForButtonUpdates());
+            StartCoroutine(CheckForResourceGain());
+            StartCoroutine(CheckForAttackPowerUpdates());
+        }
+        public IEnumerator CheckForResourceGain()
+        {
+            var resourceUpdate = serverStub.GetNextAddResourceUpdate(AttackInstanceId);
+            if (resourceUpdate == null)
+            {
+                yield return null;
+            }
+            HandleResourceUpdates(resourceUpdate);
+        }
+
+        private void HandleResourceUpdates(ResourceUpdate resourceUpdate)
+        {
+            player.DisplayResources(resourceUpdate);
         }
 
         public IEnumerator CheckForButtonUpdates()
@@ -89,8 +105,40 @@ namespace Assets.Scripts
             HandleButtonUpdates(buttonUpdate);
         }
 
+        public IEnumerator CheckForAttackPowerUpdates()
+        {
+            var attackPowerUpdate = serverStub.GetNextAttackPowerUpdate(AttackInstanceId);
+            if (attackPowerUpdate == null)
+            {
+                yield return null;
+            }
+            HandleAttackPowerUpdates(attackPowerUpdate);
+        }
+
+        public void AttackPowerUpRequest(Guid attackId)
+        {
+            serverStub.ChangeAttackPower(new AttackPowerChangeRequest
+            {
+                AttackId = attackId,
+                AttackInstanceId = AttackInstanceId,
+                Up = true,
+            });
+        }
+
+        private void HandleAttackPowerUpdates(AttackPowerChangeResolution result)
+        {
+            if (result == null) return;
+            ButtonScript button;
+            attackIdToButtonMapping.TryGetValue(result.AttackId, out button);
+            if (button == null) return;
+            var pUpScript = button.powerUpButton.GetComponent<ButtonPowerUpScript>();
+            if (pUpScript == null) return;
+            pUpScript.attackPower = (PowerUpLevels)Enum.Parse(typeof(PowerUpLevels), result.PowerLevel.ToString());
+        }
+
         private void HandleButtonUpdates(ButtonPressResolution buttonUpdate)
         {
+            if (buttonUpdate == null) return;
             if(buttonUpdate.AttackId == null || buttonUpdate.AttackId == Guid.Empty)
             {
                 StartGlobalRecharge(buttonUpdate.TimeOutSeconds, null);
@@ -113,8 +161,6 @@ namespace Assets.Scripts
             if (!fatbicController)
             {
                 fatbicController = FindObjectOfType(typeof(FatbicDisplayController)) as FatbicDisplayController;
-                if (!fatbicController)
-                    Debug.LogError("Could not find FATBITCH!");
             }
             return fatbicController;
         }
@@ -276,6 +322,11 @@ namespace Assets.Scripts
             }
             attackInfoList = attacks;
             InitializeButtons();
+        }
+
+        public ButtonScript GetButtonScriptFromIndex(int index)
+        {
+            return attackButtonScripts[index];
         }
 
         private void InitializeButtons()

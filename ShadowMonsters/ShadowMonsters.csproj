@@ -80,6 +80,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Infrastructure\AttackPowerChangeResolution.cs" />
+    <Compile Include="Assets\Infrastructure\DelayedDamageInfo.cs" />
+    <Compile Include="Assets\Infrastructure\PowerUpLevelsEnum.cs" />
     <Compile Include="Assets\Infrastructure\ResourceUpdate.cs" />
     <Compile Include="Assets\Infrastructure\AnimationActionEnum.cs" />
     <Compile Include="Assets\Infrastructure\AnnouncementTypeEnum.cs" />
@@ -88,11 +91,10 @@
     <Compile Include="Assets\Infrastructure\AttackResolution.cs" />
     <Compile Include="Assets\Infrastructure\AttackUpdateRequest.cs" />
     <Compile Include="Assets\Infrastructure\BaseMonster.cs" />
-    <Compile Include="Assets\Infrastructure\BurnResourcesRequest.cs" />
+    <Compile Include="Assets\Infrastructure\AttackPowerChangeRequest.cs" />
     <Compile Include="Assets\Infrastructure\ButtonPressResolution.cs" />
     <Compile Include="Assets\Infrastructure\DamageStyle.cs" />
     <Compile Include="Assets\Infrastructure\DataEventArgs.cs" />
-    <Compile Include="Assets\Infrastructure\DelayedDamageInfo.cs" />
     <Compile Include="Assets\Infrastructure\ElementalAffinityEnum.cs" />
     <Compile Include="Assets\Infrastructure\EnumHelper.cs" />
     <Compile Include="Assets\Infrastructure\GameToScreenUtility.cs" />
@@ -102,6 +104,7 @@
     <Compile Include="Assets\Infrastructure\MonsterPresenceEnum.cs" />
     <Compile Include="Assets\Infrastructure\PlayerData.cs" />
     <Compile Include="Assets\Infrastructure\RarityToColorExtension.cs" />
+    <Compile Include="Assets\Infrastructure\ServerMessage.cs" />
     <Compile Include="Assets\Infrastructure\UI\Controllers\IViewController.cs" />
     <Compile Include="Assets\Infrastructure\UI\Views\IView.cs" />
     <Compile Include="Assets\Monsters\DragonBoar\Scripts\playerControl.cs" />

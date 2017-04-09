@@ -83,6 +83,7 @@ namespace Assets.Scripts
 
         public void DisplayResources(ResourceUpdate resourceUpdate)
         {
+            if (resourceUpdate == null) return;
             currentResources = resourceUpdate.Resources;
             statusController.UpdateResources(resourceUpdate.Resources);
         }

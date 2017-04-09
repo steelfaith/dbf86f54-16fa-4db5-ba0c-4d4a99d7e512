@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using Assets.Infrastructure;
+using System.Collections;
+using Assets.ServerStubHome;
 
 namespace Assets.Scripts
 {
@@ -13,8 +15,33 @@ namespace Assets.Scripts
     {
         public Text _textBlock;
         public GameObject _panel;
+        private ServerStub serverStub;
 
+        private void Update()
+        {
+            StartCoroutine(CheckForMessageUpdates());
+        }
 
+        public IEnumerator CheckForMessageUpdates()
+        {
+            var messageUpdate = serverStub.GetNextServerMessage(Guid.NewGuid());
+            if (messageUpdate == null)
+            {
+                yield return null;
+            }
+            HandleMessageUpdates(messageUpdate);
+        }
+
+        private void HandleMessageUpdates(ServerMessage messageUpdate)
+        {
+            if (messageUpdate == null) return;
+            AddText(messageUpdate.Message, messageUpdate.AnnoucementType);
+        }
+
+        private void Start()
+        {
+            serverStub = ServerStub.Instance();
+        }
         private static TextLogDisplayManager _textLogDisplayManager;
 
 

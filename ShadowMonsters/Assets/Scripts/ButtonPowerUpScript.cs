@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using Assets.Infrastructure;
 
@@ -12,10 +8,13 @@ namespace Assets.Scripts
     {
         public Button button;
         public int attackIndex;
+        public PowerUpLevels attackPower;
         private AttackInfo attackInfo;
         private FatbicDisplayController fatbic;
         private PlayerController player;
         private TextLogDisplayManager textLogDisplayManager;
+        private ButtonScript buttonScript;
+
 
 
         private void Awake()
@@ -27,7 +26,9 @@ namespace Assets.Scripts
         private void Start()
         {
             
-            textLogDisplayManager = TextLogDisplayManager.Instance();            
+            textLogDisplayManager = TextLogDisplayManager.Instance();
+            buttonScript = fatbic.GetButtonScriptFromIndex(attackIndex);
+                      
         }
 
         public void InitializeButton()
@@ -43,37 +44,31 @@ namespace Assets.Scripts
 
         public void PowerUpAttack()
         {
-            if(attackInfo.PowerLevel >= 3)
-            {
-                textLogDisplayManager.AddText("Attack can not be powered up farther!", AnnouncementType.System);
-                return;
-            }
-            if(player.TryBurnPlayerResource(attackInfo.Affinity))
-                attackInfo.PowerLevel++;
+            fatbic.AttackPowerUpRequest(attackInfo.AttackId);
         }
 
         private void UpdateButton()
         {
-            //button.interactable = attackInfo.IsCasting && attackInfo.CanPowerUp;
-            //button.image.color = attackInfo.Affinity.GetColorFromMonsterAffinity();
-            //switch ((int)attackInfo.PowerLevel)
-            //{
-                
-            //    case 1:
-            //        button.image.sprite = Resources.Load<Sprite>("power up one");
-            //        break;
-            //    case 2:
-            //        button.image.sprite = Resources.Load<Sprite>("power up two");
-            //        break;
-            //    case 3:
-            //        button.image.sprite = Resources.Load<Sprite>("power up three");
-            //        break;
+            button.interactable = buttonScript.IsCasting && attackInfo.CanPowerUp;
+            button.image.color = attackInfo.Affinity.GetColorFromMonsterAffinity();
+            switch (attackPower)
+            {
 
-            //    default:
-            //        button.image.sprite = button.interactable? Resources.Load<Sprite>("power up one"): Resources.Load<Sprite>("Blank");
-            //        button.image.color = Color.white;
-            //        break;
-            //}
+                case PowerUpLevels.One:
+                    button.image.sprite = Resources.Load<Sprite>("power up one");
+                    break;
+                case PowerUpLevels.Two:
+                    button.image.sprite = Resources.Load<Sprite>("power up two");
+                    break;
+                case PowerUpLevels.Three:
+                    button.image.sprite = Resources.Load<Sprite>("power up three");
+                    break;
+
+                default:
+                    button.image.sprite = button.interactable ? Resources.Load<Sprite>("power up one") : Resources.Load<Sprite>("Blank");
+                    button.image.color = Color.white;
+                    break;
+            }
         }
     }
 }

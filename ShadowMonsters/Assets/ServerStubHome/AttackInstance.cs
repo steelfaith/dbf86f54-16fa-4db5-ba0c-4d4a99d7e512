@@ -14,6 +14,7 @@ namespace Assets.ServerStubHome
         public Queue<AttackResolution> attackResultsQueue = new Queue<AttackResolution>();
         public Queue<ButtonPressResolution> buttonPressQueue = new Queue<ButtonPressResolution>();
         public Queue<ResourceUpdate> playerResourceUpdateQueue = new Queue<ResourceUpdate>();
+        public Queue<AttackPowerChangeResolution> attackPowerChangeUpdateQueue = new Queue<AttackPowerChangeResolution>();
         public Guid playerId;
         private MonsterDna monster;
         private MonsterDna playerChampion;
@@ -24,6 +25,7 @@ namespace Assets.ServerStubHome
         private AttackHelper playerAttackHelper;
         private AttackHelper aiAttackHelper;
         List<ElementalAffinity> playerResources = new List<ElementalAffinity>();
+        
 
         public AttackInstance(Guid monsterId, Guid player, Guid attackId)
         {
@@ -35,28 +37,13 @@ namespace Assets.ServerStubHome
             monster = serverStub.GetMonsterById(monsterId);
             aiStyle = new ButtonMasher(); //someday i will make more
             aiStyle.Attacks = monsterAttacks;
-            playerAttackHelper = new AttackHelper(this);
+            playerAttackHelper = new AttackHelper(this, serverStub);
             playerAttackHelper.TargetKilled += PlayerAttackHelperTargetKilled;
-            aiAttackHelper = new AttackHelper(this);
+            aiAttackHelper = new AttackHelper(this, serverStub);
             aiAttackHelper.AttackComplete += AiAttackComplete;
-            
-        }
-                
-        private void PlayerAttackHelperTargetKilled(object sender, EventArgs e)
-        {
-            buttonPressQueue.Enqueue(
-            new ButtonPressResolution
-            {
-                PlayerId = playerId,
-                TimeOutSeconds = 5 //victory timeout for player
-            });
+
         }
 
-        private void AiAttackComplete(object sender, EventArgs e)
-        {
-            AiPerformNewAttack();
-        }
-            
         public MonsterDna PlayerChampion
         {
             get
@@ -105,7 +92,8 @@ namespace Assets.ServerStubHome
 
             if (!serverStub.CanPerformAttack(attack.AttackId, PlayerChampion.MonsterId)) return;
 
-            AddPlayerResource(attack);
+
+            AddResourceFromAttack(attack);
 
             playerAttackHelper.StartAttack(attack, monster);
 
@@ -121,12 +109,32 @@ namespace Assets.ServerStubHome
             
         }
 
-        private void AddPlayerResource(AttackInfo attack)
+        public void HandleAttackPowerChange(AttackPowerChangeRequest request)
         {
-            if (!attack.IsGenerator) return;
+            playerAttackHelper.HandleAttackPowerChange(request);
+        }
+
+        private void PlayerAttackHelperTargetKilled(object sender, EventArgs e)
+        {
+            buttonPressQueue.Enqueue(
+            new ButtonPressResolution
+            {
+                PlayerId = playerId,
+                TimeOutSeconds = 5 //victory timeout for player
+            });
+        }
+
+        private void AiAttackComplete(object sender, EventArgs e)
+        {
+            AiPerformNewAttack();
+        }
+
+        public void AddPlayerResource(ElementalAffinity resource)
+        {
+
             if (playerResources.Count < 6)
             {
-                playerResources.Add(attack.Affinity);
+                playerResources.Add(resource);
             }
 
             playerResourceUpdateQueue.Enqueue(new ResourceUpdate
@@ -134,14 +142,20 @@ namespace Assets.ServerStubHome
                 Resources = playerResources,
                 Id = playerId
             });
+        } 
+        
+        private void AddResourceFromAttack(AttackInfo attack)
+        {
+            if (!attack.IsGenerator) return;
+            AddPlayerResource(attack.Affinity);
         }
 
-        public void BurnResource(BurnResourceRequest request)
+        public void BurnResource()
         {
             if (playerResources == null || !playerResources.Any()) return;
-            if (playerResources.Contains(request.NeededResource))
+            if (playerResources.Contains(playerAttackHelper.currentAttack.Affinity))
             {
-                playerResources.RemoveAt(playerResources.FindLastIndex(x => x == request.NeededResource));
+                playerResources.RemoveAt(playerResources.FindLastIndex(x => x == playerAttackHelper.currentAttack.Affinity));
             }
             playerResourceUpdateQueue.Enqueue( new ResourceUpdate { Id = playerId, Resources = playerResources });
         }

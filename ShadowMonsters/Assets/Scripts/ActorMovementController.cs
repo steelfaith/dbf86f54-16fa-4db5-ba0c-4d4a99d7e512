@@ -29,6 +29,7 @@ public class ActorMovementController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+        if (!_animator.isInitialized) return;
         _animator.SetFloat("Speed", 0.0f);
 
 	    if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))

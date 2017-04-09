@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Assets.Infrastructure
 {
-    public class BurnResourceRequest
+    public class ServerMessage
     {
-        public Guid AttackInstanceId;
-        public ElementalAffinity NeededResource { get; set; }
+        public string Message { get; set; }
+        public AnnouncementType AnnoucementType { get; set; }
     }
 }

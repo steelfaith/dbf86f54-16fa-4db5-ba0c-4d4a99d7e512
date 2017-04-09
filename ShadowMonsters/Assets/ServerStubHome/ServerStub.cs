@@ -15,7 +15,15 @@ namespace Assets.ServerStubHome
         Dictionary<Guid,MonsterDna> spawnedMonsters = new Dictionary<Guid,MonsterDna>();
         Dictionary<Guid, PlayerData> players = new Dictionary<Guid, PlayerData>();
         Dictionary<Guid, AttackInstance> attackInstances = new Dictionary<Guid, AttackInstance>();
+        
         KnownAttacks knownAttacks;
+
+        public ServerStub()
+        {
+            ServerMessageQueue = new Queue<ServerMessage>();
+        }
+
+        public Queue<ServerMessage> ServerMessageQueue { get; set; }
 
         public MonsterDna GetRandomMonster()
         {
@@ -31,12 +39,22 @@ namespace Assets.ServerStubHome
             return enemyMonster;
         }
 
+        public ServerMessage GetNextServerMessage(Guid playerId)
+        {
+            //TODO: all messages going to one client currently...but prob need to consider this for real server
+            if(ServerMessageQueue.Count > 0)
+                return ServerMessageQueue.Dequeue();
+            return null;
+        }
+
         public AttackResolution GetNextAttackResult(Guid attackInstanceId)
         {
             AttackInstance instance;
             attackInstances.TryGetValue(attackInstanceId, out instance);
             if (instance == null) return null;
-            return instance.attackResultsQueue.Dequeue();
+            if(instance.attackResultsQueue.Count > 0)
+                return instance.attackResultsQueue.Dequeue();
+            return null;
         }
 
         public ButtonPressResolution GetNextButtonUpdate(Guid attackInstanceId)
@@ -44,7 +62,9 @@ namespace Assets.ServerStubHome
             AttackInstance instance;
             attackInstances.TryGetValue(attackInstanceId, out instance);
             if (instance == null) return null;
-            return instance.buttonPressQueue.Dequeue();
+            if(instance.buttonPressQueue.Count > 0)
+                return instance.buttonPressQueue.Dequeue();
+            return null;
         }
 
         public ResourceUpdate GetNextAddResourceUpdate(Guid attackInstanceId)
@@ -52,7 +72,29 @@ namespace Assets.ServerStubHome
             AttackInstance instance;
             attackInstances.TryGetValue(attackInstanceId, out instance);
             if (instance == null) return null;
-            return instance.playerResourceUpdateQueue.Dequeue();
+            if(instance.playerResourceUpdateQueue.Count >0)
+                return instance.playerResourceUpdateQueue.Dequeue();
+            return null;
+        }
+
+        public AttackPowerChangeResolution GetNextAttackPowerUpdate(Guid attackInstanceId)
+        {
+            AttackInstance instance;
+            attackInstances.TryGetValue(attackInstanceId, out instance);
+            if (instance == null) return null;
+            if(instance.attackPowerChangeUpdateQueue.Count > 0)
+                return instance.attackPowerChangeUpdateQueue.Dequeue();
+            return null;
+            
+        }
+
+        public void ChangeAttackPower(AttackPowerChangeRequest request)
+        {
+            AttackInstance instance;
+            attackInstances.TryGetValue(request.AttackInstanceId, out instance);
+            if (instance == null) return;
+
+            instance.HandleAttackPowerChange(request);
         }
 
         public Guid CreateAttackSequence(Guid monsterId, Guid playerId)

@@ -11,6 +11,7 @@ namespace Assets.ServerStubHome.AiAttackStyles
     {
         public List<AttackInfo> Attacks { get; set; }
         private List<ElementalAffinity> _resources = new List<ElementalAffinity>();
+        Random random = new Random();
 
         public ButtonMasher()
         {
@@ -25,7 +26,7 @@ namespace Assets.ServerStubHome.AiAttackStyles
 
         public AttackInfo ChooseAttack()
         {
-            Random random = new Random();
+            
             int attackIndex = random.Next(0, 5);
             var attack = Attacks[attackIndex];
 

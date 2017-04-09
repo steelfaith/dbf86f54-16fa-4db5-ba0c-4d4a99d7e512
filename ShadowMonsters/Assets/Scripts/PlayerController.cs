@@ -62,39 +62,34 @@ namespace Assets.Scripts
             if (!currentData.CurrentTeam.Any()) return null;
             return currentData.CurrentTeam.FirstOrDefault(x => x.MonsterId == id);
         }
-        internal void CollectResources(ElementalAffinity affinity)
-        {
 
-            var response = serverStub.AddPlayerResource(new AddResourceRequest
-            {
-                PlayerId = Id,
-                Affinity = affinity,
-            });
-
-            currentResources = response.Resources;
-
-            statusController.UpdateResources(response.Resources);
-        }
         public void PowerDownAttack(ElementalAffinity affinity)
         {
-            CollectResources(affinity);
+            //CollectResources(affinity);
             textLogDisplayManager.AddText(string.Format("You power down the attack and regain one {0} resource.", affinity.ToString()), AnnouncementType.System);
         }
 
         public bool TryBurnPlayerResource(ElementalAffinity resource)
         {
-            var response = serverStub.BurnResource(new BurnResourceRequest { NeededResource = resource, PlayerId = Id });
-            if (response == null) return false;
-            if (response.PlayerId != Id) return false;
-            currentResources = response.CurrentResources;
-            statusController.UpdateResources(response.CurrentResources);
-            textLogDisplayManager.AddText(response.Success ? "You powered up the attack!" : string.Format("Not enough {0} resources to power up this attack.", resource.ToString()), AnnouncementType.System);
-            return response.Success;
+            //var response = serverStub.BurnResource(new BurnResourceRequest { NeededResource = resource, PlayerId = Id });
+            //if (response == null) return false;
+            //if (response.PlayerId != Id) return false;
+            //currentResources = response.CurrentResources;
+            //statusController.UpdateResources(response.CurrentResources);
+            //textLogDisplayManager.AddText(response.Success ? "You powered up the attack!" : string.Format("Not enough {0} resources to power up this attack.", resource.ToString()), AnnouncementType.System);
+            //return response.Success;
+            return false;
         }
 
-        internal void ClearResources()
+        public void DisplayResources(ResourceUpdate resourceUpdate)
         {
-            currentResources = serverStub.ClearPlayerResources(Id);
+            currentResources = resourceUpdate.Resources;
+            statusController.UpdateResources(resourceUpdate.Resources);
+        }
+
+        internal void ClearResourceDisplay()
+        {
+            currentResources.Clear();
             statusController.UpdateResources(currentResources);
         }
     }

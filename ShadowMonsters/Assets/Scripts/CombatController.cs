@@ -1,12 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Assets.Infrastructure;
 using Assets.ServerStubHome;
-using System.Linq;
-using UnityEngine.SceneManagement;
 using System;
-using System.Threading;
 
 namespace Assets.Scripts
 {
@@ -18,7 +14,7 @@ namespace Assets.Scripts
         private PlayerController playerController;     
         private TextLogDisplayManager _textLogDisplayManager;        
         private AreaSpawnManager _areaSpawnManager;
-        private FatbicController fatbicController;
+        private FatbicDisplayController fatbicController;
         private ServerStub serverStub;
         private bool combatEnded;
         private Guid attackInstanceId;
@@ -34,36 +30,52 @@ namespace Assets.Scripts
             _monsterSpawner = MonsterSpawner.Instance();
             _textLogDisplayManager = TextLogDisplayManager.Instance();
             _areaSpawnManager = AreaSpawnManager.Instance();
-            fatbicController = FatbicController.Instance();
-            fatbicController.AttackAttempt += AttackEnemyAttempt;
+            fatbicController = FatbicDisplayController.Instance();
             enemyController = EnemyController.Instance();
             combatPlayerController = CombatPlayerController.Instance();
 
-            serverStub.SetCombatInstance(this);
             enemyController.SpawnEnemy();
             attackInstanceId = serverStub.CreateAttackSequence(enemyController.enemyInfo.MonsterId, playerController.Id);
+            fatbicController.AttackInstanceId = attackInstanceId;
 
             _textLogDisplayManager.AddText(string.Format("You have been attacked by a {0}!", enemyController.enemyInfo.DisplayName), AnnouncementType.Enemy);
             _beginCombatPopup.PromptUserAction(enemyController.enemyInfo.DisplayName, OnFight, OnRun, OnBond);
             
         }
 
-        private void AttackEnemyAttempt(object sender, DataEventArgs<AttackInfo> e)
+        public void HandleAttackResolution(AttackResolution attackResult)
         {
-            if (combatEnded) return;
-            //eventually attacks would need to be mapped to animations
-            combatPlayerController.DoAnimation(AnimationAction.Attack);
-            //this would probably be an id to an attack instead of the attack
-            if(e.Data.IsGenerator)
-                playerController.CollectResources(e.Data.Affinity);
 
-            AttackResolution attackResult = serverStub.RouteAttack(
-                new AttackRequest {
-                                     InstanceId = attackInstanceId,
-                                     AttackId = e.Data.AttackId,
-                                  });
-            if (attackResult == null) return;  //attack instance has closed
+            if(attackResult.TargetId == combatPlayerController.CurrentCombatantId)
+            {
+                HandleAttackOnPlayerDisplay(attackResult);
+            }
             
+            if(attackResult.TargetId == enemyController.enemyInfo.MonsterId)
+            {
+                HandleAttackOnEnemyDisplay(attackResult);
+            }
+
+        }
+
+        private void HandleAttackOnPlayerDisplay(AttackResolution attackResult)
+        {
+            if (attackResult.Success)
+            {
+                _textLogDisplayManager.AddText(string.Format("{0}: {1}'s {2}{3} hit you for {4} damage!", attackResult.TimeStamp, enemyController.enemyInfo.DisplayName, attackResult.AttackPerformed.Name, attackResult.WasCritical ? " critically" : "", attackResult.Damage.ToString()), AnnouncementType.Enemy);
+                combatPlayerController.UpdateTeamHealth(attackResult);
+                enemyController.ResolveMyAttacks(attackResult);
+            }
+            else
+            {
+                _textLogDisplayManager.AddText(string.Format("{0}: {1}'s {2} missed you.", attackResult.TimeStamp, enemyController.enemyInfo.DisplayName, attackResult.AttackPerformed.Name), AnnouncementType.Enemy);
+            }
+        }
+
+        private void HandleAttackOnEnemyDisplay(AttackResolution attackResult)
+        {
+            if (attackResult == null) return;  //attack instance has closed
+
 
             enemyController.ResolveAttack(attackResult);
             if (attackResult.Success)
@@ -74,33 +86,16 @@ namespace Assets.Scripts
             {
                 _textLogDisplayManager.AddText(string.Format("Your {0} missed {1}.", attackResult.AttackPerformed.Name, enemyController.enemyInfo.DisplayName), AnnouncementType.Friendly);
             }
-                
+
             if (attackResult.WasFatal)
             {
                 combatEnded = true;
                 combatPlayerController.EndCombat();
                 combatPlayerController.DoAnimation(AnimationAction.Victory);
                 _textLogDisplayManager.AddText(string.Format("You have defeated a {0}!", enemyController.enemyInfo.DisplayName), AnnouncementType.Friendly);
-                StartCoroutine(EndCombat());               
+                StartCoroutine(EndCombat());
+
             }
-
-               
-        }
-
-        public void HandleEnemyAttackOnPlayer(AttackResolution attackResult)
-        {
-            if (attackResult.Success)
-            {
-                _textLogDisplayManager.AddText(string.Format("{0}: {1}'s {2}{3} hit you for {4} damage!", attackResult.TimeStamp,enemyController.enemyInfo.DisplayName, attackResult.AttackPerformed.Name, attackResult.WasCritical ? " critically" : "", attackResult.Damage.ToString()), AnnouncementType.Enemy);
-                combatPlayerController.UpdateTeamHealth(attackResult);
-                enemyController.ResolveMyAttacks(attackResult);
-            }
-            else
-            {
-                _textLogDisplayManager.AddText(string.Format("{0}: {1}'s {2} missed you.",attackResult.TimeStamp,enemyController.enemyInfo.DisplayName, attackResult.AttackPerformed.Name), AnnouncementType.Enemy);
-            }
-
-
         }
         private IEnumerator EndCombat()
         {
@@ -118,7 +113,32 @@ namespace Assets.Scripts
         // Update is called once per frame
         void Update()
         {
+            StartCoroutine(CheckForAttacks());
+            StartCoroutine(CheckForResourceGain());
+        }
+        public IEnumerator CheckForResourceGain()
+        {
+            var resourceUpdate = serverStub.GetNextAddResourceUpdate(attackInstanceId);
+            if (resourceUpdate == null)
+            {
+                yield return null;
+            }
+            HandleResourceUpdates(resourceUpdate);
+        }
 
+        private void HandleResourceUpdates(ResourceUpdate resourceUpdate)
+        {
+            playerController.DisplayResources(resourceUpdate);
+        }
+
+        public IEnumerator CheckForAttacks()
+        {
+            var attackRes = serverStub.GetNextAttackResult(attackInstanceId);
+            if (attackRes == null)
+            {
+                yield return null;
+            }
+            HandleAttackResolution(attackRes);
         }
 
         void OnFight()
@@ -128,29 +148,42 @@ namespace Assets.Scripts
             serverStub.StartCombat(attackInstanceId);
         }
 
+        private void SendAttack(Guid attackId)
+        {
+            if (combatEnded) return;
+            fatbicController.IsBusy = true;
+            //eventually attacks would need to be mapped to animations
+            combatPlayerController.DoAnimation(AnimationAction.Attack);
+            serverStub.PlayerAttackAttempt(new AttackRequest
+            {
+                AttackId = attackId,
+                InstanceId = attackInstanceId
+            });
+        }
+
         private void OnAttackOnePressed()
         {
-            fatbicController.attackOneButton.GetComponent<ButtonScript>().StartButtonAction();            
+            SendAttack(fatbicController.attackOneButton.GetComponent<ButtonScript>().attackInfo.AttackId);
         }
 
         private void OnAttackTwoPressed()
         {
-            fatbicController.attackTwoButton.GetComponent<ButtonScript>().StartButtonAction();
+            SendAttack(fatbicController.attackTwoButton.GetComponent<ButtonScript>().attackInfo.AttackId);
         }
 
         private void OnAttackThreePressed()
         {
-            fatbicController.attackThreeButton.GetComponent<ButtonScript>().StartButtonAction();
+            SendAttack(fatbicController.attackThreeButton.GetComponent<ButtonScript>().attackInfo.AttackId);
         }
 
         private void OnAttackFourPressed()
         {
-            fatbicController.attackFourButton.GetComponent<ButtonScript>().StartButtonAction();
+            SendAttack(fatbicController.attackFourButton.GetComponent<ButtonScript>().attackInfo.AttackId);
         }
 
         private void OnAttackFivePressed()
         {
-            fatbicController.attackFiveButton.GetComponent<ButtonScript>().StartButtonAction();
+            SendAttack(fatbicController.attackFiveButton.GetComponent<ButtonScript>().attackInfo.AttackId);
         }
         private void OnStopAttackPressed()
         {

@@ -29,6 +29,8 @@ namespace Assets.Infrastructure
 
         public bool IsGenerator { get; set; }
 
+        public bool CanPowerUp { get; set; }
+
         private float powerLevel;
         public float PowerLevel
         {
@@ -37,12 +39,8 @@ namespace Assets.Infrastructure
             {
                 if (!CanPowerUp) return;
                 if (value > 3) return;
-                powerLevel = value;                
+                powerLevel = value;
             }
         }
-
-        public bool CanPowerUp { get; set; }
-
-        public bool IsCasting { get; set; }
     }
 }

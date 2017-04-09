@@ -20,6 +20,7 @@ namespace Assets.Infrastructure
         {
             Level = level;
             MaxHealth = level * 5;
+            Speed = level * 3;
             monsterValue = value;
             AttackIds = new List<Guid>();            
             CurrentHealth = MaxHealth;
@@ -32,6 +33,8 @@ namespace Assets.Infrastructure
         public float MaxHealth { get; set; }
 
         public float CurrentHealth { get; set; }
+
+        public float Speed { get; set; }
 
         public Guid MonsterId { get; set; }
 

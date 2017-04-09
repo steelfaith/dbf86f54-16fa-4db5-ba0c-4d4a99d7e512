@@ -88,7 +88,7 @@ namespace Assets.Scripts
 
         public void OnDrop(PointerEventData eventData)
         {
-            var fatbic = FatbicController.Instance();
+            var fatbic = FatbicDisplayController.Instance();
             if (fatbic != null && fatbic.IsBusy) return;
             DragHandler.itemBeingDragged.transform.SetParent(transform);
 

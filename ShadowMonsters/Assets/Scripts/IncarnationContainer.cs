@@ -45,7 +45,7 @@ namespace Assets.Scripts
 
         public void OnDrop(PointerEventData eventData)
         {
-            var fatbic = FatbicController.Instance();
+            var fatbic = FatbicDisplayController.Instance();
             if (fatbic != null && fatbic.IsBusy) return;
             var incomingMonsterId = DragHandler.itemBeingDragged.GetComponent<StatusController>().MonsterId;
             if (!serverStub.CheckPulse(incomingMonsterId)) return;

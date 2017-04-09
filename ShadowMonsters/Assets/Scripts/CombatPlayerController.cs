@@ -7,8 +7,7 @@ using Assets.Infrastructure;
 using Assets.ServerStubHome;
 using System.Threading;
 using UnityEngine.SceneManagement;
-
-
+using System.Collections;
 
 namespace Assets.Scripts
 {
@@ -22,19 +21,29 @@ namespace Assets.Scripts
         private TextLogDisplayManager textLogDisplayManager;
         private PlayerData playerData;
         private IncarnationContainer incarnationContainer;
-        private FatbicController fatbic;
-        private Guid combatInstanceId;
+        private FatbicDisplayController fatbic;
+        private Guid attackInstanceId;
         private ServerStub serverStub;
         private TeamController teamController;
 
         public bool InCombat
         {
-            get { return combatInstanceId != Guid.Empty; }
+            get { return attackInstanceId != Guid.Empty; }
         }
 
         private bool IsIncarnated
         {
             get { return incarnatedMonster != null && incarnatedMonster.activeSelf; }
+        }
+
+        public Guid CurrentCombatantId {
+            get
+            {
+                if (IsIncarnated)
+                    return incarnatedMonster.GetComponent<BaseMonster>().MonsterId;
+                else
+                    return playerData.Id;
+            }
         }
 
         private void Start()
@@ -46,7 +55,7 @@ namespace Assets.Scripts
             animationController = AnimationController.Instance();
             textLogDisplayManager = TextLogDisplayManager.Instance();
             incarnationContainer = IncarnationContainer.Instance();
-            fatbic = FatbicController.Instance();
+            fatbic = FatbicDisplayController.Instance();
             teamController = TeamController.Instance();
             playerData = playerController.GetCurrentPlayerData();
             SetupBaseMonsterForPlayer();
@@ -62,9 +71,9 @@ namespace Assets.Scripts
             baseMonster.MonsterId = playerData.Id;
         }
 
-        private void Update()
+        void Update()
         {
-
+            
         }
 
         private static CombatPlayerController combatPlayerController;
@@ -74,15 +83,13 @@ namespace Assets.Scripts
             if (!combatPlayerController)
             {
                 combatPlayerController = FindObjectOfType(typeof(CombatPlayerController)) as CombatPlayerController;
-                if (!combatPlayerController)
-                    Debug.LogError("Could not find Player!");
             }
             return combatPlayerController;
         }
 
         public void StartCombat(Guid instanceId)
         {
-            combatInstanceId = instanceId;
+            attackInstanceId = instanceId;
 
             IncarnateMonster();
         }
@@ -127,7 +134,7 @@ namespace Assets.Scripts
 
             if(InCombat)
             {
-                serverStub.UpdateAttackInstance(new AttackUpdateRequest { AttackInstanceId = combatInstanceId, CurrentPlayerChampionId = playerChampionId });
+                serverStub.UpdateAttackInstance(new AttackUpdateRequest { AttackInstanceId = attackInstanceId, CurrentPlayerChampionId = playerChampionId });
             }
         }
 
@@ -153,11 +160,6 @@ namespace Assets.Scripts
             
         }
 
-        private void IncarnateNextLivingEssence()
-        {
-            textLogDisplayManager.AddText("You quickly incarnate the next member of your team!", AnnouncementType.System);
-        }
-
         public void DoAnimation(AnimationAction action)
         {        
             animationController.PlayAnimation(IsIncarnated ? incarnatedMonster:gameObject, action);            
@@ -165,9 +167,9 @@ namespace Assets.Scripts
 
         public void EndCombat()
         {
-            combatInstanceId = Guid.Empty;
+            attackInstanceId = Guid.Empty;
             RevertIncarnation();
-            playerController.ClearResources();
+            playerController.ClearResourceDisplay();
         }
 
         internal void RevertIncarnation()

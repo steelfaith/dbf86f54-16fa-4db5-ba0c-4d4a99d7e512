@@ -18,11 +18,12 @@ namespace Assets.Scripts
         public Image castGlowImage;
         public Color castTimeStartColor;
         public Color castTimeEndColor;
+        public bool IsCasting;
         public int attackIndex;
         private float rechargeEnd;
         private float rechargeTime;
         public AttackInfo attackInfo;
-        private FatbicController fatbic;
+        private FatbicDisplayController fatbic;
         private bool onGlobalCooldown;
         public event EventHandler<DataEventArgs<AttackInfo>> AttackAttempt;
         float nextSecond = 0;
@@ -30,12 +31,12 @@ namespace Assets.Scripts
         private void Update()
         {
 
-            if (!attackInfo.IsCasting && !onGlobalCooldown) return;
+            if (!IsCasting && !onGlobalCooldown) return;
             if(rechargeEnd <= Time.time)
             {                
                 EndCooldown();
                 EndCastTime();
-                attackInfo.IsCasting = false;
+                IsCasting = false;
                 fatbic.IsBusy = false; 
                 return;
             }
@@ -52,33 +53,32 @@ namespace Assets.Scripts
 
         private void Awake()
         {
-            fatbic = FatbicController.Instance();
+            fatbic = FatbicDisplayController.Instance();
         }
 
         public void InitializeButton()
         {
+            //TODO: only the first 5 hold attacks.  figure out if bond, run, and stop attack should be attacks or something different
+            if (attackIndex > 4) return;
+            fatbic.RegisterAttackButton(this, attackIndex);
             attackInfo = fatbic.GetAttackInformation(attackIndex);
             button.image.sprite = attackInfo.Icon;
-            ProcessAttackInfo();
+            ProcessAttackInfo();            
         }
 
-        public void StartButtonAction()
+        public void StartButtonAction(float timeout)
         {            
             if (onGlobalCooldown) return;
-            attackInfo.IsCasting = true;
-            fatbic.IsBusy = true;
+
             castGlowImage.enabled = true;
+            IsCasting = true;
             if (attackInfo.DamageStyle == DamageStyle.Instant || attackInfo.DamageStyle == DamageStyle.Tick)
             {
-                if (attackInfo.DamageStyle == DamageStyle.Instant)
-                    FireAttackAttempt();
-                StartCooldown(attackInfo.Cooldown);
-                fatbic.StartGlobalRecharge(attackInfo.Cooldown, attackIndex);
+                StartCooldown(timeout);                
             }
             else
             {
-                StartCastTime(attackInfo.CastTime);
-                fatbic.StartGlobalRecharge(attackInfo.CastTime,attackIndex);
+                StartCastTime(timeout);                
             }
         }
 
@@ -111,23 +111,21 @@ namespace Assets.Scripts
 
         public void CoolDownTick()
         {
-            if (cooldownImage == null || !attackInfo.IsCasting && !onGlobalCooldown) return;
+            if (cooldownImage == null || !IsCasting && !onGlobalCooldown) return;
             cooldownImage.fillAmount = (rechargeEnd - Time.time) / rechargeTime;
             cooldownImage.color = Color.Lerp(startColor, endColor, 1 - cooldownImage.fillAmount);
-            if(attackInfo.DamageStyle == DamageStyle.Tick && attackInfo.IsCasting)
+            if(attackInfo.DamageStyle == DamageStyle.Tick && IsCasting)
             {
                 if (Time.time >= nextSecond)
                 {
                     nextSecond = Mathf.FloorToInt(Time.time) + 1;
-                    FireAttackAttempt();
-
                 }
             }
         }
 
         public void CastTimeTick()
         {
-            if (castTimeImage == null || !attackInfo.IsCasting && !onGlobalCooldown) return;
+            if (castTimeImage == null || !IsCasting && !onGlobalCooldown) return;
             castTimeImage.fillAmount = (rechargeEnd - Time.time) / rechargeTime; ;
             castTimeImage.color = Color.Lerp(castTimeStartColor, castTimeEndColor, 1 - castTimeImage.fillAmount);
 
@@ -144,12 +142,10 @@ namespace Assets.Scripts
 
         public void EndCastTime()
         {
-            if (castTimeImage == null || !attackInfo.IsCasting) return;
+            if (castTimeImage == null || !IsCasting) return;
             castTimeImage.fillAmount = 0.0f;
             castGlowImage.enabled = false;
             button.enabled = true;
-            if(attackInfo.DamageStyle == DamageStyle.Delayed)
-                FireAttackAttempt();
         }
 
         private void ProcessAttackInfo()
@@ -168,17 +164,6 @@ namespace Assets.Scripts
             var text = button.GetComponentInChildren<Text>();
         }
 
-        private void FireAttackAttempt()
-        {
-            var handler = AttackAttempt;
-            if (handler != null)
-                AttackAttempt(this, new DataEventArgs<AttackInfo> { Data = attackInfo });
-        }
-
-        private void SetFontColor()
-        {
-
-        }
 
         Color32 ContrastColor(Color32 color)
         {

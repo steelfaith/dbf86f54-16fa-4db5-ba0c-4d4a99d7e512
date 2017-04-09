@@ -6,10 +6,11 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using System.Linq;
+using System.Collections;
 
 namespace Assets.Scripts
 {
-    public class FatbicController : MonoBehaviour
+    public class FatbicDisplayController : MonoBehaviour
     {
         public GameObject fatbicPanel;
 
@@ -34,12 +35,14 @@ namespace Assets.Scripts
         public List<ButtonScript> attackButtonScripts = new List<ButtonScript>();
         public List<ButtonPowerUpScript> powerUpButtonScripts = new List<ButtonPowerUpScript>();
         public List<ButtonPowerDownScript> powerDownButtonScripts = new List<ButtonPowerDownScript>();
-        public event EventHandler<DataEventArgs<AttackInfo>> AttackAttempt;
         public bool IsBusy;
         private List<AttackInfo> attackInfoList;
         private ServerStub serverStub;
         private PlayerController player;
         private IncarnationContainer incarnationContainer;
+        private Dictionary<Guid, ButtonScript> attackIdToButtonMapping = new Dictionary<Guid, ButtonScript>();
+
+        public Guid AttackInstanceId { get; set; }
 
         public AttackInfo GetAttackInformation(int attackIndex)
         {
@@ -48,6 +51,13 @@ namespace Assets.Scripts
                 Debug.LogError("Need to get attacks from server");
             }
             return attackInfoList[attackIndex];
+        }
+
+        public AttackInfo RegisterAttackButton(ButtonScript buttonScript, int index)
+        {
+            var attackInfo = GetAttackInformation(index);
+            attackIdToButtonMapping[attackInfo.AttackId]= buttonScript;
+            return attackInfo;
         }
 
         private void Start()
@@ -59,14 +69,50 @@ namespace Assets.Scripts
             InitializePowerDownPress(OnPowerDownOnePressed, OnPowerDownTwoPressed, OnPowerDownThreePressed, OnPowerDownFourPressed, OnPowerDownFivePressed);
         }
 
+        private void EndCombat()
+        {
+            //TODO this type of clearing is probably not necessary as the combat scene is unloaded when combat is over, but check
+            attackIdToButtonMapping.Clear();
+        }
+        void Update()
+        {
+            StartCoroutine(CheckForButtonUpdates());
+        }
 
-        private static FatbicController fatbicController;
+        public IEnumerator CheckForButtonUpdates()
+        {
+            var buttonUpdate = serverStub.GetNextButtonUpdate(AttackInstanceId);
+            if (buttonUpdate == null)
+            {
+                yield return null;
+            }
+            HandleButtonUpdates(buttonUpdate);
+        }
 
-        public static FatbicController Instance()
+        private void HandleButtonUpdates(ButtonPressResolution buttonUpdate)
+        {
+            if(buttonUpdate.AttackId == null || buttonUpdate.AttackId == Guid.Empty)
+            {
+                StartGlobalRecharge(buttonUpdate.TimeOutSeconds, null);
+                return;
+            }
+
+            ButtonScript button;
+            attackIdToButtonMapping.TryGetValue(buttonUpdate.AttackId, out button);
+            if (button == null) return;
+
+
+            button.StartButtonAction(buttonUpdate.TimeOutSeconds);
+            StartGlobalRecharge(buttonUpdate.TimeOutSeconds,button.attackIndex);
+        }
+
+        private static FatbicDisplayController fatbicController;
+
+        public static FatbicDisplayController Instance()
         {
             if (!fatbicController)
             {
-                fatbicController = FindObjectOfType(typeof(FatbicController)) as FatbicController;
+                fatbicController = FindObjectOfType(typeof(FatbicDisplayController)) as FatbicDisplayController;
                 if (!fatbicController)
                     Debug.LogError("Could not find FATBITCH!");
             }
@@ -195,7 +241,7 @@ namespace Assets.Scripts
             pDownFiveButton.GetComponent<ButtonPowerDownScript>().PowerDownAttack();
         }
 
-        public void StartGlobalRecharge(int recharge, int? exclusionIndex)
+        public void StartGlobalRecharge(float recharge, int? exclusionIndex)
         {
             foreach (ButtonScript item in attackButtonScripts)
             {
@@ -215,7 +261,7 @@ namespace Assets.Scripts
             }
         }
 
-        public void LoadAttacks() //prob need to pass monster id
+        public void LoadAttacks() 
         {
             List<AttackInfo> attacks = null;
             if (serverStub.CheckPulse(incarnationContainer.MonsterId))
@@ -250,13 +296,6 @@ namespace Assets.Scripts
             }
         }
 
-        private void OnDestroy()
-        {
-            foreach (var item in attackButtonScripts)
-            {
-                item.AttackAttempt -= AttackAttemptFromButton;
-            }
-        }
         private void Awake()
         {
             attackButtonScripts.Add(attackOneButton.GetComponent<ButtonScript>());
@@ -277,21 +316,8 @@ namespace Assets.Scripts
             powerUpButtonScripts.Add(pUpFourButton.GetComponent<ButtonPowerUpScript>());
             powerUpButtonScripts.Add(pUpFiveButton.GetComponent<ButtonPowerUpScript>());
 
-            AttachButtonScriptEvents();
         }
 
-        private void AttachButtonScriptEvents()
-        {
-            foreach (var item in attackButtonScripts)
-            {
-                item.AttackAttempt += AttackAttemptFromButton;
-            }
-        }
 
-        private void AttackAttemptFromButton(object sender, DataEventArgs<AttackInfo> e)
-        {
-            var handler = AttackAttempt;
-            if (handler != null) AttackAttempt(this, e);
-        }
     }
 }

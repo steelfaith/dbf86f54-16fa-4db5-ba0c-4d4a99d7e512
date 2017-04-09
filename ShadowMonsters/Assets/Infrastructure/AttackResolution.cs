@@ -6,8 +6,7 @@ using System.Text;
 namespace Assets.Infrastructure
 {
     public class AttackResolution
-    {
-        public Guid PlayerId { get; set; }
+    {        
         public bool WasCritical { get; set; }
         public float Damage { get; set; }
         public Guid TargetId { get; set; }

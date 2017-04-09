@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.5.2f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -78,8 +80,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Infrastructure\AddResourceRequest.cs" />
-    <Compile Include="Assets\Infrastructure\AddResourceResponse.cs" />
+    <Compile Include="Assets\Infrastructure\ResourceUpdate.cs" />
     <Compile Include="Assets\Infrastructure\AnimationActionEnum.cs" />
     <Compile Include="Assets\Infrastructure\AnnouncementTypeEnum.cs" />
     <Compile Include="Assets\Infrastructure\AttackInfo.cs" />
@@ -87,8 +88,8 @@
     <Compile Include="Assets\Infrastructure\AttackResolution.cs" />
     <Compile Include="Assets\Infrastructure\AttackUpdateRequest.cs" />
     <Compile Include="Assets\Infrastructure\BaseMonster.cs" />
-    <Compile Include="Assets\Infrastructure\BurnResourceResponse.cs" />
     <Compile Include="Assets\Infrastructure\BurnResourcesRequest.cs" />
+    <Compile Include="Assets\Infrastructure\ButtonPressResolution.cs" />
     <Compile Include="Assets\Infrastructure\DamageStyle.cs" />
     <Compile Include="Assets\Infrastructure\DataEventArgs.cs" />
     <Compile Include="Assets\Infrastructure\DelayedDamageInfo.cs" />
@@ -119,7 +120,7 @@
     <Compile Include="Assets\Scripts\CombatPlayerController.cs" />
     <Compile Include="Assets\Scripts\DragHandler.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />
-    <Compile Include="Assets\Scripts\FatbicController.cs" />
+    <Compile Include="Assets\Scripts\FatbicDisplayController.cs" />
     <Compile Include="Assets\Scripts\IncarnationContainer.cs" />
     <Compile Include="Assets\Scripts\IndicatorBarScript.cs" />
     <Compile Include="Assets\Scripts\LevelDisplayScript.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="Assets\Scripts\UnloadSceneTrigger.cs" />
     <Compile Include="Assets\ServerStubHome\AiAttackStyles\ButtonMasher.cs" />
     <Compile Include="Assets\ServerStubHome\AiAttackStyles\IAiAttackStyle.cs" />
+    <Compile Include="Assets\ServerStubHome\AttackHelper.cs" />
     <Compile Include="Assets\ServerStubHome\AttackInstance.cs" />
     <Compile Include="Assets\ServerStubHome\KnownAttacks.cs" />
     <Compile Include="Assets\ServerStubHome\Monsters\DemonEnforcer.cs" />

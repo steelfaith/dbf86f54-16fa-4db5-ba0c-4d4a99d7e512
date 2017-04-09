@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Assets.Infrastructure
 {
-    public class AddResourceRequest
+    public class ResourceUpdate
     {
-        public ElementalAffinity Affinity { get; set; }
-        public Guid PlayerId { get; set; }
+        public Guid Id { get; set; }
+        public List<ElementalAffinity> Resources { get; set; }
     }
 }

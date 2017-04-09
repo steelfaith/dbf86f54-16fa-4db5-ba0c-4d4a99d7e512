@@ -13,14 +13,14 @@ namespace Assets.Scripts
         public Button button;
         public int attackIndex;
         private AttackInfo attackInfo;
-        private FatbicController fatbic;
+        private FatbicDisplayController fatbic;
         private PlayerController player;
         private TextLogDisplayManager textLogDisplayManager;
 
 
         private void Awake()
         {
-            fatbic = FatbicController.Instance();
+            fatbic = FatbicDisplayController.Instance();
             player = PlayerController.Instance();
         }
 
@@ -32,7 +32,7 @@ namespace Assets.Scripts
 
         public void InitializeButton()
         {
-            attackInfo = FatbicController.Instance().GetAttackInformation(attackIndex);
+            attackInfo = FatbicDisplayController.Instance().GetAttackInformation(attackIndex);
         }
 
         private void Update()
@@ -54,26 +54,26 @@ namespace Assets.Scripts
 
         private void UpdateButton()
         {
-            button.interactable = attackInfo.IsCasting && attackInfo.CanPowerUp;
-            button.image.color = attackInfo.Affinity.GetColorFromMonsterAffinity();
-            switch ((int)attackInfo.PowerLevel)
-            {
+            //button.interactable = attackInfo.IsCasting && attackInfo.CanPowerUp;
+            //button.image.color = attackInfo.Affinity.GetColorFromMonsterAffinity();
+            //switch ((int)attackInfo.PowerLevel)
+            //{
                 
-                case 1:
-                    button.image.sprite = Resources.Load<Sprite>("power up one");
-                    break;
-                case 2:
-                    button.image.sprite = Resources.Load<Sprite>("power up two");
-                    break;
-                case 3:
-                    button.image.sprite = Resources.Load<Sprite>("power up three");
-                    break;
+            //    case 1:
+            //        button.image.sprite = Resources.Load<Sprite>("power up one");
+            //        break;
+            //    case 2:
+            //        button.image.sprite = Resources.Load<Sprite>("power up two");
+            //        break;
+            //    case 3:
+            //        button.image.sprite = Resources.Load<Sprite>("power up three");
+            //        break;
 
-                default:
-                    button.image.sprite = button.interactable? Resources.Load<Sprite>("power up one"): Resources.Load<Sprite>("Blank");
-                    button.image.color = Color.white;
-                    break;
-            }
+            //    default:
+            //        button.image.sprite = button.interactable? Resources.Load<Sprite>("power up one"): Resources.Load<Sprite>("Blank");
+            //        button.image.color = Color.white;
+            //        break;
+            //}
         }
     }
 }

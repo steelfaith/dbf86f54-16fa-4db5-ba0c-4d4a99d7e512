@@ -9,13 +9,13 @@ namespace Assets.Scripts
         public Button button;
         public int attackIndex;
         private AttackInfo attackInfo;
-        private FatbicController fatbic;
+        private FatbicDisplayController fatbic;
         private PlayerController player;
 
 
         private void Awake()
         {
-            fatbic = FatbicController.Instance();
+            fatbic = FatbicDisplayController.Instance();
             player = PlayerController.Instance();
         }
 
@@ -45,9 +45,9 @@ namespace Assets.Scripts
 
         private void UpdateButton()
         {
-            if (attackInfo == null) return;
-            button.interactable = attackInfo.IsCasting && attackInfo.CanPowerUp && attackInfo.PowerLevel > 0;
-            button.image.sprite = button.interactable ? Resources.Load<Sprite>("power down") : Resources.Load<Sprite>("Blank");
+            //if (attackInfo == null) return;
+            //button.interactable = attackInfo.IsCasting && attackInfo.CanPowerUp && attackInfo.PowerLevel > 0;
+            //button.image.sprite = button.interactable ? Resources.Load<Sprite>("power down") : Resources.Load<Sprite>("Blank");
         }
     }
 }

@@ -14,11 +14,8 @@ namespace Assets.ServerStubHome
         Dictionary<MonsterList, ElementalAffinity> monsterAffinityMatchup = new Dictionary<MonsterList, ElementalAffinity>();
         Dictionary<Guid,MonsterDna> spawnedMonsters = new Dictionary<Guid,MonsterDna>();
         Dictionary<Guid, PlayerData> players = new Dictionary<Guid, PlayerData>();
-        Dictionary<Guid, List<ElementalAffinity>> playerResources = new Dictionary<Guid, List<ElementalAffinity>>();
         Dictionary<Guid, AttackInstance> attackInstances = new Dictionary<Guid, AttackInstance>();
-        Queue<AttackResolution> attackQueue = new Queue<AttackResolution>();
         KnownAttacks knownAttacks;
-        private CombatController combatController;  // this shouldn't be referenced in real server..temp solution for simulation
 
         public MonsterDna GetRandomMonster()
         {
@@ -34,66 +31,36 @@ namespace Assets.ServerStubHome
             return enemyMonster;
         }
 
-        private void Update()
+        public AttackResolution GetNextAttackResult(Guid attackInstanceId)
         {
-            StartCoroutine(CheckAttackQueue());
+            AttackInstance instance;
+            attackInstances.TryGetValue(attackInstanceId, out instance);
+            if (instance == null) return null;
+            return instance.attackResultsQueue.Dequeue();
         }
 
-        internal void SetCombatInstance(CombatController cc)
+        public ButtonPressResolution GetNextButtonUpdate(Guid attackInstanceId)
         {
-            //this is for client callback..the real server should be not like this
-            combatController = cc;
+            AttackInstance instance;
+            attackInstances.TryGetValue(attackInstanceId, out instance);
+            if (instance == null) return null;
+            return instance.buttonPressQueue.Dequeue();
         }
 
-        public AddResourceResponse AddPlayerResource(AddResourceRequest request)
+        public ResourceUpdate GetNextAddResourceUpdate(Guid attackInstanceId)
         {
-            List<ElementalAffinity> thisPlayerResources;
-            playerResources.TryGetValue(request.PlayerId, out thisPlayerResources);
-            if (thisPlayerResources == null) return null;
-            if(thisPlayerResources.Count<6)
-            {
-                thisPlayerResources.Add(request.Affinity);
-            }
-
-            return new AddResourceResponse
-            {
-                Resources = thisPlayerResources,
-                Id = request.PlayerId
-            };
+            AttackInstance instance;
+            attackInstances.TryGetValue(attackInstanceId, out instance);
+            if (instance == null) return null;
+            return instance.playerResourceUpdateQueue.Dequeue();
         }
 
         public Guid CreateAttackSequence(Guid monsterId, Guid playerId)
         {
             var instanceId = Guid.NewGuid();
-            var attackInstance = new AttackInstance(monsterId, playerId);
-            attackInstance.EnemyAttack += HandleEnemyAttack;
+            var attackInstance = new AttackInstance(monsterId, playerId, instanceId);
             attackInstances[instanceId] = attackInstance;
             return instanceId;
-        }
-
-        private void HandleEnemyAttack(object sender, DataEventArgs<AttackResolution> e)
-        {
-            //have to queue these and let the main thread pick them up when it can
-            attackQueue.Enqueue(e.Data);
-            
-        }
-
-        public IEnumerator CheckAttackQueue()
-        {
-            if (!SendAttack())
-            {
-                yield return null;
-            }
-        }
-
-        public bool SendAttack()
-        {
-            if (attackQueue.Count > 1)
-            {
-                combatController.HandleEnemyAttackOnPlayer(attackQueue.Dequeue());
-                return true;
-            }
-            return false;
         }
 
         internal PlayerData GetPlayerData(Guid id)
@@ -176,25 +143,6 @@ namespace Assets.ServerStubHome
             instance.Dispose();
         }
 
-        public BurnResourceResponse BurnResource(BurnResourceRequest request)
-        {
-            List<ElementalAffinity> thisPlayerResources;
-            playerResources.TryGetValue(request.PlayerId, out thisPlayerResources);
-            if (thisPlayerResources == null) return null;
-            bool success = false;
-            if(thisPlayerResources.Contains(request.NeededResource))
-            {
-                thisPlayerResources.RemoveAt(thisPlayerResources.FindLastIndex(x => x == request.NeededResource));
-                success = true;
-            }
-            return new BurnResourceResponse { PlayerId = request.PlayerId, CurrentResources = thisPlayerResources, Success = success};
-        }
-
-        internal List<ElementalAffinity> ClearPlayerResources(Guid id)
-        {
-            return playerResources[id] = new List<ElementalAffinity>();
-        }
-
         private List<Guid> GetAttackIdList(Dictionary<Guid,AttackInfo> fromDictionary)
         {
             var attackList = new List<Guid>();
@@ -215,7 +163,6 @@ namespace Assets.ServerStubHome
             var playerId = Guid.NewGuid();
             var data = CreatePlayerData(playerId);
             players.Add(playerId, data);
-            playerResources.Add(playerId, new List<ElementalAffinity>());
             return playerId;
         }
 
@@ -283,13 +230,20 @@ namespace Assets.ServerStubHome
             monsterAffinityMatchup.Add(MonsterList.MiniLandShark, ElementalAffinity.Water);
         }
 
-        public AttackResolution RouteAttack(AttackRequest data)
+        public void PlayerAttackAttempt(AttackRequest data)
         {
             AttackInstance ai;
             if(attackInstances.TryGetValue(data.InstanceId, out ai))
-                       return ai.HandlePlayerAttack(data);
-            
-            return null;
+                       ai.HandlePlayerAttack(data);            
+
+        }
+
+        public bool CanPerformAttack(Guid AttackId, Guid attacker)
+        {
+            MonsterDna monster;
+            spawnedMonsters.TryGetValue(attacker, out monster);
+            if (monster == null) return false;
+            return monster.AttackIds.Any(x => x == AttackId);
         }
 
         public void UpdateAttackInstance(AttackUpdateRequest update)

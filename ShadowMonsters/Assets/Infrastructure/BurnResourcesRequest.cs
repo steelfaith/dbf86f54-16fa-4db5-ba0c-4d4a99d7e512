@@ -7,7 +7,7 @@ namespace Assets.Infrastructure
 {
     public class BurnResourceRequest
     {
-        public Guid PlayerId;
+        public Guid AttackInstanceId;
         public ElementalAffinity NeededResource { get; set; }
     }
 }

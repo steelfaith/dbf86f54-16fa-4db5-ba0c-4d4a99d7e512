@@ -8,7 +8,6 @@ namespace Assets.Scripts
     {
         public Button button;
         public int attackIndex;
-        public PowerUpLevels attackPower;
         private AttackInfo attackInfo;
         private FatbicDisplayController fatbic;
         private PlayerController player;
@@ -44,14 +43,14 @@ namespace Assets.Scripts
 
         public void PowerUpAttack()
         {
-            fatbic.AttackPowerUpRequest(attackInfo.AttackId);
+            fatbic.AttackPowerChange(attackInfo.AttackId, true);
         }
 
         private void UpdateButton()
         {
             button.interactable = buttonScript.IsCasting && attackInfo.CanPowerUp;
             button.image.color = attackInfo.Affinity.GetColorFromMonsterAffinity();
-            switch (attackPower)
+            switch (buttonScript.attackPower)
             {
 
                 case PowerUpLevels.One:

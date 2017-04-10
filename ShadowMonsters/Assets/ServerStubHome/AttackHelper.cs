@@ -177,8 +177,6 @@ namespace Assets.ServerStubHome
             return result;
         }
 
-
-
         private int GetAttackDelay(bool fatal, int cooldown)
         {
             int attackDelay = cooldown * 1000;

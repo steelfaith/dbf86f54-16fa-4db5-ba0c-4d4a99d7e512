@@ -22,6 +22,7 @@ namespace Assets.Scripts
         public int attackIndex;
         public Button powerUpButton;
         public Button powerDownButton;
+        public PowerUpLevels attackPower;
         private float rechargeEnd;
         private float rechargeTime;
         public AttackInfo attackInfo;

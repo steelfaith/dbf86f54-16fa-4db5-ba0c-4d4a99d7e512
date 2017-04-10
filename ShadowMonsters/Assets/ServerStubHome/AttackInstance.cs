@@ -116,12 +116,13 @@ namespace Assets.ServerStubHome
 
         private void PlayerAttackHelperTargetKilled(object sender, EventArgs e)
         {
-            buttonPressQueue.Enqueue(
-            new ButtonPressResolution
-            {
-                PlayerId = playerId,
-                TimeOutSeconds = 5 //victory timeout for player
-            });
+            //TODO: figure out why this was causing havoc with fatbic
+            //buttonPressQueue.Enqueue(
+            //new ButtonPressResolution
+            //{
+            //    PlayerId = playerId,
+            //    TimeOutSeconds = 5 //victory timeout for player
+            //});
         }
 
         private void AiAttackComplete(object sender, EventArgs e)

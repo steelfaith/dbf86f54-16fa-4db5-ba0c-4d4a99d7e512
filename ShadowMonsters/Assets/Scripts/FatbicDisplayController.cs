@@ -115,13 +115,13 @@ namespace Assets.Scripts
             HandleAttackPowerUpdates(attackPowerUpdate);
         }
 
-        public void AttackPowerUpRequest(Guid attackId)
+        public void AttackPowerChange(Guid attackId, bool up)
         {
             serverStub.ChangeAttackPower(new AttackPowerChangeRequest
             {
                 AttackId = attackId,
                 AttackInstanceId = AttackInstanceId,
-                Up = true,
+                Up = up,
             });
         }
 
@@ -131,9 +131,7 @@ namespace Assets.Scripts
             ButtonScript button;
             attackIdToButtonMapping.TryGetValue(result.AttackId, out button);
             if (button == null) return;
-            var pUpScript = button.powerUpButton.GetComponent<ButtonPowerUpScript>();
-            if (pUpScript == null) return;
-            pUpScript.attackPower = (PowerUpLevels)Enum.Parse(typeof(PowerUpLevels), result.PowerLevel.ToString());
+            button.attackPower = (PowerUpLevels)Enum.Parse(typeof(PowerUpLevels), result.PowerLevel.ToString());
         }
 
         private void HandleButtonUpdates(ButtonPressResolution buttonUpdate)

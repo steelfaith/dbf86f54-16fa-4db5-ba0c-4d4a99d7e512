@@ -11,6 +11,8 @@ namespace Assets.Scripts
         private AttackInfo attackInfo;
         private FatbicDisplayController fatbic;
         private PlayerController player;
+        private ButtonScript buttonScript;
+
 
 
         private void Awake()
@@ -26,6 +28,7 @@ namespace Assets.Scripts
         public void InitializeButton()
         {
             attackInfo = fatbic.GetAttackInformation(attackIndex);
+            buttonScript = fatbic.GetButtonScriptFromIndex(attackIndex);
         }
 
         private void Update()
@@ -35,19 +38,15 @@ namespace Assets.Scripts
 
         public void PowerDownAttack()
         {
-            if (attackInfo.PowerLevel > 0)
-            {
-                player.PowerDownAttack(attackInfo.Affinity);
-                attackInfo.PowerLevel--;
-            }
-                
+            fatbic.AttackPowerChange(attackInfo.AttackId, false);
+
         }
 
         private void UpdateButton()
         {
-            //if (attackInfo == null) return;
-            //button.interactable = attackInfo.IsCasting && attackInfo.CanPowerUp && attackInfo.PowerLevel > 0;
-            //button.image.sprite = button.interactable ? Resources.Load<Sprite>("power down") : Resources.Load<Sprite>("Blank");
+            if (attackInfo == null) return;
+            button.interactable = buttonScript.IsCasting && attackInfo.CanPowerUp && buttonScript.attackPower > 0;
+            button.image.sprite = button.interactable ? Resources.Load<Sprite>("power down") : Resources.Load<Sprite>("Blank");
         }
     }
 }

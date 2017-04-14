@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Assets.Scripts;
+using Assets.Infrastructure;
 
 public class ActorMovementController : MonoBehaviour
 {
@@ -13,10 +15,12 @@ public class ActorMovementController : MonoBehaviour
     private Animator _animator;
 
     private GameObject _unityChan;
+    private TextLogDisplayManager textLogDisplayManager;
 
     // Use this for initialization
     void Start ()
     {
+        textLogDisplayManager = TextLogDisplayManager.Instance();
         _up = new Vector3(0, 0, -1f*ScaleFactor);
         _down = new Vector3(0, 0, 1f*ScaleFactor);
         _left = new Vector3(1f * ScaleFactor, 0, 0);
@@ -130,6 +134,12 @@ public class ActorMovementController : MonoBehaviour
         //shadow.gameObject.SetActive(false);
         //collider.enabled = false;
         //collider.gameObject.SetActive(false);
+        var player = gameObject.GetComponent<PlayerController>();
+        if(player.CaughtBetweenPlains)
+        {
+            textLogDisplayManager.AddText("You are caught between the plains and cannot fight.  You need to find a plainswaker to return you to your realm first.", AnnouncementType.System);
+            return;
+        }
 
         //we will eventually need to pass data through this more research on that later i suppose
         //this is also currently nasty it just flash switches the entire view lol 

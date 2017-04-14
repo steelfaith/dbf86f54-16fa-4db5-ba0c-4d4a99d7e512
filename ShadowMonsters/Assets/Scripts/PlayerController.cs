@@ -16,6 +16,7 @@ namespace Assets.Scripts
         private TextLogDisplayManager textLogDisplayManager;
         private StatusController statusController;
         public List<ElementalAffinity> currentResources;
+        public bool CaughtBetweenPlains { get; set; }
 
 
         public List<Guid> AttackIds { get; set; }

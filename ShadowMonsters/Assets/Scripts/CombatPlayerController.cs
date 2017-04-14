@@ -159,13 +159,19 @@ namespace Assets.Scripts
                 }
                 else
                 {
-                    DoAnimation(AnimationAction.Die);
-                    textLogDisplayManager.AddText(string.Format("You have lost the battle and are now caught between the plains! Find a plains walker to return you to your realm.", baseMonster.NickName), AnnouncementType.System);
-                    lightController.ChangeColor(new Color32(200, 9, 221, 255));
+                    DisplayPlayerDeath();
                 }
                 
             }
             
+        }
+
+        private void DisplayPlayerDeath()
+        {
+            DoAnimation(AnimationAction.Die);
+            textLogDisplayManager.AddText(string.Format("You have lost the battle and are now caught between the plains! Find a plains walker to return you to your realm.", baseMonster.NickName), AnnouncementType.System);
+            lightController.ChangeColor(new Color32(200, 9, 221, 255));
+            playerController.CaughtBetweenPlains = true;
         }
 
         public void DoAnimation(AnimationAction action)

@@ -27,11 +27,11 @@ namespace Assets.ServerStubHome
         List<ElementalAffinity> playerResources = new List<ElementalAffinity>();
         
 
-        public AttackInstance(Guid monsterId, Guid player, Guid attackId)
+        public AttackInstance(Guid monsterId, Guid player, Guid instanceId)
         {
             serverStub = ServerStub.Instance();
             playerId = player;
-            Id = attackId;
+            Id = instanceId;
             playerData = serverStub.GetPlayerData(player);
             monsterAttacks = serverStub.GetAttacksForMonster(monsterId);
             monster = serverStub.GetMonsterById(monsterId);
@@ -39,6 +39,7 @@ namespace Assets.ServerStubHome
             aiStyle.Attacks = monsterAttacks;
             playerAttackHelper = new AttackHelper(this, serverStub);
             playerAttackHelper.TargetKilled += PlayerAttackHelperTargetKilled;
+            playerAttackHelper.AttackComplete += PlayerAttackComplete;
             aiAttackHelper = new AttackHelper(this, serverStub);
             aiAttackHelper.AttackComplete += AiAttackComplete;
 
@@ -127,7 +128,24 @@ namespace Assets.ServerStubHome
 
         private void AiAttackComplete(object sender, EventArgs e)
         {
+            if (!CombatShouldContinue)
+                EndCombat();
             AiPerformNewAttack();
+        }
+
+
+        private void PlayerAttackComplete(object sender, EventArgs e)
+        {
+            if (!CombatShouldContinue)
+                EndCombat();
+        }
+
+        private void EndCombat()
+        {
+            playerAttackHelper.EndCombat();
+            aiAttackHelper.EndCombat();
+
+            serverStub.EndAttackInstance(Id);
         }
 
         public void AddPlayerResource(ElementalAffinity resource)

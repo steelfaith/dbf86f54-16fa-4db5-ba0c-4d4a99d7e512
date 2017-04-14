@@ -25,6 +25,7 @@ namespace Assets.Scripts
         private Guid attackInstanceId;
         private ServerStub serverStub;
         private TeamController teamController;
+        private LightController lightController;
 
         public bool InCombat
         {
@@ -57,6 +58,7 @@ namespace Assets.Scripts
             incarnationContainer = IncarnationContainer.Instance();
             fatbic = FatbicDisplayController.Instance();
             teamController = TeamController.Instance();
+            lightController = LightController.Instance();
             playerData = playerController.GetCurrentPlayerData();
             SetupBaseMonsterForPlayer();
             
@@ -155,6 +157,12 @@ namespace Assets.Scripts
                     teamController.HandleCodeDrop(incarnationContainer.item);
                     DoAnimation(AnimationAction.Knockback);
                 }
+                else
+                {
+                    DoAnimation(AnimationAction.Die);
+                    textLogDisplayManager.AddText(string.Format("You have lost the battle and are now caught between the plains! Find a plains walker to return you to your realm.", baseMonster.NickName), AnnouncementType.System);
+                    lightController.ChangeColor(new Color32(200, 9, 221, 255));
+                }
                 
             }
             
@@ -170,6 +178,7 @@ namespace Assets.Scripts
             attackInstanceId = Guid.Empty;
             RevertIncarnation();
             playerController.ClearResourceDisplay();
+            DoAnimation(AnimationAction.Victory);
         }
 
         internal void RevertIncarnation()

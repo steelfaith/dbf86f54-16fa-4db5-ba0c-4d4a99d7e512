@@ -16,7 +16,6 @@ namespace Assets.Scripts
         private AreaSpawnManager _areaSpawnManager;
         private FatbicDisplayController fatbicController;
         private ServerStub serverStub;
-        private bool combatEnded;
         private Guid attackInstanceId;
 
         private EnemyController enemyController;
@@ -89,24 +88,17 @@ namespace Assets.Scripts
 
             if (attackResult.WasFatal)
             {
-                combatEnded = true;
                 combatPlayerController.EndCombat();
-                combatPlayerController.DoAnimation(AnimationAction.Victory);
-                _textLogDisplayManager.AddText(string.Format("You have defeated a {0}!", enemyController.enemyInfo.DisplayName), AnnouncementType.Friendly);
-                StartCoroutine(EndCombat());
-
+                _textLogDisplayManager.AddText(string.Format("You have defeated a {0}!", enemyController.enemyInfo.DisplayName), AnnouncementType.Friendly);                               
             }
         }
         private IEnumerator EndCombat()
         {
-            while (true)
-            {
-                yield return new WaitForSeconds(4f);
-         
-                UnloadCombatScene();
-                enemyController.EndCombat();
-                combatEnded = false; //reset for next fight
-            }
+            yield return new WaitForSeconds(2f);
+
+            UnloadCombatScene();
+            enemyController.EndCombat();
+
         }
 
 
@@ -114,7 +106,7 @@ namespace Assets.Scripts
         void Update()
         {
             StartCoroutine(CheckForAttacks());
-            
+            StartCoroutine(CheckForEndCombat());
         }
 
         public IEnumerator CheckForAttacks()
@@ -127,6 +119,22 @@ namespace Assets.Scripts
             HandleAttackResolution(attackRes);
         }
 
+        public IEnumerator CheckForEndCombat()
+        {
+            var endCombat = serverStub.GetNextAttackInstanceEndedMessage(playerController.Id);
+            if (endCombat == null)
+            {
+                yield return null;
+            }
+            else
+            { HandleCombatEndMessage(endCombat); }
+        }
+
+        private void HandleCombatEndMessage(AttackInstanceEnded endCombat)
+        {
+            StartCoroutine(EndCombat());
+        }
+
         void OnFight()
         {            
             fatbicController.BeginAttack(OnAttackOnePressed, OnAttackTwoPressed, OnAttackThreePressed, OnAttackFourPressed, OnAttackFivePressed, OnStopAttackPressed, OnBond, OnRun);
@@ -136,7 +144,6 @@ namespace Assets.Scripts
 
         private void SendAttack(Guid attackId)
         {
-            if (combatEnded) return;
             fatbicController.IsBusy = true;
             //eventually attacks would need to be mapped to animations
             combatPlayerController.DoAnimation(AnimationAction.Attack);
@@ -187,8 +194,6 @@ namespace Assets.Scripts
             if (UnityEngine.Random.Range(0, 101) < 95)
             {
                 serverStub.EndAttackInstance(attackInstanceId);
-                combatPlayerController.EndCombat();
-                UnloadCombatScene();
                 _textLogDisplayManager.AddText("You successfully ran away.", AnnouncementType.Friendly);
             }
             else

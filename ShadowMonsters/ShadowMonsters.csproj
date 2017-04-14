@@ -80,6 +80,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Infrastructure\AttackInstanceEnded.cs" />
     <Compile Include="Assets\Infrastructure\AttackPowerChangeResolution.cs" />
     <Compile Include="Assets\Infrastructure\DelayedDamageInfo.cs" />
     <Compile Include="Assets\Infrastructure\PowerUpLevelsEnum.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Assets\Scripts\IncarnationContainer.cs" />
     <Compile Include="Assets\Scripts\IndicatorBarScript.cs" />
     <Compile Include="Assets\Scripts\LevelDisplayScript.cs" />
+    <Compile Include="Assets\Scripts\LightController.cs" />
     <Compile Include="Assets\Scripts\LoadScene.cs" />
     <Compile Include="Assets\Scripts\MonsterCave.cs" />
     <Compile Include="Assets\Scripts\MonsterSpawner.cs" />

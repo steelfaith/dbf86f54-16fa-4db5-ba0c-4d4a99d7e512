@@ -15,15 +15,15 @@ namespace Assets.ServerStubHome
         Dictionary<Guid,MonsterDna> spawnedMonsters = new Dictionary<Guid,MonsterDna>();
         Dictionary<Guid, PlayerData> players = new Dictionary<Guid, PlayerData>();
         Dictionary<Guid, AttackInstance> attackInstances = new Dictionary<Guid, AttackInstance>();
-        
         KnownAttacks knownAttacks;
 
         public ServerStub()
         {
             ServerMessageQueue = new Queue<ServerMessage>();
+            AttackInstanceEndedQueue = new Queue<AttackInstanceEnded>();
         }
-
         public Queue<ServerMessage> ServerMessageQueue { get; set; }
+        public Queue<AttackInstanceEnded> AttackInstanceEndedQueue { get; set; }
 
         public MonsterDna GetRandomMonster()
         {
@@ -44,6 +44,14 @@ namespace Assets.ServerStubHome
             //TODO: all messages going to one client currently...but prob need to consider this for real server
             if(ServerMessageQueue.Count > 0)
                 return ServerMessageQueue.Dequeue();
+            return null;
+        }
+
+        public AttackInstanceEnded GetNextAttackInstanceEndedMessage(Guid playerId)
+        {
+            //TODO: all messages going to one client currently...but prob need to consider this for real server
+            if (AttackInstanceEndedQueue.Count > 0)
+                return AttackInstanceEndedQueue.Dequeue();
             return null;
         }
 
@@ -166,6 +174,7 @@ namespace Assets.ServerStubHome
                 AttackIds = GetAttackIdList(KnownAttacks.KnownPlayerAttackList),
                 PlayerDna = new MonsterDna(MonsterList.unitychan,50)
                 {
+                    MonsterId = id,
                     MaxHealth = 150,
                     CurrentHealth = 150,
                     NickName = "OFFHIZMEDZ",
@@ -182,6 +191,10 @@ namespace Assets.ServerStubHome
             AttackInstance instance;
             attackInstances.TryGetValue(attackInstanceId, out instance);
             attackInstances.Remove(attackInstanceId);
+            AttackInstanceEndedQueue.Enqueue(new AttackInstanceEnded
+            {
+                InstanceId = attackInstanceId
+            });
             instance.Dispose();
         }
 

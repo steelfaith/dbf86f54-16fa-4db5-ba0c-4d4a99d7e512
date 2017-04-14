@@ -69,6 +69,7 @@ public class AnyManager : MonoBehaviour {
 
     public void UnloadCombatScene()
     {
+        if (!SceneManager.GetSceneByBuildIndex(CombatSceneIndex).isLoaded) return;
         SafeUnloadScene(CombatSceneIndex);
         MainCameraOn(true);
         PlayerOn(true);

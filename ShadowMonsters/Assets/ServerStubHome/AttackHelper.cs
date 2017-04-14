@@ -18,6 +18,7 @@ namespace Assets.ServerStubHome
         Random random = new Random();
         public AttackInfo currentAttack;
         private ServerStub serverStub;
+        bool combatEnded;
 
         public AttackHelper(AttackInstance instance, ServerStub stub)
         {
@@ -122,7 +123,7 @@ namespace Assets.ServerStubHome
 
         private void PerformAttack(object state)
         {
-
+            if (combatEnded) return;
             int dueTime = 0;
             if (!delayedDamage.Any())
             {
@@ -152,6 +153,13 @@ namespace Assets.ServerStubHome
 
             ResetTimer(dueTime);
 
+        }
+
+        public void EndCombat()
+        {
+            currentAttack = null;
+            combatEnded = true;
+            delayedDamage.Clear();
         }
 
         private void EndAttack()

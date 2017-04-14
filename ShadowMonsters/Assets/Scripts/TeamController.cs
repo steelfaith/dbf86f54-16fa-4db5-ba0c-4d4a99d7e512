@@ -72,7 +72,11 @@ namespace Assets.Scripts
         public void UpdateLead(AttackResolution attack)
         {
             var lead = incarnationContainer.item;
-            if (lead == null) return;
+            if (lead == null && attack.TargetId == player.Id)
+            {
+                player.UpdateStatusController(attack);
+                return;
+            }
             var statusController = lead.GetComponentInChildren<StatusController>();
             statusController.UpdateMonster(attack);
         }

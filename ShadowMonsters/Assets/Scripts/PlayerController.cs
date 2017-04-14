@@ -69,23 +69,16 @@ namespace Assets.Scripts
             textLogDisplayManager.AddText(string.Format("You power down the attack and regain one {0} resource.", affinity.ToString()), AnnouncementType.System);
         }
 
-        public bool TryBurnPlayerResource(ElementalAffinity resource)
-        {
-            //var response = serverStub.BurnResource(new BurnResourceRequest { NeededResource = resource, PlayerId = Id });
-            //if (response == null) return false;
-            //if (response.PlayerId != Id) return false;
-            //currentResources = response.CurrentResources;
-            //statusController.UpdateResources(response.CurrentResources);
-            //textLogDisplayManager.AddText(response.Success ? "You powered up the attack!" : string.Format("Not enough {0} resources to power up this attack.", resource.ToString()), AnnouncementType.System);
-            //return response.Success;
-            return false;
-        }
-
         public void DisplayResources(ResourceUpdate resourceUpdate)
         {
             if (resourceUpdate == null) return;
             currentResources = resourceUpdate.Resources;
             statusController.UpdateResources(resourceUpdate.Resources);
+        }
+
+        internal void UpdateStatusController(AttackResolution attack)
+        {
+            statusController.UpdateMonster(attack);
         }
 
         internal void ClearResourceDisplay()

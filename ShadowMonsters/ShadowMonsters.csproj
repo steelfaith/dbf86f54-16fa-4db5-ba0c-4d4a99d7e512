@@ -80,22 +80,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Infrastructure\AttackInstanceEnded.cs" />
-    <Compile Include="Assets\Infrastructure\AttackPowerChangeResolution.cs" />
-    <Compile Include="Assets\Infrastructure\DelayedDamageInfo.cs" />
-    <Compile Include="Assets\Infrastructure\PowerUpLevelsEnum.cs" />
-    <Compile Include="Assets\Infrastructure\ResourceUpdate.cs" />
     <Compile Include="Assets\Infrastructure\AnimationActionEnum.cs" />
     <Compile Include="Assets\Infrastructure\AnnouncementTypeEnum.cs" />
     <Compile Include="Assets\Infrastructure\AttackInfo.cs" />
+    <Compile Include="Assets\Infrastructure\AttackInstanceEnded.cs" />
+    <Compile Include="Assets\Infrastructure\AttackPowerChangeRequest.cs" />
+    <Compile Include="Assets\Infrastructure\AttackPowerChangeResolution.cs" />
     <Compile Include="Assets\Infrastructure\AttackRequest.cs" />
     <Compile Include="Assets\Infrastructure\AttackResolution.cs" />
     <Compile Include="Assets\Infrastructure\AttackUpdateRequest.cs" />
     <Compile Include="Assets\Infrastructure\BaseMonster.cs" />
-    <Compile Include="Assets\Infrastructure\AttackPowerChangeRequest.cs" />
     <Compile Include="Assets\Infrastructure\ButtonPressResolution.cs" />
     <Compile Include="Assets\Infrastructure\DamageStyle.cs" />
     <Compile Include="Assets\Infrastructure\DataEventArgs.cs" />
+    <Compile Include="Assets\Infrastructure\DelayedDamageInfo.cs" />
     <Compile Include="Assets\Infrastructure\ElementalAffinityEnum.cs" />
     <Compile Include="Assets\Infrastructure\EnumHelper.cs" />
     <Compile Include="Assets\Infrastructure\GameToScreenUtility.cs" />
@@ -104,11 +102,14 @@
     <Compile Include="Assets\Infrastructure\MonsterList.cs" />
     <Compile Include="Assets\Infrastructure\MonsterPresenceEnum.cs" />
     <Compile Include="Assets\Infrastructure\PlayerData.cs" />
+    <Compile Include="Assets\Infrastructure\PlayerDataUpdate.cs" />
+    <Compile Include="Assets\Infrastructure\PowerUpLevelsEnum.cs" />
     <Compile Include="Assets\Infrastructure\RarityToColorExtension.cs" />
+    <Compile Include="Assets\Infrastructure\ResourceUpdate.cs" />
+    <Compile Include="Assets\Infrastructure\ReviveRequest.cs" />
     <Compile Include="Assets\Infrastructure\ServerMessage.cs" />
     <Compile Include="Assets\Infrastructure\UI\Controllers\IViewController.cs" />
     <Compile Include="Assets\Infrastructure\UI\Views\IView.cs" />
-    <Compile Include="Assets\Monsters\DragonBoar\Scripts\playerControl.cs" />
     <Compile Include="Assets\Scripts\ActorMovementController.cs" />
     <Compile Include="Assets\Scripts\AnimationController.cs" />
     <Compile Include="Assets\Scripts\AnyManager.cs" />
@@ -132,7 +133,7 @@
     <Compile Include="Assets\Scripts\LoadScene.cs" />
     <Compile Include="Assets\Scripts\MonsterCave.cs" />
     <Compile Include="Assets\Scripts\MonsterSpawner.cs" />
-    <Compile Include="Assets\Scripts\PlainswalkerTrigger.cs" />
+    <Compile Include="Assets\Scripts\PlaneswalkerTrigger.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\ResourceCollectorScript.cs" />
     <Compile Include="Assets\Scripts\ScrollingCombatText.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Assets\Scripts\TeamController.cs" />
     <Compile Include="Assets\Scripts\TextLogDisplayManager.cs" />
     <Compile Include="Assets\Scripts\UnloadSceneTrigger.cs" />
+    <Compile Include="Assets\Scripts\WanderScript.cs" />
     <Compile Include="Assets\ServerStubHome\AiAttackStyles\ButtonMasher.cs" />
     <Compile Include="Assets\ServerStubHome\AiAttackStyles\IAiAttackStyle.cs" />
     <Compile Include="Assets\ServerStubHome\AttackHelper.cs" />

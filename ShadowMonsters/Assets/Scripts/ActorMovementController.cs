@@ -135,9 +135,9 @@ public class ActorMovementController : MonoBehaviour
         //collider.enabled = false;
         //collider.gameObject.SetActive(false);
         var player = gameObject.GetComponent<PlayerController>();
-        if(player.CaughtBetweenPlains)
+        if(player.CaughtBetweenPlanes)
         {
-            textLogDisplayManager.AddText("You are caught between the plains and cannot fight.  You need to find a plainswaker to return you to your realm first.", AnnouncementType.System);
+            textLogDisplayManager.AddText("You are caught between the planes and cannot fight.  You need to find a planeswaker to return you to your realm first.", AnnouncementType.System);
             return;
         }
 

@@ -5,6 +5,8 @@ using System.Text;
 using UnityEngine;
 using Assets.Infrastructure;
 using Assets.ServerStubHome;
+using System.Collections;
+
 namespace Assets.Scripts
 {
     public class PlayerController : MonoBehaviour
@@ -15,8 +17,9 @@ namespace Assets.Scripts
         private ServerStub serverStub;
         private TextLogDisplayManager textLogDisplayManager;
         private StatusController statusController;
+        private LightController lightController;
         public List<ElementalAffinity> currentResources;
-        public bool CaughtBetweenPlains { get; set; }
+        public bool CaughtBetweenPlanes { get; set; }
 
 
         public List<Guid> AttackIds { get; set; }
@@ -25,14 +28,54 @@ namespace Assets.Scripts
         {
             serverStub = ServerStub.Instance();
             textLogDisplayManager = TextLogDisplayManager.Instance();
+            lightController = LightController.Instance();
 
             Id = serverStub.Authenticate();
             currentData = serverStub.GetPlayerData(Id);
             AttackIds = currentData.AttackIds;
             statusController = statusDisplay.GetComponentInChildren<StatusController>();
-            statusController.displayName.color = Color.green;
-            statusController.SetMonster(currentData.PlayerDna.NickName,"0",MonsterPresence.Carnal,currentData.PlayerDna.CurrentHealth,currentData.PlayerDna.MaxHealth, currentData.Id);
-            
+            statusController.displayName.color = Color.green;            
+            SetPlayerData();
+        }
+
+        private void SetPlayerData()
+        {
+            statusController.SetMonster(currentData.PlayerDna.NickName,"0",MonsterPresence.Carnal,currentData.PlayerDna.CurrentHealth,currentData.PlayerDna.MaxHealth, currentData.Id);            
+        }
+
+        private void Update()
+        {
+            StartCoroutine(CheckForPlayerUpdates());
+        }
+
+        public IEnumerator CheckForPlayerUpdates()
+        {
+            var playerUpdate = serverStub.GetNextPlayerDataUpdate(Id);
+            if (playerUpdate == null)
+            {
+                yield return null;
+            }
+            if(playerUpdate!=null)
+                HandlePlayerUpdate(playerUpdate);
+        }
+
+        private void HandlePlayerUpdate(PlayerDataUpdate playerUpdate)
+        {
+            currentData = playerUpdate.Update;
+            SetPlayerData();
+            CaughtBetweenPlanes = currentData.PlayerDna.CurrentHealth < 1;
+            if (CaughtBetweenPlanes)
+            { lightController.ChangeToPlanesLight(); }
+            else
+            { lightController.ChangeToNormalLight(); }
+            UpdateTeam();
+        }
+
+        private void UpdateTeam()
+        {
+            var teamController = TeamController.Instance();
+            if (teamController == null) return;
+            teamController.LoadTeam(currentData.CurrentTeam);
         }
 
         private static PlayerController playerController;       

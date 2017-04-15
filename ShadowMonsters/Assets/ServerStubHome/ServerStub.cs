@@ -21,9 +21,11 @@ namespace Assets.ServerStubHome
         {
             ServerMessageQueue = new Queue<ServerMessage>();
             AttackInstanceEndedQueue = new Queue<AttackInstanceEnded>();
+            PlayerDataUpdateQueue = new Queue<PlayerDataUpdate>();
         }
         public Queue<ServerMessage> ServerMessageQueue { get; set; }
         public Queue<AttackInstanceEnded> AttackInstanceEndedQueue { get; set; }
+        public Queue<PlayerDataUpdate> PlayerDataUpdateQueue { get; set; }
 
         public MonsterDna GetRandomMonster()
         {
@@ -52,6 +54,14 @@ namespace Assets.ServerStubHome
             //TODO: all messages going to one client currently...but prob need to consider this for real server
             if (AttackInstanceEndedQueue.Count > 0)
                 return AttackInstanceEndedQueue.Dequeue();
+            return null;
+        }
+
+        public PlayerDataUpdate GetNextPlayerDataUpdate(Guid playerId)
+        {
+            //TODO: all messages going to one client currently...but prob need to consider this for real server
+            if (PlayerDataUpdateQueue.Count > 0)
+                return PlayerDataUpdateQueue.Dequeue();
             return null;
         }
 
@@ -247,6 +257,28 @@ namespace Assets.ServerStubHome
             }
 
             return returnList;
+        }
+
+        public void RevivePlayer(ReviveRequest request)
+        {
+            PlayerData player;
+            players.TryGetValue(request.PlayerId, out player);
+            if (player == null) return;
+            HealPlayer(player);
+            PlayerDataUpdateQueue.Enqueue(new PlayerDataUpdate
+            {
+                Update = player,
+            });
+
+        }
+
+        private void HealPlayer(PlayerData player)
+        {
+            player.PlayerDna.CurrentHealth = player.PlayerDna.MaxHealth;
+            foreach (MonsterDna member in player.CurrentTeam)
+            {
+                member.CurrentHealth = member.MaxHealth;
+            }
         }
 
         private static string GetRandomKey<T>()

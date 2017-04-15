@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -24,9 +20,13 @@ namespace Assets.Scripts
             return lightController;
         }
 
-        internal void ChangeColor(Color32 newColor)
+        public void ChangeToNormalLight()
         {
-            light.color = newColor;
+            light.color = new Color32(255,244,214,255);
+        }
+        public void ChangeToPlanesLight()
+        {
+            light.color = new Color32(200, 9, 221, 255);
         }
     }
 }

@@ -52,7 +52,7 @@ namespace Assets.ServerStubHome
                     break;
                 case DamageStyle.Delayed:
                     delayedDamage.Add(new DelayedDamageInfo {AttackId = attack.AttackId, Name = attack.Name, Affinity = attack.Affinity, BaseDamage = attack.BaseDamage, Accuracy = attack.Accuracy, NextDueTime = 0, PowerLevel = attack.PowerLevel });
-                    attack.PowerLevel = 0;
+                    //attack.PowerLevel = 0;
                     ResetTimer(attack.CastTime * 1000);
                     break;
 

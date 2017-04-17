@@ -34,9 +34,10 @@ namespace Assets.Scripts
         public void Update()
         {
             StartCoroutine(CheckForEnemyAttackUpdates());
+            StartCoroutine(CheckForEnemyResourceUdates());
         }
 
-        public IEnumerator CheckForEnemyAttackUpdates()
+        private IEnumerator CheckForEnemyAttackUpdates()
         {
             var enemyAttackUpdate = serverStub.GetNextEnemyAttackUpdate(AttackInstanceId);
             if (enemyAttackUpdate == null)
@@ -45,6 +46,22 @@ namespace Assets.Scripts
             }
             else
             { HandleEnemyAttackUpdate(enemyAttackUpdate); }
+        }
+
+        private IEnumerator CheckForEnemyResourceUdates()
+        {
+            var enemyResourceUpdate = serverStub.GetNextEnemyResourceUpdate(AttackInstanceId);
+            if (enemyResourceUpdate == null)
+            {
+                yield return null;
+            }
+            else
+            { HandleEnemyResourceUpdate(enemyResourceUpdate); }
+        }
+
+        private void HandleEnemyResourceUpdate(EnemyResourceDisplayUpdate enemyResourceUpdate)
+        {
+            enemyStatusController.UpdateResources(enemyResourceUpdate.Resources);
         }
 
         private void HandleEnemyAttackUpdate(EnemyAttackUpdate enemyAttackUpdate)

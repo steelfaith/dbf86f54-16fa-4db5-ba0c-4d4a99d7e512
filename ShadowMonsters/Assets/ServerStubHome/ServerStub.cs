@@ -85,6 +85,16 @@ namespace Assets.ServerStubHome
             return null;
         }
 
+        public EnemyResourceDisplayUpdate GetNextEnemyResourceUpdate(Guid attackInstanceId)
+        {
+            AttackInstance instance;
+            attackInstances.TryGetValue(attackInstanceId, out instance);
+            if (instance == null) return null;
+            if (instance.enemyResourceDisplayUpdateQueue.Count > 0)
+                return instance.enemyResourceDisplayUpdateQueue.Dequeue();
+            return null;
+        }
+
         public ButtonPressResolution GetNextButtonUpdate(Guid attackInstanceId)
         {
             AttackInstance instance;

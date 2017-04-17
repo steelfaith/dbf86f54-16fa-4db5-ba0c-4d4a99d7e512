@@ -91,6 +91,8 @@
     <Compile Include="Assets\Infrastructure\AttackUpdateRequest.cs" />
     <Compile Include="Assets\Infrastructure\BaseMonster.cs" />
     <Compile Include="Assets\Infrastructure\ButtonPressResolution.cs" />
+    <Compile Include="Assets\Infrastructure\EnemyResourceDisplayUpdate.cs" />
+    <Compile Include="Assets\Infrastructure\Utility.cs" />
     <Compile Include="Assets\Infrastructure\DamageStyle.cs" />
     <Compile Include="Assets\Infrastructure\DataEventArgs.cs" />
     <Compile Include="Assets\Infrastructure\DelayedDamageInfo.cs" />

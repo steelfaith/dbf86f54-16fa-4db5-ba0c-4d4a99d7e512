@@ -54,7 +54,7 @@ namespace Assets.Scripts
 
         internal void UpdateResources(List<ElementalAffinity> resources)
         {
-            resourceCollector.UpdatePlayerResources(resources);
+            resourceCollector.UpdateResources(resources);
         }
     }
 }

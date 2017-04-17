@@ -9,17 +9,23 @@ namespace Assets.Scripts
     {
         public Image castBar;
         public Text text;
+        private Outline outline;
         private float rechargeEnd;
         private float currentTime;
         private float totalTime;
         private bool casting;
 
+        private void Start()
+        {
+            if(text != null)
+            outline = text.GetComponent<Outline>();
+        }
         private void Update()
         {
             if(Time.time >= rechargeEnd)
             {
                 if(text != null)
-                    text.text = "";
+                 text.text = "";
                 castBar.fillAmount = 0f;
                 return;
             }
@@ -29,7 +35,12 @@ namespace Assets.Scripts
 
         public void StartCast(AttackInfo attack)
         {
+            var affinityColor =attack.Affinity.GetColorFromMonsterAffinity();
+            castBar.color = affinityColor;
             text.text = attack.Name;
+            text.color = Utility.ContrastColor(affinityColor);
+            outline.effectColor = affinityColor;
+            
             casting = attack.CastTime > 0;
             totalTime = casting ? attack.CastTime : attack.Cooldown;
             rechargeEnd = Time.time + totalTime;

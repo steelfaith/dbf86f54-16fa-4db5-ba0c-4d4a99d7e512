@@ -31,7 +31,7 @@ namespace Assets.Scripts
 
         }
 
-        public void UpdatePlayerResources(List<ElementalAffinity> resources)
+        public void UpdateResources(List<ElementalAffinity> resources)
         {
             Clear();
             int i = 0;

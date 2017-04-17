@@ -11,11 +11,13 @@ namespace Assets.ServerStubHome.AiAttackStyles
     {
         public List<AttackInfo> Attacks { get; set; }
         private List<ElementalAffinity> _resources = new List<ElementalAffinity>();
+        private AttackInstance attackInstance;
         Random random = new Random();
 
-        public ButtonMasher()
+        public ButtonMasher(AttackInstance instance)
         {
             _resources = new List<ElementalAffinity>();
+            attackInstance = instance;
         }
 
         public void AddResource(ElementalAffinity resource)
@@ -37,9 +39,19 @@ namespace Assets.ServerStubHome.AiAttackStyles
                 {
                     _resources.Remove(attack.Affinity);
                 }
+                attackInstance.enemyResourceDisplayUpdateQueue.Enqueue(new EnemyResourceDisplayUpdate
+                {
+                    PlayerId = attackInstance.playerId,
+                    Resources = _resources,
+                });
             }
 
             return attack;
+        }
+
+        public List<ElementalAffinity> GetResources()
+        {
+            return _resources;
         }
     }
 }

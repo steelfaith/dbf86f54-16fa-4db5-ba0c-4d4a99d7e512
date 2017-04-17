@@ -11,5 +11,6 @@ namespace Assets.ServerStubHome.AiAttackStyles
         List<AttackInfo> Attacks { get; set; }
         AttackInfo ChooseAttack();
         void AddResource(ElementalAffinity resource);
+        List<ElementalAffinity> GetResources();
     }
 }

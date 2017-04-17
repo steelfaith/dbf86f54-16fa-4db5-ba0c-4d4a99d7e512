@@ -15,6 +15,7 @@ namespace Assets.ServerStubHome
         public Queue<ResourceUpdate> playerResourceUpdateQueue = new Queue<ResourceUpdate>();
         public Queue<AttackPowerChangeResolution> attackPowerChangeUpdateQueue = new Queue<AttackPowerChangeResolution>();
         public Queue<EnemyAttackUpdate> enemyAttackUpdateQueue = new Queue<EnemyAttackUpdate>();
+        public Queue<EnemyResourceDisplayUpdate> enemyResourceDisplayUpdateQueue = new Queue<EnemyResourceDisplayUpdate>();
 
         public Guid playerId;
         private MonsterDna monster;
@@ -36,7 +37,7 @@ namespace Assets.ServerStubHome
             playerData = serverStub.GetPlayerData(player);
             monsterAttacks = serverStub.GetAttacksForMonster(monsterId);
             monster = serverStub.GetMonsterById(monsterId);
-            aiStyle = new ButtonMasher(); //someday i will make more
+            aiStyle = new ButtonMasher(this); //someday i will make more
             aiStyle.Attacks = monsterAttacks;
             playerAttackHelper = new AttackHelper(this, serverStub);
             playerAttackHelper.TargetKilled += PlayerAttackHelperTargetKilled;
@@ -226,6 +227,11 @@ namespace Assets.ServerStubHome
             if(attack.IsGenerator)
             {
                 aiStyle.AddResource(attack.Affinity);
+                enemyResourceDisplayUpdateQueue.Enqueue(new EnemyResourceDisplayUpdate
+                {
+                    PlayerId = playerId,
+                    Resources = aiStyle.GetResources(),
+                });
             }
             aiAttackHelper.StartAttack(attack, PlayerChampion);
             enemyAttackUpdateQueue.Enqueue(new EnemyAttackUpdate

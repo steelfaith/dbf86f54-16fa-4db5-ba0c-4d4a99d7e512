@@ -5,6 +5,7 @@ using System.Text;
 using UnityEngine;
 using Assets.Infrastructure;
 using Assets.ServerStubHome;
+using System.Collections;
 
 namespace Assets.Scripts
 {
@@ -22,6 +23,7 @@ namespace Assets.Scripts
 
         private void Start()
         {
+            serverStub = ServerStub.Instance();
             monsterSpawner = MonsterSpawner.Instance();
             enemyStatusController = StatusDisplay.GetComponentInChildren<StatusController>();
             scrollingCombatTextController = ScrollingCombatTextController.Instance();
@@ -29,7 +31,30 @@ namespace Assets.Scripts
             textLogDisplayManager = TextLogDisplayManager.Instance();
         }
 
+        public void Update()
+        {
+            StartCoroutine(CheckForEnemyAttackUpdates());
+        }
+
+        public IEnumerator CheckForEnemyAttackUpdates()
+        {
+            var enemyAttackUpdate = serverStub.GetNextEnemyAttackUpdate(AttackInstanceId);
+            if (enemyAttackUpdate == null)
+            {
+                yield return null;
+            }
+            else
+            { HandleEnemyAttackUpdate(enemyAttackUpdate); }
+        }
+
+        private void HandleEnemyAttackUpdate(EnemyAttackUpdate enemyAttackUpdate)
+        {
+            enemyStatusController.UpdateCastBar(enemyAttackUpdate.Attack);
+        }
+
         private static EnemyController enemyController;
+
+        public Guid AttackInstanceId { get; internal set; }
 
         public static EnemyController Instance()
         {

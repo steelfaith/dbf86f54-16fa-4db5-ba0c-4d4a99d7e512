@@ -47,9 +47,9 @@ namespace Assets.Scripts
             healthBar.AdjustHealth(attack.CurrentHealth, attack.MaxHealth);
         }
 
-        internal void UpdateCastBar()
+        internal void UpdateCastBar(AttackInfo attack)
         {
-            //castBar.UpdateCastbar()
+            castBar.StartCast(attack);
         }
 
         internal void UpdateResources(List<ElementalAffinity> resources)

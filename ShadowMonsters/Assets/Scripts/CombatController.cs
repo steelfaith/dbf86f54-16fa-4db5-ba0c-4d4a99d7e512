@@ -36,6 +36,7 @@ namespace Assets.Scripts
             enemyController.SpawnEnemy();
             attackInstanceId = serverStub.CreateAttackSequence(enemyController.enemyInfo.MonsterId, playerController.Id);
             fatbicController.AttackInstanceId = attackInstanceId;
+            enemyController.AttackInstanceId = attackInstanceId;
 
             _textLogDisplayManager.AddText(string.Format("You have been attacked by a {0}!", enemyController.enemyInfo.DisplayName), AnnouncementType.Enemy);
             _beginCombatPopup.PromptUserAction(enemyController.enemyInfo.DisplayName, OnFight, OnRun, OnBond);

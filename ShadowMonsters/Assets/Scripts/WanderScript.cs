@@ -10,7 +10,7 @@ public class WanderScript : MonoBehaviour
     public float speed = 5;
     public float directionChangeInterval = 1;
     public float maxHeadingChange = 30;
-    private Animation anim;
+    private Animator anim;
 
     CharacterController controller;
     float heading;
@@ -23,18 +23,19 @@ public class WanderScript : MonoBehaviour
         // Set random initial rotation
         heading = Random.Range(0, 360);
         transform.eulerAngles = new Vector3(0, heading, 0);
-        anim = gameObject.GetComponent<Animation>();
+        anim = gameObject.GetComponent<Animator>();
         StartCoroutine(NewHeading());
     }
     private void Start()
     {
-       // anim.Play("walk");
+        anim.Play("Walk");
     }
 
     void Update()
     {
         transform.eulerAngles = Vector3.Slerp(transform.eulerAngles, targetRotation, Time.deltaTime * directionChangeInterval);
         var forward = transform.TransformDirection(Vector3.forward);
+        
         controller.SimpleMove(forward * speed);
 
     }
@@ -50,6 +51,7 @@ public class WanderScript : MonoBehaviour
         while (true)
         {
             NewHeadingRoutine();
+            
             yield return new WaitForSeconds(directionChangeInterval);
         }
     }

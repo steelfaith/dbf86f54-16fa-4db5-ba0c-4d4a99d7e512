@@ -75,6 +75,16 @@ namespace Assets.ServerStubHome
             return null;
         }
 
+        public EnemyAttackUpdate GetNextEnemyAttackUpdate(Guid attackInstanceId)
+        {
+            AttackInstance instance;
+            attackInstances.TryGetValue(attackInstanceId, out instance);
+            if (instance == null) return null;
+            if (instance.enemyAttackUpdateQueue.Count > 0)
+                return instance.enemyAttackUpdateQueue.Dequeue();
+            return null;
+        }
+
         public ButtonPressResolution GetNextButtonUpdate(Guid attackInstanceId)
         {
             AttackInstance instance;
@@ -205,6 +215,7 @@ namespace Assets.ServerStubHome
             {
                 InstanceId = attackInstanceId
             });
+
             instance.Dispose();
         }
 

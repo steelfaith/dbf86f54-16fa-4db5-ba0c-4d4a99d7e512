@@ -171,6 +171,7 @@ namespace Assets.Scripts
             DoAnimation(AnimationAction.Die);
             textLogDisplayManager.AddText(string.Format("You have lost the battle and are now caught between the planes! Find a planes walker to return you to your realm.", baseMonster.NickName), AnnouncementType.System);
             lightController.ChangeToPlanesLight();
+            playerController.ClearResourceDisplay();
             playerController.CaughtBetweenPlanes = true;
         }
 

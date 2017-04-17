@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Assets.Infrastructure;
 
 using Assets.ServerStubHome.AiAttackStyles;
@@ -15,6 +14,8 @@ namespace Assets.ServerStubHome
         public Queue<ButtonPressResolution> buttonPressQueue = new Queue<ButtonPressResolution>();
         public Queue<ResourceUpdate> playerResourceUpdateQueue = new Queue<ResourceUpdate>();
         public Queue<AttackPowerChangeResolution> attackPowerChangeUpdateQueue = new Queue<AttackPowerChangeResolution>();
+        public Queue<EnemyAttackUpdate> enemyAttackUpdateQueue = new Queue<EnemyAttackUpdate>();
+
         public Guid playerId;
         private MonsterDna monster;
         private MonsterDna playerChampion;
@@ -43,6 +44,16 @@ namespace Assets.ServerStubHome
             aiAttackHelper = new AttackHelper(this, serverStub);
             aiAttackHelper.AttackComplete += AiAttackComplete;
 
+        }
+
+        public bool AttackQueuesHaveData()
+        {
+            if (attackResultsQueue.Count > 0) return true;
+            if (buttonPressQueue.Count > 0) return true;
+            if (playerResourceUpdateQueue.Count > 0) return true;
+            if (attackPowerChangeUpdateQueue.Count > 0) return true;
+
+            return false;
         }
 
         public MonsterDna PlayerChampion
@@ -91,7 +102,7 @@ namespace Assets.ServerStubHome
                 return;
             }
 
-            if (!serverStub.CanPerformAttack(attack.AttackId, PlayerChampion.MonsterId)) return;
+            if (!CanPerformAttack(attack)) return;
 
 
             AddResourceFromAttack(attack);
@@ -108,6 +119,17 @@ namespace Assets.ServerStubHome
                 TimeOutSeconds = timeOut
             });
             
+        }
+
+        private bool CanPerformAttack(AttackInfo attack)
+        {
+            if (serverStub.CanPerformAttack(attack.AttackId, PlayerChampion.MonsterId))
+                return true;
+            if(PlayerChampion.MonsterId == playerId )
+            {
+                return playerData.AttackIds.Contains(attack.AttackId);
+            }
+            return false;
         }
 
         public void HandleAttackPowerChange(AttackPowerChangeRequest request)
@@ -144,6 +166,11 @@ namespace Assets.ServerStubHome
         {
             playerAttackHelper.EndCombat();
             aiAttackHelper.EndCombat();
+            playerResourceUpdateQueue.Enqueue(new ResourceUpdate
+            {
+                Resources = new List<ElementalAffinity>(),
+                Id = playerId
+            });
 
             serverStub.EndAttackInstance(Id);
         }
@@ -201,6 +228,11 @@ namespace Assets.ServerStubHome
                 aiStyle.AddResource(attack.Affinity);
             }
             aiAttackHelper.StartAttack(attack, PlayerChampion);
+            enemyAttackUpdateQueue.Enqueue(new EnemyAttackUpdate
+            {
+                PlayerId = playerId,
+                Attack = attack,
+            });
         }
 
         public void Dispose()

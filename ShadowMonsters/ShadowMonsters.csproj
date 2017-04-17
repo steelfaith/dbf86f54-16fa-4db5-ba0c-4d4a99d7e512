@@ -95,6 +95,7 @@
     <Compile Include="Assets\Infrastructure\DataEventArgs.cs" />
     <Compile Include="Assets\Infrastructure\DelayedDamageInfo.cs" />
     <Compile Include="Assets\Infrastructure\ElementalAffinityEnum.cs" />
+    <Compile Include="Assets\Infrastructure\EnemyAttackUpdate.cs" />
     <Compile Include="Assets\Infrastructure\EnumHelper.cs" />
     <Compile Include="Assets\Infrastructure\GameToScreenUtility.cs" />
     <Compile Include="Assets\Infrastructure\IMonster.cs" />

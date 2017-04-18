@@ -92,6 +92,11 @@ namespace Assets.Scripts
                 combatPlayerController.EndCombat();
                 _textLogDisplayManager.AddText(string.Format("You have defeated a {0}!", enemyController.enemyInfo.DisplayName), AnnouncementType.Friendly);                               
             }
+
+            if (attackResult.WasShortCast)
+            {
+                fatbicController.Reset();
+            }
         }
         private IEnumerator EndCombat()
         {
@@ -181,9 +186,10 @@ namespace Assets.Scripts
         }
         private void OnStopAttackPressed()
         {
-            //TODO unhardcode 5
-            //fatbicController.stopAttackButton.GetComponent<ButtonScript>().StartRecharge(5);
-            //fatbicController.StartGlobalRecharge();
+            serverStub.ShortCastAttempt(new ShortCastRequest
+            {
+                InstanceId = attackInstanceId,
+            });
         }
         void OnRun()
         {

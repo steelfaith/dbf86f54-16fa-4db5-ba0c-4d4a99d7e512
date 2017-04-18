@@ -92,6 +92,10 @@ namespace Assets.ServerStubHome
             PlayerChampion = serverStub.GetMonsterById(newChampionId);
         }
 
+        public void AttemptPlayerShortCast()
+        {
+            playerAttackHelper.AttemptShortCast();
+        }
 
         public void HandlePlayerAttack(AttackRequest data)
         {
@@ -224,7 +228,7 @@ namespace Assets.ServerStubHome
         {
             if (!CombatShouldContinue) return;
             var attack = aiStyle.ChooseAttack();
-            if(attack.IsGenerator)
+            if (attack.IsGenerator)
             {
                 aiStyle.AddResource(attack.Affinity);
                 enemyResourceDisplayUpdateQueue.Enqueue(new EnemyResourceDisplayUpdate

@@ -19,6 +19,10 @@ namespace Assets.ServerStubHome
         public AttackInfo currentAttack;
         private ServerStub serverStub;
         bool combatEnded;
+        private DateTime attackDelayTimerStartDateTime;
+        private float shortCastDamagePercentage;
+        private bool isShortCast;
+
 
         public AttackHelper(AttackInstance instance, ServerStub stub)
         {
@@ -28,6 +32,7 @@ namespace Assets.ServerStubHome
 
         public event EventHandler AttackComplete;
         public event EventHandler TargetKilled;
+
 
         /// <summary>
         /// starts the attack process.  will return int as cooldown (Victory Dance) if first attack is instant and fatal
@@ -39,6 +44,8 @@ namespace Assets.ServerStubHome
         {
             if (IsBusy) return;
             IsBusy = true;
+            shortCastDamagePercentage = 0;
+            isShortCast = false;
             target = attackTarget;
             currentAttack = attack;
 
@@ -52,7 +59,7 @@ namespace Assets.ServerStubHome
                     break;
                 case DamageStyle.Delayed:
                     delayedDamage.Add(new DelayedDamageInfo {AttackId = attack.AttackId, Name = attack.Name, Affinity = attack.Affinity, BaseDamage = attack.BaseDamage, Accuracy = attack.Accuracy, NextDueTime = 0, PowerLevel = attack.PowerLevel });
-                    //attack.PowerLevel = 0;
+                    attack.PowerLevel = 0;
                     ResetTimer(attack.CastTime * 1000);
                     break;
 
@@ -73,6 +80,19 @@ namespace Assets.ServerStubHome
                     break;
             }
 
+        }
+
+        public void AttemptShortCast()
+        {
+            if (currentAttack == null) return;
+            if(currentAttack.CastTime > 0 && delayedDamage.Any())
+            {
+                isShortCast = true;   
+                var t = DateTime.Now - attackDelayTimerStartDateTime;
+                shortCastDamagePercentage = (float)(t.TotalSeconds / currentAttack.CastTime) * 95;
+                if (attackDelayTimer != null)
+                    attackDelayTimer.Change(0, Timeout.Infinite);
+            }
         }
 
         public void HandleAttackPowerChange(AttackPowerChangeRequest request)
@@ -197,6 +217,7 @@ namespace Assets.ServerStubHome
 
         private void ResetTimer(int dueTime)
         {
+            attackDelayTimerStartDateTime = DateTime.Now;
             if (attackDelayTimer == null)
             {
                 attackDelayTimer = new Timer(PerformAttack, null, dueTime, Timeout.Infinite);
@@ -225,19 +246,32 @@ namespace Assets.ServerStubHome
                 };
             }
 
+            //attacks base damage to start
+            float damage = attack.BaseDamage;
+            //adjust shortcast
+            if (isShortCast && shortCastDamagePercentage > 0)
+            {
+                damage = damage * shortCastDamagePercentage / 100;               
+            }
+
+            //adjust crit
+            var crit = IsCrit();
+            damage = damage * (crit ? 2 : 1);
+
             float powerLevel = 0;
-            //check for power ups
+            //adjust for power ups
             if (attack.AttackId == currentAttack.AttackId)
             {
                 powerLevel = currentAttack.PowerLevel;
             }
             float powerUpBonusPercentMultiplier = (powerLevel / 10f) + 1;
-
-            var crit = IsCrit();
-            float damage = attack.BaseDamage * (crit ? 2 : 1);
-
             damage = damage * powerUpBonusPercentMultiplier;
+
+            //round the numbers 
+            damage = (float)Math.Round(damage);
+
             target.CurrentHealth = target.CurrentHealth - damage;
+            shortCastDamagePercentage = 0;
             attack.PowerLevel = 0;
 
             var fatal = target.CurrentHealth <= 0;
@@ -258,7 +292,8 @@ namespace Assets.ServerStubHome
                 AttackPerformed = attack,
                 Success = true,
                 TimeStamp = DateTime.Now,
-            };
+                WasShortCast = isShortCast,
+            };            
         }
 
 

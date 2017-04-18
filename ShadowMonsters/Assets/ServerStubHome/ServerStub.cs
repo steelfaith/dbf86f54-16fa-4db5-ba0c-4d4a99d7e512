@@ -346,6 +346,14 @@ namespace Assets.ServerStubHome
 
         }
 
+        public void ShortCastAttempt(ShortCastRequest request)
+        {
+            AttackInstance ai;
+            if (attackInstances.TryGetValue(request.InstanceId, out ai))
+                ai.AttemptPlayerShortCast();
+
+        }
+
         public bool CanPerformAttack(Guid AttackId, Guid attacker)
         {
             MonsterDna monster;

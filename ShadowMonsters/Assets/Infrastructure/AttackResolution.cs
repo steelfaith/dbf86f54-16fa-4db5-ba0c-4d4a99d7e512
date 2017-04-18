@@ -16,5 +16,6 @@ namespace Assets.Infrastructure
         public AttackInfo AttackPerformed { get; set; }
         public bool Success { get; set; }
         public DateTime TimeStamp { get; set; }
+        public bool WasShortCast { get; set; }
     }
 }

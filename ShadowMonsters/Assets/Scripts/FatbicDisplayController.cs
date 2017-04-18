@@ -125,6 +125,14 @@ namespace Assets.Scripts
             });
         }
 
+        internal void Reset()
+        {
+            foreach(ButtonScript bs in attackButtonScripts)
+            {
+                bs.Reset();
+            }
+        }
+
         private void HandleAttackPowerUpdates(AttackPowerChangeResolution result)
         {
             if (result == null) return;

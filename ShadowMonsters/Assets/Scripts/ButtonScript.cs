@@ -69,6 +69,11 @@ namespace Assets.Scripts
             ProcessAttackInfo();            
         }
 
+        public void Reset()
+        {
+            rechargeEnd = Time.time;
+        }
+
         public void StartButtonAction(float timeout)
         {            
             if (onGlobalCooldown) return;

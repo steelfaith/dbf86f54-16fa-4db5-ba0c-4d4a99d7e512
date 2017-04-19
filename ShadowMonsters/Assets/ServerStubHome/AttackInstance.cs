@@ -112,7 +112,7 @@ namespace Assets.ServerStubHome
 
             AddResourceFromAttack(attack);
 
-            playerAttackHelper.StartAttack(attack, monster);
+            playerAttackHelper.StartAttack(attack, monster, PlayerChampion);
 
             var timeOut = attack.Cooldown > 0 ? attack.Cooldown : attack.CastTime;
             
@@ -237,7 +237,7 @@ namespace Assets.ServerStubHome
                     Resources = aiStyle.GetResources(),
                 });
             }
-            aiAttackHelper.StartAttack(attack, PlayerChampion);
+            aiAttackHelper.StartAttack(attack, PlayerChampion, monster);
             enemyAttackUpdateQueue.Enqueue(new EnemyAttackUpdate
             {
                 PlayerId = playerId,

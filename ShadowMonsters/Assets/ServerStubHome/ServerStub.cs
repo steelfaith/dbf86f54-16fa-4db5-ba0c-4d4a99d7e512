@@ -22,7 +22,9 @@ namespace Assets.ServerStubHome
             ServerMessageQueue = new Queue<ServerMessage>();
             AttackInstanceEndedQueue = new Queue<AttackInstanceEnded>();
             PlayerDataUpdateQueue = new Queue<PlayerDataUpdate>();
+            Amdm = new AffinityMatchupDamageMultiplier();
         }
+        public AffinityMatchupDamageMultiplier Amdm { get; set; }
         public Queue<ServerMessage> ServerMessageQueue { get; set; }
         public Queue<AttackInstanceEnded> AttackInstanceEndedQueue { get; set; }
         public Queue<PlayerDataUpdate> PlayerDataUpdateQueue { get; set; }

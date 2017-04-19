@@ -15,6 +15,7 @@ namespace Assets.ServerStubHome
         private Timer attackDelayTimer;
         private const int VictoryDance = 5000;
         private MonsterDna target;
+        private MonsterDna attacker;
         Random random = new Random();
         public AttackInfo currentAttack;
         private ServerStub serverStub;
@@ -22,6 +23,7 @@ namespace Assets.ServerStubHome
         private DateTime attackDelayTimerStartDateTime;
         private float shortCastDamagePercentage;
         private bool isShortCast;
+        
 
 
         public AttackHelper(AttackInstance instance, ServerStub stub)
@@ -40,10 +42,11 @@ namespace Assets.ServerStubHome
         /// <param name="attack"></param>
         /// <param name="attackTarget"></param>
         /// <returns> timeout in seconds</returns>
-        public void StartAttack(AttackInfo attack, MonsterDna attackTarget)
+        public void StartAttack(AttackInfo attack, MonsterDna attackTarget, MonsterDna caster)
         {
             if (IsBusy) return;
             IsBusy = true;
+            attacker = caster;
             shortCastDamagePercentage = 0;
             isShortCast = false;
             target = attackTarget;
@@ -248,6 +251,11 @@ namespace Assets.ServerStubHome
 
             //attacks base damage to start
             float damage = attack.BaseDamage;
+
+            //adjust for caster level
+            var attackLevel = (float)Math.Ceiling((double)attacker.Level / 10) * 10;
+            damage = damage * attackLevel / 100;
+
             //adjust shortcast
             if (isShortCast && shortCastDamagePercentage > 0)
             {
@@ -266,6 +274,10 @@ namespace Assets.ServerStubHome
             }
             float powerUpBonusPercentMultiplier = (powerLevel / 10f) + 1;
             damage = damage * powerUpBonusPercentMultiplier;
+
+            //adjust for affinity type matchup
+            float amdm = serverStub.Amdm.GetAffinityMatchupDamageMultiplier(attack.Affinity, target.MonsterAffinity);
+            damage = damage * amdm;
 
             //round the numbers 
             damage = (float)Math.Round(damage);

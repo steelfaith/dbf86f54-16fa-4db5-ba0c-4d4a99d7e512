@@ -149,6 +149,7 @@
     <Compile Include="Assets\Scripts\TextLogDisplayManager.cs" />
     <Compile Include="Assets\Scripts\UnloadSceneTrigger.cs" />
     <Compile Include="Assets\Scripts\WanderScript.cs" />
+    <Compile Include="Assets\ServerStubHome\AffinityMatchupDamageMultiplier.cs" />
     <Compile Include="Assets\ServerStubHome\AiAttackStyles\ButtonMasher.cs" />
     <Compile Include="Assets\ServerStubHome\AiAttackStyles\IAiAttackStyle.cs" />
     <Compile Include="Assets\ServerStubHome\AttackHelper.cs" />

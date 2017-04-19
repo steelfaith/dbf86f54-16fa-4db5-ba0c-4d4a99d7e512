@@ -143,7 +143,7 @@ namespace Assets.Scripts
 
         void OnFight()
         {            
-            fatbicController.BeginAttack(OnAttackOnePressed, OnAttackTwoPressed, OnAttackThreePressed, OnAttackFourPressed, OnAttackFivePressed, OnStopAttackPressed, OnBond, OnRun);
+            fatbicController.BeginAttack(OnAttackOnePressed, OnAttackTwoPressed, OnAttackThreePressed, OnAttackFourPressed, OnAttackFivePressed, OnShortCastPressed, OnBond, OnRun);
             combatPlayerController.StartCombat(attackInstanceId);
             serverStub.StartCombat(attackInstanceId);
         }
@@ -184,7 +184,7 @@ namespace Assets.Scripts
         {
             SendAttack(fatbicController.attackFiveButton.GetComponent<ButtonScript>().attackInfo.AttackId);
         }
-        private void OnStopAttackPressed()
+        private void OnShortCastPressed()
         {
             serverStub.ShortCastAttempt(new ShortCastRequest
             {

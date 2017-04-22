@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using Assets.ServerStubHome.Monsters;
 
 namespace Assets.Infrastructure
 {
@@ -22,5 +24,19 @@ namespace Assets.Infrastructure
         Tripod,
         [Description("Mini Land Shark")]
         MiniLandShark
+    }
+
+    public static class MonsterListToConcreteImplementationActionExtension
+    {
+        public static Func<IMonsterDna> GetConcreteClass(this MonsterList value)
+        {
+            switch (value)
+            {
+                case MonsterList.DemonEnforcer:
+                    return new Func<IMonsterDna>(() => { return new DemonEnforcer(); });
+                    
+            }
+            return null;
+        }
     }
 }

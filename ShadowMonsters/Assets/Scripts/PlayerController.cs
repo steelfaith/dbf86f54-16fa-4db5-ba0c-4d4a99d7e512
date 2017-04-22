@@ -91,7 +91,7 @@ namespace Assets.Scripts
             return playerController;
         }
 
-        public List<MonsterDna> GetTeam()
+        public List<IMonsterDna> GetTeam()
         {
             return currentData.CurrentTeam;
         }
@@ -101,7 +101,7 @@ namespace Assets.Scripts
             return currentData;
         }
 
-        public MonsterDna GetMonsterFromTeam(Guid id)
+        public IMonsterDna GetMonsterFromTeam(Guid id)
         {
             if (!currentData.CurrentTeam.Any()) return null;
             return currentData.CurrentTeam.FirstOrDefault(x => x.MonsterId == id);

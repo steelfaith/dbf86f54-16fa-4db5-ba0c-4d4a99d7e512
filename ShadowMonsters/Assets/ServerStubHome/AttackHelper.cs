@@ -14,8 +14,8 @@ namespace Assets.ServerStubHome
         AttackInstance attackInstance;
         private Timer attackDelayTimer;
         private const int VictoryDance = 5000;
-        private MonsterDna target;
-        private MonsterDna attacker;
+        private IMonsterDna target;
+        private IMonsterDna attacker;
         Random random = new Random();
         public AttackInfo currentAttack;
         private ServerStub serverStub;
@@ -42,7 +42,7 @@ namespace Assets.ServerStubHome
         /// <param name="attack"></param>
         /// <param name="attackTarget"></param>
         /// <returns> timeout in seconds</returns>
-        public void StartAttack(AttackInfo attack, MonsterDna attackTarget, MonsterDna caster)
+        public void StartAttack(AttackInfo attack, IMonsterDna attackTarget, IMonsterDna caster)
         {
             if (IsBusy) return;
             IsBusy = true;
@@ -231,7 +231,7 @@ namespace Assets.ServerStubHome
             }
         }
 
-        private AttackResolution CalculateAttack(MonsterDna target, AttackInfo attack)
+        private AttackResolution CalculateAttack(IMonsterDna target, AttackInfo attack)
         {
             //determine hit 
             

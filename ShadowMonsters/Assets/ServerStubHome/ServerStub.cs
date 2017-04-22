@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Assets.Infrastructure;
 using UnityEngine;
-using Assets.Scripts;
-using System.Collections;
+using Assets.ServerStubHome.Monsters;
+
 
 namespace Assets.ServerStubHome
 {
     public class ServerStub : MonoBehaviour
     {
         Dictionary<MonsterList, ElementalAffinity> monsterAffinityMatchup = new Dictionary<MonsterList, ElementalAffinity>();
-        Dictionary<Guid,MonsterDna> spawnedMonsters = new Dictionary<Guid,MonsterDna>();
+        Dictionary<Guid,IMonsterDna> spawnedMonsters = new Dictionary<Guid,IMonsterDna>();
         Dictionary<Guid, PlayerData> players = new Dictionary<Guid, PlayerData>();
         Dictionary<Guid, AttackInstance> attackInstances = new Dictionary<Guid, AttackInstance>();
         KnownAttacks knownAttacks;
@@ -23,22 +22,23 @@ namespace Assets.ServerStubHome
             AttackInstanceEndedQueue = new Queue<AttackInstanceEnded>();
             PlayerDataUpdateQueue = new Queue<PlayerDataUpdate>();
             Amdm = new AffinityMatchupDamageMultiplier();
+            DnaFactory.RegisterMonster(MonsterList.DemonEnforcer);
         }
+
         public AffinityMatchupDamageMultiplier Amdm { get; set; }
         public Queue<ServerMessage> ServerMessageQueue { get; set; }
         public Queue<AttackInstanceEnded> AttackInstanceEndedQueue { get; set; }
         public Queue<PlayerDataUpdate> PlayerDataUpdateQueue { get; set; }
 
-        public MonsterDna GetRandomMonster()
+        public IMonsterDna GetRandomMonster()
         {
-            MonsterList monster = (MonsterList)Enum.Parse(typeof(MonsterList), GetRandomKey<MonsterList>());
-            MonsterPresence presence = (MonsterPresence)Enum.Parse(typeof(MonsterPresence), GetRandomKey<MonsterPresence>());
+            //MonsterList monster = (MonsterList)Enum.Parse(typeof(MonsterList), Utility.GetRandomEnumMember<MonsterList>());
 
-             var enemyMonster = new MonsterDna(monster, UnityEngine.Random.Range(1, 101)) {
-                                                                                            MonsterAffinity = monsterAffinityMatchup[monster],
-                                                                                            MonsterId = Guid.NewGuid(), MonsterPresence =presence,
-                                                                                            AttackIds = GetAttackIdList(KnownAttacks.KnownMonsterAttackList)
-                                                                                       };
+
+            var enemyMonster = DnaFactory.CreateSpecificMonsterDna(MonsterList.DemonEnforcer);
+            enemyMonster.AttackIds = GetAttackIdList(KnownAttacks.KnownMonsterAttackList);
+
+                                                                             
             spawnedMonsters[enemyMonster.MonsterId] = enemyMonster;
             return enemyMonster;
         }
@@ -152,16 +152,16 @@ namespace Assets.ServerStubHome
             return outData;
         }
 
-        public MonsterDna GetMonsterById(Guid id)
+        public IMonsterDna GetMonsterById(Guid id)
         {
-            MonsterDna target;
+            IMonsterDna target;
             spawnedMonsters.TryGetValue(id, out target);
             return target;
         }
 
         private PlayerData CreatePlayerData(Guid id)
         {
-            var team = new List<MonsterDna>
+            var team = new List<IMonsterDna>
                                 {
                                     new MonsterDna(MonsterList.RhinoVirus,  UnityEngine.Random.Range(1,101))
                                     {
@@ -171,8 +171,9 @@ namespace Assets.ServerStubHome
                                         TeamOrder = 1,
                                         AttackIds = GetAttackIdList(KnownAttacks.KnownMonsterAttackList),
                                         MonsterPresence = MonsterPresence.Carnal,
+                                        Sizing =(Size)Enum.Parse(typeof(Size), Utility.GetRandomEnumMember<Size>()),
 
-                                    },
+        },
                                     new MonsterDna(MonsterList.DemonEnforcer,  UnityEngine.Random.Range(1,101))
                                     {
                                         MonsterAffinity = monsterAffinityMatchup[MonsterList.DemonEnforcer],
@@ -181,6 +182,7 @@ namespace Assets.ServerStubHome
                                         AttackIds = GetAttackIdList(KnownAttacks.KnownMonsterAttackList),
                                         TeamOrder =2,
                                         MonsterPresence = MonsterPresence.Intangible,
+                                        Sizing =(Size)Enum.Parse(typeof(Size), Utility.GetRandomEnumMember<Size>()),
                                     },
                                     new MonsterDna(MonsterList.MiniLandShark,  UnityEngine.Random.Range(1,101))
                                     {
@@ -190,10 +192,11 @@ namespace Assets.ServerStubHome
                                         AttackIds = GetAttackIdList(KnownAttacks.KnownMonsterAttackList),
                                         TeamOrder = 3,
                                         MonsterPresence = MonsterPresence.Corporeal,
+                                        Sizing =(Size)Enum.Parse(typeof(Size), Utility.GetRandomEnumMember<Size>()),
                                     },
                                 };
 
-            foreach (MonsterDna Monster in team)
+            foreach (IMonsterDna Monster in team)
             {
                 spawnedMonsters[Monster.MonsterId] = Monster;
             }
@@ -298,24 +301,15 @@ namespace Assets.ServerStubHome
         private void HealPlayer(PlayerData player)
         {
             player.PlayerDna.CurrentHealth = player.PlayerDna.MaxHealth;
-            foreach (MonsterDna member in player.CurrentTeam)
+            foreach (IMonsterDna member in player.CurrentTeam)
             {
                 member.CurrentHealth = member.MaxHealth;
             }
         }
 
-        private static string GetRandomKey<T>()
-        {
-            
-            var list = Enum.GetNames(typeof(T)).ToList();
-            list.Remove("unitychan");
-
-            return list[UnityEngine.Random.Range(0, list.Count)];
-        }
-
         internal bool CheckPulse(Guid monsterId)
         {
-            MonsterDna target;
+            IMonsterDna target;
             spawnedMonsters.TryGetValue(monsterId, out target);
             if (target == null) return false;
             if (target.CurrentHealth < 1) return false;
@@ -358,7 +352,7 @@ namespace Assets.ServerStubHome
 
         public bool CanPerformAttack(Guid AttackId, Guid attacker)
         {
-            MonsterDna monster;
+            IMonsterDna monster;
             spawnedMonsters.TryGetValue(attacker, out monster);
             if (monster == null) return false;
             return monster.AttackIds.Any(x => x == AttackId);

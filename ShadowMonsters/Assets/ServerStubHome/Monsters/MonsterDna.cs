@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using Assets.Infrastructure;
 
-namespace Assets.Infrastructure
+namespace Assets.ServerStubHome.Monsters
 {
     /// <summary>
     /// the instructions to spawn a monster
     /// </summary>
-    public class MonsterDna
+    public class MonsterDna : IMonsterDna
     {
         public ElementalAffinity MonsterAffinity { get; set; }
 
@@ -26,15 +27,23 @@ namespace Assets.Infrastructure
             CurrentHealth = MaxHealth;
         }
 
-        public string NickName { get; set; }
-
-        public int TeamOrder { get; set; }
-
         public float MaxHealth { get; set; }
 
-        public float CurrentHealth { get; set; }
-
         public float Speed { get; set; }
+
+        public float EssenceResistance { get; set; }
+
+        public float EssenceCasting { get; set; }
+
+        public float Defense { get; set; }
+
+        public float Attack { get; set; }
+
+        public string NickName { get; set; }
+
+        public int TeamOrder { get; set; }        
+
+        public float CurrentHealth { get; set; }        
 
         public Guid MonsterId { get; set; }
 
@@ -48,9 +57,13 @@ namespace Assets.Infrastructure
         }
         public int Level { get; set; }
 
-        public List<Guid> AttackIds;   
+        public List<Guid> AttackIds { get; set; }   
         
         public List<Color32> ColorWheel { get; set; }     
+
+        public Size Sizing { get; set; }
+
+        public Color32 Color { get; set; }
 
     }
 }

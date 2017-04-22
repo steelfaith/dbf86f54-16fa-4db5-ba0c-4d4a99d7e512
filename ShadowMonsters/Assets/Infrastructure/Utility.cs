@@ -5,9 +5,10 @@ using System.Text;
 using UnityEngine;
 
 namespace Assets.Infrastructure
-{
+{    
     public static class Utility
     {
+        private static System.Random _randomNumberGen = new System.Random();
         public static Color32 ContrastColor(Color32 color)
         {
             byte d = 0;
@@ -21,6 +22,15 @@ namespace Assets.Infrastructure
                 d = 255; // dark colors - white font
 
             return new Color32(d, d, d, color.a);
+        }
+
+        public static string GetRandomEnumMember<T>()
+        {
+
+            var list = Enum.GetNames(typeof(T)).ToList();
+            list.Remove("unitychan");
+
+            return list[_randomNumberGen.Next(0, list.Count)];
         }
     }
 }

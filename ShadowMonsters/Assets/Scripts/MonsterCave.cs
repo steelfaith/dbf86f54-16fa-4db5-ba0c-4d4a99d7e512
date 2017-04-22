@@ -141,7 +141,7 @@ namespace Assets.Scripts
         /// </summary>
         /// <param name="MonsterInfo"></param>
         /// <returns>null if monster doesn't want to play</returns>
-        public Transform TryGetMonster(MonsterDna MonsterInfo)
+        public Transform TryGetMonster(IMonsterDna MonsterInfo)
         {
             Transform monsterTransform;
             _monsterList.TryGetValue(MonsterInfo.NameKey, out monsterTransform);

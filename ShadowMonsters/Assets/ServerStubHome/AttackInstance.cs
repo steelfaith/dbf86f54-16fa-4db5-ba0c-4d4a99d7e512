@@ -18,8 +18,8 @@ namespace Assets.ServerStubHome
         public Queue<EnemyResourceDisplayUpdate> enemyResourceDisplayUpdateQueue = new Queue<EnemyResourceDisplayUpdate>();
 
         public Guid playerId;
-        private MonsterDna monster;
-        private MonsterDna playerChampion;
+        private IMonsterDna monster;
+        private IMonsterDna playerChampion;
         private List<AttackInfo> monsterAttacks;
         private IAiAttackStyle aiStyle;        
         private PlayerData playerData;
@@ -57,7 +57,7 @@ namespace Assets.ServerStubHome
             return false;
         }
 
-        public MonsterDna PlayerChampion
+        public IMonsterDna PlayerChampion
         {
             get
             {

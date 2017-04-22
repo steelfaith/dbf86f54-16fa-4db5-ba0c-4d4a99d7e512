@@ -51,7 +51,7 @@ namespace Assets.Scripts
             return teamController;
         }
 
-        public void LoadTeam(List<MonsterDna> teamMembers)
+        public void LoadTeam(List<IMonsterDna> teamMembers)
         {
             if (teamMembers == null && !teamMembers.Any()) return;
 

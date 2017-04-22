@@ -92,7 +92,9 @@
     <Compile Include="Assets\Infrastructure\BaseMonster.cs" />
     <Compile Include="Assets\Infrastructure\ButtonPressResolution.cs" />
     <Compile Include="Assets\Infrastructure\EnemyResourceDisplayUpdate.cs" />
+    <Compile Include="Assets\Infrastructure\IMonsterDna.cs" />
     <Compile Include="Assets\Infrastructure\ShortCastRequest.cs" />
+    <Compile Include="Assets\Infrastructure\SizeEnumeration.cs" />
     <Compile Include="Assets\Infrastructure\Utility.cs" />
     <Compile Include="Assets\Infrastructure\DamageStyle.cs" />
     <Compile Include="Assets\Infrastructure\DataEventArgs.cs" />
@@ -101,8 +103,9 @@
     <Compile Include="Assets\Infrastructure\EnemyAttackUpdate.cs" />
     <Compile Include="Assets\Infrastructure\EnumHelper.cs" />
     <Compile Include="Assets\Infrastructure\GameToScreenUtility.cs" />
-    <Compile Include="Assets\Infrastructure\IMonster.cs" />
-    <Compile Include="Assets\Infrastructure\MonsterDna.cs" />
+    <Compile Include="Assets\ServerStubHome\Colors.cs" />
+    <Compile Include="Assets\ServerStubHome\DnaFactory.cs" />
+    <Compile Include="Assets\ServerStubHome\Monsters\MonsterDna.cs" />
     <Compile Include="Assets\Infrastructure\MonsterList.cs" />
     <Compile Include="Assets\Infrastructure\MonsterPresenceEnum.cs" />
     <Compile Include="Assets\Infrastructure\PlayerData.cs" />

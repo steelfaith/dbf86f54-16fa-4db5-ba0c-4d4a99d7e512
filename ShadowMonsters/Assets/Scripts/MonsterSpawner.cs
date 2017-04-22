@@ -47,7 +47,7 @@ namespace Assets.Scripts
             return SpawnMonster(serverStub.GetRandomMonster(), false);
         }
 
-        public GameObject SpawnMonster(MonsterDna MonsterInfo, bool friendly)
+        public GameObject SpawnMonster(IMonsterDna MonsterInfo, bool friendly)
         {
             InitializeMonsterCave();
             var monsterToSpawn = _monsterCave.TryGetMonster(MonsterInfo);
@@ -87,22 +87,21 @@ namespace Assets.Scripts
                 bc.transform.rotation = Quaternion.Euler(new Vector3(0, 195, 0));
             }
 
-            //adjust down friendly Monsters..they are close to camera
-            
-            if(friendly)
-            {
-                var scaleX = spawnedMonster.localScale.x;
-                var scaleY = spawnedMonster.localScale.y;
-                var scaleZ = spawnedMonster.localScale.z;
-                spawnedMonster.localScale = new Vector3(scaleX / 2, scaleY / 2, scaleZ / 2);
-            }
+            //adjust size for level and sizing
+            var sizeAdjustment = (int)MonsterInfo.Sizing + (MonsterInfo.Level / 20);
+            if (friendly)
+                sizeAdjustment = sizeAdjustment - 20; //adjust down friendly Monsters..they are close to camera
+
+            var scaleX = spawnedMonster.localScale.x;
+            var scaleY = spawnedMonster.localScale.y;
+            var scaleZ = spawnedMonster.localScale.z;
+            spawnedMonster.localScale = new Vector3(scaleX *sizeAdjustment/100, scaleY * sizeAdjustment / 100, scaleZ * sizeAdjustment / 100);
 
             var renderer = spawnedMonster.GetComponentInChildren<Renderer>();
             if (renderer != null)
             {
                 //this is how you can change the prefab's color
-                //renderer.material.color = new Color32(255, 223, 0, 50); //gold
-                //renderer.material.color = new Color32(0, 67, 200, 50);
+                renderer.material.color = MonsterInfo.Color;                
             }
 
             _spawns.Add(spawnedMonster.gameObject);

@@ -16,6 +16,7 @@ namespace Assets.Scripts
         public CastbarScript castBar;
         public ResourceCollectorScript resourceCollector;
         public Guid MonsterId;
+        public float clickDelta = 0.35f;
 
         public void SetMonster(string name, string level, MonsterPresence presence, float currentHealth, float maxHealth, Guid id)
         {
@@ -24,10 +25,36 @@ namespace Assets.Scripts
             healthBar.AdjustHealth(currentHealth, maxHealth);
             MonsterId = id;
         }
+        private bool click = false;
+        private float clickTime;
+
+        void Update()
+        {
+            if (click && Time.time > (clickTime + clickDelta))
+            {
+                 // Single click
+                click = false;
+            }
+        }
 
         private void Start()
         {
         }
+
+        void OnMouseDown()
+        {
+            if (click && Time.time <= (clickTime + clickDelta))
+            {
+                // Double click
+                click = false;
+            }
+            else
+            {
+                click = true;
+                clickTime = Time.time;
+            }
+        }
+
 
         private static StatusController statusController;
 

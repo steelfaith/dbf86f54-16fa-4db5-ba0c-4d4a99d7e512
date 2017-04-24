@@ -21,5 +21,11 @@ namespace Assets.ServerStubHome
             return null;            
         }
 
+        public static IMonsterDna CreateRandomMonsterDna()
+        {
+            var mList = (MonsterList)Enum.Parse(typeof(MonsterList), Utility.GetRandomEnumMember<MonsterList>());
+
+            return CreateSpecificMonsterDna(mList);
+        }
     }
 }

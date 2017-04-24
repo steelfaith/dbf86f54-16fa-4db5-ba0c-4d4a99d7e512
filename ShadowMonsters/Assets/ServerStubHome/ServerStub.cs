@@ -23,6 +23,13 @@ namespace Assets.ServerStubHome
             PlayerDataUpdateQueue = new Queue<PlayerDataUpdate>();
             Amdm = new AffinityMatchupDamageMultiplier();
             DnaFactory.RegisterMonster(MonsterList.DemonEnforcer);
+            DnaFactory.RegisterMonster(MonsterList.Dragonling);
+            DnaFactory.RegisterMonster(MonsterList.RobotShockTrooper);
+            DnaFactory.RegisterMonster(MonsterList.GreenSpider);
+            DnaFactory.RegisterMonster(MonsterList.Humpback);
+            DnaFactory.RegisterMonster(MonsterList.Tripod);
+            DnaFactory.RegisterMonster(MonsterList.RhinoVirus);
+            DnaFactory.RegisterMonster(MonsterList.MiniLandShark);
         }
 
         public AffinityMatchupDamageMultiplier Amdm { get; set; }
@@ -35,7 +42,7 @@ namespace Assets.ServerStubHome
             //MonsterList monster = (MonsterList)Enum.Parse(typeof(MonsterList), Utility.GetRandomEnumMember<MonsterList>());
 
 
-            var enemyMonster = DnaFactory.CreateSpecificMonsterDna(MonsterList.DemonEnforcer);
+            var enemyMonster = DnaFactory.CreateRandomMonsterDna();
             enemyMonster.AttackIds = GetAttackIdList(KnownAttacks.KnownMonsterAttackList);
 
                                                                              

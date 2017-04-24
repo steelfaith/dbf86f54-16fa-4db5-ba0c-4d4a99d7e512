@@ -198,9 +198,23 @@ namespace Assets.ServerStubHome
             {new Color32(187,195,164,255) },
             {new Color32(185,194,170,255) },
         };
-    }
+
+        public static List<Color32> Metals = new List<Color32>
+        {
+             new Color32(212, 175, 55, 255), //gold
+             new Color32(192,192,192,255),
+             new Color32(184,115,51,255),
+             new Color32(181,166,66,255),
+             new Color32(230,232,250,255),
+             new Color32(35,107,142,255),
+             new Color32(140,120,83,255),
+             new Color32(155,17,30,255),
+
+        };
+
+        }
 
     //this is how you can change the prefab's color
-    //renderer.material.color = new Color32(255, 223, 0, 50); //gold
+    //renderer.material.color = ; //gold
     //renderer.material.color = new Color32(0, 67, 200, 50);
 }

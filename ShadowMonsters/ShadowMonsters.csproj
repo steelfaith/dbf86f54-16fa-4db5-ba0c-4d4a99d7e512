@@ -105,6 +105,13 @@
     <Compile Include="Assets\Infrastructure\GameToScreenUtility.cs" />
     <Compile Include="Assets\ServerStubHome\Colors.cs" />
     <Compile Include="Assets\ServerStubHome\DnaFactory.cs" />
+    <Compile Include="Assets\ServerStubHome\Monsters\GreenSpider.cs" />
+    <Compile Include="Assets\ServerStubHome\Monsters\Humpback.cs" />
+    <Compile Include="Assets\ServerStubHome\Monsters\Tripod.cs" />
+    <Compile Include="Assets\ServerStubHome\Monsters\RhinoVirus.cs" />
+    <Compile Include="Assets\ServerStubHome\Monsters\MiniLandShark.cs" />
+    <Compile Include="Assets\ServerStubHome\Monsters\RobotShockTrooper.cs" />
+    <Compile Include="Assets\ServerStubHome\Monsters\Dragonling.cs" />
     <Compile Include="Assets\ServerStubHome\Monsters\MonsterDna.cs" />
     <Compile Include="Assets\Infrastructure\MonsterList.cs" />
     <Compile Include="Assets\Infrastructure\MonsterPresenceEnum.cs" />

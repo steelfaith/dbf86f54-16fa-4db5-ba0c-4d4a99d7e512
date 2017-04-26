@@ -1,0 +1,4 @@
+C:\Code\Testing\Common.Interfaces\bin\Debug\Common.Interfaces.dll
+C:\Code\Testing\Common.Interfaces\bin\Debug\Common.Interfaces.pdb
+C:\Code\Testing\Common.Interfaces\obj\Debug\Common.Interfaces.dll
+C:\Code\Testing\Common.Interfaces\obj\Debug\Common.Interfaces.pdb

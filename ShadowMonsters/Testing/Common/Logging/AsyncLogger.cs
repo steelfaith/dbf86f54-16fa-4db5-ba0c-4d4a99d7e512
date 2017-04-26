@@ -1,32 +1,22 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using log4net;
-using log4net.Core;
-using log4net.Util;
 
 namespace Common
 {
-    /// <summary>
-    /// currently we arent preserving thread id from caller
-    /// for debugging purposes I might add it in later but this is much
-    /// cleaner than the previous implmentation
-    /// </summary>
     public class AsyncLogger
     {
         private readonly object _lock = new object();
         private readonly List<Action> _messages = new List<Action>();
         private readonly ILog _logger;
         private readonly Timer _timer;
-        private readonly bool _logOriginatingThread;
 
-        public AsyncLogger(ILog logger, bool logOriginatingThread)
+        public AsyncLogger(ILog logger)
         {
             if (logger == null)
                 throw new ArgumentNullException(nameof(logger));
 
-            _logOriginatingThread = logOriginatingThread;
             _timer = new Timer(WriteMessagesToTargets, null, 1000, 0);
             _logger = logger;
         }

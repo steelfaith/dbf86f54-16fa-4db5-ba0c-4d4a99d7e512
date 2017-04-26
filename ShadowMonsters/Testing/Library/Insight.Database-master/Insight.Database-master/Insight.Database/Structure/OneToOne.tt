@@ -1,0 +1,128 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension="generated.cs" #>
+<#@ include file="..\GenericTypes.tt" #>
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics.CodeAnalysis;
+using Insight.Database.Structure;
+
+namespace Insight.Database
+{
+<# for (var typeCount = 2; typeCount <= GenericTypeMax; typeCount++)
+{
+	var typeList = GetGenericList(typeCount, "T{0}");
+	var parameterList = GetGenericList(typeCount, "t{0}");
+#>
+	/// <summary>
+	/// Represents a one-to-one object mapping that is returned in a single recordset.
+	/// </summary>
+<# for (var typeIndex = 1; typeIndex <= typeCount; typeIndex++) {#>
+	/// <typeparam name="T<#= typeIndex #>">The type of the <#= ConvertToOrdinal(typeIndex) #> subobject in the record.</typeparam>
+<# } #>
+	[SuppressMessage("Microsoft.StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "The classes are related by implementing multiple generic signatures.")]
+	public class OneToOne<<#= typeList #>> : OneToOne<T1>, IRecordStructure
+	{
+		/// <summary>
+		/// The static definition of this record type.
+		/// </summary>
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1000:DoNotDeclareStaticMembersOnGenericTypes")]
+		public static readonly new OneToOne<<#= typeList #>> Records = new OneToOne<<#= typeList #>>();
+
+		/// <summary>
+		/// The types of objects returned by this record type.
+		/// </summary>
+		private static Type[] _objectTypes = new Type[]
+		{
+<# for (var typeIndex = 1; typeIndex <= typeCount; typeIndex++) {#>
+			typeof(T<#= typeIndex #>),
+<# } #>
+		};
+
+		#region Constructors
+		/// <summary>
+		/// Initializes a new instance of the OneToOne class.
+		/// </summary>
+		public OneToOne()
+		{
+			Initialize(null, null, null);
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the OneToOne class.
+		/// </summary>
+		/// <param name="columnOverride">
+		/// An optional column mapping to use to override the default mapping.
+		/// Keys are column names, values are property names.
+		/// </param>
+		public OneToOne(params ColumnOverride[] columnOverride)
+		{
+			Initialize(null, columnOverride, null);
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the OneToOne class.
+		/// </summary>
+		/// <param name="callback">An optional callback that can be used to assemble the records.</param>
+		/// <param name="columnOverride">
+		/// An optional column mapping to use to override the default mapping.
+		/// Keys are column names, values are property names.
+		/// </param>
+		/// <param name="splitColumns">An optional map of the names of ID columns that can be used to split the recordset.</param>
+		public OneToOne(Action<<#= typeList #>> callback = null, IEnumerable<ColumnOverride> columnOverride = null, IDictionary<Type, string> splitColumns = null)
+		{
+			Initialize(callback, columnOverride, splitColumns);
+		}
+		#endregion
+
+		/// <inheritdoc/>
+		Type[] IRecordStructure.GetObjectTypes()
+		{
+			return _objectTypes;
+		}
+
+		/// <inheritdoc/>
+		public override IRecordReader<TGuardian> GetGuardianReader<TGuardian>()
+		{
+<# if (typeCount < GenericTypeMax) { #>
+			if (IsDefaultReader())
+				return OneToOne<TGuardian, <#= typeList #>>.Records;
+
+			Action<TGuardian, <#= typeList #>> callback = null;
+			if (Callback != null)
+			{
+				Action<<#= typeList #>> innerCallback = (Action<<#= typeList #>>)Callback;
+				callback = (guardian, <#= parameterList #>) =>
+					{
+						guardian.Object = t1;
+						innerCallback(<#= parameterList #>);
+					};
+			}
+
+			return new OneToOne<TGuardian, <#= typeList #>>(callback, ColumnOverrides, SplitColumns); 
+<# } else { #>
+			throw new NotImplementedException();
+<# } #>
+		}
+
+		/// <inheritdoc/>
+		protected override void HandleCallback(object[] objects)
+		{
+			if (objects == null) throw new ArgumentNullException("objects");
+
+			((Action<<#= typeList #>>)Callback)(
+<# for (var typeIndex = 1; typeIndex <= typeCount; typeIndex++) {#>
+				(T<#= typeIndex #>)objects[<#= typeIndex - 1 #>]<# if (typeIndex < typeCount) { #>,<# } #>
+
+<# } #>
+			);
+		}
+	}
+
+<# } #>
+}

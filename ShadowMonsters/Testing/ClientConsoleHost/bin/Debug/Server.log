@@ -6547,3 +6547,47 @@
 2017-04-25 13:46:04,925 Common.Networking.Sockets.AsyncSocketConnector [15] System.Net.Sockets.SocketException (0x80004005): An existing connection was forcibly closed by the remote host
    at System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
    at Common.Networking.Sockets.AsyncSocketConnector.ReceiveCallback(IAsyncResult ar) in C:\Code\Testing\Common.Networking\Sockets\AsyncSocketConnector.cs:line 83 
+2017-04-27 12:38:18,888 Common.Networking.Sockets.AsyncSocketConnector [13] Socket connected to 192.168.1.2:11000 
+2017-04-27 12:38:18,914 Common.Networking.Sockets.AsyncSocketConnector [18] Sent 211 bytes to server. 
+2017-04-27 12:44:50,008 Common.Networking.Sockets.AsyncSocketConnector [13] Socket connected to 192.168.1.2:11000 
+2017-04-27 12:44:50,031 Common.Networking.Sockets.AsyncSocketConnector [13] Sent 211 bytes to server. 
+2017-04-27 12:45:13,168 Common.Networking.Sockets.AsyncSocketConnector [12] Socket connected to 192.168.1.2:11000 
+2017-04-27 12:45:13,192 Common.Networking.Sockets.AsyncSocketConnector [12] Sent 211 bytes to server. 
+2017-04-27 12:45:13,701 Common.Networking.Sockets.AsyncSocketConnector [12] Read 535 bytes from socket. 
+ Data : 0 
+2017-04-27 12:45:13,701 Common.Networking.Sockets.AsyncSocketConnector [9] Sent 185 bytes to server. 
+2017-04-27 12:45:13,709 Common.Networking.Sockets.AsyncSocketConnector [14] Read 187 bytes from socket. 
+ Data : 0 
+2017-04-27 12:45:17,425 Common.Networking.Sockets.AsyncSocketConnector [12] Socket connected to 192.168.1.2:11000 
+2017-04-27 12:45:17,425 Common.Networking.Sockets.AsyncSocketConnector [14] Sent 211 bytes to server. 
+2017-04-27 12:47:21,626 Common.Networking.Sockets.AsyncSocketConnector [12] Socket connected to 192.168.1.2:11000 
+2017-04-27 12:47:21,649 Common.Networking.Sockets.AsyncSocketConnector [12] Sent 211 bytes to server. 
+2017-04-27 12:47:22,209 Common.Networking.Sockets.AsyncSocketConnector [12] Read 535 bytes from socket. 
+ Data : 0 
+2017-04-27 12:47:22,210 Common.Networking.Sockets.AsyncSocketConnector [15] Sent 185 bytes to server. 
+2017-04-27 12:47:22,218 Common.Networking.Sockets.AsyncSocketConnector [12] Read 187 bytes from socket. 
+ Data : 0 
+2017-04-27 12:47:23,918 Common.Networking.Sockets.AsyncSocketConnector [12] Socket connected to 192.168.1.2:11000 
+2017-04-27 12:47:23,918 Common.Networking.Sockets.AsyncSocketConnector [18] Sent 211 bytes to server. 
+2017-04-27 12:47:23,957 Common.Networking.Sockets.AsyncSocketConnector [18] Read 535 bytes from socket. 
+ Data : 0 
+2017-04-27 12:47:53,459 Common.Networking.Sockets.AsyncSocketConnector [13] Socket connected to 192.168.1.2:11000 
+2017-04-27 12:47:53,482 Common.Networking.Sockets.AsyncSocketConnector [13] Sent 211 bytes to server. 
+2017-04-27 12:47:54,023 Common.Networking.Sockets.AsyncSocketConnector [13] Read 535 bytes from socket. 
+ Data : 0 
+2017-04-27 12:47:54,024 Common.Networking.Sockets.AsyncSocketConnector [15] Sent 185 bytes to server. 
+2017-04-27 12:47:54,032 Common.Networking.Sockets.AsyncSocketConnector [13] Read 187 bytes from socket. 
+ Data : 0 
+2017-04-27 12:47:59,366 Common.Networking.Sockets.AsyncSocketConnector [13] System.Net.Sockets.SocketException (0x80004005): An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   at Common.Networking.Sockets.AsyncSocketConnector.ReceiveCallback(IAsyncResult ar) in C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Common.Networking\Sockets\AsyncSocketConnector.cs:line 86 
+2017-04-27 12:52:12,573 Common.Networking.Sockets.AsyncSocketConnector [12] Socket connected to 192.168.1.2:11000 
+2017-04-27 12:52:12,597 Common.Networking.Sockets.AsyncSocketConnector [16] Sent 211 bytes to server. 
+2017-04-27 12:52:13,105 Common.Networking.Sockets.AsyncSocketConnector [16] Read 535 bytes from socket. 
+ Data : 0 
+2017-04-27 12:52:13,105 Common.Networking.Sockets.AsyncSocketConnector [15] Sent 185 bytes to server. 
+2017-04-27 12:52:13,111 Common.Networking.Sockets.AsyncSocketConnector [12] Read 187 bytes from socket. 
+ Data : 0 
+2017-04-27 12:52:18,204 Common.Networking.Sockets.AsyncSocketConnector [15] System.Net.Sockets.SocketException (0x80004005): An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   at Common.Networking.Sockets.AsyncSocketConnector.ReceiveCallback(IAsyncResult ar) in C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Common.Networking\Sockets\AsyncSocketConnector.cs:line 86 

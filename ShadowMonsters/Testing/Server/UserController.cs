@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using log4net;
 using Microsoft.Practices.Unity;
 using Server.Common;
 using Server.Common.Interfaces;
@@ -9,6 +10,8 @@ namespace Server
 {
     public class UserController : IUserController
     {
+        private readonly ILog _logger = LogManager.GetLogger(typeof(UserController));
+
         private readonly ConcurrentDictionary<int, User> _usersByClientId = new ConcurrentDictionary<int, User>();
         private readonly ConcurrentDictionary<Guid, User> _usersByConnectionId = new ConcurrentDictionary<Guid, User>();
         private readonly IUsersStorageProvider _usersStorageProvider;
@@ -27,9 +30,9 @@ namespace Server
         public void AddUser(User user)
         {
             if(!_usersByClientId.TryAdd(user.ClientId, user))
-                throw new InvalidOperationException("Failed to add user to user controller.");
+                _logger.Warn("Failed to add user to user controller.");
             if(!_usersByConnectionId.TryAdd(user.TcpConnectionId, user))
-                throw new InvalidOperationException("Failed to add user to user controller.");
+                _logger.Warn("Failed to add user to user controller.");
         }
 
         public User GetUserByConnectionId(Guid connectionId)

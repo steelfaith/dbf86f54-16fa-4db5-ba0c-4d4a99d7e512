@@ -64,6 +64,7 @@
     <Compile Include="IMessageHandlerRegistrar.cs" />
     <Compile Include="Logging\AsyncLogger.cs" />
     <Compile Include="Message.cs" />
+    <Compile Include="MessageDispatcher.cs" />
     <Compile Include="Messages\Requests\BattleInstanceRunRequest.cs" />
     <Compile Include="Messages\Requests\ConnectRequest.cs" />
     <Compile Include="Messages\Requests\CreateBattleInstanceRequest.cs" />
@@ -74,12 +75,6 @@
     <Compile Include="OperationType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RouteableMessage.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Common.Interfaces\Common.Interfaces.csproj">
-      <Project>{a52ee437-18fd-49de-9ba5-3edac893c295}</Project>
-      <Name>Common.Interfaces</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

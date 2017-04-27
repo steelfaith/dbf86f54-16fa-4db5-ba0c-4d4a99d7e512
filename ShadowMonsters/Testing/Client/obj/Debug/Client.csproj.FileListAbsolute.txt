@@ -21,3 +21,13 @@ C:\Code\Testing\Client\bin\Debug\Common.Interfaces.pdb
 C:\Code\Testing\Client\bin\Debug\Common.Networking.pdb
 C:\Code\Testing\Client\bin\Debug\Server.Common.dll
 C:\Code\Testing\Client\bin\Debug\Server.Common.pdb
+C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Client\bin\Debug\Client.dll
+C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Client\bin\Debug\Client.pdb
+C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Client\bin\Debug\Common.dll
+C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Client\bin\Debug\Common.Networking.dll
+C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Client\bin\Debug\log4net.dll
+C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Client\bin\Debug\Common.Networking.pdb
+C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Client\bin\Debug\Common.pdb
+C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
+C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Client\obj\Debug\Client.dll
+C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Client\obj\Debug\Client.pdb

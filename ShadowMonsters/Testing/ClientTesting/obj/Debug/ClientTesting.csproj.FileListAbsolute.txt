@@ -1,9 +1,0 @@
-C:\Code\Testing\ClientTesting\obj\Debug\ClientTesting.csprojResolveAssemblyReference.cache
-C:\Code\Testing\ClientTesting\bin\Debug\ClientTesting.dll
-C:\Code\Testing\ClientTesting\bin\Debug\ClientTesting.pdb
-C:\Code\Testing\ClientTesting\bin\Debug\ExitGames.Logging.Log4Net.dll
-C:\Code\Testing\ClientTesting\bin\Debug\ExitGamesLibs.dll
-C:\Code\Testing\ClientTesting\bin\Debug\log4net.dll
-C:\Code\Testing\ClientTesting\bin\Debug\Photon3Unity3D.dll
-C:\Code\Testing\ClientTesting\obj\Debug\ClientTesting.dll
-C:\Code\Testing\ClientTesting\obj\Debug\ClientTesting.pdb

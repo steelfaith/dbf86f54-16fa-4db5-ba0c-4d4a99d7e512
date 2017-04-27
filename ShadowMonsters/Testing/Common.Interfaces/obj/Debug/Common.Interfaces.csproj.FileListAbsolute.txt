@@ -1,8 +1,0 @@
-C:\Code\Testing\Common.Interfaces\bin\Debug\Common.Interfaces.dll
-C:\Code\Testing\Common.Interfaces\bin\Debug\Common.Interfaces.pdb
-C:\Code\Testing\Common.Interfaces\obj\Debug\Common.Interfaces.dll
-C:\Code\Testing\Common.Interfaces\obj\Debug\Common.Interfaces.pdb
-C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Common.Interfaces\bin\Debug\Common.Interfaces.dll
-C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Common.Interfaces\bin\Debug\Common.Interfaces.pdb
-C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Common.Interfaces\obj\Debug\Common.Interfaces.dll
-C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Common.Interfaces\obj\Debug\Common.Interfaces.pdb

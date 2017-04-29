@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Concurrent;
+using System.Collections.Generic;
 using Common;
 using log4net;
 
@@ -8,11 +8,12 @@ namespace Client
     public class MessageHandlerRegistrar : IMessageHandlerRegistrar
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(MessageHandlerRegistrar));
-        private readonly ConcurrentDictionary<OperationCode, IMessageHandler> _messageHandlers;
+        private readonly Dictionary<OperationCode, IMessageHandler> _messageHandlers;
+        private readonly object _lock = new object();
 
         public MessageHandlerRegistrar()
         {
-            _messageHandlers = new ConcurrentDictionary<OperationCode, IMessageHandler>();
+            _messageHandlers = new Dictionary<OperationCode, IMessageHandler>();
         }
 
         public void Register(IMessageHandler handler)
@@ -20,26 +21,24 @@ namespace Client
             if (handler == null)
                 throw new ArgumentNullException(nameof(handler));
 
-            try
+            lock (_lock)
             {
-                _messageHandlers.TryAdd(handler.OperationCode, handler);
-            }
-            catch (OverflowException ex)
-            {
-                Logger.Error(ex);
-            }
-            
+                _messageHandlers.Add(handler.OperationCode, handler);
+            }  
         }
 
         public IMessageHandler Resolve(OperationCode operationCode)
         {
-            IMessageHandler handler;
-            if (_messageHandlers.TryGetValue(operationCode, out handler))
+            lock (_lock)
             {
-                return handler;
-            }
+                IMessageHandler handler;
+                if (_messageHandlers.TryGetValue(operationCode, out handler))
+                {
+                    return handler;
+                }
 
-            return null;
+                return null;
+            }
         }
     }
 }

@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="BattleInstance.cs" />
     <Compile Include="InstanceController.cs" />
+    <Compile Include="MessageDispatcher.cs" />
     <Compile Include="MessageHandlerRegistrar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserController.cs" />

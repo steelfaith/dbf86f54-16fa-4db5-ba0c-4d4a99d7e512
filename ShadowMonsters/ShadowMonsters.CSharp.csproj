@@ -79,37 +79,52 @@
     <Reference Include="UnityEditor.iOS.Extensions.Common">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Photon3Unity3D">
-      <HintPath>Assets\Plugins\Photon3Unity3D.dll</HintPath>
+    <Reference Include="Client">
+      <HintPath>Assets\Plugins\Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Common">
+      <HintPath>Assets\Plugins\Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Networking">
+      <HintPath>Assets\Plugins\Common.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>Assets\Plugins\log4net.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Infrastructure\AddResourceRequest.cs" />
-    <Compile Include="Assets\Infrastructure\AddResourceResponse.cs" />
     <Compile Include="Assets\Infrastructure\AnimationActionEnum.cs" />
     <Compile Include="Assets\Infrastructure\AnnouncementTypeEnum.cs" />
     <Compile Include="Assets\Infrastructure\AttackInfo.cs" />
+    <Compile Include="Assets\Infrastructure\AttackInstanceEnded.cs" />
+    <Compile Include="Assets\Infrastructure\AttackPowerChangeRequest.cs" />
+    <Compile Include="Assets\Infrastructure\AttackPowerChangeResolution.cs" />
     <Compile Include="Assets\Infrastructure\AttackRequest.cs" />
     <Compile Include="Assets\Infrastructure\AttackResolution.cs" />
     <Compile Include="Assets\Infrastructure\AttackUpdateRequest.cs" />
     <Compile Include="Assets\Infrastructure\BaseMonster.cs" />
-    <Compile Include="Assets\Infrastructure\BurnResourceResponse.cs" />
-    <Compile Include="Assets\Infrastructure\BurnResourcesRequest.cs" />
+    <Compile Include="Assets\Infrastructure\ButtonPressResolution.cs" />
     <Compile Include="Assets\Infrastructure\DamageStyle.cs" />
     <Compile Include="Assets\Infrastructure\DataEventArgs.cs" />
     <Compile Include="Assets\Infrastructure\DelayedDamageInfo.cs" />
     <Compile Include="Assets\Infrastructure\ElementalAffinityEnum.cs" />
+    <Compile Include="Assets\Infrastructure\EnemyAttackUpdate.cs" />
+    <Compile Include="Assets\Infrastructure\EnemyResourceDisplayUpdate.cs" />
     <Compile Include="Assets\Infrastructure\EnumHelper.cs" />
     <Compile Include="Assets\Infrastructure\GameToScreenUtility.cs" />
-    <Compile Include="Assets\Infrastructure\IMonster.cs" />
-    <Compile Include="Assets\Infrastructure\MonsterDna.cs" />
+    <Compile Include="Assets\Infrastructure\IMonsterDna.cs" />
     <Compile Include="Assets\Infrastructure\MonsterList.cs" />
     <Compile Include="Assets\Infrastructure\MonsterPresenceEnum.cs" />
     <Compile Include="Assets\Infrastructure\PlayerData.cs" />
+    <Compile Include="Assets\Infrastructure\PlayerDataUpdate.cs" />
+    <Compile Include="Assets\Infrastructure\PowerUpLevelsEnum.cs" />
     <Compile Include="Assets\Infrastructure\RarityToColorExtension.cs" />
-    <Compile Include="Assets\Infrastructure\UI\Controllers\IViewController.cs" />
-    <Compile Include="Assets\Infrastructure\UI\Views\IView.cs" />
-    <Compile Include="Assets\Monsters\DragonBoar\Scripts\playerControl.cs" />
+    <Compile Include="Assets\Infrastructure\ResourceUpdate.cs" />
+    <Compile Include="Assets\Infrastructure\ReviveRequest.cs" />
+    <Compile Include="Assets\Infrastructure\ServerMessage.cs" />
+    <Compile Include="Assets\Infrastructure\ShortCastRequest.cs" />
+    <Compile Include="Assets\Infrastructure\SizeEnumeration.cs" />
+    <Compile Include="Assets\Infrastructure\Utility.cs" />
     <Compile Include="Assets\Scripts\ActorMovementController.cs" />
     <Compile Include="Assets\Scripts\AnimationController.cs" />
     <Compile Include="Assets\Scripts\AnyManager.cs" />
@@ -125,13 +140,15 @@
     <Compile Include="Assets\Scripts\CombatPlayerController.cs" />
     <Compile Include="Assets\Scripts\DragHandler.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />
-    <Compile Include="Assets\Scripts\FatbicController.cs" />
+    <Compile Include="Assets\Scripts\FatbicDisplayController.cs" />
     <Compile Include="Assets\Scripts\IncarnationContainer.cs" />
     <Compile Include="Assets\Scripts\IndicatorBarScript.cs" />
     <Compile Include="Assets\Scripts\LevelDisplayScript.cs" />
+    <Compile Include="Assets\Scripts\LightController.cs" />
     <Compile Include="Assets\Scripts\LoadScene.cs" />
     <Compile Include="Assets\Scripts\MonsterCave.cs" />
     <Compile Include="Assets\Scripts\MonsterSpawner.cs" />
+    <Compile Include="Assets\Scripts\PlaneswalkerTrigger.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\ResourceCollectorScript.cs" />
     <Compile Include="Assets\Scripts\ScrollingCombatText.cs" />
@@ -142,11 +159,24 @@
     <Compile Include="Assets\Scripts\TeamController.cs" />
     <Compile Include="Assets\Scripts\TextLogDisplayManager.cs" />
     <Compile Include="Assets\Scripts\UnloadSceneTrigger.cs" />
+    <Compile Include="Assets\Scripts\WanderScript.cs" />
+    <Compile Include="Assets\ServerStubHome\AffinityMatchupDamageMultiplier.cs" />
     <Compile Include="Assets\ServerStubHome\AiAttackStyles\ButtonMasher.cs" />
     <Compile Include="Assets\ServerStubHome\AiAttackStyles\IAiAttackStyle.cs" />
+    <Compile Include="Assets\ServerStubHome\AttackHelper.cs" />
     <Compile Include="Assets\ServerStubHome\AttackInstance.cs" />
+    <Compile Include="Assets\ServerStubHome\Colors.cs" />
+    <Compile Include="Assets\ServerStubHome\DnaFactory.cs" />
     <Compile Include="Assets\ServerStubHome\KnownAttacks.cs" />
     <Compile Include="Assets\ServerStubHome\Monsters\DemonEnforcer.cs" />
+    <Compile Include="Assets\ServerStubHome\Monsters\Dragonling.cs" />
+    <Compile Include="Assets\ServerStubHome\Monsters\GreenSpider.cs" />
+    <Compile Include="Assets\ServerStubHome\Monsters\Humpback.cs" />
+    <Compile Include="Assets\ServerStubHome\Monsters\MiniLandShark.cs" />
+    <Compile Include="Assets\ServerStubHome\Monsters\MonsterDna.cs" />
+    <Compile Include="Assets\ServerStubHome\Monsters\RhinoVirus.cs" />
+    <Compile Include="Assets\ServerStubHome\Monsters\RobotShockTrooper.cs" />
+    <Compile Include="Assets\ServerStubHome\Monsters\Tripod.cs" />
     <Compile Include="Assets\ServerStubHome\ServerStub.cs" />
     <Compile Include="Assets\UnityChan\Scripts\CameraController.cs" />
     <Compile Include="Assets\UnityChan\Scripts\FaceUpdate.cs" />

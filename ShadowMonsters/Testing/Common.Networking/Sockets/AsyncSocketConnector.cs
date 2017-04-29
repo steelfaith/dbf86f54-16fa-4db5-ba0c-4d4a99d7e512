@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.CompilerServices;
 using System.Threading;
-using Common;
 using log4net;
 
 namespace Common.Networking.Sockets
@@ -13,14 +11,14 @@ namespace Common.Networking.Sockets
         private static readonly ILog Logger = LogManager.GetLogger(typeof(AsyncSocketConnector));
         private static ManualResetEvent _connectDone = new ManualResetEvent(false);
 
-        private readonly MessageDispatcher _messageDispatcher;
+        private readonly IMessageDispatcher _messageDispatcher;
 
         private IPEndPoint _remoteEp;
         private Socket _client;
 
         public bool IsConnected { get; private set; }
 
-        public AsyncSocketConnector(MessageDispatcher messageDispatcher)
+        public AsyncSocketConnector(IMessageDispatcher messageDispatcher)
         {
             _messageDispatcher = messageDispatcher;
         }

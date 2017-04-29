@@ -13,12 +13,12 @@ namespace Common.Networking.Sockets
         private static readonly AsyncLogger AsyncLogger = new AsyncLogger(Logger);
 
         private readonly ITcpConnectionManager _tcpConnectionManager;
-        private readonly MessageDispatcher _messageDispatcher;
+        private readonly IMessageDispatcher _messageDispatcher;
         private readonly IMessageHandlerRegistrar _messageHandlerRegistrar;
 
         public static ManualResetEvent AcceptResetEvent = new ManualResetEvent(false);
 
-        public AsyncSocketListener(ITcpConnectionManager tcpConnectionManager, MessageDispatcher messageDispatcher, IMessageHandlerRegistrar messageHandlerRegistrar)
+        public AsyncSocketListener(ITcpConnectionManager tcpConnectionManager, IMessageDispatcher messageDispatcher, IMessageHandlerRegistrar messageHandlerRegistrar)
         {
             _tcpConnectionManager = tcpConnectionManager;
             _messageDispatcher = messageDispatcher;

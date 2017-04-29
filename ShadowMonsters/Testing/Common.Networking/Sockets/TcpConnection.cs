@@ -21,11 +21,11 @@ namespace Common.Networking.Sockets
 
         private readonly object _dataLock = new object();
 
-        private readonly MessageDispatcher _dispatcher;
+        private readonly IMessageDispatcher _dispatcher;
 
         private ushort? _expectedMessageLength;
 
-        public TcpConnection(Socket socket, MessageDispatcher dispatcher)
+        public TcpConnection(Socket socket, IMessageDispatcher dispatcher)
         {
             if (socket == null)
                 throw new ArgumentNullException(nameof(socket));

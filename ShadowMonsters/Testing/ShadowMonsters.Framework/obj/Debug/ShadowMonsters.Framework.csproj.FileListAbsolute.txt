@@ -1,0 +1,10 @@
+C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\ShadowMonsters.Framework\bin\Debug\ShadowMonsters.Framework.dll
+C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\ShadowMonsters.Framework\bin\Debug\ShadowMonsters.Framework.pdb
+C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\ShadowMonsters.Framework\obj\Debug\ShadowMonsters.Framework.csprojResolveAssemblyReference.cache
+C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\ShadowMonsters.Framework\obj\Debug\ShadowMonsters.Framework.dll
+C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\ShadowMonsters.Framework\obj\Debug\ShadowMonsters.Framework.pdb
+C:\Code\Testing\ShadowMonsters.Framework\obj\Debug\ShadowMonsters.Framework.csprojResolveAssemblyReference.cache
+C:\Code\Testing\ShadowMonsters.Framework\obj\Debug\ShadowMonsters.Framework.dll
+C:\Code\Testing\ShadowMonsters.Framework\obj\Debug\ShadowMonsters.Framework.pdb
+C:\Code\Testing\ShadowMonsters.Framework\bin\Debug\ShadowMonsters.Framework.dll
+C:\Code\Testing\ShadowMonsters.Framework\bin\Debug\ShadowMonsters.Framework.pdb

@@ -1,0 +1,363 @@
+﻿2017-04-10 12:09:08,791 Common.AsyncLogger+<>c__DisplayClass17_0 [16] Accepting incoming connections on address 10.100.8.234. 
+2017-04-11 12:09:44,943 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-11 12:12:28,481 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-11 12:12:39,007 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-11 12:13:46,468 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-11 12:14:43,035 Common.AsyncLogger+<>c__DisplayClass17_0 [13] Accepting incoming connections on address 10.100.8.234. 
+2017-04-11 12:14:48,835 Common.AsyncLogger+<>c__DisplayClass17_0 [17] Accepting incoming connections on address 10.100.8.234. 
+2017-04-11 12:14:49,835 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Added additional tcpConnection for client a265453a-df4b-469c-a59c-a2d543316170 
+2017-04-11 12:16:43,908 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-11 12:18:07,542 Common.AsyncLogger+<>c__DisplayClass17_0 [12] Accepting incoming connections on address 10.100.8.234. 
+2017-04-11 12:51:21,031 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-11 12:51:27,094 Common.AsyncLogger+<>c__DisplayClass17_0 [17] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 12:41:43,911 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 12:41:50,751 Common.AsyncLogger+<>c__DisplayClass17_0 [17] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 12:41:50,761 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Added additional tcpConnection for client 0a90b803-7935-438e-9af3-75ed23244762 
+2017-04-17 12:42:05,670 Common.Networking.Sockets.TcpConnection [20] System.Net.Sockets.SocketException (0x80004005): An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   at Common.Networking.Sockets.TcpConnection.ReadCallback(IAsyncResult ar) in C:\Code\Testing\Common\Networking\Sockets\TcpConnection.cs:line 79 
+2017-04-17 12:51:07,657 Common.AsyncLogger+<>c__DisplayClass17_0 [11] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 12:51:12,713 Common.AsyncLogger+<>c__DisplayClass16_0 [15] Added additional tcpConnection for client bc7edc5e-67cc-43f7-971d-38489dade9eb 
+2017-04-17 12:51:47,578 Common.AsyncLogger+<>c__DisplayClass17_0 [13] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 12:53:01,249 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 12:53:05,843 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 12:53:05,843 Common.AsyncLogger+<>c__DisplayClass16_0 [16] Added additional tcpConnection for client 985a4e5e-1d5f-43e3-9aec-d10010299b24 
+2017-04-17 12:54:40,470 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 12:54:55,532 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Added additional tcpConnection for client 65fd0d77-5e3c-4ee2-a308-8fa120aa2737 
+2017-04-17 12:54:55,610 Common.AsyncLogger+<>c__DisplayClass17_0 [16] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 12:55:03,803 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 12:55:03,803 Common.AsyncLogger+<>c__DisplayClass16_0 [18] Added additional tcpConnection for client 893fb8d7-7424-42f5-a4d7-eb45d3cabe58 
+2017-04-17 12:55:47,684 Common.AsyncLogger+<>c__DisplayClass17_0 [13] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 12:55:51,576 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 12:55:51,576 Common.AsyncLogger+<>c__DisplayClass16_0 [13] Added additional tcpConnection for client c72aae99-05a5-48ac-a325-91b36359685c 
+2017-04-17 13:30:28,291 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 13:30:33,521 Common.AsyncLogger+<>c__DisplayClass17_0 [17] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 13:30:33,521 Common.AsyncLogger+<>c__DisplayClass16_0 [16] Added additional tcpConnection for client 82850c6f-57a3-4b8b-ae3a-bb495a287b66 
+2017-04-17 13:37:30,463 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 13:37:31,483 Common.AsyncLogger+<>c__DisplayClass16_0 [16] Added additional tcpConnection for client ca61ffab-26b0-4feb-afb2-fe52126526bb 
+2017-04-17 13:37:32,936 Common.AsyncLogger+<>c__DisplayClass17_0 [18] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 13:39:19,461 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 13:39:20,539 Common.AsyncLogger+<>c__DisplayClass17_0 [18] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 13:39:21,815 Common.AsyncLogger+<>c__DisplayClass16_0 [15] Added additional tcpConnection for client 93bbf228-6a00-42c8-9561-a95b185e4c1f 
+2017-04-17 13:41:12,804 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 13:41:14,777 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 13:41:14,808 Common.AsyncLogger+<>c__DisplayClass16_0 [16] Added additional tcpConnection for client 6023b81a-82a3-4a3c-9f6a-bed9772e0808 
+2017-04-17 13:42:53,605 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 13:42:58,539 Common.AsyncLogger+<>c__DisplayClass16_0 [17] Added additional tcpConnection for client d15532ad-e69f-40eb-9f6b-f0a458aa1509 
+2017-04-17 13:44:56,611 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 13:45:00,227 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 13:45:00,232 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 13:45:00,227 Common.AsyncLogger+<>c__DisplayClass16_0 [19] Added additional tcpConnection for client 79ebcb83-dbb2-4854-8114-266a6a9ac2a3 
+2017-04-17 13:45:00,267 Common.AsyncLogger+<>c__DisplayClass16_0 [19] Added additional tcpConnection for client 00bc0fd8-34d1-4ec1-8096-0d676b396d76 
+2017-04-17 13:45:16,121 Common.Networking.Sockets.TcpConnection [23] System.Net.Sockets.SocketException (0x80004005): An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   at Common.Networking.Sockets.TcpConnection.ReadCallback(IAsyncResult ar) in C:\Code\Testing\Common\Networking\Sockets\TcpConnection.cs:line 80 
+2017-04-17 13:45:16,121 Common.Networking.Sockets.TcpConnection [22] System.Net.Sockets.SocketException (0x80004005): An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   at Common.Networking.Sockets.TcpConnection.ReadCallback(IAsyncResult ar) in C:\Code\Testing\Common\Networking\Sockets\TcpConnection.cs:line 80 
+2017-04-17 13:45:28,225 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 13:45:29,272 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 13:45:30,257 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Added additional tcpConnection for client 0e44c6c6-84f0-4d84-83cb-234e5f264091 
+2017-04-17 13:45:38,356 Common.AsyncLogger+<>c__DisplayClass17_0 [19] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 13:45:38,356 Common.AsyncLogger+<>c__DisplayClass17_0 [19] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 13:45:38,356 Common.AsyncLogger+<>c__DisplayClass16_0 [18] Added additional tcpConnection for client 62e5850a-21ef-4bdf-a6a6-676b93d06324 
+2017-04-17 13:45:38,371 Common.AsyncLogger+<>c__DisplayClass16_0 [18] Added additional tcpConnection for client 792a6dd0-7ca0-4215-a077-07465fc67152 
+2017-04-17 13:45:46,820 Common.Networking.Sockets.TcpConnection [11] System.Net.Sockets.SocketException (0x80004005): An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   at Common.Networking.Sockets.TcpConnection.ReadCallback(IAsyncResult ar) in C:\Code\Testing\Common\Networking\Sockets\TcpConnection.cs:line 80 
+2017-04-17 13:45:46,835 Common.Networking.Sockets.TcpConnection [20] System.Net.Sockets.SocketException (0x80004005): An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   at Common.Networking.Sockets.TcpConnection.ReadCallback(IAsyncResult ar) in C:\Code\Testing\Common\Networking\Sockets\TcpConnection.cs:line 80 
+2017-04-17 13:45:46,867 Common.Networking.Sockets.TcpConnection [23] System.Net.Sockets.SocketException (0x80004005): An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   at Common.Networking.Sockets.TcpConnection.ReadCallback(IAsyncResult ar) in C:\Code\Testing\Common\Networking\Sockets\TcpConnection.cs:line 80 
+2017-04-17 14:14:20,035 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 14:14:22,067 Common.AsyncLogger+<>c__DisplayClass16_0 [20] Added additional tcpConnection for client 17edbc9a-b6cc-46fa-bb14-1c7847e5ee66 
+2017-04-17 14:14:22,067 Common.AsyncLogger+<>c__DisplayClass16_0 [20] Added additional tcpConnection for client b7523ce3-0977-4f7a-8438-7aa261d011df 
+2017-04-17 14:14:22,098 Common.AsyncLogger+<>c__DisplayClass17_0 [17] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 14:14:22,098 Common.AsyncLogger+<>c__DisplayClass17_0 [17] Accepting incoming connections on address 10.100.8.234. 
+2017-04-17 14:14:22,733 Common.Networking.Sockets.TcpConnection [10] System.Runtime.Serialization.SerializationException: The input stream is not a valid binary format. The starting contents (in bytes) are: 3C-01-00-01-00-00-00-FF-FF-FF-FF-01-00-00-00-00-00 ...
+   at System.Runtime.Serialization.Formatters.Binary.SerializationHeaderRecord.Read(__BinaryParser input)
+   at System.Runtime.Serialization.Formatters.Binary.__BinaryParser.ReadSerializationHeaderRecord()
+   at System.Runtime.Serialization.Formatters.Binary.__BinaryParser.Run()
+   at System.Runtime.Serialization.Formatters.Binary.ObjectReader.Deserialize(HeaderHandler handler, __BinaryParser serParser, Boolean fCheck, Boolean isCrossAppDomain, IMethodCallMessage methodCallMessage)
+   at System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream serializationStream, HeaderHandler handler, Boolean fCheck, Boolean isCrossAppDomain, IMethodCallMessage methodCallMessage)
+   at System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream serializationStream, HeaderHandler handler)
+   at Common.Networking.Sockets.TcpConnection.AppendData(Byte[] data, Int32 bytesRead, Guid connectionId) in C:\Code\Testing\Common\Networking\Sockets\TcpConnection.cs:line 174
+   at Common.Networking.Sockets.TcpConnection.ReadCallback(IAsyncResult ar) in C:\Code\Testing\Common\Networking\Sockets\TcpConnection.cs:line 84 
+2017-04-17 14:14:52,962 Common.Networking.Sockets.TcpConnection [21] System.Runtime.Serialization.SerializationException: The input stream is not a valid binary format. The starting contents (in bytes) are: 3C-01-00-01-00-00-00-FF-FF-FF-FF-01-00-00-00-00-00 ...
+   at System.Runtime.Serialization.Formatters.Binary.SerializationHeaderRecord.Read(__BinaryParser input)
+   at System.Runtime.Serialization.Formatters.Binary.__BinaryParser.ReadSerializationHeaderRecord()
+   at System.Runtime.Serialization.Formatters.Binary.__BinaryParser.Run()
+   at System.Runtime.Serialization.Formatters.Binary.ObjectReader.Deserialize(HeaderHandler handler, __BinaryParser serParser, Boolean fCheck, Boolean isCrossAppDomain, IMethodCallMessage methodCallMessage)
+   at System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream serializationStream, HeaderHandler handler, Boolean fCheck, Boolean isCrossAppDomain, IMethodCallMessage methodCallMessage)
+   at System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream serializationStream, HeaderHandler handler)
+   at Common.Networking.Sockets.TcpConnection.AppendData(Byte[] data, Int32 bytesRead, Guid connectionId) in C:\Code\Testing\Common\Networking\Sockets\TcpConnection.cs:line 174
+   at Common.Networking.Sockets.TcpConnection.ReadCallback(IAsyncResult ar) in C:\Code\Testing\Common\Networking\Sockets\TcpConnection.cs:line 84 
+2017-04-18 07:21:07,535 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-18 07:21:08,820 Common.Networking.Sockets.TcpConnection [13] System.Runtime.Serialization.SerializationException: Type 'Common.Messages.Responses.ConnectResponse' in Assembly 'Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' is not marked as serializable.
+   at System.Runtime.Serialization.FormatterServices.InternalGetSerializableMembers(RuntimeType type)
+   at System.Runtime.Serialization.FormatterServices.GetSerializableMembers(Type type, StreamingContext context)
+   at System.Runtime.Serialization.Formatters.Binary.WriteObjectInfo.InitMemberInfo()
+   at System.Runtime.Serialization.Formatters.Binary.WriteObjectInfo.InitSerialize(Object obj, ISurrogateSelector surrogateSelector, StreamingContext context, SerObjectInfoInit serObjectInfoInit, IFormatterConverter converter, ObjectWriter objectWriter, SerializationBinder binder)
+   at System.Runtime.Serialization.Formatters.Binary.WriteObjectInfo.Serialize(Object obj, ISurrogateSelector surrogateSelector, StreamingContext context, SerObjectInfoInit serObjectInfoInit, IFormatterConverter converter, ObjectWriter objectWriter, SerializationBinder binder)
+   at System.Runtime.Serialization.Formatters.Binary.ObjectWriter.Serialize(Object graph, Header[] inHeaders, __BinaryWriter serWriter, Boolean fCheck)
+   at System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Serialize(Stream serializationStream, Object graph, Header[] headers, Boolean fCheck)
+   at System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Serialize(Stream serializationStream, Object graph)
+   at Common.Networking.Sockets.TcpConnection.Send(Message message) in C:\Code\Testing\Common\Networking\Sockets\TcpConnection.cs:line 88 
+2017-04-18 07:21:09,553 Common.AsyncLogger+<>c__DisplayClass16_0 [17] Added additional tcpConnection for client 0ed260ec-2385-470a-862b-42c338819884 
+2017-04-18 07:21:09,584 Common.AsyncLogger+<>c__DisplayClass17_0 [20] Accepting incoming connections on address 10.100.8.234. 
+2017-04-18 07:21:58,402 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-18 07:21:59,453 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-18 07:22:02,422 Common.AsyncLogger+<>c__DisplayClass16_0 [17] Added additional tcpConnection for client fb62ddc7-81eb-48bb-b7b7-be9e627e0ea1 
+2017-04-18 07:22:02,422 Common.AsyncLogger+<>c__DisplayClass18_0 [15] Sent 279 bytes to client fb62ddc7-81eb-48bb-b7b7-be9e627e0ea1. 
+2017-04-18 07:39:55,027 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-18 07:39:57,084 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-18 07:39:57,084 Common.AsyncLogger+<>c__DisplayClass16_0 [17] Added additional tcpConnection for client ec1eecab-0e98-449e-a02c-fc4eae6f49f1 
+2017-04-18 07:39:57,084 Common.AsyncLogger+<>c__DisplayClass18_0 [14] Sent 279 bytes to client ec1eecab-0e98-449e-a02c-fc4eae6f49f1. 
+2017-04-18 07:40:15,982 Common.Networking.Sockets.TcpConnection [10] System.Net.Sockets.SocketException (0x80004005): An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   at Common.Networking.Sockets.TcpConnection.ReadCallback(IAsyncResult ar) in C:\Code\Testing\Common\Networking\Sockets\TcpConnection.cs:line 61 
+2017-04-18 07:41:55,714 Common.AsyncLogger+<>c__DisplayClass17_0 [13] Accepting incoming connections on address 10.100.8.234. 
+2017-04-18 07:41:58,825 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-18 07:41:58,851 Common.AsyncLogger+<>c__DisplayClass18_0 [13] Sent 281 bytes to client 42a4de71-dd7c-432a-9202-0240b4363f5e. 
+2017-04-18 07:41:58,852 Common.AsyncLogger+<>c__DisplayClass16_0 [16] Added additional tcpConnection for client 42a4de71-dd7c-432a-9202-0240b4363f5e 
+2017-04-18 10:06:43,175 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-18 10:06:48,193 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-18 10:06:48,193 Common.AsyncLogger+<>c__DisplayClass16_0 [16] Added additional tcpConnection for client 8050ed81-cdd3-4b09-89fd-77d004f672b6 
+2017-04-18 10:06:48,807 Common.AsyncLogger+<>c__DisplayClass18_0 [14] Sent 281 bytes to client 8050ed81-cdd3-4b09-89fd-77d004f672b6. 
+2017-04-18 10:07:30,744 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-18 10:09:12,129 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-18 10:09:17,104 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-18 10:09:17,106 Common.AsyncLogger+<>c__DisplayClass16_0 [18] Added additional tcpConnection for client 797fbe1b-edfb-4454-a1b0-61dbd5a8903c 
+2017-04-18 10:09:37,200 Common.AsyncLogger+<>c__DisplayClass18_0 [18] Sent 281 bytes to client 797fbe1b-edfb-4454-a1b0-61dbd5a8903c. 
+2017-04-18 10:10:59,475 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-18 10:11:08,136 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-18 10:11:08,136 Common.AsyncLogger+<>c__DisplayClass16_0 [19] Added additional tcpConnection for client a8c6488f-4e5a-414c-b6e6-04191f73b56c 
+2017-04-18 10:11:26,511 Common.AsyncLogger+<>c__DisplayClass18_0 [14] Sent 281 bytes to client a8c6488f-4e5a-414c-b6e6-04191f73b56c. 
+2017-04-18 10:13:34,935 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-18 10:13:40,586 Common.AsyncLogger+<>c__DisplayClass17_0 [16] Accepting incoming connections on address 10.100.8.234. 
+2017-04-18 10:13:40,587 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Added additional tcpConnection for client f056a518-d58e-4d40-8a27-c3ec59116cb5 
+2017-04-18 10:13:44,624 Common.AsyncLogger+<>c__DisplayClass18_0 [14] Sent 281 bytes to client f056a518-d58e-4d40-8a27-c3ec59116cb5. 
+2017-04-18 10:14:05,798 Common.Networking.Sockets.TcpConnection [15] System.Net.Sockets.SocketException (0x80004005): An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   at Common.Networking.Sockets.TcpConnection.ReadCallback(IAsyncResult ar) in C:\Code\Testing\Common\Networking\Sockets\TcpConnection.cs:line 57 
+2017-04-20 12:19:24,890 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 172.16.12.121. 
+2017-04-20 12:19:28,937 Common.AsyncLogger+<>c__DisplayClass16_0 [16] Added additional tcpConnection for client 87eb53b3-09ab-4474-8eac-a5540fb638d2 
+2017-04-20 12:19:28,984 Common.AsyncLogger+<>c__DisplayClass17_0 [18] Accepting incoming connections on address 172.16.12.121. 
+2017-04-20 12:19:29,625 Common.AsyncLogger+<>c__DisplayClass18_0 [17] Sent 273 bytes to client 87eb53b3-09ab-4474-8eac-a5540fb638d2. 
+2017-04-20 12:21:35,177 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 172.16.12.121. 
+2017-04-20 12:21:38,224 Common.AsyncLogger+<>c__DisplayClass16_0 [18] Added additional tcpConnection for client dc8b7337-45cb-425b-9b85-52ac848ac440 
+2017-04-20 12:21:38,254 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 172.16.12.121. 
+2017-04-20 12:21:38,279 Common.AsyncLogger+<>c__DisplayClass18_0 [17] Sent 273 bytes to client dc8b7337-45cb-425b-9b85-52ac848ac440. 
+2017-04-20 12:22:12,451 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 172.16.12.121. 
+2017-04-20 12:22:14,480 Common.AsyncLogger+<>c__DisplayClass16_0 [16] Added additional tcpConnection for client 9557a6b2-300e-46b6-ad17-47a40d987c23 
+2017-04-20 12:22:14,542 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 172.16.12.121. 
+2017-04-20 12:22:14,589 Common.AsyncLogger+<>c__DisplayClass18_0 [17] Sent 273 bytes to client 9557a6b2-300e-46b6-ad17-47a40d987c23. 
+2017-04-20 12:23:04,019 Common.AsyncLogger+<>c__DisplayClass17_0 [12] Accepting incoming connections on address 172.16.12.121. 
+2017-04-21 09:05:52,490 Common.AsyncLogger+<>c__DisplayClass17_0 [16] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:07:00,387 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:07:10,940 Common.AsyncLogger+<>c__DisplayClass17_0 [16] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:07:10,940 Common.AsyncLogger+<>c__DisplayClass16_0 [19] Added additional tcpConnection for client 93dc7395-c317-4f9f-bf8d-f40fcb6fda6b 
+2017-04-21 09:07:10,971 Common.AsyncLogger+<>c__DisplayClass18_0 [14] Sent 273 bytes to client 93dc7395-c317-4f9f-bf8d-f40fcb6fda6b. 
+2017-04-21 09:07:28,094 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:07:28,094 Common.AsyncLogger+<>c__DisplayClass18_0 [14] Sent 273 bytes to client ae99b413-6cd1-4451-9615-ebe433cb1ba4. 
+2017-04-21 09:07:28,094 Common.AsyncLogger+<>c__DisplayClass16_0 [19] Added additional tcpConnection for client ae99b413-6cd1-4451-9615-ebe433cb1ba4 
+2017-04-21 09:08:03,656 Common.AsyncLogger+<>c__DisplayClass17_0 [16] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:08:06,392 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:08:06,392 Common.AsyncLogger+<>c__DisplayClass16_0 [17] Added additional tcpConnection for client 4e25e001-f478-4b41-82c4-4fb9df097626 
+2017-04-21 09:08:09,201 Common.AsyncLogger+<>c__DisplayClass18_0 [15] Sent 273 bytes to client 4e25e001-f478-4b41-82c4-4fb9df097626. 
+2017-04-21 09:09:04,239 Common.AsyncLogger+<>c__DisplayClass17_0 [17] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:09:04,239 Common.AsyncLogger+<>c__DisplayClass16_0 [20] Added additional tcpConnection for client 6d81c584-bd86-476d-88d5-4b41b1cd3721 
+2017-04-21 09:09:05,588 Common.AsyncLogger+<>c__DisplayClass18_0 [15] Sent 273 bytes to client 6d81c584-bd86-476d-88d5-4b41b1cd3721. 
+2017-04-21 09:09:48,285 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:09:50,166 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:09:50,166 Common.AsyncLogger+<>c__DisplayClass16_0 [16] Added additional tcpConnection for client 450116c8-3e25-42b3-8ff2-265c39d6852d 
+2017-04-21 09:09:53,354 Common.AsyncLogger+<>c__DisplayClass18_0 [15] Sent 273 bytes to client 450116c8-3e25-42b3-8ff2-265c39d6852d. 
+2017-04-21 09:10:14,845 Common.Networking.Sockets.TcpConnection [11] End received returned a 0. 
+2017-04-21 09:28:22,223 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:28:25,191 Common.AsyncLogger+<>c__DisplayClass17_0 [16] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:28:25,192 Common.AsyncLogger+<>c__DisplayClass16_0 [17] Added additional tcpConnection for client b68b7384-1878-4b83-9e59-56a746f592c4 
+2017-04-21 09:28:26,692 Common.AsyncLogger+<>c__DisplayClass18_0 [15] Sent 273 bytes to client b68b7384-1878-4b83-9e59-56a746f592c4. 
+2017-04-21 09:28:30,955 Common.Networking.Sockets.TcpConnection [22] End received returned a 0. 
+2017-04-21 09:29:41,917 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:29:44,477 Common.AsyncLogger+<>c__DisplayClass17_0 [16] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:29:45,280 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Added additional tcpConnection for client 082fb89d-da8e-44ea-9e75-bd09f15034ae 
+2017-04-21 09:29:45,975 Common.AsyncLogger+<>c__DisplayClass18_0 [16] Sent 273 bytes to client 082fb89d-da8e-44ea-9e75-bd09f15034ae. 
+2017-04-21 09:29:51,765 Common.Networking.Sockets.TcpConnection [10] End received returned a 0. 
+2017-04-21 09:30:47,322 Common.AsyncLogger+<>c__DisplayClass17_0 [13] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:30:49,123 Common.AsyncLogger+<>c__DisplayClass17_0 [13] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:30:49,124 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Added additional tcpConnection for client e6f4710e-38f9-4eb8-a565-8bf06b2d6e2c 
+2017-04-21 09:30:50,169 Common.AsyncLogger+<>c__DisplayClass18_0 [14] Sent 273 bytes to client e6f4710e-38f9-4eb8-a565-8bf06b2d6e2c. 
+2017-04-21 09:30:52,303 Common.Networking.Sockets.TcpConnection [11] System.Runtime.Serialization.SerializationException: Type 'Common.Messages.Responses.CreateBattleInstanceResponse' in Assembly 'Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' is not marked as serializable.
+   at System.Runtime.Serialization.FormatterServices.InternalGetSerializableMembers(RuntimeType type)
+   at System.Runtime.Serialization.FormatterServices.GetSerializableMembers(Type type, StreamingContext context)
+   at System.Runtime.Serialization.Formatters.Binary.WriteObjectInfo.InitMemberInfo()
+   at System.Runtime.Serialization.Formatters.Binary.WriteObjectInfo.InitSerialize(Object obj, ISurrogateSelector surrogateSelector, StreamingContext context, SerObjectInfoInit serObjectInfoInit, IFormatterConverter converter, ObjectWriter objectWriter, SerializationBinder binder)
+   at System.Runtime.Serialization.Formatters.Binary.WriteObjectInfo.Serialize(Object obj, ISurrogateSelector surrogateSelector, StreamingContext context, SerObjectInfoInit serObjectInfoInit, IFormatterConverter converter, ObjectWriter objectWriter, SerializationBinder binder)
+   at System.Runtime.Serialization.Formatters.Binary.ObjectWriter.Serialize(Object graph, Header[] inHeaders, __BinaryWriter serWriter, Boolean fCheck)
+   at System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Serialize(Stream serializationStream, Object graph, Header[] headers, Boolean fCheck)
+   at System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Serialize(Stream serializationStream, Object graph)
+   at Common.Networking.Utilities.SerailizeMessage(Message message) in C:\Code\Testing\Common.Networking\Utilities.cs:line 21
+   at Common.Networking.Sockets.TcpConnection.Send(Message message) in C:\Code\Testing\Common.Networking\Sockets\TcpConnection.cs:line 82 
+2017-04-21 09:31:32,577 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:31:33,585 Common.AsyncLogger+<>c__DisplayClass16_0 [15] Added additional tcpConnection for client 8e343265-3831-4684-a331-353bb729e99f 
+2017-04-21 09:31:34,935 Common.AsyncLogger+<>c__DisplayClass17_0 [16] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:31:36,376 Common.AsyncLogger+<>c__DisplayClass18_0 [16] Sent 273 bytes to client 8e343265-3831-4684-a331-353bb729e99f. 
+2017-04-21 09:31:38,515 Common.AsyncLogger+<>c__DisplayClass18_0 [14] Sent 286 bytes to client 8e343265-3831-4684-a331-353bb729e99f. 
+2017-04-21 09:31:57,674 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:31:58,737 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:31:59,966 Common.AsyncLogger+<>c__DisplayClass16_0 [18] Added additional tcpConnection for client aeac723e-5c6f-4ddb-bbce-031129658afd 
+2017-04-21 09:32:01,431 Common.AsyncLogger+<>c__DisplayClass18_0 [19] Sent 273 bytes to client aeac723e-5c6f-4ddb-bbce-031129658afd. 
+2017-04-21 09:32:14,992 Common.AsyncLogger+<>c__DisplayClass18_0 [15] Sent 286 bytes to client aeac723e-5c6f-4ddb-bbce-031129658afd. 
+2017-04-21 09:32:36,877 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:32:38,869 Common.AsyncLogger+<>c__DisplayClass16_0 [15] Added additional tcpConnection for client 26278ec3-1720-448a-b4b0-dd568da150cf 
+2017-04-21 09:32:38,941 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:32:39,209 Common.AsyncLogger+<>c__DisplayClass18_0 [17] Sent 273 bytes to client 26278ec3-1720-448a-b4b0-dd568da150cf. 
+2017-04-21 09:32:39,216 Common.AsyncLogger+<>c__DisplayClass18_0 [17] Sent 286 bytes to client 26278ec3-1720-448a-b4b0-dd568da150cf. 
+2017-04-21 09:37:41,733 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:37:44,778 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Added additional tcpConnection for client 09eba604-1e35-4134-9430-53e85c4d524b 
+2017-04-21 09:37:44,794 Common.AsyncLogger+<>c__DisplayClass17_0 [20] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:37:45,356 Common.AsyncLogger+<>c__DisplayClass18_0 [17] Sent 273 bytes to client 09eba604-1e35-4134-9430-53e85c4d524b. 
+2017-04-21 09:37:45,372 Common.AsyncLogger+<>c__DisplayClass18_0 [17] Sent 286 bytes to client 09eba604-1e35-4134-9430-53e85c4d524b. 
+2017-04-21 09:38:40,948 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:38:45,399 Common.AsyncLogger+<>c__DisplayClass17_0 [18] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:38:45,399 Common.AsyncLogger+<>c__DisplayClass16_0 [17] Added additional tcpConnection for client f3973e85-2ec9-4832-91d7-8a73eeea07a1 
+2017-04-21 09:38:48,147 Common.AsyncLogger+<>c__DisplayClass18_0 [18] Sent 273 bytes to client f3973e85-2ec9-4832-91d7-8a73eeea07a1. 
+2017-04-21 09:38:48,147 Common.AsyncLogger+<>c__DisplayClass18_0 [18] Sent 286 bytes to client f3973e85-2ec9-4832-91d7-8a73eeea07a1. 
+2017-04-21 09:39:09,340 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:39:11,795 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:39:11,795 Common.AsyncLogger+<>c__DisplayClass16_0 [15] Added additional tcpConnection for client 61643ac0-eb1e-4476-862e-bb854bbbbd85 
+2017-04-21 09:39:13,054 Common.AsyncLogger+<>c__DisplayClass18_0 [19] Sent 273 bytes to client 61643ac0-eb1e-4476-862e-bb854bbbbd85. 
+2017-04-21 09:39:14,082 Common.AsyncLogger+<>c__DisplayClass18_0 [19] Sent 286 bytes to client 61643ac0-eb1e-4476-862e-bb854bbbbd85. 
+2017-04-21 09:39:42,508 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:39:45,146 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:39:45,146 Common.AsyncLogger+<>c__DisplayClass16_0 [16] Added additional tcpConnection for client b34f4562-5d61-45e6-a248-7101a2b1bbbf 
+2017-04-21 09:39:46,240 Common.AsyncLogger+<>c__DisplayClass18_0 [18] Sent 273 bytes to client b34f4562-5d61-45e6-a248-7101a2b1bbbf. 
+2017-04-21 09:39:47,468 Common.AsyncLogger+<>c__DisplayClass18_0 [13] Sent 286 bytes to client b34f4562-5d61-45e6-a248-7101a2b1bbbf. 
+2017-04-21 09:40:43,784 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:40:48,202 Common.AsyncLogger+<>c__DisplayClass17_0 [17] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:40:48,202 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Added additional tcpConnection for client 9adfe9a9-65de-493a-836b-8151a5cd2b84 
+2017-04-21 09:40:58,628 Common.AsyncLogger+<>c__DisplayClass18_0 [18] Sent 273 bytes to client 9adfe9a9-65de-493a-836b-8151a5cd2b84. 
+2017-04-21 09:41:43,271 Common.AsyncLogger+<>c__DisplayClass18_0 [14] Sent 286 bytes to client 9adfe9a9-65de-493a-836b-8151a5cd2b84. 
+2017-04-21 09:41:57,852 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:42:00,100 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:42:00,100 Common.AsyncLogger+<>c__DisplayClass16_0 [16] Added additional tcpConnection for client 69479ede-c50c-4dba-bfa3-b1a63363ace8 
+2017-04-21 09:42:02,348 Common.AsyncLogger+<>c__DisplayClass18_0 [18] Sent 273 bytes to client 69479ede-c50c-4dba-bfa3-b1a63363ace8. 
+2017-04-21 09:42:04,470 Common.AsyncLogger+<>c__DisplayClass18_0 [14] Sent 286 bytes to client 69479ede-c50c-4dba-bfa3-b1a63363ace8. 
+2017-04-21 09:42:28,682 Common.AsyncLogger+<>c__DisplayClass17_0 [13] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:43:26,405 Common.AsyncLogger+<>c__DisplayClass17_0 [16] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:43:28,656 Common.AsyncLogger+<>c__DisplayClass17_0 [17] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:43:28,656 Common.AsyncLogger+<>c__DisplayClass16_0 [20] Added additional tcpConnection for client a0d9617e-788a-4b4a-939e-d7ed26ed6fc2 
+2017-04-21 09:43:33,831 Common.AsyncLogger+<>c__DisplayClass18_0 [16] Sent 273 bytes to client a0d9617e-788a-4b4a-939e-d7ed26ed6fc2. 
+2017-04-21 09:43:42,305 Common.AsyncLogger+<>c__DisplayClass18_0 [16] Sent 286 bytes to client a0d9617e-788a-4b4a-939e-d7ed26ed6fc2. 
+2017-04-21 09:44:57,246 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:45:06,342 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-21 09:45:06,342 Common.AsyncLogger+<>c__DisplayClass16_0 [15] Added additional tcpConnection for client 446a2a0b-fa0e-44d6-a710-03837ba4221d 
+2017-04-21 09:45:09,185 Common.AsyncLogger+<>c__DisplayClass18_0 [16] Sent 273 bytes to client 446a2a0b-fa0e-44d6-a710-03837ba4221d. 
+2017-04-21 09:45:11,957 Common.AsyncLogger+<>c__DisplayClass18_0 [13] Sent 286 bytes to client 446a2a0b-fa0e-44d6-a710-03837ba4221d. 
+2017-04-25 12:51:13,376 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 12:52:05,297 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 12:52:10,642 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 12:52:10,642 Common.AsyncLogger+<>c__DisplayClass16_0 [16] Added additional tcpConnection for client 172ba368-b944-4b6d-ad55-578b594fa077 
+2017-04-25 12:52:52,655 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 12:52:56,325 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 12:52:56,325 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Added additional tcpConnection for client 3f2e8444-24d0-487b-8282-f5eb21bad01a 
+2017-04-25 12:53:29,880 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 12:53:33,656 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 12:54:44,946 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 12:54:47,621 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 12:54:47,625 Common.AsyncLogger+<>c__DisplayClass16_0 [16] Added additional tcpConnection for client 0e0d4981-4bbc-4fe1-a2b0-f8e2c73af122 
+2017-04-25 12:55:23,784 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 12:55:24,849 Common.AsyncLogger+<>c__DisplayClass17_0 [16] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 12:55:26,535 Common.AsyncLogger+<>c__DisplayClass16_0 [15] Added additional tcpConnection for client a4d3f549-9886-40fc-99bc-4430b22c0330 
+2017-04-25 12:55:34,082 Common.AsyncLogger+<>c__DisplayClass18_0 [18] Sent 273 bytes to client a4d3f549-9886-40fc-99bc-4430b22c0330. 
+2017-04-25 12:55:34,095 Common.AsyncLogger+<>c__DisplayClass18_0 [18] Sent 286 bytes to client a4d3f549-9886-40fc-99bc-4430b22c0330. 
+2017-04-25 12:56:31,542 Common.AsyncLogger+<>c__DisplayClass17_0 [13] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 12:56:34,223 Common.AsyncLogger+<>c__DisplayClass17_0 [13] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 12:56:34,224 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Added additional tcpConnection for client d2fa3e7d-d781-4bb0-afc8-24b23c10ddea 
+2017-04-25 12:57:31,441 Common.AsyncLogger+<>c__DisplayClass17_0 [13] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 12:57:32,458 Common.AsyncLogger+<>c__DisplayClass16_0 [13] Added additional tcpConnection for client 7297dceb-e982-4c77-8457-5125af232fa5 
+2017-04-25 12:57:33,856 Common.AsyncLogger+<>c__DisplayClass17_0 [17] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 12:59:14,914 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 12:59:18,054 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 12:59:18,054 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Added additional tcpConnection for client e0ed2c73-4ec8-490a-81b2-4a424996fe1d 
+2017-04-25 12:59:56,705 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 13:00:12,720 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 13:00:12,720 Common.AsyncLogger+<>c__DisplayClass16_0 [16] Added additional tcpConnection for client f43c8e85-05b4-4004-acb6-fe50296e1742 
+2017-04-25 13:02:34,849 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 13:02:37,952 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 13:02:37,953 Common.AsyncLogger+<>c__DisplayClass16_0 [17] Added additional tcpConnection for client bfe32ccf-b0cd-49f1-9dc7-44cc54a6c90a 
+2017-04-25 13:03:15,332 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 13:03:16,391 Common.AsyncLogger+<>c__DisplayClass16_0 [17] Added additional tcpConnection for client c72ecf69-2719-4275-9654-9d3347411713 
+2017-04-25 13:03:16,404 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 13:04:36,191 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 13:04:38,356 Common.AsyncLogger+<>c__DisplayClass17_0 [16] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 13:04:38,379 Common.AsyncLogger+<>c__DisplayClass16_0 [17] Added additional tcpConnection for client 3498b59b-5b42-4031-90bd-4393bdb9e47a 
+2017-04-25 13:05:09,390 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 13:05:13,458 Common.AsyncLogger+<>c__DisplayClass17_0 [17] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 13:05:13,459 Common.AsyncLogger+<>c__DisplayClass16_0 [16] Added additional tcpConnection for client e5fa4195-d481-42f7-978f-c95e74996c53 
+2017-04-25 13:16:25,735 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 13:16:32,762 Common.AsyncLogger+<>c__DisplayClass16_0 [15] Added additional tcpConnection for client 2a03ea51-96de-4d5e-991e-8e769c933ad8 
+2017-04-25 13:16:32,850 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 13:16:33,183 Common.AsyncLogger+<>c__DisplayClass18_0 [15] Sent 273 bytes to client 2a03ea51-96de-4d5e-991e-8e769c933ad8. 
+2017-04-25 13:16:33,191 Common.AsyncLogger+<>c__DisplayClass18_0 [15] Sent 286 bytes to client 2a03ea51-96de-4d5e-991e-8e769c933ad8. 
+2017-04-25 13:22:06,513 Common.AsyncLogger+<>c__DisplayClass16_0 [13] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 13:22:07,530 Common.AsyncLogger+<>c__DisplayClass15_0 [13] Added additional tcpConnection for client ea1e80d9-dd07-49b5-a681-3ae51e79bb33 
+2017-04-25 13:22:07,555 Common.AsyncLogger+<>c__DisplayClass16_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 13:22:08,336 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Sent 273 bytes to client ea1e80d9-dd07-49b5-a681-3ae51e79bb33. 
+2017-04-25 13:22:08,341 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Sent 286 bytes to client ea1e80d9-dd07-49b5-a681-3ae51e79bb33. 
+2017-04-25 13:23:59,922 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 13:24:00,926 Common.AsyncLogger+<>c__DisplayClass15_0 [14] Added additional tcpConnection for client 91c56a62-b5b6-43e3-bb1b-96bf8274a04a 
+2017-04-25 13:24:02,503 Common.AsyncLogger+<>c__DisplayClass16_0 [16] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 13:24:23,562 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Sent 634 bytes to client 91c56a62-b5b6-43e3-bb1b-96bf8274a04a. 
+2017-04-25 13:24:25,005 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Sent 286 bytes to client 91c56a62-b5b6-43e3-bb1b-96bf8274a04a. 
+2017-04-25 13:28:35,907 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 13:28:36,928 Common.AsyncLogger+<>c__DisplayClass15_0 [14] Added additional tcpConnection for client 795d85c5-945a-43b9-8306-78d4d25c6f48 
+2017-04-25 13:28:36,932 Common.AsyncLogger+<>c__DisplayClass16_0 [15] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 13:28:48,859 Common.AsyncLogger+<>c__DisplayClass17_0 [17] Sent 535 bytes to client 795d85c5-945a-43b9-8306-78d4d25c6f48. 
+2017-04-25 13:28:53,185 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Sent 187 bytes to client 795d85c5-945a-43b9-8306-78d4d25c6f48. 
+2017-04-25 13:45:46,679 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 13:45:47,696 Common.AsyncLogger+<>c__DisplayClass15_0 [14] Added additional tcpConnection for client b925f0c5-e3c2-4186-b29c-43b863835230 
+2017-04-25 13:45:47,718 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 13:45:48,586 Common.AsyncLogger+<>c__DisplayClass17_0 [16] Sent 535 bytes to client b925f0c5-e3c2-4186-b29c-43b863835230. 
+2017-04-25 13:45:48,604 Common.AsyncLogger+<>c__DisplayClass17_0 [16] Sent 187 bytes to client b925f0c5-e3c2-4186-b29c-43b863835230. 
+2017-04-25 13:45:50,167 Common.Networking.Sockets.TcpConnection [10] System.Net.Sockets.SocketException (0x80004005): An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   at Common.Networking.Sockets.TcpConnection.ReadCallback(IAsyncResult ar) in C:\Code\Testing\Common.Networking\Sockets\TcpConnection.cs:line 58 
+2017-04-25 13:45:58,652 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 13:46:00,667 Common.AsyncLogger+<>c__DisplayClass15_0 [15] Added additional tcpConnection for client 1eff1427-3464-4a04-a7ac-31dbbba6d76b 
+2017-04-25 13:46:00,714 Common.AsyncLogger+<>c__DisplayClass16_0 [17] Accepting incoming connections on address 10.100.8.234. 
+2017-04-25 13:46:01,285 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Sent 535 bytes to client 1eff1427-3464-4a04-a7ac-31dbbba6d76b. 
+2017-04-25 13:46:01,303 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Sent 187 bytes to client 1eff1427-3464-4a04-a7ac-31dbbba6d76b. 
+2017-04-27 12:38:17,264 Common.AsyncLogger+<>c__DisplayClass16_0 [15] Accepting incoming connections on address 192.168.1.2. 
+2017-04-27 12:38:19,299 Common.AsyncLogger+<>c__DisplayClass15_0 [15] Added additional tcpConnection for client 3e274b2e-a4af-4875-984c-235edbffdc47 
+2017-04-27 12:38:19,377 Common.AsyncLogger+<>c__DisplayClass16_0 [18] Accepting incoming connections on address 192.168.1.2. 
+2017-04-27 12:44:48,674 Common.AsyncLogger+<>c__DisplayClass16_0 [15] Accepting incoming connections on address 192.168.1.2. 
+2017-04-27 12:45:11,799 Common.AsyncLogger+<>c__DisplayClass16_0 [13] Accepting incoming connections on address 192.168.1.2. 
+2017-04-27 12:45:13,829 Common.AsyncLogger+<>c__DisplayClass16_0 [15] Accepting incoming connections on address 192.168.1.2. 
+2017-04-27 12:45:13,830 Common.AsyncLogger+<>c__DisplayClass15_0 [14] Added additional tcpConnection for client 1b92ab72-e9df-4f5c-b300-c12a01b77588 
+2017-04-27 12:45:14,175 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Sent 535 bytes to client 1b92ab72-e9df-4f5c-b300-c12a01b77588. 
+2017-04-27 12:45:14,179 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Sent 187 bytes to client 1b92ab72-e9df-4f5c-b300-c12a01b77588. 
+2017-04-27 12:45:35,312 Common.AsyncLogger+<>c__DisplayClass16_0 [16] Accepting incoming connections on address 192.168.1.2. 
+2017-04-27 12:45:35,312 Common.AsyncLogger+<>c__DisplayClass15_0 [14] Added additional tcpConnection for client 3c486361-1a2f-447b-a36d-a30bf6c76c75 
+2017-04-27 12:45:35,313 Common.AsyncLogger+<>c__DisplayClass27_0 [20] Failed to add user to user controller. 
+2017-04-27 12:47:17,951 Common.AsyncLogger+<>c__DisplayClass16_0 [13] Accepting incoming connections on address 192.168.1.2. 
+2017-04-27 12:47:21,987 Common.AsyncLogger+<>c__DisplayClass16_0 [15] Accepting incoming connections on address 192.168.1.2. 
+2017-04-27 12:47:21,988 Common.AsyncLogger+<>c__DisplayClass15_0 [13] Added additional tcpConnection for client e5083a4b-d043-465e-ada9-0941d6cc6956 
+2017-04-27 12:47:22,635 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Sent 535 bytes to client e5083a4b-d043-465e-ada9-0941d6cc6956. 
+2017-04-27 12:47:22,639 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Sent 187 bytes to client e5083a4b-d043-465e-ada9-0941d6cc6956. 
+2017-04-27 12:47:23,918 Server.UserController [11] Failed to add user to user controller. 
+2017-04-27 12:47:24,015 Common.AsyncLogger+<>c__DisplayClass16_0 [16] Accepting incoming connections on address 192.168.1.2. 
+2017-04-27 12:47:24,015 Common.AsyncLogger+<>c__DisplayClass15_0 [14] Added additional tcpConnection for client e1bc7313-b26e-483d-99d3-b8d97c34dbcc 
+2017-04-27 12:47:24,656 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Sent 535 bytes to client e1bc7313-b26e-483d-99d3-b8d97c34dbcc. 
+2017-04-27 12:47:52,367 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Accepting incoming connections on address 192.168.1.2. 
+2017-04-27 12:47:54,378 Common.AsyncLogger+<>c__DisplayClass15_0 [17] Added additional tcpConnection for client b660b50c-8391-4184-8aea-742d81042805 
+2017-04-27 12:47:54,392 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Accepting incoming connections on address 192.168.1.2. 
+2017-04-27 12:47:54,455 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Sent 535 bytes to client b660b50c-8391-4184-8aea-742d81042805. 
+2017-04-27 12:47:54,459 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Sent 187 bytes to client b660b50c-8391-4184-8aea-742d81042805. 
+2017-04-27 12:52:11,087 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Accepting incoming connections on address 192.168.1.2. 
+2017-04-27 12:52:13,097 Common.AsyncLogger+<>c__DisplayClass15_0 [16] Added additional tcpConnection for client 9504d1ec-0d1b-4364-b3cc-9f30c6e14d9c 
+2017-04-27 12:52:13,125 Common.AsyncLogger+<>c__DisplayClass16_0 [17] Accepting incoming connections on address 192.168.1.2. 
+2017-04-27 12:52:13,581 Common.AsyncLogger+<>c__DisplayClass17_0 [21] Sent 535 bytes to client 9504d1ec-0d1b-4364-b3cc-9f30c6e14d9c. 
+2017-04-27 12:52:13,585 Common.AsyncLogger+<>c__DisplayClass17_0 [21] Sent 187 bytes to client 9504d1ec-0d1b-4364-b3cc-9f30c6e14d9c. 

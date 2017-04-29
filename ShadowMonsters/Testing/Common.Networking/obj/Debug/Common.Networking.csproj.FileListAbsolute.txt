@@ -16,11 +16,3 @@ C:\Code\Testing\Common.Networking\obj\Debug\Common.Networking.dll
 C:\Code\Testing\Common.Networking\obj\Debug\Common.Networking.pdb
 C:\Code\Testing\Common.Networking\bin\Debug\Server.Common.dll
 C:\Code\Testing\Common.Networking\bin\Debug\Server.Common.pdb
-C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Common.Networking\bin\Debug\Common.Networking.dll
-C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Common.Networking\bin\Debug\Common.Networking.pdb
-C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Common.Networking\bin\Debug\Common.dll
-C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Common.Networking\bin\Debug\log4net.dll
-C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Common.Networking\bin\Debug\Common.pdb
-C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Common.Networking\obj\Debug\Common.Networking.csprojResolveAssemblyReference.cache
-C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Common.Networking\obj\Debug\Common.Networking.dll
-C:\Users\bman\Documents\GitHub\dbf86f54-16fa-4db5-ba0c-4d4a99d7e512\ShadowMonsters\Testing\Common.Networking\obj\Debug\Common.Networking.pdb

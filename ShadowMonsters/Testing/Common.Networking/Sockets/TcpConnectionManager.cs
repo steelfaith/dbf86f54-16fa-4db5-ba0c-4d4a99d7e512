@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using Common;
 using log4net;
+using Server.Common.Interfaces;
 
 namespace Common.Networking.Sockets
 {

@@ -330,34 +330,3 @@
 2017-04-25 13:46:00,714 Common.AsyncLogger+<>c__DisplayClass16_0 [17] Accepting incoming connections on address 10.100.8.234. 
 2017-04-25 13:46:01,285 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Sent 535 bytes to client 1eff1427-3464-4a04-a7ac-31dbbba6d76b. 
 2017-04-25 13:46:01,303 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Sent 187 bytes to client 1eff1427-3464-4a04-a7ac-31dbbba6d76b. 
-2017-04-27 12:38:17,264 Common.AsyncLogger+<>c__DisplayClass16_0 [15] Accepting incoming connections on address 192.168.1.2. 
-2017-04-27 12:38:19,299 Common.AsyncLogger+<>c__DisplayClass15_0 [15] Added additional tcpConnection for client 3e274b2e-a4af-4875-984c-235edbffdc47 
-2017-04-27 12:38:19,377 Common.AsyncLogger+<>c__DisplayClass16_0 [18] Accepting incoming connections on address 192.168.1.2. 
-2017-04-27 12:44:48,674 Common.AsyncLogger+<>c__DisplayClass16_0 [15] Accepting incoming connections on address 192.168.1.2. 
-2017-04-27 12:45:11,799 Common.AsyncLogger+<>c__DisplayClass16_0 [13] Accepting incoming connections on address 192.168.1.2. 
-2017-04-27 12:45:13,829 Common.AsyncLogger+<>c__DisplayClass16_0 [15] Accepting incoming connections on address 192.168.1.2. 
-2017-04-27 12:45:13,830 Common.AsyncLogger+<>c__DisplayClass15_0 [14] Added additional tcpConnection for client 1b92ab72-e9df-4f5c-b300-c12a01b77588 
-2017-04-27 12:45:14,175 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Sent 535 bytes to client 1b92ab72-e9df-4f5c-b300-c12a01b77588. 
-2017-04-27 12:45:14,179 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Sent 187 bytes to client 1b92ab72-e9df-4f5c-b300-c12a01b77588. 
-2017-04-27 12:45:35,312 Common.AsyncLogger+<>c__DisplayClass16_0 [16] Accepting incoming connections on address 192.168.1.2. 
-2017-04-27 12:45:35,312 Common.AsyncLogger+<>c__DisplayClass15_0 [14] Added additional tcpConnection for client 3c486361-1a2f-447b-a36d-a30bf6c76c75 
-2017-04-27 12:45:35,313 Common.AsyncLogger+<>c__DisplayClass27_0 [20] Failed to add user to user controller. 
-2017-04-27 12:47:17,951 Common.AsyncLogger+<>c__DisplayClass16_0 [13] Accepting incoming connections on address 192.168.1.2. 
-2017-04-27 12:47:21,987 Common.AsyncLogger+<>c__DisplayClass16_0 [15] Accepting incoming connections on address 192.168.1.2. 
-2017-04-27 12:47:21,988 Common.AsyncLogger+<>c__DisplayClass15_0 [13] Added additional tcpConnection for client e5083a4b-d043-465e-ada9-0941d6cc6956 
-2017-04-27 12:47:22,635 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Sent 535 bytes to client e5083a4b-d043-465e-ada9-0941d6cc6956. 
-2017-04-27 12:47:22,639 Common.AsyncLogger+<>c__DisplayClass17_0 [14] Sent 187 bytes to client e5083a4b-d043-465e-ada9-0941d6cc6956. 
-2017-04-27 12:47:23,918 Server.UserController [11] Failed to add user to user controller. 
-2017-04-27 12:47:24,015 Common.AsyncLogger+<>c__DisplayClass16_0 [16] Accepting incoming connections on address 192.168.1.2. 
-2017-04-27 12:47:24,015 Common.AsyncLogger+<>c__DisplayClass15_0 [14] Added additional tcpConnection for client e1bc7313-b26e-483d-99d3-b8d97c34dbcc 
-2017-04-27 12:47:24,656 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Sent 535 bytes to client e1bc7313-b26e-483d-99d3-b8d97c34dbcc. 
-2017-04-27 12:47:52,367 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Accepting incoming connections on address 192.168.1.2. 
-2017-04-27 12:47:54,378 Common.AsyncLogger+<>c__DisplayClass15_0 [17] Added additional tcpConnection for client b660b50c-8391-4184-8aea-742d81042805 
-2017-04-27 12:47:54,392 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Accepting incoming connections on address 192.168.1.2. 
-2017-04-27 12:47:54,455 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Sent 535 bytes to client b660b50c-8391-4184-8aea-742d81042805. 
-2017-04-27 12:47:54,459 Common.AsyncLogger+<>c__DisplayClass17_0 [15] Sent 187 bytes to client b660b50c-8391-4184-8aea-742d81042805. 
-2017-04-27 12:52:11,087 Common.AsyncLogger+<>c__DisplayClass16_0 [14] Accepting incoming connections on address 192.168.1.2. 
-2017-04-27 12:52:13,097 Common.AsyncLogger+<>c__DisplayClass15_0 [16] Added additional tcpConnection for client 9504d1ec-0d1b-4364-b3cc-9f30c6e14d9c 
-2017-04-27 12:52:13,125 Common.AsyncLogger+<>c__DisplayClass16_0 [17] Accepting incoming connections on address 192.168.1.2. 
-2017-04-27 12:52:13,581 Common.AsyncLogger+<>c__DisplayClass17_0 [21] Sent 535 bytes to client 9504d1ec-0d1b-4364-b3cc-9f30c6e14d9c. 
-2017-04-27 12:52:13,585 Common.AsyncLogger+<>c__DisplayClass17_0 [21] Sent 187 bytes to client 9504d1ec-0d1b-4364-b3cc-9f30c6e14d9c. 

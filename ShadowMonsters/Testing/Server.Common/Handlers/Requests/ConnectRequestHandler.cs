@@ -4,8 +4,8 @@ using Common;
 using Common;
 using Common.Messages.Requests;
 using Common.Messages.Responses;
-using Common.Networking.Sockets;
 using Microsoft.Practices.Unity;
+using Server.Common.Interfaces;
 using IUserController = Server.Common.Interfaces.IUserController;
 
 namespace Server.Common.Handlers.Requests

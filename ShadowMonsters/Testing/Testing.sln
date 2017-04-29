@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Networking", "Common.Networking\Common.Networking.csproj", "{AE40A441-EF4B-413D-AD43-C6BEE424DC83}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Interfaces", "Common.Interfaces\Common.Interfaces.csproj", "{A52EE437-18FD-49DE-9BA5-3EDAC893C295}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.Storage", "Server.Storage\Server.Storage.csproj", "{4C7E2F68-9609-42D2-B73F-265DAF6CA206}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.Common", "Server.Common\Server.Common.csproj", "{AC66CEE7-D103-43D3-B24C-122B464DADBB}"
@@ -49,6 +51,10 @@ Global
 		{AE40A441-EF4B-413D-AD43-C6BEE424DC83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE40A441-EF4B-413D-AD43-C6BEE424DC83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE40A441-EF4B-413D-AD43-C6BEE424DC83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A52EE437-18FD-49DE-9BA5-3EDAC893C295}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A52EE437-18FD-49DE-9BA5-3EDAC893C295}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A52EE437-18FD-49DE-9BA5-3EDAC893C295}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A52EE437-18FD-49DE-9BA5-3EDAC893C295}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4C7E2F68-9609-42D2-B73F-265DAF6CA206}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4C7E2F68-9609-42D2-B73F-265DAF6CA206}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C7E2F68-9609-42D2-B73F-265DAF6CA206}.Release|Any CPU.ActiveCfg = Release|Any CPU

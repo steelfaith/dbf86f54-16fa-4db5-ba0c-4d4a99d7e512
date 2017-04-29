@@ -80,6 +80,10 @@
       <Project>{3c996fb0-ed7c-4454-ba3e-044dcf6c28e8}</Project>
       <Name>Client</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Common.Interfaces\Common.Interfaces.csproj">
+      <Project>{a52ee437-18fd-49de-9ba5-3edac893c295}</Project>
+      <Name>Common.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Common.Networking\Common.Networking.csproj">
       <Project>{ae40a441-ef4b-413d-ad43-c6bee424dc83}</Project>
       <Name>Common.Networking</Name>

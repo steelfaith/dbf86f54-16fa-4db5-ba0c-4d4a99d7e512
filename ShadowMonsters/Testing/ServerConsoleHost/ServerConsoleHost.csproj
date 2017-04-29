@@ -74,6 +74,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common.Interfaces\Common.Interfaces.csproj">
+      <Project>{a52ee437-18fd-49de-9ba5-3edac893c295}</Project>
+      <Name>Common.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{61b2440b-143b-479e-9792-1650180ff3d8}</Project>
       <Name>Common</Name>

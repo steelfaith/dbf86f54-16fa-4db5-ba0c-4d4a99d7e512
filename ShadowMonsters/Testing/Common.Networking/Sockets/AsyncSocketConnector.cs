@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Threading;
 using Common;
 using log4net;
+using Microsoft.Practices.Unity;
 
 namespace Common.Networking.Sockets
 {
@@ -12,17 +13,13 @@ namespace Common.Networking.Sockets
         private static readonly ILog Logger = LogManager.GetLogger(typeof(AsyncSocketConnector));
         private static ManualResetEvent _connectDone = new ManualResetEvent(false);
 
-        private readonly MessageDispatcher _messageDispatcher;
+        [Dependency]
+        public MessageDispatcher MessageDispatcher { get; set; }
 
         private IPEndPoint _remoteEp;
         private Socket _client;
 
         public bool IsConnected { get; private set; }
-
-        public AsyncSocketConnector(MessageDispatcher messageDispatcher)
-        {
-            _messageDispatcher = messageDispatcher;
-        }
 
         public void Connect(IPEndPoint remoteEndPoint)
         {
@@ -66,7 +63,7 @@ namespace Common.Networking.Sockets
         {
             try
             {
-                TcpConnection tcpConnection = new TcpConnection(client, _messageDispatcher);
+                TcpConnection tcpConnection = new TcpConnection(client, MessageDispatcher);
 
                 client.BeginReceive(tcpConnection.Buffer, 0, tcpConnection.BufferSize, 0, ReceiveCallback, tcpConnection);
             }

@@ -6,6 +6,7 @@ using Common;
 using Common.Networking;
 using Common.Networking.Sockets;
 using Microsoft.Practices.Unity;
+using Server.Common;
 using Server.Common.Handlers.Requests;
 using Server.Common.Interfaces;
 using Server.Storage;
@@ -36,7 +37,7 @@ namespace Server
 
         public void Start()
         {
-            AsyncSocketListener listener = new AsyncSocketListener(_container.Resolve<ITcpConnectionManager>(), _container.Resolve<MessageDispatcher>(), _container.Resolve<IMessageHandlerRegistrar>());
+            AsyncSocketListener listener = _container.Resolve<AsyncSocketListener>();
             _container.Resolve<ConnectRequestHandler>();
             _container.Resolve<CreateBattleInstanceRequestHandler>();
             Task.Run(() => listener.StartListening());

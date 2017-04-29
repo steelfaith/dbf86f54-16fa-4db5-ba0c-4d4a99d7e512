@@ -4,7 +4,8 @@ using System.Linq;
 using Assets.Infrastructure;
 using UnityEngine;
 using Assets.ServerStubHome.Monsters;
-//using Client;
+using Client;
+using Common.Messages.Requests;
 using Utility = Assets.Infrastructure.Utility;
 
 
@@ -32,7 +33,9 @@ namespace Assets.ServerStubHome
             DnaFactory.RegisterMonster(MonsterList.Tripod);
             DnaFactory.RegisterMonster(MonsterList.RhinoVirus);
             DnaFactory.RegisterMonster(MonsterList.MiniLandShark);
-            //NetworkConnector test = new NetworkConnector();
+            NetworkConnector test = new NetworkConnector();
+            test.Connect();
+            test.SendMessage(new ConnectRequest(1));//just for testing dont hate me bro im tired
         }
 
         public AffinityMatchupDamageMultiplier Amdm { get; set; }

@@ -91,6 +91,12 @@
     <Reference Include="log4net">
       <HintPath>Assets\Plugins\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration">
+      <HintPath>Assets\Plugins\System.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web">
+      <HintPath>Assets\Plugins\System.Web.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Infrastructure\AnimationActionEnum.cs" />

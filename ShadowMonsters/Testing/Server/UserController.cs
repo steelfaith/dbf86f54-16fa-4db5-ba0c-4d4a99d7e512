@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Common;
+using log4net;
 using Microsoft.Practices.Unity;
 using Server.Common;
 using Server.Common.Interfaces;
@@ -9,6 +11,8 @@ namespace Server
 {
     public class UserController : IUserController
     {
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(UserController));
+        private static readonly AsyncLogger AsyncLogger = new AsyncLogger(Logger);
         private readonly ConcurrentDictionary<int, User> _usersByClientId = new ConcurrentDictionary<int, User>();
         private readonly ConcurrentDictionary<Guid, User> _usersByConnectionId = new ConcurrentDictionary<Guid, User>();
         private readonly IUsersStorageProvider _usersStorageProvider;
@@ -26,10 +30,23 @@ namespace Server
         /// <param name="user"></param>
         public void AddUser(User user)
         {
-            if(!_usersByClientId.TryAdd(user.ClientId, user))
-                throw new InvalidOperationException("Failed to add user to user controller.");
-            if(!_usersByConnectionId.TryAdd(user.TcpConnectionId, user))
-                throw new InvalidOperationException("Failed to add user to user controller.");
+            if (!_usersByClientId.ContainsKey(user.ClientId))
+            {
+                if (!_usersByClientId.TryAdd(user.ClientId, user))
+                    throw new InvalidOperationException("Failed to add user to user controller.");
+            }
+            else
+                AsyncLogger.WarnFormat($"User with Client Id {user.ClientId} was already in the collection.");
+
+            if (!_usersByConnectionId.ContainsKey(user.TcpConnectionId))
+            {
+                if (!_usersByConnectionId.TryAdd(user.TcpConnectionId, user))
+                    throw new InvalidOperationException("Failed to add user to user controller.");
+            }
+            else
+                AsyncLogger.WarnFormat($"User with Connection Id {user.TcpConnectionId} was already in the collection.");
+
+
         }
 
         public User GetUserByConnectionId(Guid connectionId)

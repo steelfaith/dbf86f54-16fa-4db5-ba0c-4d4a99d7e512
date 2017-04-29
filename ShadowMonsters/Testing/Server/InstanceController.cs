@@ -22,7 +22,7 @@ namespace Server
 
         public InstanceController()
         {
-            _container.RegisterType<MessageDispatcher>(new ContainerControlledLifetimeManager());
+            _container.RegisterType<IMessageDispatcher, MessageDispatcher>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IMessageHandlerRegistrar, MessageHandlerRegistrar>(new ContainerControlledLifetimeManager());
             _container.RegisterType<ITcpConnectionManager, TcpConnectionManager>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IInstanceCoordinator, InstanceController>();

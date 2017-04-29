@@ -5,14 +5,12 @@ using Common;
 using Common.Networking;
 using Common.Networking.Sockets;
 using log4net;
-using Microsoft.Practices.Unity;
 
 namespace Client
 {
     public class NetworkConnector
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(NetworkConnector));
-        private readonly IUnityContainer _container = new UnityContainer();
         private readonly AsyncSocketConnector _asyncSocketConnector;
         private readonly IMessageHandlerRegistrar _messageHandlerRegistrar;
         private readonly IPAddress _localAddress;
@@ -20,11 +18,9 @@ namespace Client
 
         public NetworkConnector(IPAddress localAddress = null, ushort port = 11000, bool useIpV4 = true)
         {
-            _container.RegisterType<MessageDispatcher>(new ContainerControlledLifetimeManager());
-            _container.RegisterType<IMessageHandlerRegistrar, MessageHandlerRegistrar>(new ContainerControlledLifetimeManager());
-            _container.RegisterType<AsyncSocketConnector>(new ContainerControlledLifetimeManager());
-            _messageHandlerRegistrar = _container.Resolve<IMessageHandlerRegistrar>();
-            _asyncSocketConnector = _container.Resolve<AsyncSocketConnector>();
+            _messageHandlerRegistrar = new MessageHandlerRegistrar();
+            MessageDispatcher messageDispatcher = new MessageDispatcher(_messageHandlerRegistrar);
+            _asyncSocketConnector = new AsyncSocketConnector(messageDispatcher);
 
             if (localAddress == null)
             {

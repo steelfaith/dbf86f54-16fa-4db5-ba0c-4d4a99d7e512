@@ -1,6 +1,4 @@
-﻿using Common;
-
-namespace Server.Common.Interfaces
+﻿namespace Common.Networking.Sockets
 {
     public interface ITcpConnectionManager
     {

@@ -1,7 +1,6 @@
 ﻿using System;
-using Common;
 
-namespace Server.Common.Interfaces
+namespace Common.Networking.Sockets
 {
     public interface ITcpConnection
     {

@@ -92,25 +92,25 @@ namespace ClientConsoleHost
 
         private static void CongestServer()//this needs to be converted after DI switchover
         {
-            IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
-            IPAddress ipAddress = ipHostInfo.AddressList[1];
+            //IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
+            //IPAddress ipAddress = ipHostInfo.AddressList[1];
 
-            ConnectRequest request = new ConnectRequest(1);
+            //ConnectRequest request = new ConnectRequest(1);
 
-            for (int i = 0; i < 2; i++)
-                Task.Run(() =>
-                {
-                    AsyncSocketConnector client = new AsyncSocketConnector();
-                    client.Connect(new IPEndPoint(ipAddress, 11000));
-                    while (true)
-                    {
-                        if (client.IsConnected)
-                        {
-                            client.Send(request);
-                            Thread.Sleep(20);
-                        }
-                    }
-                });
+            //for (int i = 0; i < 2; i++)
+            //    Task.Run(() =>
+            //    {
+            //        AsyncSocketConnector client = new AsyncSocketConnector();
+            //        client.Connect(new IPEndPoint(ipAddress, 11000));
+            //        while (true)
+            //        {
+            //            if (client.IsConnected)
+            //            {
+            //                client.Send(request);
+            //                Thread.Sleep(20);
+            //            }
+            //        }
+            //    });
         }
 
         private static void PrintOptions()

@@ -2,9 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using Common;
 using log4net;
-using Microsoft.Practices.Unity;
 
 namespace Common.Networking.Sockets
 {
@@ -14,19 +12,18 @@ namespace Common.Networking.Sockets
         private static readonly ILog Logger = LogManager.GetLogger(typeof(AsyncSocketListener));
         private static readonly AsyncLogger AsyncLogger = new AsyncLogger(Logger);
 
-        [Dependency]
-        public TcpConnectionManager TcpConnectionManager { get; set; }
-
-        [Dependency]
-        public MessageDispatcher MessageDispatcher { get; set; }
-
-        [Dependency]
-        public IMessageHandlerRegistrar MessageHandlerRegistrar { get; set; }
-
-        [Dependency]
-        public IUnityContainer Container { get; set; }
+        private readonly ITcpConnectionManager _tcpConnectionManager;
+        private readonly MessageDispatcher _messageDispatcher;
+        private readonly IMessageHandlerRegistrar _messageHandlerRegistrar;
 
         public static ManualResetEvent AcceptResetEvent = new ManualResetEvent(false);
+
+        public AsyncSocketListener(ITcpConnectionManager tcpConnectionManager, MessageDispatcher messageDispatcher, IMessageHandlerRegistrar messageHandlerRegistrar)
+        {
+            _tcpConnectionManager = tcpConnectionManager;
+            _messageDispatcher = messageDispatcher;
+            _messageHandlerRegistrar = messageHandlerRegistrar;
+        }
 
         public void StartListening()
         {
@@ -66,9 +63,9 @@ namespace Common.Networking.Sockets
                 Socket listener = (Socket)ar.AsyncState;
                 Socket handler = listener.EndAccept(ar);
 
-                TcpConnection tcpConnection = new TcpConnection(handler, MessageDispatcher);
+                TcpConnection tcpConnection = new TcpConnection(handler, _messageDispatcher);
 
-                TcpConnectionManager.AddConnection(tcpConnection);
+                _tcpConnectionManager.AddConnection(tcpConnection);
 
                 tcpConnection.StartReceiveing();
             }

@@ -2,8 +2,6 @@
 using System.Collections.Concurrent;
 using System.Threading;
 using log4net;
-using Microsoft.Practices.Unity;
-using Common;
 
 namespace Common.Networking
 {
@@ -15,16 +13,14 @@ namespace Common.Networking
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(MessageDispatcher));
         private static readonly AsyncLogger AsyncLogger = new AsyncLogger(Logger);
-
         private readonly ConcurrentQueue<RouteableMessage> _incomingMessages = new ConcurrentQueue<RouteableMessage>();
-
         private readonly AutoResetEvent _messageEvent = new AutoResetEvent(false);
 
-        [Dependency]
-        public IMessageHandlerRegistrar MessageHandlerRegistrar { get; set; }
+        private readonly IMessageHandlerRegistrar _messageHandlerRegistrar;
 
-        public MessageDispatcher()
+        public MessageDispatcher(IMessageHandlerRegistrar messageHandlerRegistrar)
         {
+            _messageHandlerRegistrar = messageHandlerRegistrar;
             var processingThread = new Thread(ProcessMessages);
             processingThread.Start();
         }
@@ -41,7 +37,7 @@ namespace Common.Networking
                     RouteableMessage routeableMessage;
                     if (_incomingMessages.TryDequeue(out routeableMessage))
                     {
-                        var handler = MessageHandlerRegistrar.Resolve(routeableMessage.Message.OperationCode);
+                        var handler = _messageHandlerRegistrar.Resolve(routeableMessage.Message.OperationCode);
                         handler?.HandleMessage(routeableMessage);
 
                         //AsyncLogger.InfoFormat("Attempting to process a message");

@@ -45,7 +45,7 @@ namespace Client
 
         public void Connect()
         {
-            _asyncSocketConnector.Connect(new IPEndPoint(_localAddress, _port));
+            _asyncSocketConnector.Connect(_localAddress, _port);
         }
 
         public void RegisterHandler(IMessageHandler handler)

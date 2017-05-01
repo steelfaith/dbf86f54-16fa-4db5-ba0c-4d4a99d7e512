@@ -23,13 +23,13 @@ namespace Common.Networking.Sockets
             _messageDispatcher = messageDispatcher;
         }
 
-        public void Connect(IPEndPoint remoteEndPoint)
+        public void Connect(IPAddress ipAddress, int port)
         {
             try
             {
-                _remoteEp = remoteEndPoint;
+                _remoteEp = new IPEndPoint(ipAddress, port);
 
-                _client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                _client = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
                 _client.BeginConnect(_remoteEp, ConnectCallback, _client);
                 _connectDone.WaitOne();

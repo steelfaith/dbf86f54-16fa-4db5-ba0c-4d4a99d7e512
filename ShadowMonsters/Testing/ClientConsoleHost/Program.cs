@@ -74,7 +74,7 @@ namespace ClientConsoleHost
             IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
             IPAddress ipAddress = ipHostInfo.AddressList[1];
 
-            _asyncSocketConnector.Connect(new IPEndPoint(ipAddress, 11000));
+            _asyncSocketConnector.Connect(ipAddress, 11000);
 
             if (_asyncSocketConnector.IsConnected)
             {

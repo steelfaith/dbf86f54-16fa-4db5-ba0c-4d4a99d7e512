@@ -18,19 +18,16 @@ namespace ClientConsoleHost
     class Program
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(Program));
-        private static readonly IUnityContainer _container = new UnityContainer();
         private static AsyncSocketConnector _asyncSocketConnector;
         private static IMessageHandlerRegistrar _messageHandlerRegistrar;
 
         static void Main(string[] args)
         {
-            _container.RegisterType<MessageDispatcher>(new ContainerControlledLifetimeManager());
-            _container.RegisterType<IMessageHandlerRegistrar, MessageHandlerRegistrar>(new ContainerControlledLifetimeManager());
-            _container.RegisterType<AsyncSocketConnector>(new ContainerControlledLifetimeManager());
-            _messageHandlerRegistrar = _container.Resolve<IMessageHandlerRegistrar>();
 
+            _messageHandlerRegistrar = new MessageHandlerRegistrar();
+            MessageDispatcher messageDispatcher = new MessageDispatcher(_messageHandlerRegistrar);
+            _asyncSocketConnector = new AsyncSocketConnector(messageDispatcher);
 
-            _asyncSocketConnector = _container.Resolve<AsyncSocketConnector>();
 
             var currentPath = Assembly.GetEntryAssembly().Location;
             string directory = Path.GetDirectoryName(currentPath);

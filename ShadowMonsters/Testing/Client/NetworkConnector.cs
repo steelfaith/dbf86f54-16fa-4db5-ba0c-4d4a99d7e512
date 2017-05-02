@@ -22,23 +22,19 @@ namespace Client
             MessageDispatcher messageDispatcher = new MessageDispatcher(_messageHandlerRegistrar);
             _asyncSocketConnector = new AsyncSocketConnector(messageDispatcher);
 
-            if (localAddress == null)
-            {
-                IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
-                if (ipHostInfo == null)
-                    throw new InvalidOperationException("No ip addresses detected.");
+            IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
 
-                foreach (var ip in ipHostInfo.AddressList)
+            foreach (var ip in ipHostInfo.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetworkV6)
                 {
-                    if (useIpV4 && ip.AddressFamily == AddressFamily.InterNetwork)
-                    {
-                        _localAddress = ip;
-                        break;
-                    }
+                    _localAddress = ip;
+                    break;
                 }
             }
-            else
-                _localAddress = localAddress;
+
+            if (_localAddress == null && ipHostInfo.AddressList.Length > 0)
+                _localAddress = ipHostInfo.AddressList[0];
 
             _port = port;
         }

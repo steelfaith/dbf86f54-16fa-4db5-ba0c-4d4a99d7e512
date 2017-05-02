@@ -84,6 +84,10 @@
       <Project>{ac66cee7-d103-43d3-b24c-122b464dadbb}</Project>
       <Name>Server.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Server.Networking\Server.Networking.csproj">
+      <Project>{295da207-d5d7-4e91-9c2b-96591e8bfa78}</Project>
+      <Name>Server.Networking</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Server.Storage\Server.Storage.csproj">
       <Project>{4c7e2f68-9609-42d2-b73f-265daf6ca206}</Project>
       <Name>Server.Storage</Name>

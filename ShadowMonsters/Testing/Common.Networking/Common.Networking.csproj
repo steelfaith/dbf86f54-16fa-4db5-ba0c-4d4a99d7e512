@@ -40,11 +40,8 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Sockets\AsyncSocketConnector.cs" />
-    <Compile Include="Sockets\AsyncSocketListener.cs" />
     <Compile Include="Sockets\ITcpConnection.cs" />
-    <Compile Include="Sockets\ITcpConnectionManager.cs" />
     <Compile Include="Sockets\TcpConnection.cs" />
-    <Compile Include="Sockets\TcpConnectionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>

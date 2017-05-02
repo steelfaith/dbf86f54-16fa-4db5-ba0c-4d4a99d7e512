@@ -2,8 +2,6 @@
 using System.IO;
 using System.Net;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 using Client;
 using Common;
 using Common.Messages.Requests;
@@ -11,7 +9,6 @@ using Common.Networking;
 using Common.Networking.Sockets;
 using log4net;
 using log4net.Config;
-using Microsoft.Practices.Unity;
 
 namespace ClientConsoleHost
 {
@@ -62,6 +59,7 @@ namespace ClientConsoleHost
 
         private static void CreateBattleInstance()
         {
+
             var connectHandler = new UnityCoroutineSimulator(_asyncSocketConnector, OperationCode.ConnectResponse);
             var instanceHandler = new UnityCoroutineSimulator(_asyncSocketConnector, OperationCode.CreateBattleInstanceResponse);
 
@@ -69,7 +67,7 @@ namespace ClientConsoleHost
             _messageHandlerRegistrar.Register(instanceHandler);
 
             IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
-            IPAddress ipAddress = ipHostInfo.AddressList[1];
+            IPAddress ipAddress = ipHostInfo.AddressList[0];
 
             _asyncSocketConnector.Connect(ipAddress, 11000);
 

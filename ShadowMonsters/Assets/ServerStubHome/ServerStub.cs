@@ -5,6 +5,7 @@ using Assets.Infrastructure;
 using UnityEngine;
 using Assets.ServerStubHome.Monsters;
 using Utility = Assets.Infrastructure.Utility;
+using Common.Messages;
 
 
 namespace Assets.ServerStubHome
@@ -19,7 +20,7 @@ namespace Assets.ServerStubHome
 
         public ServerStub()
         {
-            ServerMessageQueue = new Queue<ServerMessage>();
+            ServerMessageQueue = new Queue<ServerAnnouncement>();
             AttackInstanceEndedQueue = new Queue<AttackInstanceEnded>();
             PlayerDataUpdateQueue = new Queue<PlayerDataUpdate>();
             Amdm = new AffinityMatchupDamageMultiplier();
@@ -35,7 +36,7 @@ namespace Assets.ServerStubHome
         }
 
         public AffinityMatchupDamageMultiplier Amdm { get; set; }
-        public Queue<ServerMessage> ServerMessageQueue { get; set; }
+        public Queue<ServerAnnouncement> ServerMessageQueue { get; set; }
         public Queue<AttackInstanceEnded> AttackInstanceEndedQueue { get; set; }
         public Queue<PlayerDataUpdate> PlayerDataUpdateQueue { get; set; }
 
@@ -52,7 +53,7 @@ namespace Assets.ServerStubHome
             return enemyMonster;
         }
 
-        public ServerMessage GetNextServerMessage(Guid playerId)
+        public ServerAnnouncement GetNextServerMessage(Guid playerId)
         {
             //TODO: all messages going to one client currently...but prob need to consider this for real server
             if(ServerMessageQueue.Count > 0)

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Assets.Infrastructure;
 using System.Threading;
+using Common.Enums;
+using Common.Messages;
 
 namespace Assets.ServerStubHome
 {
@@ -110,20 +112,13 @@ namespace Assets.ServerStubHome
                     { currentAttack.PowerLevel++; }
                     else
                     {
-                        serverStub.ServerMessageQueue.Enqueue(new ServerMessage
-                        {
-                            AnnoucementType = AnnouncementType.System,
-                            Message = string.Format("Not enough {0} resources to power up attack", currentAttack.Affinity.ToString())
-                        });
+                        serverStub.ServerMessageQueue.Enqueue(new ServerAnnouncement
+                            (string.Format("Not enough {0} resources to power up attack", currentAttack.Affinity.ToString())));
                     }
                 }
                 else
                 {
-                    serverStub.ServerMessageQueue.Enqueue(new ServerMessage
-                    {
-                        AnnoucementType = AnnouncementType.System,
-                        Message = "Attack can not be powered up farther!",
-                    });
+                    serverStub.ServerMessageQueue.Enqueue(new ServerAnnouncement("Attack can not be powered up farther!"));
                 }
             }
             else

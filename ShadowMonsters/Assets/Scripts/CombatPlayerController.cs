@@ -8,6 +8,7 @@ using Assets.ServerStubHome;
 using System.Threading;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using Common.Enums;
 
 namespace Assets.Scripts
 {

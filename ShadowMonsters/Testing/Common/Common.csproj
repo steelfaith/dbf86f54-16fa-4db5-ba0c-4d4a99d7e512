@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\AnnouncementType.cs" />
     <Compile Include="IMessageDispatcher.cs" />
     <Compile Include="IMessageHandler.cs" />
     <Compile Include="IMessageHandlerRegistrar.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Messages\Responses\BattleInstanceRunResponse.cs" />
     <Compile Include="Messages\Responses\ConnectResponse.cs" />
     <Compile Include="Messages\Responses\CreateBattleInstanceResponse.cs" />
+    <Compile Include="Messages\ServerAnnouncement.cs" />
     <Compile Include="OperationCode.cs" />
     <Compile Include="OperationType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

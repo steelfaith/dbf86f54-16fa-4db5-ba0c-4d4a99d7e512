@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Common;
+using Common.Messages;
 using Common.Messages.Requests;
 using Common.Messages.Responses;
 using Microsoft.Practices.Unity;
@@ -41,7 +42,11 @@ namespace Server.Common.Handlers.Requests
 
             var results = _userController.GetCharacters(request.ClientId);
 
-            _tcpConnectionManager.Send(new RouteableMessage(routeableMessage.ConnectionId, new ConnectResponse {ClientId = request.ClientId, Characters = results.Select(x => x.Name).ToList() }));
+            _tcpConnectionManager.Send(new RouteableMessage(routeableMessage.ConnectionId, new ConnectResponse {
+                                                                                                                    ClientId = request.ClientId,
+                                                                                                                    Characters = results.Select(x => x.Name).ToList(),
+                                                                                                                    Announcement = new ServerAnnouncement("Welcome to fucking Shadow Monsters from the real server!!!"),
+                                                                                                                }));
         }
     }
 }

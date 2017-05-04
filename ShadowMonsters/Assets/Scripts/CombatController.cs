@@ -3,6 +3,7 @@ using UnityEngine;
 using Assets.Infrastructure;
 using Assets.ServerStubHome;
 using System;
+using Common.Enums;
 
 namespace Assets.Scripts
 {

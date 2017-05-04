@@ -6,6 +6,7 @@ using UnityEngine;
 using Assets.Infrastructure;
 using Assets.ServerStubHome;
 using System.Collections;
+using Common.Enums;
 
 namespace Assets.Scripts
 {
@@ -28,7 +29,7 @@ namespace Assets.Scripts
         {
             serverStub = ServerStub.Instance();
             textLogDisplayManager = TextLogDisplayManager.Instance();
-            lightController = LightController.Instance();
+            lightController = LightController.Instance();         
 
             Id = serverStub.Authenticate();
             currentData = serverStub.GetPlayerData(Id);

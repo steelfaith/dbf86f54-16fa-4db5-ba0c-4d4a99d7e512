@@ -8,6 +8,8 @@ using UnityEngine.Events;
 using Assets.Infrastructure;
 using System.Collections;
 using Assets.ServerStubHome;
+using Common.Enums;
+using Common.Messages;
 
 namespace Assets.Scripts
 {
@@ -32,10 +34,10 @@ namespace Assets.Scripts
             HandleMessageUpdates(messageUpdate);
         }
 
-        private void HandleMessageUpdates(ServerMessage messageUpdate)
+        private void HandleMessageUpdates(ServerAnnouncement messageUpdate)
         {
             if (messageUpdate == null) return;
-            AddText(messageUpdate.Message, messageUpdate.AnnoucementType);
+            AddText(messageUpdate.Message, messageUpdate.AnnouncementType);
         }
 
         private void Start()

@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Threading;
 using Assets.ServerStubHome;
 using Assets.Infrastructure;
+using Common.Enums;
 
 namespace Assets.Scripts
 {

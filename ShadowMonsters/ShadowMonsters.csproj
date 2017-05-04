@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.5.2f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -123,7 +121,6 @@
     <Compile Include="Assets\Infrastructure\RarityToColorExtension.cs" />
     <Compile Include="Assets\Infrastructure\ResourceUpdate.cs" />
     <Compile Include="Assets\Infrastructure\ReviveRequest.cs" />
-    <Compile Include="Assets\Infrastructure\ServerMessage.cs" />
     <Compile Include="Assets\Infrastructure\ShortCastRequest.cs" />
     <Compile Include="Assets\Infrastructure\SizeEnumeration.cs" />
     <Compile Include="Assets\Infrastructure\Utility.cs" />
@@ -167,11 +164,13 @@
     <Compile Include="Assets\ServerStubHome\AiAttackStyles\IAiAttackStyle.cs" />
     <Compile Include="Assets\ServerStubHome\AttackHelper.cs" />
     <Compile Include="Assets\ServerStubHome\AttackInstance.cs" />
+    <Compile Include="Assets\ServerStubHome\AuthenticationAgent.cs" />
     <Compile Include="Assets\ServerStubHome\BattleInstanceMessageHandler.cs" />
     <Compile Include="Assets\ServerStubHome\ClientConnectionManager.cs" />
     <Compile Include="Assets\ServerStubHome\Colors.cs" />
     <Compile Include="Assets\ServerStubHome\DnaFactory.cs" />
     <Compile Include="Assets\ServerStubHome\KnownAttacks.cs" />
+    <Compile Include="Assets\ServerStubHome\MessageHandlers\ConnectionResponseHandler.cs" />
     <Compile Include="Assets\ServerStubHome\Monsters\DemonEnforcer.cs" />
     <Compile Include="Assets\ServerStubHome\Monsters\Dragonling.cs" />
     <Compile Include="Assets\ServerStubHome\Monsters\GreenSpider.cs" />

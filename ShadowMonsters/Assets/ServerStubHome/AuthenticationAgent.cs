@@ -5,6 +5,7 @@ using Assets.Scripts;
 using Common.Messages;
 using System.Collections;
 using System.Collections.Generic;
+using Common.Messages.Requests;
 
 namespace Assets.ServerStubHome
 {
@@ -15,11 +16,24 @@ namespace Assets.ServerStubHome
         private TextLogDisplayManager _textLogDisplayManger;
         private static AuthenticationAgent _authenticationAgent;
         private Queue<ServerAnnouncement> _serverWelcomeQueue = new Queue<ServerAnnouncement>();
-        
-        private void Start()
+        private ClientConnectionManager _connectionManager;
+
+        private void Awake()
         {
-            ConnectionResponse = new ConnectionResponseHandler(this);
+             ConnectionResponse = new ConnectionResponseHandler(this);
+            _connectionManager = GetComponentInParent<ClientConnectionManager>();
+        }
+
+        private void Start()
+        {                       
             _textLogDisplayManger = TextLogDisplayManager.Instance();
+            //TODO: Call this here until we get a login screen
+            Login();
+        }
+
+        public void Login()
+        {
+            _connectionManager.SendMessage(new ConnectRequest(1));
         }
 
         private void Update()

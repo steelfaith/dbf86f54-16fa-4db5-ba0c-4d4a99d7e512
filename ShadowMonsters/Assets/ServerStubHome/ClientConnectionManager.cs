@@ -2,8 +2,7 @@
 using Client;
 using Common.Messages.Requests;
 using Common;
-using System;
-using Assets.ServerStubHome.MessageHandlers;
+
 
 namespace Assets.ServerStubHome
 {
@@ -17,9 +16,14 @@ namespace Assets.ServerStubHome
         {
             _connection = new NetworkConnector();
             _connection.Connect();
-            RegisterMessageHandlers();
-            SendMessage(new ConnectRequest(1));
-            
+            InstantiateAgents();
+            RegisterMessageHandlers();      
+        }
+
+        private void InstantiateAgents()
+        {
+            //this is just so we don't have a million agents showing in the editor
+            AuthenticationAgent = Instantiate(AuthenticationAgent, transform);
         }
 
         private void RegisterMessageHandlers()

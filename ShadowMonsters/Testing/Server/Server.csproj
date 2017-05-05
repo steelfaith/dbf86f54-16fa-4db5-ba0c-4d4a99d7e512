@@ -53,6 +53,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -62,9 +63,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BattleInstance.cs" />
+    <Compile Include="DnaFactory.cs" />
     <Compile Include="InstanceController.cs" />
     <Compile Include="MessageDispatcher.cs" />
     <Compile Include="MessageHandlerRegistrar.cs" />
+    <Compile Include="Monsters\DemonEnforcer.cs" />
+    <Compile Include="Monsters\Dragonling.cs" />
+    <Compile Include="Monsters\Extensions.cs" />
+    <Compile Include="Monsters\GreenSpider.cs" />
+    <Compile Include="Monsters\Humpback.cs" />
+    <Compile Include="Monsters\MiniLandShark.cs" />
+    <Compile Include="Monsters\MonsterColors.cs" />
+    <Compile Include="Monsters\RhinoVirus.cs" />
+    <Compile Include="Monsters\RobotShockTrooper.cs" />
+    <Compile Include="Monsters\Tripod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserController.cs" />
   </ItemGroup>

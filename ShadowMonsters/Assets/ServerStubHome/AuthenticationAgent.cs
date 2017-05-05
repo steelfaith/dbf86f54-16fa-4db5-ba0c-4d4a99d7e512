@@ -38,7 +38,8 @@ namespace Assets.ServerStubHome
 
         private void Update()
         {
-            StartCoroutine(CheckForMessageUpdates());
+            if(_serverWelcomeQueue.Count>0)
+                StartCoroutine(CheckForMessageUpdates());
         }
 
         public void HandleAnnouncement(ServerAnnouncement announcement)

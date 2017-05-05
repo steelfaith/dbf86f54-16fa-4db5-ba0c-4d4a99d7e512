@@ -47,16 +47,6 @@ namespace Assets.ServerStubHome
 
         }
 
-        public bool AttackQueuesHaveData()
-        {
-            if (attackResultsQueue.Count > 0) return true;
-            if (buttonPressQueue.Count > 0) return true;
-            if (playerResourceUpdateQueue.Count > 0) return true;
-            if (attackPowerChangeUpdateQueue.Count > 0) return true;
-
-            return false;
-        }
-
         public IMonsterDna PlayerChampion
         {
             get

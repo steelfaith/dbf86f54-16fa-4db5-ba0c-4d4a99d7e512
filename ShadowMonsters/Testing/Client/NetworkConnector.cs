@@ -44,9 +44,9 @@ namespace Client
             _asyncSocketConnector.Connect(_localAddress, _port);
         }
 
-        public void RegisterHandler(IMessageHandler handler)
+        public void RegisterHandler(OperationCode operationCode, Action<RouteableMessage> method)
         {
-            _messageHandlerRegistrar.Register(handler);
+            _messageHandlerRegistrar.Register(operationCode, method);
         }
 
         public void SendMessage(Message message)

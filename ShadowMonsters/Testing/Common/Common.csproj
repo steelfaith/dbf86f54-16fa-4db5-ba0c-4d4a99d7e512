@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoundingBox.cs" />
     <Compile Include="Enums\AnnouncementType.cs" />
     <Compile Include="Enums\ElementalAffinity.cs" />
     <Compile Include="Enums\EnumHelper.cs" />
@@ -55,18 +56,22 @@
     <Compile Include="Interface\IMonsterDna.cs" />
     <Compile Include="Logging\AsyncLogger.cs" />
     <Compile Include="Message.cs" />
+    <Compile Include="Messages\Events\PlayerMoveEvent.cs" />
     <Compile Include="Messages\Requests\BattleInstanceRunRequest.cs" />
     <Compile Include="Messages\Requests\ConnectRequest.cs" />
     <Compile Include="Messages\Requests\CreateBattleInstanceRequest.cs" />
+    <Compile Include="Messages\Requests\PlayerMoveRequest.cs" />
+    <Compile Include="Messages\Requests\SelectCharacterRequest.cs" />
     <Compile Include="Messages\Responses\BattleInstanceRunResponse.cs" />
     <Compile Include="Messages\Responses\ConnectResponse.cs" />
     <Compile Include="Messages\Responses\CreateBattleInstanceResponse.cs" />
-    <Compile Include="Messages\ServerAnnouncement.cs" />
+    <Compile Include="Messages\Responses\SelectCharacterResponse.cs" />
     <Compile Include="OperationCode.cs" />
     <Compile Include="OperationType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RouteableMessage.cs" />
     <Compile Include="Utilities.cs" />
+    <Compile Include="Vector3.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

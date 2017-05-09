@@ -78,6 +78,10 @@
       <Project>{61b2440b-143b-479e-9792-1650180ff3d8}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Server.Common\Server.Common.csproj">
+      <Project>{ac66cee7-d103-43d3-b24c-122b464dadbb}</Project>
+      <Name>Server.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Server\Server.csproj">
       <Project>{8dae548a-c37c-413b-b929-40447bf55a29}</Project>
       <Name>Server</Name>

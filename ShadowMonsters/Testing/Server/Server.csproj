@@ -62,9 +62,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BattleInstance.cs" />
-    <Compile Include="DnaFactory.cs" />
-    <Compile Include="InstanceController.cs" />
+    <Compile Include="ConnectionManager.cs" />
+    <Compile Include="Instances\BattleInstance.cs" />
+    <Compile Include="Instances\InstanceCoordinator.cs" />
+    <Compile Include="Instances\AuthenticationInstance.cs" />
+    <Compile Include="Instances\ChatInstance.cs" />
     <Compile Include="MessageDispatcher.cs" />
     <Compile Include="MessageHandlerRegistrar.cs" />
     <Compile Include="Monsters\DemonEnforcer.cs" />
@@ -78,7 +80,10 @@
     <Compile Include="Monsters\RobotShockTrooper.cs" />
     <Compile Include="Monsters\Tripod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Instances\WorldRegionInstance.cs" />
+    <Compile Include="UnityRegistrar.cs" />
     <Compile Include="UserController.cs" />
+    <Compile Include="WorldManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

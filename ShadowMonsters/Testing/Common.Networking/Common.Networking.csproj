@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="IClientConnection.cs" />
     <Compile Include="Sockets\AsyncSocketConnector.cs" />
     <Compile Include="Sockets\ITcpConnection.cs" />
     <Compile Include="Sockets\TcpConnection.cs" />

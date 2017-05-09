@@ -1,7 +1,9 @@
-﻿namespace Server.Common.Interfaces
+﻿using Common;
+
+namespace Server.Common.Interfaces
 {
-    public interface IBattleInstance
+    public interface IBattleInstance : IServerInstance
     {
-        bool AttemptRun();
+        void AttemptRun(RouteableMessage routeableMessages);
     }
 }

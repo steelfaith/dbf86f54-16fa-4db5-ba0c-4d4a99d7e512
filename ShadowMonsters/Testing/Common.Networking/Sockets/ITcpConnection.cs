@@ -2,11 +2,8 @@
 
 namespace Common.Networking.Sockets
 {
-    public interface ITcpConnection
+    public interface ITcpConnection : IClientConnection
     {
-        Guid Id { get; }
-        void StartReceiveing();
-        void Send(Message message);
         void AppendData(byte[] data, int bytesRead, Guid connectionId);
     }
 }

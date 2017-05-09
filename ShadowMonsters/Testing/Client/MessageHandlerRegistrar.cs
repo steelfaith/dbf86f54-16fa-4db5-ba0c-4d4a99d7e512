@@ -7,35 +7,33 @@ namespace Client
 {
     public class MessageHandlerRegistrar : IMessageHandlerRegistrar
     {
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(MessageHandlerRegistrar));
-        private readonly Dictionary<OperationCode, IMessageHandler> _messageHandlers;
+        private readonly Dictionary<OperationCode, Action<RouteableMessage>> _messageHandlers;
         private readonly object _lock = new object();
 
         public MessageHandlerRegistrar()
         {
-            _messageHandlers = new Dictionary<OperationCode, IMessageHandler>();
+            _messageHandlers = new Dictionary<OperationCode, Action<RouteableMessage>>();
         }
 
-        public void Register(IMessageHandler handler)
+        public void Register(OperationCode operationCode, Action<RouteableMessage> handler)
         {
             if (handler == null)
                 throw new ArgumentNullException(nameof(handler));
 
             lock (_lock)
             {
-                _messageHandlers.Add(handler.OperationCode, handler);
+                _messageHandlers.Add(operationCode, handler);
             }  
         }
 
-        public IMessageHandler Resolve(OperationCode operationCode)
+
+        public Action<RouteableMessage> Resolve(OperationCode operationCode)
         {
             lock (_lock)
             {
-                IMessageHandler handler;
-                if (_messageHandlers.TryGetValue(operationCode, out handler))
-                {
-                    return handler;
-                }
+                Action<RouteableMessage> method;
+                if (_messageHandlers.TryGetValue(operationCode, out method))
+                    return method;
 
                 return null;
             }

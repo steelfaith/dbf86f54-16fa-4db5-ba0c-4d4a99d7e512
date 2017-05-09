@@ -58,12 +58,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Character.cs" />
-    <Compile Include="Handlers\Requests\BattleInstanceRunRequestHandler.cs" />
-    <Compile Include="Handlers\Requests\ConnectRequestHandler.cs" />
-    <Compile Include="Handlers\Requests\CreateBattleInstanceRequestHandler.cs" />
+    <Compile Include="Interfaces\IAuthenticationInstance.cs" />
     <Compile Include="Interfaces\IBattleInstance.cs" />
+    <Compile Include="Interfaces\IConnectionManager.cs" />
     <Compile Include="Interfaces\IInstanceCoordinator.cs" />
     <Compile Include="Interfaces\IBattleInstanceStorageProvider.cs" />
+    <Compile Include="Interfaces\IServerInstance.cs" />
+    <Compile Include="Interfaces\IWorldManager.cs" />
+    <Compile Include="Interfaces\IWorldRegionInstance.cs" />
     <Compile Include="Interfaces\IUserController.cs" />
     <Compile Include="Interfaces\IUsersStorageProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,10 +80,6 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{61b2440b-143b-479e-9792-1650180ff3d8}</Project>
       <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Server.Networking\Server.Networking.csproj">
-      <Project>{295da207-d5d7-4e91-9c2b-96591e8bfa78}</Project>
-      <Name>Server.Networking</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

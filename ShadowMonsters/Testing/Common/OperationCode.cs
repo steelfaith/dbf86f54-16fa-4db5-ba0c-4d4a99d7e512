@@ -8,5 +8,9 @@
         CreateBattleInstanceResponse = 4,
         BattleInstanceRunRequest = 5,
         BattleInstanceRunResponse = 6,
+        PlayerMoveRequest = 7,
+        SelectCharacterRequest = 8,
+        SelectCharacterResponse = 9,
+        PlayerMoveEvent = 10,
     }
 }

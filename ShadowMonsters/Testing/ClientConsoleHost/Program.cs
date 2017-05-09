@@ -44,12 +44,15 @@ namespace ClientConsoleHost
                 consoleResult = Console.ReadLine();
 
                 if (string.CompareOrdinal(consoleResult, "1") == 0)
-                    CreateBattleInstance();
+                    LoginWithCharacter();
 
                 if (string.CompareOrdinal(consoleResult, "2") == 0)
-                    SendRequestToGenerateLaterEvent();
+                    CreateBattleInstance();
 
                 if (string.CompareOrdinal(consoleResult, "3") == 0)
+                        SendRequestToGenerateLaterEvent();
+
+                if (string.CompareOrdinal(consoleResult, "4") == 0)
                     CongestServer();
 
                 if (string.CompareOrdinal(consoleResult, "?") == 0)
@@ -57,14 +60,13 @@ namespace ClientConsoleHost
             }
         }
 
-        private static void CreateBattleInstance()
+        private static void LoginWithCharacter()
         {
-
             var connectHandler = new UnityCoroutineSimulator(_asyncSocketConnector, OperationCode.ConnectResponse);
-            var instanceHandler = new UnityCoroutineSimulator(_asyncSocketConnector, OperationCode.CreateBattleInstanceResponse);
+            var characterHandler = new UnityCoroutineSimulator(_asyncSocketConnector, OperationCode.SelectCharacterResponse);
 
-            _messageHandlerRegistrar.Register(connectHandler);
-            _messageHandlerRegistrar.Register(instanceHandler);
+            _messageHandlerRegistrar.Register(connectHandler.OperationCode , connectHandler.HandleMessage);
+            _messageHandlerRegistrar.Register(characterHandler.OperationCode, characterHandler.HandleMessage);
 
             IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
             IPAddress ipAddress = ipHostInfo.AddressList[0];
@@ -75,7 +77,29 @@ namespace ClientConsoleHost
             {
                 var clientId = 2;
                 connectHandler.SendSynchronousMessage(new ConnectRequest(clientId));
-                instanceHandler.SendSynchronousMessage(new CreateBattleInstanceRequest { ClientId = clientId });
+                characterHandler.SendSynchronousMessage(new SelectCharacterRequest(clientId, "TestName"));
+            }
+        }
+
+        private static void CreateBattleInstance()
+        {
+
+            var connectHandler = new UnityCoroutineSimulator(_asyncSocketConnector, OperationCode.ConnectResponse);
+            var instanceHandler = new UnityCoroutineSimulator(_asyncSocketConnector, OperationCode.CreateBattleInstanceResponse);
+
+            _messageHandlerRegistrar.Register(connectHandler.OperationCode, connectHandler.HandleMessage);
+            _messageHandlerRegistrar.Register(instanceHandler.OperationCode, instanceHandler.HandleMessage);
+
+            IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
+            IPAddress ipAddress = ipHostInfo.AddressList[0];
+
+            _asyncSocketConnector.Connect(ipAddress, 11000);
+
+            if (_asyncSocketConnector.IsConnected)
+            {
+                var clientId = 2;
+                connectHandler.SendSynchronousMessage(new ConnectRequest(clientId));
+                instanceHandler.SendSynchronousMessage(new CreateBattleInstanceRequest(clientId));
             }
         }
 
@@ -110,9 +134,10 @@ namespace ClientConsoleHost
 
         private static void PrintOptions()
         {
-            Console.WriteLine("Press 1 to create a battle instance.");
-            Console.WriteLine("Press 2 to send a request that will generate a later event." );
-            Console.WriteLine("Press 3 to congest the server.");
+            Console.WriteLine("Press 1 to login with a character.");
+            Console.WriteLine("Press 2 to login and create a battle instance.");
+            Console.WriteLine("Press 3 to send a request that will generate a later event." );
+            Console.WriteLine("Press 4 to congest the server.");
             Console.WriteLine(@"Press ? to repeat this list");
             Console.WriteLine(@"Press x to exit.");
         }

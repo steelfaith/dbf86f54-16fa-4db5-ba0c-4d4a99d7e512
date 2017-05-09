@@ -8,5 +8,10 @@ namespace Common.Messages.Requests
         public override OperationType OperationType => OperationType.Request;
         public override OperationCode OperationCode => OperationCode.BattleInstanceRunRequest;
         public override int ClientId { get; set; }
+
+        public BattleInstanceRunRequest(int clientId)
+        {
+            ClientId = clientId;
+        }
     }
 }

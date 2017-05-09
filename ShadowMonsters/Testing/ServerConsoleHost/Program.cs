@@ -3,7 +3,9 @@ using System.IO;
 using System.Reflection;
 using log4net;
 using log4net.Config;
+using Microsoft.Practices.Unity;
 using Server;
+using Server.Common.Interfaces;
 
 namespace ServerConsoleHost
 {
@@ -20,8 +22,10 @@ namespace ServerConsoleHost
             if (file.Exists)
                 XmlConfigurator.ConfigureAndWatch(file);
 
-            InstanceController coordinator = new InstanceController();
-            coordinator.Start();
+            var container = UnityRegistrar.GetUnityContainer();
+
+            var manager = container.Resolve<IWorldManager>();
+            manager.Start();
 
             Console.WriteLine("Press enter to exit.");
             Console.ReadLine();

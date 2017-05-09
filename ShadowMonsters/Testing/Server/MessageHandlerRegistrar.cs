@@ -1,29 +1,28 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using Common;
 
 namespace Server
 {
     public class MessageHandlerRegistrar : IMessageHandlerRegistrar
     {
-        private readonly ConcurrentDictionary<OperationCode, IMessageHandler> _messageHandlers;
+        private readonly ConcurrentDictionary<OperationCode, Action<RouteableMessage>> _messageHandlers;
 
         public MessageHandlerRegistrar()
         {
-            _messageHandlers = new ConcurrentDictionary<OperationCode, IMessageHandler>();
+            _messageHandlers = new ConcurrentDictionary<OperationCode, Action<RouteableMessage>>();
         }
 
-        public void Register(IMessageHandler handler)
+        public void Register(OperationCode operationCode, Action<RouteableMessage> handler)
         {
-            _messageHandlers.TryAdd(handler.OperationCode, handler);
+            _messageHandlers[operationCode] = handler;
         }
 
-        public IMessageHandler Resolve(OperationCode operationCode)
+        public Action<RouteableMessage> Resolve(OperationCode operationCode)
         {
-            IMessageHandler handler;
+            Action<RouteableMessage> handler;
             if (_messageHandlers.TryGetValue(operationCode, out handler))
-            {
                 return handler;
-            }
 
             return null; //convert this to return the default message handler later
         }

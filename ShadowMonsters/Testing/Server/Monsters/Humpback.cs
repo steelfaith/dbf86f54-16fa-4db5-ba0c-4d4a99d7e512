@@ -17,8 +17,8 @@ namespace Server.Monsters
             MonsterAffinity = ElementalAffinity.Water;
             MonsterId = Guid.NewGuid();
             Level = _randomNumberGenerator.Next(1, 101);
-            Sizing = (MonsterSize)Enum.Parse(typeof(MonsterSize), Utility.GetRandomEnumMember<MonsterSize>());
-            MonsterPresence = (MonsterPresence)Enum.Parse(typeof(MonsterPresence), Utility.GetRandomEnumMember<MonsterPresence>());
+            Sizing = (MonsterSize)Enum.Parse(typeof(MonsterSize), Utilities.GetRandomEnumMember<MonsterSize>());
+            MonsterPresence = (MonsterPresence)Enum.Parse(typeof(MonsterPresence), Utilities.GetRandomEnumMember<MonsterPresence>());
             MaxHealth = Level * 5;
             Speed = Level * 3;
             AttackIds = new List<Guid>();

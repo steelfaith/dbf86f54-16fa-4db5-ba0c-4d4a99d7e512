@@ -3,7 +3,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using log4net;
-using Server.Networking.Sockets;
+using Microsoft.Practices.Unity;
+using Server.Common.Interfaces;
 
 namespace Common.Networking.Sockets
 {
@@ -13,15 +14,16 @@ namespace Common.Networking.Sockets
         private static readonly ILog Logger = LogManager.GetLogger(typeof(AsyncSocketListener));
         private static readonly AsyncLogger AsyncLogger = new AsyncLogger(Logger);
 
-        private readonly ITcpConnectionManager _tcpConnectionManager;
+        private readonly IConnectionManager _connectionManager;
         private readonly IMessageDispatcher _messageDispatcher;
         private readonly IMessageHandlerRegistrar _messageHandlerRegistrar;
 
         public static ManualResetEvent AcceptResetEvent = new ManualResetEvent(false);
 
-        public AsyncSocketListener(ITcpConnectionManager tcpConnectionManager, IMessageDispatcher messageDispatcher, IMessageHandlerRegistrar messageHandlerRegistrar)
+        [InjectionConstructor]
+        public AsyncSocketListener(IConnectionManager connectionManager, IMessageDispatcher messageDispatcher, IMessageHandlerRegistrar messageHandlerRegistrar)
         {
-            _tcpConnectionManager = tcpConnectionManager;
+            _connectionManager = connectionManager;
             _messageDispatcher = messageDispatcher;
             _messageHandlerRegistrar = messageHandlerRegistrar;
         }
@@ -83,7 +85,7 @@ namespace Common.Networking.Sockets
 
                 TcpConnection tcpConnection = new TcpConnection(handler, _messageDispatcher);
 
-                _tcpConnectionManager.AddConnection(tcpConnection);
+                _connectionManager.AddConnection(tcpConnection);
 
                 tcpConnection.StartReceiveing();
             }

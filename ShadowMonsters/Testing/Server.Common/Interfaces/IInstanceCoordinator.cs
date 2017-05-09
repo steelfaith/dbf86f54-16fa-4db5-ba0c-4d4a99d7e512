@@ -1,11 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Server.Common.Interfaces
 {
     public interface IInstanceCoordinator
     {
-        Guid CreateInstance();
+        Guid CreateBattleInstance();
         IBattleInstance GetBattleInstance(Guid instanceId);
+        IWorldRegionInstance CreateWorldRegion();
+        IAuthenticationInstance CreateAuthenticationInstance();
     }
 }

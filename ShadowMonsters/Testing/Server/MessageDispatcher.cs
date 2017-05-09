@@ -39,7 +39,7 @@ namespace Server
                     if (_incomingMessages.TryDequeue(out routeableMessage))
                     {
                         var handler = _messageHandlerRegistrar.Resolve(routeableMessage.Message.OperationCode);
-                        handler?.HandleMessage(routeableMessage);
+                        handler?.Invoke(routeableMessage);
 
                         //AsyncLogger.InfoFormat("Attempting to process a message");
                         //AsyncLogger.InfoFormat("Message Type {0} Message Op Code {1} Content Length {2}"

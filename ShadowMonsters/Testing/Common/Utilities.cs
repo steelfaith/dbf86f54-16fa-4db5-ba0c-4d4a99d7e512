@@ -1,8 +1,9 @@
+﻿using System;
 using System.Linq;
 
 namespace Common
 {
-    public static class Utility
+    public static class Utilities
     {
         private static Random _randomNumberGen = new Random();
 

@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.5.2f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -97,6 +99,12 @@
     <Reference Include="System.Web">
       <HintPath>Assets\Plugins\System.Web.dll</HintPath>
     </Reference>
+    <Reference Include="System.Security">
+      <HintPath>Assets\Plugins\System.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <HintPath>Assets\Plugins\System.Drawing.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Infrastructure\AnimationActionEnum.cs" />
@@ -127,7 +135,6 @@
     <Compile Include="Assets\Infrastructure\RarityToColorExtension.cs" />
     <Compile Include="Assets\Infrastructure\ResourceUpdate.cs" />
     <Compile Include="Assets\Infrastructure\ReviveRequest.cs" />
-    <Compile Include="Assets\Infrastructure\ServerMessage.cs" />
     <Compile Include="Assets\Infrastructure\ShortCastRequest.cs" />
     <Compile Include="Assets\Infrastructure\SizeEnumeration.cs" />
     <Compile Include="Assets\Infrastructure\Utility.cs" />
@@ -171,6 +178,9 @@
     <Compile Include="Assets\ServerStubHome\AiAttackStyles\IAiAttackStyle.cs" />
     <Compile Include="Assets\ServerStubHome\AttackHelper.cs" />
     <Compile Include="Assets\ServerStubHome\AttackInstance.cs" />
+    <Compile Include="Assets\ServerStubHome\AuthenticationAgent.cs" />
+    <Compile Include="Assets\ServerStubHome\BattleInstanceMessageHandler.cs" />
+    <Compile Include="Assets\ServerStubHome\ClientConnectionManager.cs" />
     <Compile Include="Assets\ServerStubHome\Colors.cs" />
     <Compile Include="Assets\ServerStubHome\DnaFactory.cs" />
     <Compile Include="Assets\ServerStubHome\KnownAttacks.cs" />
@@ -206,6 +216,9 @@
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hair_ds.shader" />
     <None Include="Assets\UnityChan\Stage\Shader\AlphaMask.shader" />
     <None Include="Assets\UnityChan\license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\ServerStubHome\MessageHandlers\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

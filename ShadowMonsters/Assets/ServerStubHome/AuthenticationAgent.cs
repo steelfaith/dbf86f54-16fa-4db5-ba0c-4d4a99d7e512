@@ -1,18 +1,17 @@
 ﻿
-using Assets.ServerStubHome.MessageHandlers;
 using UnityEngine;
 using Assets.Scripts;
 using Common.Messages;
 using System.Collections;
 using System.Collections.Generic;
+using Common;
 using Common.Messages.Requests;
+using Common.Messages.Responses;
 
 namespace Assets.ServerStubHome
 {
     public class AuthenticationAgent : MonoBehaviour
     {
-
-        public ConnectionResponseHandler ConnectionResponse { get; set; }
         private TextLogDisplayManager _textLogDisplayManger;
         private static AuthenticationAgent _authenticationAgent;
         private Queue<ServerAnnouncement> _serverWelcomeQueue = new Queue<ServerAnnouncement>();
@@ -20,7 +19,6 @@ namespace Assets.ServerStubHome
 
         private void Awake()
         {
-             ConnectionResponse = new ConnectionResponseHandler(this);
             _connectionManager = GetComponentInParent<ClientConnectionManager>();
         }
 
@@ -42,9 +40,14 @@ namespace Assets.ServerStubHome
                 StartCoroutine(CheckForMessageUpdates());
         }
 
-        public void HandleAnnouncement(ServerAnnouncement announcement)
+        public void HandleAnnouncement(RouteableMessage routeableMessage)
         {
-            _serverWelcomeQueue.Enqueue(announcement);  
+            ConnectResponse response = routeableMessage.Message as ConnectResponse;
+
+            if (response == null)
+                return;
+
+            _serverWelcomeQueue.Enqueue(response.Announcement);  
         }
 
         public IEnumerator CheckForMessageUpdates()
@@ -68,5 +71,6 @@ namespace Assets.ServerStubHome
             }
             return _authenticationAgent;
         }
+
     }
 }

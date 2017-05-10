@@ -12,6 +12,7 @@ namespace Assets.ServerStubHome
         NetworkConnector _connection;
         private static ClientConnectionManager _clientConnectionManager;
 
+
         private void Start()
         {
             _connection = new NetworkConnector();
@@ -29,13 +30,7 @@ namespace Assets.ServerStubHome
         private void RegisterMessageHandlers()
         {
             if (_connection == null) return;
-            _connection.RegisterHandler(AuthenticationAgent.ConnectionResponse);
-        }
-
-        public void RegisterMessageHandler(IMessageHandler handler)
-        {
-            if (_connection == null) return;
-            _connection.RegisterHandler(handler);
+            _connection.RegisterHandler(OperationCode.ConnectResponse,  AuthenticationAgent.HandleAnnouncement);
         }
 
         public void SendMessage(Message message)

@@ -7,6 +7,8 @@ using Assets.Infrastructure;
 using Assets.ServerStubHome;
 using System.Collections;
 using Common.Enums;
+using ElementalAffinity = Assets.Infrastructure.ElementalAffinity;
+using MonsterPresence = Assets.Infrastructure.MonsterPresence;
 
 namespace Assets.Scripts
 {

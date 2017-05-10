@@ -42,7 +42,7 @@ namespace Assets.ServerStubHome
 
         public IMonsterDna GetRandomMonster()
         {
-            //MonsterList monster = (MonsterList)Enum.Parse(typeof(MonsterList), Utility.GetRandomEnumMember<MonsterList>());
+            MonsterList monster = (MonsterList)Enum.Parse(typeof(MonsterList), Utility.GetRandomEnumMember<MonsterList>());
 
 
             var enemyMonster = DnaFactory.CreateRandomMonsterDna();

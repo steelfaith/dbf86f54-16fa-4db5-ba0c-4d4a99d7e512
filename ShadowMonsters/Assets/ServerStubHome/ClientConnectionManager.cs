@@ -9,6 +9,7 @@ namespace Assets.ServerStubHome
     public class ClientConnectionManager : MonoBehaviour
     {
         public AuthenticationAgent AuthenticationAgent;
+        public RemoteActorMovementAgent RemoteActorMovementAgent;
         NetworkConnector _connection;
         private static ClientConnectionManager _clientConnectionManager;
 
@@ -25,12 +26,14 @@ namespace Assets.ServerStubHome
         {
             //this is just so we don't have a million agents showing in the editor
             AuthenticationAgent = Instantiate(AuthenticationAgent, transform);
+            RemoteActorMovementAgent = Instantiate(RemoteActorMovementAgent, transform);
         }
 
         private void RegisterMessageHandlers()
         {
             if (_connection == null) return;
             _connection.RegisterHandler(OperationCode.ConnectResponse,  AuthenticationAgent.HandleAnnouncement);
+            _connection.RegisterHandler(OperationCode.PlayerMoveEvent, RemoteActorMovementAgent.RemoteActorMoved);
         }
 
         public void SendMessage(Message message)

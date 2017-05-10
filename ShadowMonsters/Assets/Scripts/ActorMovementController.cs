@@ -37,7 +37,7 @@ public class ActorMovementController : MonoBehaviour
 	    {
             transform.position += 0.5f * _up;
 	        transform.position += 0.5f * _right;
-            _unityChan.transform.forward = new Vector3(-0.5f, 0, -0.5f);
+            _unityChan.transform.forward = new Vector3(-1f, 0, -1f);
             _animator.SetFloat("Speed", 0.5f);
 	        return;
 	    }
@@ -46,7 +46,7 @@ public class ActorMovementController : MonoBehaviour
         {
             transform.position += 0.5f * _up;
             transform.position += 0.5f * _left;
-            _unityChan.transform.forward = new Vector3(0.5f, 0, -0.5f);
+            _unityChan.transform.forward = new Vector3(1f, 0, -1f);
             _animator.SetFloat("Speed", 0.5f);
             return;
         }
@@ -55,7 +55,7 @@ public class ActorMovementController : MonoBehaviour
         {
             transform.position += 0.5f * _down;
             transform.position += 0.5f * _right;
-            _unityChan.transform.forward = new Vector3(-0.5f, 0, 0.5f);
+            _unityChan.transform.forward = new Vector3(-1f, 0, 1f);
             _animator.SetFloat("Speed", 0.5f);
             return;
         }
@@ -64,7 +64,7 @@ public class ActorMovementController : MonoBehaviour
         {
             transform.position += 0.5f * _down;
             transform.position += 0.5f * _left;
-            _unityChan.transform.forward = new Vector3(0.5f, 0, 0.5f);
+            _unityChan.transform.forward = new Vector3(1f, 0, 1f);
             _animator.SetFloat("Speed", 0.5f);
             return;
         }

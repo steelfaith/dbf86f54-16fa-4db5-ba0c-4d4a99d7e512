@@ -4,7 +4,7 @@ namespace Assets.Scripts
 {
     public class LightController : MonoBehaviour
     {
-        public Light light;
+        public Light mainLight;
 
 
         private static LightController lightController;
@@ -22,11 +22,11 @@ namespace Assets.Scripts
 
         public void ChangeToNormalLight()
         {
-            light.color = new Color32(255,244,214,255);
+            mainLight.color = new Color32(255,244,214,255);
         }
         public void ChangeToPlanesLight()
         {
-            light.color = new Color32(200, 9, 221, 255);
+            mainLight.color = new Color32(200, 9, 221, 255);
         }
     }
 }

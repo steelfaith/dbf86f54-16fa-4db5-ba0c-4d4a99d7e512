@@ -88,6 +88,12 @@
     <Reference Include="System.Configuration">
       <HintPath>Assets\Plugins\System.Configuration.dll</HintPath>
     </Reference>
+    <Reference Include="System.Drawing">
+      <HintPath>Assets\Plugins\System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security">
+      <HintPath>Assets\Plugins\System.Security.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web">
       <HintPath>Assets\Plugins\System.Web.dll</HintPath>
     </Reference>
@@ -170,7 +176,6 @@
     <Compile Include="Assets\ServerStubHome\Colors.cs" />
     <Compile Include="Assets\ServerStubHome\DnaFactory.cs" />
     <Compile Include="Assets\ServerStubHome\KnownAttacks.cs" />
-    <Compile Include="Assets\ServerStubHome\MessageHandlers\ConnectionResponseHandler.cs" />
     <Compile Include="Assets\ServerStubHome\Monsters\DemonEnforcer.cs" />
     <Compile Include="Assets\ServerStubHome\Monsters\Dragonling.cs" />
     <Compile Include="Assets\ServerStubHome\Monsters\GreenSpider.cs" />
@@ -180,6 +185,7 @@
     <Compile Include="Assets\ServerStubHome\Monsters\RhinoVirus.cs" />
     <Compile Include="Assets\ServerStubHome\Monsters\RobotShockTrooper.cs" />
     <Compile Include="Assets\ServerStubHome\Monsters\Tripod.cs" />
+    <Compile Include="Assets\ServerStubHome\RemoteActorMovementAgent.cs" />
     <Compile Include="Assets\ServerStubHome\ServerStub.cs" />
     <Compile Include="Assets\UnityChan\Scripts\CameraController.cs" />
     <Compile Include="Assets\UnityChan\Scripts\FaceUpdate.cs" />

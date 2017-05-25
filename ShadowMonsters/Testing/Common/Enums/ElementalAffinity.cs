@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+﻿using UnityEngine;
 
 namespace Common.Enums
 {
@@ -18,43 +18,43 @@ namespace Common.Enums
     }
     public static class MonsterAffinityToColorExtension
     {
-        public static Color GetColorFromMonsterAffinity(this ElementalAffinity value)
+        public static Color32 GetColorFromMonsterAffinity(this ElementalAffinity value)
         {
-            Color colorReturn = Color.White;
+            Color32 colorReturn = new Color32(255,255,255,255);
             switch (value)
             {
                 case ElementalAffinity.Fae:
-                    colorReturn = Color.FromArgb(102, 0, 102);
+                    colorReturn = new Color32(102, 0, 102,255);
                     break;
                 case ElementalAffinity.Dragon:
-                    colorReturn = Color.FromArgb(0, 153, 76);
+                    colorReturn = new Color32(0, 153, 76,255);
                     break;
                 case ElementalAffinity.Light:
-                    colorReturn = Color.FromArgb(255, 239, 213);
+                    colorReturn = new Color32(255, 239, 213,255);
                     break;
                 case ElementalAffinity.Shadow:
-                    colorReturn = Color.FromArgb(119, 136, 153);
+                    colorReturn = new Color32(119, 136, 153,255);
                     break;
                 case ElementalAffinity.Demon:
-                    colorReturn = Color.FromArgb(128, 0, 0);
+                    colorReturn = new Color32(128, 0, 0,255);
                     break;
                 case ElementalAffinity.Mechanical:
-                    colorReturn = Color.FromArgb(192, 192, 192);
+                    colorReturn = new Color32(192, 192, 192,255);
                     break;
                 case ElementalAffinity.Wood:
-                    colorReturn = Color.FromArgb(160, 82, 45);
+                    colorReturn = new Color32(160, 82, 45,255);
                     break;
                 case ElementalAffinity.Wind:
-                    colorReturn = Color.FromArgb(188, 255, 250);
+                    colorReturn = new Color32(188, 255, 250,255);
                     break;
                 case ElementalAffinity.Fire:
-                    colorReturn = Color.FromArgb(204, 0, 0);
+                    colorReturn = new Color32(204, 0, 0,255);
                     break;
                 case ElementalAffinity.Water:
-                    colorReturn = Color.FromArgb(30, 144, 255);
+                    colorReturn = new Color32(30, 144, 255,255);
                     break;
                 case ElementalAffinity.Human:
-                    colorReturn = Color.FromArgb(255, 224, 189); //fleshy!
+                    colorReturn = new Color32(255, 224, 189,255); //fleshy!
                     break;
                 default:
                     break;

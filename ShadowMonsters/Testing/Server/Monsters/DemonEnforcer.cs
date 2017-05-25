@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
+using UnityEngine;
 using Common;
 using Common.Enums;
 using Common.Interface;
@@ -9,12 +9,12 @@ namespace Server.Monsters
 {
     public class DemonEnforcer : IMonsterDna
     {
-        Random _randomNumberGenerator = new Random();
+        System.Random _randomNumberGenerator = new System.Random();
         public DemonEnforcer()
         {
             ColorWheel = MonsterColors.EarthTones;
-            ColorWheel.Add(Color.FromArgb(255, 250, 250));
-            ColorWheel.Add(Color.FromArgb(0, 0, 0));
+            ColorWheel.Add(new Color32(255, 250, 250, 255));
+            ColorWheel.Add(new Color32(0, 0, 0,255));
             Color = ColorWheel[_randomNumberGenerator.Next(0, ColorWheel.Count)];
             MonsterAffinity = ElementalAffinity.Demon;
             MonsterId = Guid.NewGuid();
@@ -31,7 +31,7 @@ namespace Server.Monsters
 
         public List<Guid> AttackIds { get; set; }
 
-        public List<Color> ColorWheel { get; set; }
+        public List<Color32> ColorWheel { get; set; }
 
         public float CurrentHealth { get; set; }
 
@@ -66,6 +66,6 @@ namespace Server.Monsters
 
         public int TeamOrder { get; set; }
 
-        public Color Color { get; set; }
+        public Color32 Color { get; set; }
     }
 }

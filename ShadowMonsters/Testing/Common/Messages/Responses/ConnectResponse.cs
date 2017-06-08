@@ -10,7 +10,6 @@ namespace Common.Messages.Responses
         public override OperationCode OperationCode => OperationCode.ConnectResponse;
         public override int ClientId { get; set; }
         public ServerAnnouncement Announcement { get; set; }
-
         public List<string> Characters { get; set; }
 
     }

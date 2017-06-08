@@ -3,13 +3,15 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
 using Common;
+using Common.Messages.Requests;
 using Common.Networking.Sockets;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Server.Common.Interfaces;
 
 namespace Server
 {
-    public class WorldManager : IWorldManager
+    public class WorldManager : IWorldManager, IBuilderAware
     {
         private readonly IUnityContainer _container = new UnityContainer();
         private readonly ConcurrentDictionary<Guid, IWorldRegionInstance> _regions = new ConcurrentDictionary<Guid, IWorldRegionInstance>();
@@ -23,9 +25,6 @@ namespace Server
             _asyncSocketListener = asyncSocketListener;
             _instanceCoordinator = instanceCoordinator;
 
-            var authInstance = instanceCoordinator.CreateAuthenticationInstance();
-            _authInstances[authInstance.InstanceId] = authInstance;
-
             var worldRegion = instanceCoordinator.CreateWorldRegion();
             _regions[worldRegion.InstanceId] = worldRegion;
         }
@@ -35,10 +34,21 @@ namespace Server
             Task.Run(() => _asyncSocketListener.StartListening());
         }
 
-        public IWorldRegionInstance GetCharacterRegion(int userId)
+        public IWorldRegionInstance GetCharacterRegion(int clientId)
         {
-            var region = _regions.Values.First();//temporary lol
+            var region = _regions.Values.First();//temporary we need to calculate this in the future
             return region;    
+        }
+
+        public void OnBuiltUp(NamedTypeBuildKey buildKey)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnTearingDown()
+        {
+            var authInstance = _instanceCoordinator.CreateAuthenticationInstance();
+            _authInstances[authInstance.InstanceId] = authInstance;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Drawing;
 using Common;
 using Common.Enums;
 using Common.Interface;
@@ -9,7 +9,7 @@ namespace Server.Monsters
 {
     public class RobotShockTrooper : IMonsterDna
     {
-        System.Random _randomNumberGenerator = new System.Random();
+        Random _randomNumberGenerator = new Random();
         public RobotShockTrooper()
         {
             ColorWheel = MonsterColors.Metals;
@@ -29,7 +29,7 @@ namespace Server.Monsters
 
         public List<Guid> AttackIds { get; set; }
 
-        public List<Color32> ColorWheel { get; set; }
+        public List<Color> ColorWheel { get; set; }
 
         public float CurrentHealth { get; set; }
 
@@ -64,6 +64,6 @@ namespace Server.Monsters
 
         public int TeamOrder { get; set; }
 
-        public Color32 Color { get; set; }
+        public Color Color { get; set; }
     }
 }

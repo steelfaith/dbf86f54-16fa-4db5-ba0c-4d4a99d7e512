@@ -40,8 +40,8 @@ namespace Server.Instances
 
             var result = true; // need some implementation lol
 
-            //_connectionManager.Send(new RouteableMessage(routeableMessage.ConnectionId, new BattleInstanceRunResponse { Successful = result, ClientId = user.ClientId }));
-            user.ClientConnection.Send(new BattleInstanceRunResponse { Successful = result, ClientId = user.ClientId });
+            //_connectionManager.Send(new RouteableMessage(routeableMessage.ConnectionId, new BattleInstanceRunResponse { Successful = result, Id = user.Id }));
+            user.ClientConnection.Send(new BattleInstanceRunResponse { Successful = result, ClientId = user.Id });
         }
 
         

@@ -9,10 +9,10 @@ namespace Common.Messages.Events
         public override int ClientId { get; set; }
         public Dictionary<int, Vector3> UpdatedPositions { get; set; }
 
-        public PlayerMoveEvent(int clientId, Dictionary<int, Vector3> udpatedPositions)
+        public PlayerMoveEvent(Dictionary<int, Vector3> udpatedPositions)
         {
-            ClientId = clientId;
             UpdatedPositions = udpatedPositions;
         }
+
     }
 }

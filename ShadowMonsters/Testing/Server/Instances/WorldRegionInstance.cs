@@ -29,8 +29,7 @@ namespace Server.Instances
         private readonly IUserController _userController;
 
         public Guid InstanceId { get; }
-
-        private readonly ConcurrentDictionary<int, User> _users = new ConcurrentDictionary<int, User>();
+        private readonly ConcurrentDictionary<int, Character> _characters = new ConcurrentDictionary<int, Character>();
 
         [Dependency]
         public IUserController UserController { get; set; }
@@ -46,12 +45,14 @@ namespace Server.Instances
             _regionTick = new Timer(Tick, null, 100, Timeout.Infinite);
         }
 
-        public void SubscribeToRegion(User user)
+        public void SubscribeToRegion(Character character)
         {
-            if (user.ActiveCharacter == null)
-                throw new ArgumentNullException(nameof(user));
+            if (character == null)
+                throw new ArgumentNullException(nameof(character));
 
-            _users[user.ClientId] = user;
+            _characters[character.UserId] = character;
+
+            Broadcast(new PlayerConnectedEvent());
         }
 
         public void Move(RouteableMessage routeableMessage)
@@ -63,19 +64,17 @@ namespace Server.Instances
 
             var user = _userController.GetUserByClientId(request.ClientId);
 
-            MovePlayer(user.ClientId, request.Position);
+            MovePlayer(user.Id, request.Position);
         }
 
         public void MovePlayer(int userId, Vector3 newPosition)
         {
-            User user;
-            if (!_users.TryGetValue(userId, out user))
+            Character character;
+            if (!_characters.TryGetValue(userId, out character))
                 return;
 
-            user.ActiveCharacter.NextPosition = newPosition;
+            character.NextPosition = newPosition;
             //validate new postion after looking up character
-            //eventually double check here with an accumulator 
-
         }
 
         private void Tick(object state)
@@ -84,18 +83,15 @@ namespace Server.Instances
             {
                 Dictionary<int, Vector3> updatedPositions = new Dictionary<int, Vector3>();
 
-                foreach (var user in _users.Values)
+                foreach (var character in _characters.Values)
                 {
-                    user.ActiveCharacter.CurrentPosition = user.ActiveCharacter.NextPosition.GetValueOrDefault();
-                    user.ActiveCharacter.NextPosition = null;
+                    character.CurrentPosition = character.NextPosition.GetValueOrDefault();
+                    character.NextPosition = null;
 
-                    updatedPositions.Add(user.ClientId, user.ActiveCharacter.CurrentPosition);
+                    updatedPositions.Add(character.UserId, character.CurrentPosition);
                 }
-
-                Parallel.ForEach(_users.Values, (user) =>
-                {
-                    user.ClientConnection.Send(new PlayerMoveEvent(user.ClientId, updatedPositions));
-                });
+                
+                Broadcast(new PlayerMoveEvent(updatedPositions));
             }
             catch (Exception ex)
             {
@@ -104,6 +100,24 @@ namespace Server.Instances
             finally
             {
                 _regionTick.Change(100, Timeout.Infinite);
+            }
+
+        }
+
+        private void Broadcast(Message message)
+        {
+            try
+            {
+                Parallel.ForEach(_characters.Values, (character) =>
+                {
+                    var user = _userController.GetUserByClientId(character.UserId);
+                    message.ClientId = user.Id;
+                    user.ClientConnection.Send(message);
+                });
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
             }
 
         }

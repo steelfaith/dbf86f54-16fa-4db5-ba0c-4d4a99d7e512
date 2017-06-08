@@ -5,7 +5,7 @@ namespace Server.Common.Interfaces
 {
     public interface IWorldRegionInstance : IServerInstance
     {
-        void SubscribeToRegion(User user);
+        void SubscribeToRegion(Character character);
         void Move(RouteableMessage routeableMessage);
     }
 }

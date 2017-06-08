@@ -9,12 +9,11 @@ namespace Server.Common
     {
         public Guid? RegionInstanceId { get; set; }
         public Guid? BattleInstanceId { get; set; }
-        public int ClientId { get; }
+        public int Id { get; }
         public IClientConnection ClientConnection { get; }
-        public Character ActiveCharacter { get; set; }
-        public User(int clientId, IClientConnection clientConnection)
+        public User(int id, IClientConnection clientConnection)
         {
-            ClientId = clientId;
+            Id = id;
             ClientConnection = clientConnection;
         }
     }

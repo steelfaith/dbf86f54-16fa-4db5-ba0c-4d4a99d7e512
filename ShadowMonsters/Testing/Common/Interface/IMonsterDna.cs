@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using Common.Enums;
-using UnityEngine;
 
 namespace Common.Interface
 {
@@ -9,7 +9,7 @@ namespace Common.Interface
     {
         float Attack { get; set; }
         List<Guid> AttackIds { get; set; }
-        List<Color32> ColorWheel { get; set; }
+        List<Color> ColorWheel { get; set; }
         float CurrentHealth { get; set; }
         float Defense { get; set; }
         string DisplayName { get; }
@@ -25,6 +25,6 @@ namespace Common.Interface
         MonsterSize Sizing { get; set; }
         float Speed { get; set; }
         int TeamOrder { get; set; }
-        Color32 Color { get; set; }
+        Color Color { get; set; }
     }
 }

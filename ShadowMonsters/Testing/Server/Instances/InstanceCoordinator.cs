@@ -51,8 +51,8 @@ namespace Server.Instances
 
             user.BattleInstanceId = CreateBattleInstance();
 
-            //_connectionManager.Send(new RouteableMessage(routeableMessage.ConnectionId, new CreateBattleInstanceResponse { ClientId = user.ClientId }));
-            user.ClientConnection.Send(new CreateBattleInstanceResponse { ClientId = user.ClientId });
+            //_connectionManager.Send(new RouteableMessage(routeableMessage.ConnectionId, new CreateBattleInstanceResponse { Id = user.Id }));
+            user.ClientConnection.Send(new CreateBattleInstanceResponse { ClientId = user.Id });
         }
 
         public IBattleInstance GetBattleInstance(Guid instanceId)

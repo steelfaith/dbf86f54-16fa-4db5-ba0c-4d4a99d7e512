@@ -12,7 +12,6 @@ namespace Server
         private static readonly ILog Logger = LogManager.GetLogger(typeof(ConnectionManager));
         private static readonly AsyncLogger AsyncLogger = new AsyncLogger(Logger);
         private readonly ConcurrentDictionary<Guid, IClientConnection> _connections = new ConcurrentDictionary<Guid, IClientConnection>();
-        private readonly object _lock = new object();
 
         public void AddConnection(IClientConnection clientConnection)
         {
@@ -39,22 +38,5 @@ namespace Server
 
             return null;
         }
-
-        //public void Send(RouteableMessage routeableMessage)
-        //{
-        //    if(routeableMessage == null)
-        //        throw new ArgumentNullException(nameof(routeableMessage));
-
-        //    lock (_lock)
-        //    {
-        //        IClientConnection connection = null;
-        //        if (_connections.TryGetValue(routeableMessage.ConnectionId, out connection))
-        //            connection.Send(routeableMessage.Message);//turn message into bytes
-        //        else
-        //            AsyncLogger.InfoFormat($"Unable to find connection with Id {routeableMessage.ConnectionId}");
-        //    }
-
-        //}
-
     }
 }

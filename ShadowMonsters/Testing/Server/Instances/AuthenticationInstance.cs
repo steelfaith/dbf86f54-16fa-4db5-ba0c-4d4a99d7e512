@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Linq;
 using Common;
 using Common.Messages.Requests;
@@ -13,16 +14,18 @@ namespace Server.Instances
     {
         private readonly IConnectionManager _connectionManager;
         private readonly IUserController _userController;
+        private readonly IWorldManager _worldManager;
 
         public Guid InstanceId { get; }
 
-        public AuthenticationInstance(IMessageHandlerRegistrar messageHandlerRegistrar, IConnectionManager connectionManager, IUserController userController)
+        public AuthenticationInstance(IMessageHandlerRegistrar messageHandlerRegistrar, IWorldManager worldManager, IConnectionManager connectionManager, IUserController userController)
         {
             InstanceId = Guid.NewGuid();
             messageHandlerRegistrar.Register(OperationCode.ConnectRequest, Login);
             messageHandlerRegistrar.Register(OperationCode.SelectCharacterRequest, CharacterSelected);
             _connectionManager = connectionManager;
             _userController = userController;
+            _worldManager = worldManager;
         }
 
         public void Login(RouteableMessage routeableMessage)
@@ -43,7 +46,7 @@ namespace Server.Instances
 
             var results = _userController.GetCharacters(request.ClientId);
 
-            //_connectionManager.Send(new RouteableMessage(routeableMessage.ConnectionId, new ConnectResponse { ClientId = request.ClientId, Characters = results.Select(x => x.Name).ToList() }));
+            //_connectionManager.Send(new RouteableMessage(routeableMessage.ConnectionId, new ConnectResponse { Id = request.Id, Characters = results.Select(x => x.Name).ToList() }));
             user.ClientConnection.Send(new ConnectResponse { ClientId = request.ClientId, Characters = results.Select(x => x.Name).ToList() });
         }
         public void CharacterSelected(RouteableMessage routeableMessage)
@@ -55,12 +58,11 @@ namespace Server.Instances
 
             var user = _userController.GetUserByClientId(request.ClientId);
 
-            //var currentRegion = WorldManager.GetCharacterRegion(request.ClientId);
+            var currentRegion = _worldManager.GetCharacterRegion(request.ClientId);
+            
+            var character = new Character (1, user.Id) { WorldRegionInstance = currentRegion, CurrentPosition = new Vector3(),Name = request.CharacterName };
+            currentRegion.SubscribeToRegion(character);
 
-            //currentRegion.SubscribeToRegion(user);
-            //user.ActiveCharacter = new Character { WorldRegionInstance = currentRegion, CurrentPosition = new Vector3(), UserId = user.ClientId, Name = request.CharacterName };
-
-            //_connectionManager.Send(new RouteableMessage(routeableMessage.ConnectionId, new SelectCharacterResponse(request.ClientId, true)));
             user.ClientConnection.Send(new SelectCharacterResponse(request.ClientId, true));
         }
 

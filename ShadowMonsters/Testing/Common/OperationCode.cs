@@ -12,5 +12,7 @@
         SelectCharacterRequest = 8,
         SelectCharacterResponse = 9,
         PlayerMoveEvent = 10,
+        ShadowCreatedEvent = 11,
+        PlayerConnectedEvent = 12,
     }
 }

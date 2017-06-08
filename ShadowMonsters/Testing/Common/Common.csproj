@@ -36,9 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="UnityEngine">
-      <HintPath>..\..\Library\UnityAssemblies\UnityEngine.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoundingBox.cs" />
@@ -54,7 +52,9 @@
     <Compile Include="Interface\IMonsterDna.cs" />
     <Compile Include="Logging\AsyncLogger.cs" />
     <Compile Include="Message.cs" />
+    <Compile Include="Messages\Events\PlayerConnectedEvent.cs" />
     <Compile Include="Messages\Events\PlayerMoveEvent.cs" />
+    <Compile Include="Messages\Events\ShadowCreatedEvent.cs" />
     <Compile Include="Messages\Requests\BattleInstanceRunRequest.cs" />
     <Compile Include="Messages\Requests\ConnectRequest.cs" />
     <Compile Include="Messages\Requests\CreateBattleInstanceRequest.cs" />

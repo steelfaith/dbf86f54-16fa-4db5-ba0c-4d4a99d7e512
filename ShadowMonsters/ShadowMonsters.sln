@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadowMonsters", "ShadowMonsters.csproj", "{6AC17F35-2B60-DCFE-43C1-ADDD5F3F897F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadowMonsters.CSharp", "ShadowMonsters.CSharp.csproj", "{0776F2FE-AF78-FD51-25D7-FC72FD4E59EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6AC17F35-2B60-DCFE-43C1-ADDD5F3F897F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6AC17F35-2B60-DCFE-43C1-ADDD5F3F897F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6AC17F35-2B60-DCFE-43C1-ADDD5F3F897F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6AC17F35-2B60-DCFE-43C1-ADDD5F3F897F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0776F2FE-AF78-FD51-25D7-FC72FD4E59EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0776F2FE-AF78-FD51-25D7-FC72FD4E59EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0776F2FE-AF78-FD51-25D7-FC72FD4E59EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0776F2FE-AF78-FD51-25D7-FC72FD4E59EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

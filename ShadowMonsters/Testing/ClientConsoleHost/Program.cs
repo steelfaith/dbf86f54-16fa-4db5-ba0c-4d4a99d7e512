@@ -76,8 +76,8 @@ namespace ClientConsoleHost
             if (_asyncSocketConnector.IsConnected)
             {
                 var clientId = 2;
-                connectHandler.SendSynchronousMessage(new ConnectRequest(clientId));
-                characterHandler.SendSynchronousMessage(new SelectCharacterRequest(clientId, "TestName"));
+                connectHandler.SendSynchronousMessage(new ConnectRequest());
+                characterHandler.SendSynchronousMessage(new SelectCharacterRequest("TestName"));
             }
         }
 
@@ -97,9 +97,8 @@ namespace ClientConsoleHost
 
             if (_asyncSocketConnector.IsConnected)
             {
-                var clientId = 2;
-                connectHandler.SendSynchronousMessage(new ConnectRequest(clientId));
-                instanceHandler.SendSynchronousMessage(new CreateBattleInstanceRequest(clientId));
+                connectHandler.SendSynchronousMessage(new ConnectRequest { ClientId = 2 });
+                instanceHandler.SendSynchronousMessage(new CreateBattleInstanceRequest());
             }
         }
 

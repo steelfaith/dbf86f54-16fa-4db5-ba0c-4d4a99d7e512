@@ -10,9 +10,8 @@ namespace Common.Messages.Requests
         public override int ClientId { get; set; }
         public Vector3 Position { get; set; }
 
-        public PlayerMoveRequest(int clientId, Vector3 position)
+        public PlayerMoveRequest(Vector3 position)
         {
-            ClientId = clientId;
             Position = position;
         }
     }

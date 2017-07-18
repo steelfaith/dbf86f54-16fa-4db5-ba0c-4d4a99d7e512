@@ -13,9 +13,11 @@ namespace Assets.ServerStubHome
         NetworkConnector _connection;
         private static ClientConnectionManager _clientConnectionManager;
 
+        public int ClientId { get; set; }
 
         private void Start()
         {
+            Application.runInBackground = true;
             _connection = new NetworkConnector();
             _connection.Connect();
             InstantiateAgents();
@@ -39,6 +41,7 @@ namespace Assets.ServerStubHome
 
         public void SendMessage(Message message)
         {
+            message.ClientId = ClientId;
             _connection.SendMessage(message);
         }
 

@@ -15,6 +15,8 @@ namespace Server.Instances
         private readonly IConnectionManager _connectionManager;
         private readonly IUserController _userController;
         private readonly IWorldManager _worldManager;
+        private int _clientIds;
+        private object _clientLock = new object();
 
         public Guid InstanceId { get; }
 
@@ -40,8 +42,13 @@ namespace Server.Instances
             if(connection == null)
                 throw new ArgumentException("Failed to find client connection.");
 
-            var user = new User(request.ClientId, connection);
+            lock (_clientLock)
+            {
+                _clientIds++;
+                request.ClientId = _clientIds;//TODO: remove this once we have some real auth in place
+            }
 
+            var user = new User(request.ClientId, connection);
             _userController.AddUser(user);
 
             var results = _userController.GetCharacters(request.ClientId);

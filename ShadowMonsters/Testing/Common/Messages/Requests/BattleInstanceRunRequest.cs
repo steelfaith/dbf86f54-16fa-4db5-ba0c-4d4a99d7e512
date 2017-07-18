@@ -9,9 +9,8 @@ namespace Common.Messages.Requests
         public override OperationCode OperationCode => OperationCode.BattleInstanceRunRequest;
         public override int ClientId { get; set; }
 
-        public BattleInstanceRunRequest(int clientId)
+        public BattleInstanceRunRequest()
         {
-            ClientId = clientId;
         }
     }
 }

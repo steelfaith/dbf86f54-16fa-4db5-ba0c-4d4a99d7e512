@@ -10,9 +10,8 @@ namespace Common.Messages.Requests
         public override int ClientId { get; set; }
         public string CharacterName { get; set; }
 
-        public SelectCharacterRequest(int clientId, string characterName)
+        public SelectCharacterRequest(string characterName)
         {
-            ClientId = clientId;
             CharacterName = characterName;
         }
     }

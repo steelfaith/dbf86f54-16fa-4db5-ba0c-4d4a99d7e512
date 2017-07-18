@@ -54,7 +54,7 @@ public class ActorMovementController : MonoBehaviour
                 Z = transform.position.z
             };
 
-            _clientConnectionManager.SendMessage(new PlayerMoveRequest(1, serverVector));
+            _clientConnectionManager.SendMessage(new PlayerMoveRequest(serverVector));
         }
 
 	}

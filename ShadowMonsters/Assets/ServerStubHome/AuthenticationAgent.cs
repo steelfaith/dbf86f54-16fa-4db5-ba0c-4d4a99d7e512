@@ -31,7 +31,7 @@ namespace Assets.ServerStubHome
 
         public void Login()
         {
-            _connectionManager.SendMessage(new ConnectRequest(1));
+            _connectionManager.SendMessage(new ConnectRequest());
         }
 
         private void Update()
@@ -48,7 +48,9 @@ namespace Assets.ServerStubHome
                 return;
 
             _serverWelcomeQueue.Enqueue(response.Announcement);
-            _connectionManager.SendMessage(new SelectCharacterRequest(1, "BMoney!"));
+            _connectionManager.ClientId = response.ClientId;
+
+            _connectionManager.SendMessage(new SelectCharacterRequest("BMoney!"));
         }
 
         public void HandleSelectCharacterResponse(RouteableMessage routeableMessage)

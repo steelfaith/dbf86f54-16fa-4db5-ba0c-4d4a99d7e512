@@ -15,6 +15,9 @@ namespace Assets.ServerStubHome
         private ClientConnectionManager _connectionManager;
         private static RemoteActorMovementAgent _remoteActorMovementAgent;
 
+        private readonly Dictionary<int, GameObject> _remotePlayers = new Dictionary<int, GameObject>();
+        private Queue<Dictionary<int, Common.Vector3>> _remoteMovementQueue = new Queue<Dictionary<int, Common.Vector3>>();
+
         private void Awake()
         {
             _connectionManager = GetComponentInParent<ClientConnectionManager>();
@@ -26,7 +29,8 @@ namespace Assets.ServerStubHome
 
         private void Update()
         {
-            //StartCoroutine(DoNothing());
+            if (_remoteMovementQueue.Count > 0)
+                StartCoroutine(DontCrashLOL());
         }
 
         private void FixedUpdate()
@@ -40,6 +44,9 @@ namespace Assets.ServerStubHome
 
             if (response == null)
                 return;
+
+            if(response.UpdatedPositions != null && response.UpdatedPositions.Count > 0)
+                _remoteMovementQueue.Enqueue(response.UpdatedPositions);
         }
 
         public static RemoteActorMovementAgent Instance()
@@ -51,9 +58,33 @@ namespace Assets.ServerStubHome
             return _remoteActorMovementAgent;
         }
 
-        public IEnumerator DoNothing()
+        public IEnumerator DontCrashLOL()
         {
-            yield return null;
+            if (_remoteMovementQueue.Count > 0)
+            {
+                var updatedPositions = _remoteMovementQueue.Dequeue();
+
+                if (updatedPositions == null)
+                    yield return null;
+
+                foreach (var item in updatedPositions)
+                {
+                    if (item.Key != _connectionManager.ClientId)
+                    {
+                        if (!_remotePlayers.ContainsKey(item.Key))
+                        {
+                            GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                            sphere.transform.position = new UnityEngine.Vector3(item.Value.X, item.Value.Y, item.Value.Z);
+                            _remotePlayers.Add(item.Key, sphere);
+                        }
+                        else
+                        {
+                            _remotePlayers[item.Key].transform.position = new UnityEngine.Vector3(item.Value.X, item.Value.Y, item.Value.Z);
+                        }
+                    }
+                }
+            }
+
         }
     }
 }

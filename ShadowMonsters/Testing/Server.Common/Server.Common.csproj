@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
@@ -68,6 +72,7 @@
     <Compile Include="Interfaces\IWorldRegionInstance.cs" />
     <Compile Include="Interfaces\IUserController.cs" />
     <Compile Include="Interfaces\IUsersStorageProvider.cs" />
+    <Compile Include="Logging\AsyncLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StorageProviderException.cs" />
     <Compile Include="User.cs" />

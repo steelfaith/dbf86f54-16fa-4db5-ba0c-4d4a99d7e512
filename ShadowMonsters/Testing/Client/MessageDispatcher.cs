@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-using log4net;
 
 namespace Common.Networking
 {
@@ -12,8 +11,8 @@ namespace Common.Networking
     /// </summary>
     public class MessageDispatcher : IMessageDispatcher
     {
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(MessageDispatcher));
-        private static readonly AsyncLogger AsyncLogger = new AsyncLogger(Logger);
+        //private static readonly ILog Logger = LogManager.GetLogger(typeof(MessageDispatcher));
+        //private static readonly AsyncLogger AsyncLogger = new AsyncLogger(Logger);
         private readonly Queue<RouteableMessage> _incomingMessages = new Queue<RouteableMessage>();
         private readonly AutoResetEvent _messageEvent = new AutoResetEvent(false);
 
@@ -48,7 +47,7 @@ namespace Common.Networking
                 }
                 catch (Exception ex)
                 {
-                    AsyncLogger.Error(ex.Message);
+                    //AsyncLogger.Error(ex.Message);
                     throw;
                 }
             }
@@ -63,7 +62,7 @@ namespace Common.Networking
             }
             catch (Exception ex)
             {
-                AsyncLogger.Error(ex.Message);
+                //AsyncLogger.Error(ex.Message);
                 throw;
             }
         }

@@ -4,6 +4,7 @@ using Common;
 using Common.Networking;
 using log4net;
 using Server.Common.Interfaces;
+using Server.Common.Logging;
 
 namespace Server
 {

@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Net.Sockets;
 using Common;
-using log4net;
+
+//using log4net;
 
 namespace Common.Networking.Sockets
 {
     public class TcpConnection : ITcpConnection
     {
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(TcpConnection));
-        private static readonly AsyncLogger AsyncLogger = new AsyncLogger(Logger);
+        //private static readonly ILog Logger = LogManager.GetLogger(typeof(TcpConnection));
+        //private static readonly AsyncLogger AsyncLogger = new AsyncLogger(Logger);
 
-        public Guid Id { get; } 
+        public Guid Id { get; }
         public Socket Socket { get; }
 
         public int BufferSize = 1024; //tweak this value based on array expansion?
@@ -51,7 +52,7 @@ namespace Common.Networking.Sockets
         {
             try
             {
-                TcpConnection tcpConnection = (TcpConnection)ar.AsyncState;
+                TcpConnection tcpConnection = (TcpConnection) ar.AsyncState;
                 Socket handler = tcpConnection.Socket;
 
                 int bytesRead = handler.EndReceive(ar);
@@ -60,17 +61,18 @@ namespace Common.Networking.Sockets
                 {
                     tcpConnection.AppendData(tcpConnection.Buffer, bytesRead, tcpConnection.Id);
                     //AsyncLogger.InfoFormat("Read {0} bytes for client {1}", bytesRead, tcpConnection.Id);
-                    handler.BeginReceive(tcpConnection.Buffer, 0, tcpConnection.BufferSize, 0, ReadCallback, tcpConnection);
+                    handler.BeginReceive(tcpConnection.Buffer, 0, tcpConnection.BufferSize, 0, ReadCallback,
+                        tcpConnection);
                 }
                 else
                 {
-                    Logger.ErrorFormat("End received returned a 0.");//pretty sure this means the client is dead
+                    //Logger.ErrorFormat("End received returned a 0.");//pretty sure this means the client is dead
                     //look at possible clean up later
                 }
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                //Logger.Error(ex);
             }
 
         }
@@ -85,7 +87,7 @@ namespace Common.Networking.Sockets
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                //Logger.Error(ex);
             }
 
         }
@@ -97,16 +99,16 @@ namespace Common.Networking.Sockets
                 var connection = ar.AsyncState as TcpConnection;
                 if (connection == null)
                 {
-                    Logger.Error("Null connection state.");
+                    //Logger.Error("Null connection state.");
                     return;
                 }
 
                 int bytesSent = connection.Socket.EndSend(ar);
-                AsyncLogger.InfoFormat("Sent {0} bytes to client {1}.", bytesSent, connection.Id);
+                //AsyncLogger.InfoFormat("Sent {0} bytes to client {1}.", bytesSent, connection.Id);
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                //Logger.Error(ex);
             }
         }
 
@@ -131,8 +133,10 @@ namespace Common.Networking.Sockets
                 else
                 {
                     var appendedData = new byte[_receivedData.Length + bytesRead];
-                    System.Buffer.BlockCopy(_receivedData, 0, appendedData, 0, _receivedData.Length);//block copy the existing data
-                    System.Buffer.BlockCopy(data, 0, appendedData, _receivedData.Length, bytesRead); //block copy the new data
+                    System.Buffer.BlockCopy(_receivedData, 0, appendedData, 0, _receivedData.Length);
+                        //block copy the existing data
+                    System.Buffer.BlockCopy(data, 0, appendedData, _receivedData.Length, bytesRead);
+                        //block copy the new data
                     _receivedData = appendedData;
                 }
 
@@ -143,12 +147,20 @@ namespace Common.Networking.Sockets
                 if (_expectedMessageLength.HasValue && _receivedData.Length >= _expectedMessageLength)
                 {
                     byte[] fullMessage = new byte[_expectedMessageLength.Value];
-                    System.Buffer.BlockCopy(_receivedData, Constants.MessageHeaderLength, fullMessage, 0, _expectedMessageLength.Value);
+                    System.Buffer.BlockCopy(_receivedData, Constants.MessageHeaderLength, fullMessage, 0,
+                        _expectedMessageLength.Value);
 
-                    var message = Utilities.DeserailizeMessage(fullMessage);
+                    try
+                    {
+                        var message = Utilities.DeserailizeMessage(fullMessage);
 
-                    if (message != null)
-                        _dispatcher.DispatchMessage(new RouteableMessage(connectionId, message));
+                        if (message != null)
+                            _dispatcher.DispatchMessage(new RouteableMessage(connectionId, message));
+                    }
+                    catch (Exception)
+                    {
+                        
+                    }
 
                     int leftoverData = _receivedData.Length - _expectedMessageLength.Value - Constants.MessageHeaderLength;
 

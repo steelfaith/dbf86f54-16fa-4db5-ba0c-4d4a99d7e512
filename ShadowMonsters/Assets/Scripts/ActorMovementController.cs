@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using Assets.Scripts;
+using Assets.ServerStubHome;
 using Common.Enums;
+using Common.Messages.Requests;
 
 public class ActorMovementController : MonoBehaviour
 {
@@ -13,10 +15,13 @@ public class ActorMovementController : MonoBehaviour
 
     private GameObject _unityChan;
     private TextLogDisplayManager textLogDisplayManager;
+    private ClientConnectionManager _clientConnectionManager;
 
     // Use this for initialization
     void Start ()
     {
+        _clientConnectionManager = FindObjectOfType(typeof(ClientConnectionManager)) as ClientConnectionManager;
+
         textLogDisplayManager = TextLogDisplayManager.Instance();
         _up = new Vector3(0, 0, -1f*ScaleFactor);
         _down = new Vector3(0, 0, 1f*ScaleFactor);
@@ -33,78 +38,96 @@ public class ActorMovementController : MonoBehaviour
         if (!_animator.isInitialized) return;
         _animator.SetFloat("Speed", 0.0f);
 
-	    if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
-	    {
-            transform.position += 0.5f * _up;
-	        transform.position += 0.5f * _right;
-            _unityChan.transform.forward = new Vector3(-1f, 0, -1f);
-            _animator.SetFloat("Speed", 0.5f);
-	        return;
-	    }
+	    var position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+	    Vector3 forward = new Vector3();
+
+	    GenerateDirectionalVetors(ref position, ref forward);
+
+        if (transform.position != position)
+        {
+            UpdateTransform(position, forward);
+
+            var serverVector = new Common.Vector3
+            {
+                X = transform.position.x,
+                Y = transform.position.y,
+                Z = transform.position.z
+            };
+
+            _clientConnectionManager.SendMessage(new PlayerMoveRequest(1, serverVector));
+        }
+
+	}
+
+    private void GenerateDirectionalVetors(ref Vector3 position, ref Vector3 forward)
+    {
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
+        {
+            position += 0.5f * _up;
+            position += 0.5f * _right;
+            forward = new Vector3(-1f, 0, -1f);
+            return;
+        }
 
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
         {
-            transform.position += 0.5f * _up;
-            transform.position += 0.5f * _left;
-            _unityChan.transform.forward = new Vector3(1f, 0, -1f);
-            _animator.SetFloat("Speed", 0.5f);
+            position += 0.5f * _up;
+            position += 0.5f * _left;
+            forward = new Vector3(1f, 0, -1f);
             return;
         }
 
         if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
         {
-            transform.position += 0.5f * _down;
-            transform.position += 0.5f * _right;
-            _unityChan.transform.forward = new Vector3(-1f, 0, 1f);
-            _animator.SetFloat("Speed", 0.5f);
+            position += 0.5f * _down;
+            position += 0.5f * _right;
+            forward = new Vector3(-1f, 0, 1f);
             return;
         }
 
         if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A))
         {
-            transform.position += 0.5f * _down;
-            transform.position += 0.5f * _left;
-            _unityChan.transform.forward = new Vector3(1f, 0, 1f);
-            _animator.SetFloat("Speed", 0.5f);
+            position += 0.5f * _down;
+            position += 0.5f * _left;
+            forward = new Vector3(1f, 0, 1f);
             return;
         }
 
         if (Input.GetKey(KeyCode.W))
-	    {
-            transform.position += _up;
-            //transform.Rotate(0.0f, 180.0f, 0.0f);
-            _unityChan.transform.forward = new Vector3(0,0,-1f);
-            _animator.SetFloat("Speed", 0.5f);
+        {
+            position += _up;
+            forward = new Vector3(0, 0, -1f);
             return;
         }
 
-	    if (Input.GetKey(KeyCode.A))
-	    {
-            transform.position += _left;
-            //transform.Rotate(0.0f, 90.0f, 0.0f);
-            _unityChan.transform.forward = new Vector3(1f, 0, 0);
-            _animator.SetFloat("Speed", 0.5f);
+        if (Input.GetKey(KeyCode.A))
+        {
+            position += _left;
+            forward = new Vector3(1f, 0, 0);
             return;
         }
 
-	    if (Input.GetKey(KeyCode.S))
-	    {
-            transform.position += _down;
-            //transform.Rotate(0.0f, 0.0f, 0.0f);
-            _unityChan.transform.forward = new Vector3(0, 0, 1f);
-            _animator.SetFloat("Speed", 0.5f);
+        if (Input.GetKey(KeyCode.S))
+        {
+            position += _down;
+            forward = new Vector3(0, 0, 1f);
             return;
         }
 
-	    if (Input.GetKey(KeyCode.D))
-	    {
-            transform.position += _right;
-            //transform.Rotate(0.0f, 270.0f, 0.0f);
-            _unityChan.transform.forward = new Vector3(-1f, 0, 0);
-            _animator.SetFloat("Speed", 0.5f);
+        if (Input.GetKey(KeyCode.D))
+        {
+            position += _right;
+            forward = new Vector3(-1f, 0, 0);
             return;
         }
-	}
+    }
+
+    private void UpdateTransform(Vector3 newPosition, Vector3 forward)
+    {
+        transform.position = newPosition;
+        _unityChan.transform.forward = forward;
+        _animator.SetFloat("Speed", 0.5f);
+    }
 
     /// <summary>
     /// this is exclusively used by rigid bodies

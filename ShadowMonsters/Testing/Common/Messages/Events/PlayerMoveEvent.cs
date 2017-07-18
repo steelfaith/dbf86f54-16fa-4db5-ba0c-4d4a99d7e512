@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Common.Messages.Events
 {
+    [Serializable]
     public class PlayerMoveEvent : Message
     {
         public override OperationType OperationType => OperationType.Event;

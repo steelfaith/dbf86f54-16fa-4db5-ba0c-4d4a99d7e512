@@ -40,14 +40,25 @@ namespace Assets.ServerStubHome
                 StartCoroutine(CheckForMessageUpdates());
         }
 
-        public void HandleAnnouncement(RouteableMessage routeableMessage)
+        public void HandleConnectionResponse(RouteableMessage routeableMessage)
         {
             ConnectResponse response = routeableMessage.Message as ConnectResponse;
 
             if (response == null)
                 return;
 
-            _serverWelcomeQueue.Enqueue(response.Announcement);  
+            _serverWelcomeQueue.Enqueue(response.Announcement);
+            _connectionManager.SendMessage(new SelectCharacterRequest(1, "BMoney!"));
+        }
+
+        public void HandleSelectCharacterResponse(RouteableMessage routeableMessage)
+        {
+            SelectCharacterResponse response = routeableMessage.Message as SelectCharacterResponse;
+
+            if (response == null)
+                return;
+
+            //ummm do something i guess no idea what yet
         }
 
         public IEnumerator CheckForMessageUpdates()

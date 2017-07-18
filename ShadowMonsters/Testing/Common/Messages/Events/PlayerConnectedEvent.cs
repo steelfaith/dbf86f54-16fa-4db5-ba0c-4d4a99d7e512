@@ -1,5 +1,8 @@
-﻿namespace Common.Messages.Events
+﻿using System;
+
+namespace Common.Messages.Events
 {
+    [Serializable]
     public class PlayerConnectedEvent : Message
     {
         public override OperationType OperationType => OperationType.Event;

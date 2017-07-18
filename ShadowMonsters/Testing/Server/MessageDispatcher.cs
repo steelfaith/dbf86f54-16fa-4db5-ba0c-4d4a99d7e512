@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Threading;
 using Common;
 using log4net;
+using Server.Common.Logging;
 
 namespace Server
 {
@@ -39,7 +40,10 @@ namespace Server
                     if (_incomingMessages.TryDequeue(out routeableMessage))
                     {
                         var handler = _messageHandlerRegistrar.Resolve(routeableMessage.Message.OperationCode);
-                        handler?.Invoke(routeableMessage);
+                        if(handler == null)
+                            AsyncLogger.WarnFormat("No handler found for operationcode {0}", routeableMessage.Message.OperationCode);
+                        else
+                            handler.Invoke(routeableMessage);
 
                         //AsyncLogger.InfoFormat("Attempting to process a message");
                         //AsyncLogger.InfoFormat("Message Type {0} Message Op Code {1} Content Length {2}"

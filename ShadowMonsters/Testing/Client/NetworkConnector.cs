@@ -4,13 +4,12 @@ using System.Net.Sockets;
 using Common;
 using Common.Networking;
 using Common.Networking.Sockets;
-using log4net;
 
 namespace Client
 {
     public class NetworkConnector
     {
-        private readonly ILog _logger = LogManager.GetLogger(typeof(NetworkConnector));
+        //private readonly ILog _logger = LogManager.GetLogger(typeof(NetworkConnector));
         private readonly AsyncSocketConnector _asyncSocketConnector;
         private readonly IMessageHandlerRegistrar _messageHandlerRegistrar;
         private readonly IPAddress _localAddress;
@@ -53,8 +52,8 @@ namespace Client
         {
             if (_asyncSocketConnector.IsConnected)
                 _asyncSocketConnector.Send(message);
-            else
-                _logger.ErrorFormat("Failed to send message, client is not connected.");
+            //else
+            //    _logger.ErrorFormat("Failed to send message, client is not connected.");
 
 
         }

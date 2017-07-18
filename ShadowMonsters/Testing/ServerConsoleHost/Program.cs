@@ -25,6 +25,7 @@ namespace ServerConsoleHost
             var container = UnityRegistrar.GetUnityContainer();
 
             var manager = container.Resolve<IWorldManager>();
+            manager.OnBuiltUp(null);
             manager.Start();
 
             Console.WriteLine("Press enter to exit.");

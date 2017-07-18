@@ -11,7 +11,7 @@ using Server.Common.Interfaces;
 
 namespace Server
 {
-    public class WorldManager : IWorldManager, IBuilderAware
+    public class WorldManager : IWorldManager
     {
         private readonly IUnityContainer _container = new UnityContainer();
         private readonly ConcurrentDictionary<Guid, IWorldRegionInstance> _regions = new ConcurrentDictionary<Guid, IWorldRegionInstance>();
@@ -42,13 +42,13 @@ namespace Server
 
         public void OnBuiltUp(NamedTypeBuildKey buildKey)
         {
-            throw new NotImplementedException();
+            var authInstance = _instanceCoordinator.CreateAuthenticationInstance();
+            _authInstances[authInstance.InstanceId] = authInstance;
         }
 
         public void OnTearingDown()
         {
-            var authInstance = _instanceCoordinator.CreateAuthenticationInstance();
-            _authInstances[authInstance.InstanceId] = authInstance;
+
         }
     }
 }

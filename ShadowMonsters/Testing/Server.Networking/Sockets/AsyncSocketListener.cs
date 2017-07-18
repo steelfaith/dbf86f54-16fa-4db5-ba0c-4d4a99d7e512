@@ -5,6 +5,7 @@ using System.Threading;
 using log4net;
 using Microsoft.Practices.Unity;
 using Server.Common.Interfaces;
+using Server.Common.Logging;
 
 namespace Common.Networking.Sockets
 {

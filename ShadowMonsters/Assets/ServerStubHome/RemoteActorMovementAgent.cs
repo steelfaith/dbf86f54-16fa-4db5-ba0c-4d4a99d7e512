@@ -24,13 +24,9 @@ namespace Assets.ServerStubHome
         {
         }
 
-        public void Login()
-        {
-            _connectionManager.SendMessage(new ConnectRequest(1));
-        }
-
         private void Update()
         {
+            //StartCoroutine(DoNothing());
         }
 
         private void FixedUpdate()
@@ -53,6 +49,11 @@ namespace Assets.ServerStubHome
                 _remoteActorMovementAgent = FindObjectOfType(typeof(RemoteActorMovementAgent)) as RemoteActorMovementAgent;
             }
             return _remoteActorMovementAgent;
+        }
+
+        public IEnumerator DoNothing()
+        {
+            yield return null;
         }
     }
 }

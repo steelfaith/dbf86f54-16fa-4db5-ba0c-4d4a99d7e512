@@ -1,9 +1,17 @@
-﻿namespace Common
+﻿using System;
+using System.Runtime.Serialization;
+
+namespace Common
 {
-    public struct Vector3
+    [Serializable]
+    public struct Vector3 : IEquatable<Vector3>
     {
         public float X { get; set; }
         public float Y { get; set; }
         public float Z { get; set; }
+        public bool Equals(Vector3 other)
+        {
+            return X == other.X && Y == other.Y && Z == other.Z;
+        }
     }
 }

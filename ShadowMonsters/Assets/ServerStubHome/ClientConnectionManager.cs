@@ -32,7 +32,8 @@ namespace Assets.ServerStubHome
         private void RegisterMessageHandlers()
         {
             if (_connection == null) return;
-            _connection.RegisterHandler(OperationCode.ConnectResponse,  AuthenticationAgent.HandleAnnouncement);
+            _connection.RegisterHandler(OperationCode.ConnectResponse,  AuthenticationAgent.HandleConnectionResponse);
+            _connection.RegisterHandler(OperationCode.SelectCharacterResponse, AuthenticationAgent.HandleSelectCharacterResponse);
             _connection.RegisterHandler(OperationCode.PlayerMoveEvent, RemoteActorMovementAgent.RemoteActorMoved);
         }
 

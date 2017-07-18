@@ -25,8 +25,6 @@ namespace Server.Instances
         private static readonly ILog Logger = LogManager.GetLogger(typeof(ConnectionManager));
         private readonly BoundingBox _boundingBox;
         private readonly Timer _regionTick;
-        private readonly IMessageHandlerRegistrar _messageHandlerRegistrar;
-        private readonly IUserController _userController;
 
         public Guid InstanceId { get; }
         private readonly ConcurrentDictionary<int, Character> _characters = new ConcurrentDictionary<int, Character>();
@@ -62,7 +60,7 @@ namespace Server.Instances
             if (request == null)
                 throw new ArgumentException("Failed to convert message to appropriate handler type.");
 
-            var user = _userController.GetUserByClientId(request.ClientId);
+            var user = UserController.GetUserByClientId(request.ClientId);
 
             MovePlayer(user.Id, request.Position);
         }
@@ -85,13 +83,17 @@ namespace Server.Instances
 
                 foreach (var character in _characters.Values)
                 {
-                    character.CurrentPosition = character.NextPosition.GetValueOrDefault();
-                    character.NextPosition = null;
+                    if (character.NextPosition != null && !character.CurrentPosition.Equals(character.NextPosition ))
+                    {
+                        character.CurrentPosition = character.NextPosition.Value;
+                        character.NextPosition = null;
 
-                    updatedPositions.Add(character.UserId, character.CurrentPosition);
+                        updatedPositions.Add(character.UserId, character.CurrentPosition);//only add to our list if we actually have a change
+                    }
                 }
                 
-                Broadcast(new PlayerMoveEvent(updatedPositions));
+                if(updatedPositions.Count > 0)
+                    Broadcast(new PlayerMoveEvent(updatedPositions));
             }
             catch (Exception ex)
             {
@@ -110,7 +112,7 @@ namespace Server.Instances
             {
                 Parallel.ForEach(_characters.Values, (character) =>
                 {
-                    var user = _userController.GetUserByClientId(character.UserId);
+                    var user = UserController.GetUserByClientId(character.UserId);
                     message.ClientId = user.Id;
                     user.ClientConnection.Send(message);
                 });

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using Common.Interfaces.Network;
 using Common.Networking;
 using Server.Common.Interfaces;
 

@@ -2,18 +2,19 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using log4net;
+using Common;
+using Common.Interfaces;
+using Common.Networking;
 using Microsoft.Practices.Unity;
+using NLog;
 using Server.Common.Interfaces;
-using Server.Common.Logging;
 
-namespace Common.Networking.Sockets
+namespace Server.Networking.Sockets
 {
     public class AsyncSocketListener
     {
-        
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(AsyncSocketListener));
-        private static readonly AsyncLogger AsyncLogger = new AsyncLogger(Logger);
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         private readonly IConnectionManager _connectionManager;
         private readonly IMessageDispatcher _messageDispatcher;
@@ -63,7 +64,7 @@ namespace Common.Networking.Sockets
                 {
                     AcceptResetEvent.Reset();
 
-                    AsyncLogger.InfoFormat("Accepting incoming connections on address {0}.", ipAddress);
+                    Logger.Info("Accepting incoming connections on address {0}.", ipAddress);
                     listener.BeginAccept(AcceptCallback, listener);
 
                     AcceptResetEvent.WaitOne();

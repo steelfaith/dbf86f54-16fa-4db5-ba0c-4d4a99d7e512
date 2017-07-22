@@ -4,9 +4,9 @@ using System.Net;
 using System.Reflection;
 using Client;
 using Common;
+using Common.Interfaces;
 using Common.Messages.Requests;
 using Common.Networking;
-using Common.Networking.Sockets;
 using log4net;
 using log4net.Config;
 

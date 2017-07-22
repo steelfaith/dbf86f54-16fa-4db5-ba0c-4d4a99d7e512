@@ -1,6 +1,6 @@
 ﻿using System;
 using Common;
-using Common.Networking;
+using Common.Interfaces.Network;
 
 namespace Server.Common.Interfaces
 {

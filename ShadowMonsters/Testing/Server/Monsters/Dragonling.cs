@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Common;
 using Common.Enums;
-using Common.Interface;
+using Common.Interfaces;
 
 
 namespace Server.Monsters

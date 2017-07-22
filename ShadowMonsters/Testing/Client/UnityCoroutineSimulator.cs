@@ -1,6 +1,8 @@
 ﻿using System.Threading;
 using Common;
-using Common.Networking.Sockets;
+using Common.Interfaces;
+using Common.Messages;
+using Common.Networking;
 
 namespace Client
 {

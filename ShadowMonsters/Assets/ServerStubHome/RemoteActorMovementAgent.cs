@@ -30,7 +30,7 @@ namespace Assets.ServerStubHome
         private void Update()
         {
             if (_remoteMovementQueue.Count > 0)
-                StartCoroutine(DontCrashLOL());
+                StartCoroutine(DequeueMovementUpdates());
         }
 
         private void FixedUpdate()
@@ -58,7 +58,7 @@ namespace Assets.ServerStubHome
             return _remoteActorMovementAgent;
         }
 
-        public IEnumerator DontCrashLOL()
+        public IEnumerator DequeueMovementUpdates()
         {
             if (_remoteMovementQueue.Count > 0)
             {

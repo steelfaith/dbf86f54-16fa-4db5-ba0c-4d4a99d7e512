@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using Common;
+using Common.Interfaces;
+using Common.Messages;
 using Common.Messages.Requests;
 using Common.Messages.Responses;
 using Microsoft.Practices.Unity;

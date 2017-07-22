@@ -14,9 +14,5 @@ namespace Common.Messages.Requests
         public override OperationCode OperationCode => OperationCode.ConnectRequest;
         public override int ClientId { get; set; }
 
-        public ConnectRequest()
-        {
-        }
-
     }
 }

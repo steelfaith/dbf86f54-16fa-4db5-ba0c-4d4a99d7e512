@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common;
+using Common.Interfaces;
+using Common.Messages;
 
 namespace Client
 {

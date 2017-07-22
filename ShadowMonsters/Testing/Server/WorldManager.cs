@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Common;
 using Common.Messages.Requests;
-using Common.Networking.Sockets;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using Server.Common.Interfaces;
+using Server.Networking.Sockets;
 
 namespace Server
 {

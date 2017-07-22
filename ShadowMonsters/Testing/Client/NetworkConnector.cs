@@ -2,8 +2,9 @@
 using System.Net;
 using System.Net.Sockets;
 using Common;
+using Common.Interfaces;
+using Common.Messages;
 using Common.Networking;
-using Common.Networking.Sockets;
 
 namespace Client
 {

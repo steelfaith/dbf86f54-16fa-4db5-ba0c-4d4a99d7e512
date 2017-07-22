@@ -1,5 +1,7 @@
 ﻿using System;
 using Common;
+using Common.Interfaces;
+using Common.Messages;
 using Common.Messages.Requests;
 using Common.Messages.Responses;
 using Server.Common.Interfaces;

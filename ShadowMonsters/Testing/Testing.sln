@@ -9,11 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerConsoleHost", "ServerConsoleHost\ServerConsoleHost.csproj", "{1137EAC8-F8E7-41B1-8C08-85854C8BA6D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientConsoleHost", "ClientConsoleHost\ClientConsoleHost.csproj", "{1A228CD7-EC18-4C21-AD40-5C91A434742F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{3C996FB0-ED7C-4454-BA3E-044DCF6C28E8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Networking", "Common.Networking\Common.Networking.csproj", "{AE40A441-EF4B-413D-AD43-C6BEE424DC83}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.Storage", "Server.Storage\Server.Storage.csproj", "{4C7E2F68-9609-42D2-B73F-265DAF6CA206}"
 EndProject
@@ -39,18 +35,10 @@ Global
 		{1137EAC8-F8E7-41B1-8C08-85854C8BA6D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1137EAC8-F8E7-41B1-8C08-85854C8BA6D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1137EAC8-F8E7-41B1-8C08-85854C8BA6D5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1A228CD7-EC18-4C21-AD40-5C91A434742F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1A228CD7-EC18-4C21-AD40-5C91A434742F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1A228CD7-EC18-4C21-AD40-5C91A434742F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1A228CD7-EC18-4C21-AD40-5C91A434742F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3C996FB0-ED7C-4454-BA3E-044DCF6C28E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3C996FB0-ED7C-4454-BA3E-044DCF6C28E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C996FB0-ED7C-4454-BA3E-044DCF6C28E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C996FB0-ED7C-4454-BA3E-044DCF6C28E8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AE40A441-EF4B-413D-AD43-C6BEE424DC83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AE40A441-EF4B-413D-AD43-C6BEE424DC83}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AE40A441-EF4B-413D-AD43-C6BEE424DC83}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AE40A441-EF4B-413D-AD43-C6BEE424DC83}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4C7E2F68-9609-42D2-B73F-265DAF6CA206}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4C7E2F68-9609-42D2-B73F-265DAF6CA206}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C7E2F68-9609-42D2-B73F-265DAF6CA206}.Release|Any CPU.ActiveCfg = Release|Any CPU

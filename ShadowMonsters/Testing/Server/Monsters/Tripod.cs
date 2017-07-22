@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Common.Interface;
 using Common.Enums;
 using Common;
+using Common.Interfaces;
 
 namespace Server.Monsters
 {

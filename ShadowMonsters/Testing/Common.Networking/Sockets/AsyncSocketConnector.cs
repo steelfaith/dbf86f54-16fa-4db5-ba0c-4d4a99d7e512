@@ -7,7 +7,6 @@ namespace Common.Networking.Sockets
 {
     public class AsyncSocketConnector
     {
-        //private static readonly ILog Logger = LogManager.GetLogger(typeof(AsyncSocketConnector));
         private static ManualResetEvent _connectDone = new ManualResetEvent(false);
 
         private readonly IMessageDispatcher _messageDispatcher;

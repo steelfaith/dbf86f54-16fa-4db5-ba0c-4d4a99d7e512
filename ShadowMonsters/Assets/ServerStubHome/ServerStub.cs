@@ -4,6 +4,7 @@ using System.Linq;
 using Assets.Infrastructure;
 using UnityEngine;
 using Assets.ServerStubHome.Monsters;
+using Common;
 using Utility = Assets.Infrastructure.Utility;
 using Common.Messages;
 

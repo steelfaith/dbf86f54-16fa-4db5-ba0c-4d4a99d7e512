@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Common;
+using Common.Interfaces;
+using Common.Messages;
 using Common.Messages.Events;
 using Common.Messages.Requests;
-using log4net;
 using Microsoft.Practices.Unity;
+using NLog;
 using Server.Common;
 using Server.Common.Interfaces;
 
@@ -22,7 +23,7 @@ namespace Server.Instances
     /// </summary>
     public class WorldRegionInstance : IWorldRegionInstance
     {
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(ConnectionManager));
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly BoundingBox _boundingBox;
         private readonly Timer _regionTick;
 

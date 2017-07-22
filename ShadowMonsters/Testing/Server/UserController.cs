@@ -1,20 +1,16 @@
-﻿using System;
+﻿
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using Common;
-using log4net;
 using Microsoft.Practices.Unity;
+using NLog;
 using Server.Common;
 using Server.Common.Interfaces;
-using Server.Common.Logging;
 
 namespace Server
 {
     public class UserController : IUserController
     {
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(UserController));
-        private static readonly AsyncLogger AsyncLogger = new AsyncLogger(Logger);
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly ConcurrentDictionary<int, User> _usersByClientId = new ConcurrentDictionary<int, User>();
         private readonly IUsersStorageProvider _usersStorageProvider;
 

@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Messages;
 
 namespace Server.Common.Interfaces
 {

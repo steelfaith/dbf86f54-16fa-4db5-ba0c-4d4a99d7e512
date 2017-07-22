@@ -79,12 +79,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Scripts\CreateDatabase.ps1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Server.Common\Server.Common.csproj">
       <Project>{ac66cee7-d103-43d3-b24c-122b464dadbb}</Project>
       <Name>Server.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Scripts\CreateDatabase.sql" />
+    <Content Include="Scripts\Procedures\GetCharacters.sql" />
+    <Content Include="Scripts\Tables\BattleInstance.BattleInstance.sql" />
+    <Content Include="Scripts\Tables\Users.Account.sql" />
+    <Content Include="Scripts\Tables\Users.Characters.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -88,8 +88,11 @@
     <Reference Include="Common">
       <HintPath>Assets\Plugins\Common.dll</HintPath>
     </Reference>
-    <Reference Include="Common.Networking">
-      <HintPath>Assets\Plugins\Common.Networking.dll</HintPath>
+    <Reference Include="NLog">
+      <HintPath>Assets\Plugins\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration">
+      <HintPath>Assets\Plugins\System.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing">
       <HintPath>Assets\Plugins\System.Drawing.dll</HintPath>

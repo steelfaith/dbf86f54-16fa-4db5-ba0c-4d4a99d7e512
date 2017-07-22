@@ -2,8 +2,9 @@
 using System.Collections.Concurrent;
 using System.Threading;
 using Common;
-using log4net;
-using Server.Common.Logging;
+using Common.Interfaces;
+using Common.Messages;
+using NLog;
 
 namespace Server
 {
@@ -13,8 +14,8 @@ namespace Server
     /// </summary>
     public class MessageDispatcher : IMessageDispatcher
     {
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(MessageDispatcher));
-        private static readonly AsyncLogger AsyncLogger = new AsyncLogger(Logger);
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private readonly ConcurrentQueue<RouteableMessage> _incomingMessages = new ConcurrentQueue<RouteableMessage>();
         private readonly AutoResetEvent _messageEvent = new AutoResetEvent(false);
 
@@ -41,19 +42,19 @@ namespace Server
                     {
                         var handler = _messageHandlerRegistrar.Resolve(routeableMessage.Message.OperationCode);
                         if(handler == null)
-                            AsyncLogger.WarnFormat("No handler found for operationcode {0}", routeableMessage.Message.OperationCode);
+                            Logger.Warn("No handler found for operationcode {0}", routeableMessage.Message.OperationCode);
                         else
                             handler.Invoke(routeableMessage);
 
-                        //AsyncLogger.InfoFormat("Attempting to process a message");
-                        //AsyncLogger.InfoFormat("Message Type {0} Message Op Code {1} Content Length {2}"
+                        //Logger.Info("Attempting to process a message");
+                        //Logger.Info("Message Type {0} Message Op Code {1} Content Length {2}"
                         //    ,message.Header.OperationType, message.Header.OperationCode, message.Header.MessageLength);
-                        //AsyncLogger.InfoFormat("Message Data {0}", Encoding.ASCII.GetString(message.Content));
+                        //Logger.Info("Message Data {0}", Encoding.ASCII.GetString(message.Content));
                     }
                 }
                 catch (Exception ex)
                 {
-                    AsyncLogger.Error(ex.Message);
+                    Logger.Error(ex.Message);
                     throw;
                 }
             }
@@ -68,7 +69,7 @@ namespace Server
             }
             catch (Exception ex)
             {
-                AsyncLogger.Error(ex.Message);
+                Logger.Error(ex.Message);
                 throw;
             }
         }

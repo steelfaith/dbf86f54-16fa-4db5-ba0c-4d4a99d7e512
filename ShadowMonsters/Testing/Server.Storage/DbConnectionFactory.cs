@@ -5,7 +5,7 @@ namespace Server.Storage
 {
     public class DbConnectionFactory : IDbConnectionFactory
     {
-        private const string _connectionString = "Server=tcp:testsm.database.windows.net,1433;Initial Catalog=TestDB;Persist Security Info=False;User ID=BMAN;Password=Testpassword!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        private const string _connectionString = @"Server=localhost\SQLEXPRESS;Initial Catalog=ShadowMonsters;Persist Security Info=False;Integrated Security=SSPI;;MultipleActiveResultSets=False;";
         public string ConnectionString { get; set; }
 
         public IDbConnection Create()

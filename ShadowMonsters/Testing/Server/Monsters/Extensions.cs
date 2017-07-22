@@ -1,6 +1,6 @@
 ﻿using System;
 using Common.Enums;
-using Common.Interface;
+using Common.Interfaces;
 
 namespace Server.Monsters
 {

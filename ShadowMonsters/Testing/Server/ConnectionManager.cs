@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using Common;
-using Common.Networking;
-using log4net;
+using Common.Interfaces.Network;
+using NLog;
 using Server.Common.Interfaces;
-using Server.Common.Logging;
 
 namespace Server
 {
     public class ConnectionManager : IConnectionManager
     {
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(ConnectionManager));
-        private static readonly AsyncLogger AsyncLogger = new AsyncLogger(Logger);
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly ConcurrentDictionary<Guid, IClientConnection> _connections = new ConcurrentDictionary<Guid, IClientConnection>();
 
         public void AddConnection(IClientConnection clientConnection)
@@ -22,7 +19,7 @@ namespace Server
             try
             {
                 _connections[clientConnection.Id] = clientConnection;
-                AsyncLogger.InfoFormat($"Added additional connection for client {clientConnection.Id}");
+                Logger.Info($"Added additional connection for client {clientConnection.Id}");
 
             }
             catch (Exception ex)

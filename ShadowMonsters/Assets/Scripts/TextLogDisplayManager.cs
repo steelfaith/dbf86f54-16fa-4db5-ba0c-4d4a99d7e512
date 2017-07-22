@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
-using Assets.Infrastructure;
 using System.Collections;
 using Assets.ServerStubHome;
+using Common;
 using Common.Enums;
-using Common.Messages;
 
 namespace Assets.Scripts
 {

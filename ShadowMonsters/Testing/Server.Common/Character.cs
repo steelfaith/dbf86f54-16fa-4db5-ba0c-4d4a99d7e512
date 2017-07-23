@@ -12,6 +12,7 @@ namespace Server.Common
         public IWorldRegionInstance WorldRegionInstance { get; set; }
         public Vector3 CurrentPosition { get; set; }
         public Vector3? NextPosition { get; set; }
+        public Vector3 Forward { get; set; }
 
         public Character(int characterId, int userId)
         {

@@ -16,6 +16,7 @@ namespace Assets.ServerStubHome
         private static AuthenticationAgent _authenticationAgent;
         private Queue<ServerAnnouncement> _serverWelcomeQueue = new Queue<ServerAnnouncement>();
         private ClientConnectionManager _connectionManager;
+        public bool LoginSuccessful;
 
         private void Awake()
         {
@@ -25,8 +26,6 @@ namespace Assets.ServerStubHome
         private void Start()
         {                       
             _textLogDisplayManger = TextLogDisplayManager.Instance();
-            //TODO: Call this here until we get a login screen
-            Login();
         }
 
         public void Login()
@@ -36,7 +35,7 @@ namespace Assets.ServerStubHome
 
         private void Update()
         {
-            if(_serverWelcomeQueue.Count>0)
+            if (_serverWelcomeQueue.Count > 0)
                 StartCoroutine(CheckForMessageUpdates());
         }
 
@@ -46,6 +45,8 @@ namespace Assets.ServerStubHome
 
             if (response == null)
                 return;
+
+            LoginSuccessful = true;
 
             _serverWelcomeQueue.Enqueue(response.Announcement);
             _connectionManager.ClientId = response.ClientId;

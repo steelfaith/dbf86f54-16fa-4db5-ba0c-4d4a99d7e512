@@ -16,7 +16,7 @@ namespace Assets.ServerStubHome
         private static RemoteActorMovementAgent _remoteActorMovementAgent;
 
         private readonly Dictionary<int, GameObject> _remotePlayers = new Dictionary<int, GameObject>();
-        private Queue<Dictionary<int, Common.Vector3>> _remoteMovementQueue = new Queue<Dictionary<int, Common.Vector3>>();
+        private readonly Queue<Dictionary<int, PositionForwardTuple>> _remoteMovementQueue = new Queue<Dictionary<int, PositionForwardTuple>>();
 
         private void Awake()
         {
@@ -69,19 +69,19 @@ namespace Assets.ServerStubHome
 
                 foreach (var item in updatedPositions)
                 {
-                    if (item.Key != _connectionManager.ClientId)
-                    {
-                        if (!_remotePlayers.ContainsKey(item.Key))
-                        {
-                            GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                            sphere.transform.position = new UnityEngine.Vector3(item.Value.X, item.Value.Y, item.Value.Z);
-                            _remotePlayers.Add(item.Key, sphere);
-                        }
-                        else
-                        {
-                            _remotePlayers[item.Key].transform.position = new UnityEngine.Vector3(item.Value.X, item.Value.Y, item.Value.Z);
-                        }
-                    }
+                    //if (item.Key != _connectionManager.ClientId)
+                    //{
+                    //    if (!_remotePlayers.ContainsKey(item.Key))
+                    //    {
+                    //        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                    //        sphere.transform.position = new UnityEngine.Vector3(item.Value.X, item.Value.Y, item.Value.Z);
+                    //        _remotePlayers.Add(item.Key, sphere);
+                    //    }
+                    //    else
+                    //    {
+                    //        _remotePlayers[item.Key].transform.position = new UnityEngine.Vector3(item.Value.X, item.Value.Y, item.Value.Z);
+                    //    }
+                    //}
                 }
             }
 

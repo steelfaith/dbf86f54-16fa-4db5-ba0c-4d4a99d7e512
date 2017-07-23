@@ -9,9 +9,9 @@ namespace Common.Messages.Events
         public override OperationType OperationType => OperationType.Event;
         public override OperationCode OperationCode => OperationCode.PlayerMoveEvent;
         public override int ClientId { get; set; }
-        public Dictionary<int, Vector3> UpdatedPositions { get; set; }
+        public Dictionary<int, PositionForwardTuple> UpdatedPositions { get; set; }
 
-        public PlayerMoveEvent(Dictionary<int, Vector3> udpatedPositions)
+        public PlayerMoveEvent(Dictionary<int, PositionForwardTuple> udpatedPositions)
         {
             UpdatedPositions = udpatedPositions;
         }

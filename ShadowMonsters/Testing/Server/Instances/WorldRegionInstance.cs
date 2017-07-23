@@ -63,10 +63,10 @@ namespace Server.Instances
 
             var user = UserController.GetUserByClientId(request.ClientId);
 
-            MovePlayer(user.Id, request.Position);
+            MovePlayer(user.Id, request.Position, request.Forward);
         }
 
-        public void MovePlayer(int userId, Vector3 newPosition)
+        public void MovePlayer(int userId, Vector3 newPosition, Vector3 forward)
         {
             Character character;
             if (!_characters.TryGetValue(userId, out character))
@@ -74,13 +74,15 @@ namespace Server.Instances
 
             character.NextPosition = newPosition;
             //validate new postion after looking up character
+            //also in the future if we throw out the position update discard the forward changes as well
+            character.Forward = forward;
         }
 
         private void Tick(object state)
         {
             try
             {
-                Dictionary<int, Vector3> updatedPositions = new Dictionary<int, Vector3>();
+                Dictionary<int, PositionForwardTuple> updatedPositions = new Dictionary<int, PositionForwardTuple>();
 
                 foreach (var character in _characters.Values)
                 {
@@ -88,8 +90,9 @@ namespace Server.Instances
                     {
                         character.CurrentPosition = character.NextPosition.Value;
                         character.NextPosition = null;
-
-                        updatedPositions.Add(character.UserId, character.CurrentPosition);//only add to our list if we actually have a change
+                        updatedPositions.Add(character.UserId,
+                                new PositionForwardTuple {Position = character.CurrentPosition, Forward = character.Forward});
+                            //only add to our list if we actually have a change
                     }
                 }
                 
@@ -124,5 +127,7 @@ namespace Server.Instances
             }
 
         }
+
+
     }
 }

@@ -61,6 +61,7 @@
     <Compile Include="Messages\Responses\ConnectResponse.cs" />
     <Compile Include="Messages\Responses\CreateBattleInstanceResponse.cs" />
     <Compile Include="Messages\Responses\SelectCharacterResponse.cs" />
+    <Compile Include="Messages\Events\PositionForwardTuple.cs" />
     <Compile Include="ServerAnnouncement.cs" />
     <Compile Include="Networking\Constants.cs" />
     <Compile Include="Interfaces\Network\ITcpConnection.cs" />

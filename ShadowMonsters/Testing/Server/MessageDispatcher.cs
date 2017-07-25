@@ -55,7 +55,6 @@ namespace Server
                 catch (Exception ex)
                 {
                     Logger.Error(ex.Message);
-                    throw;
                 }
             }
         }

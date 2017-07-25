@@ -17,7 +17,6 @@ namespace Assets.Scripts
         public Guid Id { get; set; }
         public GameObject statusDisplay;
         private PlayerData currentData;
-        private ServerStub serverStub;
         private TextLogDisplayManager textLogDisplayManager;
         private StatusController statusController;
         private LightController lightController;
@@ -29,16 +28,14 @@ namespace Assets.Scripts
 
         private void Start()
         {
-            serverStub = ServerStub.Instance();
-            textLogDisplayManager = TextLogDisplayManager.Instance();
+            //textLogDisplayManager = TextLogDisplayManager.Instance();
             lightController = LightController.Instance();         
 
-            Id = serverStub.Authenticate();
-            currentData = serverStub.GetPlayerData(Id);
-            AttackIds = currentData.AttackIds;
-            statusController = statusDisplay.GetComponentInChildren<StatusController>();
-            statusController.displayName.color = Color.green;            
-            SetPlayerData();
+            //currentData = serverStub.GetPlayerData(Id);
+            //AttackIds = currentData.AttackIds;
+            //statusController = statusDisplay.GetComponentInChildren<StatusController>();
+            //statusController.displayName.color = Color.green;            
+            //SetPlayerData();
         }
 
         private void SetPlayerData()
@@ -48,19 +45,19 @@ namespace Assets.Scripts
 
         private void Update()
         {
-            StartCoroutine(CheckForPlayerUpdates());
+            //StartCoroutine(CheckForPlayerUpdates());
         }
 
-        public IEnumerator CheckForPlayerUpdates()
-        {
-            var playerUpdate = serverStub.GetNextPlayerDataUpdate(Id);
-            if (playerUpdate == null)
-            {
-                yield return null;
-            }
-            if(playerUpdate!=null)
-                HandlePlayerUpdate(playerUpdate);
-        }
+        //public IEnumerator CheckForPlayerUpdates()
+        //{
+        //    var playerUpdate = serverStub.GetNextPlayerDataUpdate(Id);
+        //    if (playerUpdate == null)
+        //    {
+        //        yield return null;
+        //    }
+        //    if(playerUpdate!=null)
+        //        HandlePlayerUpdate(playerUpdate);
+        //}
 
         private void HandlePlayerUpdate(PlayerDataUpdate playerUpdate)
         {

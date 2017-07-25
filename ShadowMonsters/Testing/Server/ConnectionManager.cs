@@ -28,13 +28,24 @@ namespace Server
             }
         }
 
-        public IClientConnection GetClientConnection(Guid connectionId)
+        public bool TryGetClientConnection(Guid connectionId, out IClientConnection clientConnection)
         {
-            IClientConnection clientConnection;
-            if(_connections.TryGetValue(connectionId, out clientConnection))
-                return clientConnection;
+            if (_connections.TryGetValue(connectionId, out clientConnection))
+            {
+                if (!clientConnection.IsConnected)
+                {
+                    if (_connections.TryRemove(connectionId, out clientConnection))
+                        Logger.Warn($"Removing client connection {connectionId}");
+                    else
+                        Logger.Warn($"Failed to remove client connection {connectionId}");
 
-            return null;
+                    return false;
+                }
+                    
+                return true;
+            }
+
+            return false;
         }
     }
 }

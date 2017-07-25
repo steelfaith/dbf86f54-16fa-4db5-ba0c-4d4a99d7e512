@@ -3,6 +3,7 @@ using Client;
 using Common.Messages.Requests;
 using Common;
 using Common.Messages;
+using UnityEngine.SceneManagement;
 
 
 namespace Assets.ServerStubHome
@@ -16,13 +17,18 @@ namespace Assets.ServerStubHome
 
         public int ClientId { get; set; }
 
+        void Awake()
+        {
+            DontDestroyOnLoad(this);
+        }
+
         private void Start()
         {
             Application.runInBackground = true;
             _connection = new NetworkConnector();
             _connection.Connect();
             InstantiateAgents();
-            RegisterMessageHandlers();      
+            RegisterMessageHandlers();
         }
 
         private void InstantiateAgents()

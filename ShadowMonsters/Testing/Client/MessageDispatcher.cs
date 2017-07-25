@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading;
 using Common.Interfaces;
 using Common.Messages;
+using NLog;
 
 namespace Common.Networking
 {
@@ -12,8 +14,7 @@ namespace Common.Networking
     /// </summary>
     public class MessageDispatcher : IMessageDispatcher
     {
-        //private static readonly ILog Logger = LogManager.GetLogger(typeof(MessageDispatcher));
-        //private static readonly AsyncLogger AsyncLogger = new AsyncLogger(Logger);
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly Queue<RouteableMessage> _incomingMessages = new Queue<RouteableMessage>();
         private readonly AutoResetEvent _messageEvent = new AutoResetEvent(false);
 
@@ -40,15 +41,14 @@ namespace Common.Networking
                     var handler = _messageHandlerRegistrar.Resolve(routeableMessage.Message.OperationCode);
                     handler?.Invoke(routeableMessage);
 
-                    //AsyncLogger.InfoFormat("Attempting to process a message");
-                    //AsyncLogger.InfoFormat("Message Type {0} Message Op Code {1} Content Length {2}"
-                    //    ,message.Header.OperationType, message.Header.OperationCode, message.Header.MessageLength);
-                    //AsyncLogger.InfoFormat("Message Data {0}", Encoding.ASCII.GetString(message.Content));
+                    //Logger.Info("Attempting to process a message");
+                    //Logger.Info("Message Type {0} Message Op Code {1} ", routeableMessage.Message.OperationType, routeableMessage.Message.OperationCode,);
+                    //Logger.Info("Message Data {0}", Encoding.ASCII.GetString(routeableMessage.Message.));
 
                 }
                 catch (Exception ex)
                 {
-                    //AsyncLogger.Error(ex.Message);
+                    Logger.Error(ex.Message);
                     throw;
                 }
             }
@@ -63,7 +63,7 @@ namespace Common.Networking
             }
             catch (Exception ex)
             {
-                //AsyncLogger.Error(ex.Message);
+                Logger.Error(ex.Message);
                 throw;
             }
         }

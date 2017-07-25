@@ -35,7 +35,7 @@ namespace Assets.Scripts
             members.Add(teamMember4);
             members.Add(teamMember5);
             members.Add(teamMember6);
-            LoadTeam(player.GetTeam());
+            //LoadTeam(player.GetTeam());
         }
 
         private static TeamController teamController;

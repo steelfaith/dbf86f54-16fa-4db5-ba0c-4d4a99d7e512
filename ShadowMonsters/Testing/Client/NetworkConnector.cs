@@ -5,12 +5,16 @@ using Common;
 using Common.Interfaces;
 using Common.Messages;
 using Common.Networking;
+using NLog;
+using NLog.Config;
+using NLog.Targets;
+using NLog.Targets.Wrappers;
 
 namespace Client
 {
     public class NetworkConnector
     {
-        //private readonly ILog _logger = LogManager.GetLogger(typeof(NetworkConnector));
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly AsyncSocketConnector _asyncSocketConnector;
         private readonly IMessageHandlerRegistrar _messageHandlerRegistrar;
         private readonly IPAddress _localAddress;
@@ -18,6 +22,43 @@ namespace Client
 
         public NetworkConnector(IPAddress localAddress = null, ushort port = 11000, bool useIpV4 = true)
         {
+
+
+            #region Nlog setup
+
+
+            try
+            {
+
+                string fileName = "ShadowMonsters";
+                AsyncTargetWrapper asyncTargetWrapper = new AsyncTargetWrapper();
+                asyncTargetWrapper.Name = "asyncTarget";
+                FileTarget fileTarget = new FileTarget();
+                fileTarget.Name = "fileTarget";
+                fileTarget.NetworkWrites = false;
+                fileTarget.KeepFileOpen = false;
+                var path = System.Environment.CurrentDirectory;
+                fileTarget.FileName = string.Concat(System.IO.Path.Combine(path, fileName), ".${date:format=yyyyMMdd}.active");
+                fileTarget.ArchiveFileName = string.Concat(System.IO.Path.Combine(path, fileName), ".${date:format=yyyyMMdd}.{#}");
+                fileTarget.ArchiveAboveSize = 5242880; // Updated to 5 MB to allow HACC Light to read fewer files.
+
+                fileTarget.ArchiveNumbering = ArchiveNumberingMode.Sequence;
+                fileTarget.MaxArchiveFiles = 9999;
+                fileTarget.ConcurrentWrites = true;
+
+                fileTarget.Layout = "${longdate}|${level:uppercase=true}|${logger}|${message}";
+
+                asyncTargetWrapper.WrappedTarget = fileTarget;
+                NLog.LogManager.Configuration.AddTarget(asyncTargetWrapper);
+                NLog.LogManager.Configuration.LoggingRules.Add(new LoggingRule("*", LogLevel.Info, asyncTargetWrapper));
+            }
+            catch (Exception)
+            {
+            }
+
+
+            #endregion
+
             _messageHandlerRegistrar = new MessageHandlerRegistrar();
             MessageDispatcher messageDispatcher = new MessageDispatcher(_messageHandlerRegistrar);
             _asyncSocketConnector = new AsyncSocketConnector(messageDispatcher);
@@ -53,8 +94,8 @@ namespace Client
         {
             if (_asyncSocketConnector.IsConnected)
                 _asyncSocketConnector.Send(message);
-            //else
-            //    _logger.ErrorFormat("Failed to send message, client is not connected.");
+            else
+                Logger.Error("Failed to send message, client is not connected.");
 
 
         }

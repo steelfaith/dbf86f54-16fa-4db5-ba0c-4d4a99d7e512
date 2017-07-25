@@ -2,9 +2,11 @@
 using System.Linq;
 using Common;
 using Common.Interfaces;
+using Common.Interfaces.Network;
 using Common.Messages;
 using Common.Messages.Requests;
 using Common.Messages.Responses;
+using NLog;
 using Server.Common;
 using Server.Common.Interfaces;
 
@@ -12,6 +14,8 @@ namespace Server.Instances
 {
     public class AuthenticationInstance : IAuthenticationInstance
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private readonly IConnectionManager _connectionManager;
         private readonly IUserController _userController;
         private readonly IWorldManager _worldManager;
@@ -37,10 +41,9 @@ namespace Server.Instances
             if (request == null)
                 throw new ArgumentException("Failed to convert message to appropriate handler type.");
 
-            var connection = _connectionManager.GetClientConnection(routeableMessage.ConnectionId);
-
-            if(connection == null)
-                throw new ArgumentException("Failed to find client connection.");
+            IClientConnection clientConnection;
+            if (!_connectionManager.TryGetClientConnection(routeableMessage.ConnectionId, out clientConnection))
+                Logger.Error($"Login failed for user {request.ClientId}, with connection id {routeableMessage.ConnectionId}");
 
             lock (_clientLock)
             {
@@ -48,13 +51,13 @@ namespace Server.Instances
                 request.ClientId = _clientIds;//TODO: remove this once we have some real auth in place
             }
 
-            var user = new User(request.ClientId, connection);
+            var user = new User(request.ClientId, routeableMessage.ConnectionId);
             _userController.AddUser(user);
 
             var results = _userController.GetCharacters(request.ClientId);
 
             //_connectionManager.Send(new RouteableMessage(routeableMessage.ConnectionId, new ConnectResponse { Id = request.Id, Characters = results.Select(x => x.Name).ToList() }));
-            user.ClientConnection.Send(new ConnectResponse { ClientId = request.ClientId, Characters = results.Select(x => x.Name).ToList() });
+            _userController.Send(request.ClientId, new ConnectResponse { ClientId = request.ClientId, Characters = results.Select(x => x.Name).ToList() });
         }
         public void CharacterSelected(RouteableMessage routeableMessage)
         {
@@ -63,14 +66,13 @@ namespace Server.Instances
             if (request == null)
                 throw new ArgumentException("Failed to convert message to appropriate handler type.");
 
-            var user = _userController.GetUserByClientId(request.ClientId);
 
             var currentRegion = _worldManager.GetCharacterRegion(request.ClientId);
             
-            var character = new Character (1, user.Id) { WorldRegionInstance = currentRegion, CurrentPosition = new Vector3(),Name = request.CharacterName };
+            var character = new Character (1, request.ClientId) { WorldRegionInstance = currentRegion, CurrentPosition = new Vector3(),Name = request.CharacterName };
             currentRegion.SubscribeToRegion(character);
 
-            user.ClientConnection.Send(new SelectCharacterResponse(request.ClientId, true));
+            _userController.Send(request.ClientId, new SelectCharacterResponse(request.ClientId, true));
         }
 
         public void Logout(RouteableMessage routeableMessage)

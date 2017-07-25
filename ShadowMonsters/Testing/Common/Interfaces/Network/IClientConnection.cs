@@ -8,5 +8,6 @@ namespace Common.Interfaces.Network
         Guid Id { get; }
         void StartReceiveing();
         void Send(Message message);
+        bool IsConnected { get; set; }
     }
 }

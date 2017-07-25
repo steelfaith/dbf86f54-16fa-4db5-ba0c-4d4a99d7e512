@@ -12,7 +12,6 @@ namespace Assets.ServerStubHome
 {
     public class AuthenticationAgent : MonoBehaviour
     {
-        private TextLogDisplayManager _textLogDisplayManger;
         private static AuthenticationAgent _authenticationAgent;
         private Queue<ServerAnnouncement> _serverWelcomeQueue = new Queue<ServerAnnouncement>();
         private ClientConnectionManager _connectionManager;
@@ -25,7 +24,6 @@ namespace Assets.ServerStubHome
 
         private void Start()
         {                       
-            _textLogDisplayManger = TextLogDisplayManager.Instance();
         }
 
         public void Login()
@@ -73,8 +71,6 @@ namespace Assets.ServerStubHome
             {
                 yield return null;
             }
-            else
-            { _textLogDisplayManger.AddText(announcement.Message, announcement.AnnouncementType); }
         }
 
         public static AuthenticationAgent Instance()

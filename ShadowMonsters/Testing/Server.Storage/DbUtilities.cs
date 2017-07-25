@@ -5,12 +5,15 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using NLog;
 using Server.Common;
 
 namespace Server.Storage
 {
     internal static class DbUtilities
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         public enum SqlErrorNumber
         {
             NoLock = 1204,
@@ -22,7 +25,7 @@ namespace Server.Storage
         public const int DbUserErrorNumber = 50000;
         private const int TransientErrorRetryWaitMilliseconds = 500;
         public const int TransientErrorMaximumRetries = 3;
-        //private const int OperationWarnThresholdMilliseconds = 500;
+        private const int OperationWarnThresholdMilliseconds = 500;
 
         private static readonly HashSet<int> TransientSqlErrors = new HashSet<int>
                                                                              {
@@ -109,9 +112,8 @@ namespace Server.Storage
                 finally
                 {
                     stopwatch.Stop();
-                    //if (stopwatch.ElapsedMilliseconds > OperationWarnThresholdMilliseconds)
-                        //Logger.WarnFormat("Database method {0} took {1} ms", procedureName, stopwatch.ElapsedMilliseconds);
-                    //PerformanceMonitor.AddToPerformanceData(procedureName, stopwatch.ElapsedMilliseconds);
+                    if (stopwatch.ElapsedMilliseconds > OperationWarnThresholdMilliseconds)
+                        Logger.Warn("Database method {0} took {1} ms", procedureName, stopwatch.ElapsedMilliseconds);
                 }
 
                 Thread.Sleep(retryDelayMilliseconds);
@@ -156,9 +158,8 @@ namespace Server.Storage
                 finally
                 {
                     stopwatch.Stop();
-                    //if (stopwatch.ElapsedMilliseconds > OperationWarnThresholdMilliseconds)
-                    //    Logger.WarnFormat("Database method {0} took {1} ms", procedureName, stopwatch.ElapsedMilliseconds);
-                    //PerformanceMonitor.AddToPerformanceData(procedureName, stopwatch.ElapsedMilliseconds);
+                    if (stopwatch.ElapsedMilliseconds > OperationWarnThresholdMilliseconds)
+                        Logger.Warn("Database method {0} took {1} ms", procedureName, stopwatch.ElapsedMilliseconds);
                 }
 
                 await Task.Delay(retryDelayMilliseconds);
@@ -220,7 +221,7 @@ namespace Server.Storage
             // if it is not a transient error or we've exceeded the number of retries, then raise a translated exception
             if (!TransientSqlErrors.Contains(ex.Number) || tries > TransientErrorMaximumRetries)
                 throw TranslateSqlException(ex, procedureName);
-            //Logger.WarnFormat("A transient database error ({0}) has occurred in procedure {1}. The operation will be attempted again in {2}ms.", ex, ex.Number, procedureName, retryDelayMilliseconds);
+            Logger.Warn("A transient database error ({0}) has occurred in procedure {1}. The operation will be attempted again in {2}ms.", ex, ex.Number, procedureName, retryDelayMilliseconds);
         }
 
         // ReSharper disable once UnusedParameter.Local
@@ -229,7 +230,7 @@ namespace Server.Storage
             // if it is not a transient error or we've exceeded the number of retries, then raise an exception with the non-zero return value
             if (!TransientSqlErrors.Contains(returnValue) || tries > TransientErrorMaximumRetries)
                 throw CreateStorageProviderException(procedureName, returnValue);
-            //Logger.WarnFormat("A transient database error ({0}) has occurred in procedure {1}. The operation will be attempted again in {2}ms.", returnValue, procedureName, retryDelayMilliseconds);
+            Logger.Warn("A transient database error ({0}) has occurred in procedure {1}. The operation will be attempted again in {2}ms.", returnValue, procedureName, retryDelayMilliseconds);
         }
     }
 }

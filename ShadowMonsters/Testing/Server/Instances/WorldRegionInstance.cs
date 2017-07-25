@@ -49,19 +49,24 @@ namespace Server.Instances
             if (character == null)
                 throw new ArgumentNullException(nameof(character));
 
-            _characters[character.UserId] = character;
+            _characters[character.ClientId] = character;
 
             Broadcast(new PlayerConnectedEvent());
         }
 
         public void Move(RouteableMessage routeableMessage)
         {
+
             PlayerMoveRequest request = routeableMessage.Message as PlayerMoveRequest;
 
             if (request == null)
                 throw new ArgumentException("Failed to convert message to appropriate handler type.");
 
-            var user = UserController.GetUserByClientId(request.ClientId);
+            User user;
+            if (!UserController.TryGetUserByClientId(request.ClientId, out user))
+                return;
+
+            Logger.Info("Received a player move request from client: {0} with new location {1},{2},{3}", user.Id, request.Position.X, request.Position.Y, request.Position.Z);
 
             MovePlayer(user.Id, request.Position, request.Forward);
         }
@@ -90,7 +95,7 @@ namespace Server.Instances
                     {
                         character.CurrentPosition = character.NextPosition.Value;
                         character.NextPosition = null;
-                        updatedPositions.Add(character.UserId,
+                        updatedPositions.Add(character.ClientId,
                                 new PositionForwardTuple {Position = character.CurrentPosition, Forward = character.Forward});
                             //only add to our list if we actually have a change
                     }
@@ -116,9 +121,17 @@ namespace Server.Instances
             {
                 Parallel.ForEach(_characters.Values, (character) =>
                 {
-                    var user = UserController.GetUserByClientId(character.UserId);
-                    message.ClientId = user.Id;
-                    user.ClientConnection.Send(message);
+                    var isConnected = UserController.Send(character.ClientId, message);
+                    if (!isConnected)
+                    {
+                        Character outCharacter;
+                        if(_characters.TryRemove(character.ClientId, out outCharacter))
+                            Logger.Warn($"Removed disconnected character {character.ClientId}");
+                        else
+                            Logger.Error($"Failed to remove character {character.ClientId}");
+                            
+                    }
+                        
                 });
             }
             catch (Exception ex)

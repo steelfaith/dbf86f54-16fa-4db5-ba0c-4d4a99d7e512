@@ -4,6 +4,8 @@ using Common.Interfaces;
 using Common.Messages;
 using Common.Messages.Requests;
 using Common.Messages.Responses;
+using NLog;
+using Server.Common;
 using Server.Common.Interfaces;
 
 namespace Server.Instances
@@ -33,7 +35,9 @@ namespace Server.Instances
             if (request == null)
                 throw new ArgumentException("Failed to convert message to appropriate handler type.");
 
-            var user = _userController.GetUserByClientId(request.ClientId);
+            User user;
+            if (!_userController.TryGetUserByClientId(request.ClientId, out user))
+                return;
 
             if (!user.BattleInstanceId.HasValue)
                 throw new InvalidOperationException("User is not connected to a battle instance.");
@@ -43,7 +47,7 @@ namespace Server.Instances
             var result = true; // need some implementation lol
 
             //_connectionManager.Send(new RouteableMessage(routeableMessage.ConnectionId, new BattleInstanceRunResponse { Successful = result, Id = user.Id }));
-            user.ClientConnection.Send(new BattleInstanceRunResponse { Successful = result, ClientId = user.Id });
+            _userController.Send(request.ClientId, new BattleInstanceRunResponse { Successful = result, ClientId = user.Id });
         }
 
         

@@ -5,6 +5,8 @@ using System.Reflection;
 using Microsoft.Practices.Unity;
 using NLog;
 using NLog.Config;
+using NLog.Targets;
+using NLog.Targets.Wrappers;
 using Server;
 using Server.Common.Interfaces;
 

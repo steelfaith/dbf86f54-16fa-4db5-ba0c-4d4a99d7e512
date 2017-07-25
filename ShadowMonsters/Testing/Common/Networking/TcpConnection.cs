@@ -4,11 +4,13 @@ using Common;
 using Common.Interfaces;
 using Common.Interfaces.Network;
 using Common.Messages;
+using NLog;
 
 namespace Common.Networking
 {
     public class TcpConnection : ITcpConnection
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         public Guid Id { get; }
         public Socket Socket { get; }
 
@@ -23,6 +25,8 @@ namespace Common.Networking
         private readonly IMessageDispatcher _dispatcher;
 
         private ushort? _expectedMessageLength;
+
+        public bool IsConnected { get; set; }
 
         public TcpConnection(Socket socket, IMessageDispatcher dispatcher)
         {
@@ -39,6 +43,7 @@ namespace Common.Networking
             Id = Guid.NewGuid();
 
             Buffer = new byte[BufferSize];
+            IsConnected = true;
         }
 
         public void StartReceiveing()
@@ -58,19 +63,19 @@ namespace Common.Networking
                 if (bytesRead > 0)
                 {
                     tcpConnection.AppendData(tcpConnection.Buffer, bytesRead, tcpConnection.Id);
-                    //AsyncLogger.InfoFormat("Read {0} bytes for client {1}", bytesRead, tcpConnection.Id);
                     handler.BeginReceive(tcpConnection.Buffer, 0, tcpConnection.BufferSize, 0, ReadCallback,
                         tcpConnection);
                 }
                 else
                 {
-                    //Logger.ErrorFormat("End received returned a 0.");//pretty sure this means the client is dead
+                    IsConnected = false;
+                    Logger.Error("End received returned a 0.");//pretty sure this means the client is dead
                     //look at possible clean up later
                 }
             }
             catch (Exception ex)
             {
-                //Logger.Error(ex);
+                Logger.Error(ex);
             }
 
         }
@@ -85,7 +90,8 @@ namespace Common.Networking
             }
             catch (Exception ex)
             {
-                //Logger.Error(ex);
+                IsConnected = false;
+                Logger.Error(ex);
             }
 
         }
@@ -97,16 +103,16 @@ namespace Common.Networking
                 var connection = ar.AsyncState as TcpConnection;
                 if (connection == null)
                 {
-                    //Logger.Error("Null connection state.");
+                    Logger.Error("Null connection state.");
                     return;
                 }
 
                 int bytesSent = connection.Socket.EndSend(ar);
-                //AsyncLogger.InfoFormat("Sent {0} bytes to client {1}.", bytesSent, connection.Id);
+                //Logger.Info("Sent {0} bytes to client {1}.", bytesSent, connection.Id);
             }
             catch (Exception ex)
             {
-                //Logger.Error(ex);
+                Logger.Error(ex);
             }
         }
 
@@ -155,9 +161,9 @@ namespace Common.Networking
                         if (message != null)
                             _dispatcher.DispatchMessage(new RouteableMessage(connectionId, message));
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        
+                        Logger.Error(ex);
                     }
 
                     int leftoverData = _receivedData.Length - _expectedMessageLength.Value - Constants.MessageHeaderLength;

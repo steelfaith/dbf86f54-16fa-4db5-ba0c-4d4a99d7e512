@@ -1,12 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts;
-using Common;
 using Common.Messages;
 using Common.Messages.Events;
-using Common.Messages.Requests;
-using Common.Messages.Responses;
 using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 namespace Assets.ServerStubHome
 {
@@ -23,19 +20,10 @@ namespace Assets.ServerStubHome
             _connectionManager = GetComponentInParent<ClientConnectionManager>();
         }
 
-        private void Start()
-        {
-        }
-
-        private void Update()
+        private void FixedUpdate()
         {
             if (_remoteMovementQueue.Count > 0)
                 StartCoroutine(DequeueMovementUpdates());
-        }
-
-        private void FixedUpdate()
-        {
-            
         }
 
         public void RemoteActorMoved(RouteableMessage routeableMessage)
@@ -69,19 +57,27 @@ namespace Assets.ServerStubHome
 
                 foreach (var item in updatedPositions)
                 {
-                    //if (item.Key != _connectionManager.ClientId)
-                    //{
-                    //    if (!_remotePlayers.ContainsKey(item.Key))
-                    //    {
-                    //        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                    //        sphere.transform.position = new UnityEngine.Vector3(item.Value.X, item.Value.Y, item.Value.Z);
-                    //        _remotePlayers.Add(item.Key, sphere);
-                    //    }
-                    //    else
-                    //    {
-                    //        _remotePlayers[item.Key].transform.position = new UnityEngine.Vector3(item.Value.X, item.Value.Y, item.Value.Z);
-                    //    }
-                    //}
+                    if (item.Key != _connectionManager.ClientId)
+                    {
+                        if (!_remotePlayers.ContainsKey(item.Key))
+                        {
+                            var prefab = Resources.Load("UnityChan/Prefabs/unitychan");
+                            GameObject clone = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+                            clone.transform.localScale = new Vector3(5, 5, 5);
+                            if (clone == null)
+                                yield return null;
+
+                            clone.transform.position = new Vector3(item.Value.Position.X, item.Value.Position.Y, item.Value.Position.Z);
+                            clone.transform.forward = new Vector3(item.Value.Forward.X, item.Value.Forward.Y, item.Value.Forward.Z);
+                            _remotePlayers.Add(item.Key, clone);
+                        }
+                        else
+                        {
+                            var newPosition = new Vector3(item.Value.Position.X, item.Value.Position.Y, item.Value.Position.Z);
+                            var newFoward = new Vector3(item.Value.Forward.X, item.Value.Forward.Y, item.Value.Forward.Z);
+                            _remotePlayers[item.Key].transform.position = Vector3.Lerp(newPosition, _remotePlayers[item.Key].transform.position, 0.16f);
+                        }
+                    }
                 }
             }
 

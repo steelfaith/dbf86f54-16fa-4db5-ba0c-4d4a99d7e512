@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>2017.1.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -97,6 +99,9 @@
     <Reference Include="System.Drawing">
       <HintPath>Assets\Plugins\System.Drawing.dll</HintPath>
     </Reference>
+    <Reference Include="System.Security">
+      <HintPath>Assets\Plugins\System.Security.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="ShadowMonsters.CSharp.Plugins.csproj">
@@ -136,26 +141,30 @@
     <Compile Include="Assets\Infrastructure\ShortCastRequest.cs" />
     <Compile Include="Assets\Infrastructure\SizeEnumeration.cs" />
     <Compile Include="Assets\Infrastructure\Utility.cs" />
-    <Compile Include="Assets\Scripts\ActorMovementController.cs" />
-    <Compile Include="Assets\Scripts\AnimationController.cs" />
+    <Compile Include="Assets\Resources\UnityChan\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Resources\UnityChan\Scripts\FaceUpdate.cs" />
+    <Compile Include="Assets\Resources\UnityChan\Scripts\IdleChanger.cs" />
+    <Compile Include="Assets\Resources\UnityChan\Scripts\SceneLoader.cs" />
+    <Compile Include="Assets\Resources\UnityChan\Scripts\ThirdPersonCamera.cs" />
+    <Compile Include="Assets\Resources\UnityChan\Scripts\UnityChanControlScriptWithRgidBody.cs" />
+    <Compile Include="Assets\Scripts\BattleScene\AnimationController.cs" />
     <Compile Include="Assets\Scripts\AnyManager.cs" />
-    <Compile Include="Assets\Scripts\AreaSpawner.cs" />
-    <Compile Include="Assets\Scripts\AreaSpawnManager.cs" />
-    <Compile Include="Assets\Scripts\BeginCombatPopup.cs" />
+    <Compile Include="Assets\Scripts\WorldScene\AreaSpawner.cs" />
+    <Compile Include="Assets\Scripts\WorldScene\AreaSpawnManager.cs" />
+    <Compile Include="Assets\Scripts\BattleScene\CastbarScript.cs" />
+    <Compile Include="Assets\Scripts\BattleScene\BeginCombatPopup.cs" />
     <Compile Include="Assets\Scripts\BringToFront.cs" />
-    <Compile Include="Assets\Scripts\ButtonPowerDownScript.cs" />
-    <Compile Include="Assets\Scripts\ButtonPowerUpScript.cs" />
-    <Compile Include="Assets\Scripts\ButtonScript.cs" />
-    <Compile Include="Assets\Scripts\CastbarScript.cs" />
-    <Compile Include="Assets\Scripts\ClientPositionController.cs" />
-    <Compile Include="Assets\Scripts\CombatController.cs" />
-    <Compile Include="Assets\Scripts\CombatPlayerController.cs" />
+    <Compile Include="Assets\Scripts\BattleScene\ButtonPowerDownScript.cs" />
+    <Compile Include="Assets\Scripts\BattleScene\ButtonPowerUpScript.cs" />
+    <Compile Include="Assets\Scripts\BattleScene\ButtonScript.cs" />
+    <Compile Include="Assets\Scripts\BattleScene\CombatController.cs" />
+    <Compile Include="Assets\Scripts\BattleScene\CombatPlayerController.cs" />
     <Compile Include="Assets\Scripts\DragHandler.cs" />
-    <Compile Include="Assets\Scripts\EnemyController.cs" />
-    <Compile Include="Assets\Scripts\FatbicDisplayController.cs" />
-    <Compile Include="Assets\Scripts\IncarnationContainer.cs" />
-    <Compile Include="Assets\Scripts\IndicatorBarScript.cs" />
-    <Compile Include="Assets\Scripts\LevelDisplayScript.cs" />
+    <Compile Include="Assets\Scripts\BattleScene\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\BattleScene\FatbicDisplayController.cs" />
+    <Compile Include="Assets\Scripts\BattleScene\IncarnationContainer.cs" />
+    <Compile Include="Assets\Scripts\BattleScene\IndicatorBarScript.cs" />
+    <Compile Include="Assets\Scripts\BattleScene\LevelDisplayScript.cs" />
     <Compile Include="Assets\Scripts\LightController.cs" />
     <Compile Include="Assets\Scripts\LoadScene.cs" />
     <Compile Include="Assets\Scripts\LoginScene\LoginScript.cs" />
@@ -164,15 +173,16 @@
     <Compile Include="Assets\Scripts\PlaneswalkerTrigger.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\ResourceCollectorScript.cs" />
-    <Compile Include="Assets\Scripts\ScrollingCombatText.cs" />
-    <Compile Include="Assets\Scripts\ScrollingCombatTextController.cs" />
+    <Compile Include="Assets\Scripts\BattleScene\ScrollingCombatText.cs" />
+    <Compile Include="Assets\Scripts\BattleScene\ScrollingCombatTextController.cs" />
     <Compile Include="Assets\Scripts\Shadow.cs" />
-    <Compile Include="Assets\Scripts\ShadowCollider.cs" />
+    <Compile Include="Assets\Scripts\WorldScene\ShadowCollider.cs" />
     <Compile Include="Assets\Scripts\StatusController.cs" />
     <Compile Include="Assets\Scripts\TeamController.cs" />
     <Compile Include="Assets\Scripts\TextLogDisplayManager.cs" />
     <Compile Include="Assets\Scripts\UnloadSceneTrigger.cs" />
     <Compile Include="Assets\Scripts\WanderScript.cs" />
+    <Compile Include="Assets\Scripts\WorldScene\ClientPositionController.cs" />
     <Compile Include="Assets\ServerStubHome\AffinityMatchupDamageMultiplier.cs" />
     <Compile Include="Assets\ServerStubHome\AiAttackStyles\ButtonMasher.cs" />
     <Compile Include="Assets\ServerStubHome\AiAttackStyles\IAiAttackStyle.cs" />
@@ -195,33 +205,27 @@
     <Compile Include="Assets\ServerStubHome\Monsters\Tripod.cs" />
     <Compile Include="Assets\ServerStubHome\RemoteActorMovementAgent.cs" />
     <Compile Include="Assets\ServerStubHome\ServerStub.cs" />
-    <Compile Include="Assets\UnityChan\Scripts\CameraController.cs" />
-    <Compile Include="Assets\UnityChan\Scripts\FaceUpdate.cs" />
-    <Compile Include="Assets\UnityChan\Scripts\IdleChanger.cs" />
-    <Compile Include="Assets\UnityChan\Scripts\SceneLoader.cs" />
-    <Compile Include="Assets\UnityChan\Scripts\ThirdPersonCamera.cs" />
-    <Compile Include="Assets\UnityChan\Scripts\UnityChanControlScriptWithRgidBody.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Monsters\Rhino\Sheder\StandardDoubleSided.shader" />
     <None Include="Assets\Monsters\tripods\Materials\lightbeam.shader" />
+    <None Include="Assets\Resources\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_akarami_blend.shader" />
+    <None Include="Assets\Resources\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eye.shader" />
+    <None Include="Assets\Resources\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eye_blend.shader" />
+    <None Include="Assets\Resources\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eyelash_blend.shader" />
+    <None Include="Assets\Resources\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />
+    <None Include="Assets\Resources\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku_ds.shader" />
+    <None Include="Assets\Resources\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hada.shader" />
+    <None Include="Assets\Resources\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hada_blend.shader" />
+    <None Include="Assets\Resources\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hair.shader" />
+    <None Include="Assets\Resources\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hair_ds.shader" />
+    <None Include="Assets\Resources\UnityChan\Stage\Shader\AlphaMask.shader" />
+    <None Include="Assets\Resources\UnityChan\license.txt" />
     <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
-    <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_akarami_blend.shader" />
-    <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eye.shader" />
-    <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eye_blend.shader" />
-    <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eyelash_blend.shader" />
-    <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />
-    <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku_ds.shader" />
-    <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hada.shader" />
-    <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hada_blend.shader" />
-    <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hair.shader" />
-    <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hair_ds.shader" />
-    <None Include="Assets\UnityChan\Stage\Shader\AlphaMask.shader" />
-    <None Include="Assets\UnityChan\license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

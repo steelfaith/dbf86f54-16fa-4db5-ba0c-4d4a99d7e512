@@ -44,6 +44,9 @@
     <Reference Include="System.Drawing">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Security">
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AsyncSocketConnector.cs" />

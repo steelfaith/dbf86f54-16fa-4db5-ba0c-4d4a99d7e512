@@ -1,5 +1,6 @@
 ﻿using System;
 using Common.Interfaces.Network;
+using Common.Messages;
 using Common.Networking;
 using Server.Common.Interfaces;
 
@@ -10,11 +11,11 @@ namespace Server.Common
         public Guid? RegionInstanceId { get; set; }
         public Guid? BattleInstanceId { get; set; }
         public int Id { get; }
-        public IClientConnection ClientConnection { get; }
-        public User(int id, IClientConnection clientConnection)
+        public Guid ConnectionId { get; }
+        public User(int id, Guid connectionId)
         {
             Id = id;
-            ClientConnection = clientConnection;
+            ConnectionId = connectionId;
         }
     }
 }

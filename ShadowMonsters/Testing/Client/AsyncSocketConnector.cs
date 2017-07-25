@@ -5,11 +5,14 @@ using System.Threading;
 using Common.Interfaces;
 using Common.Messages;
 using Common.Networking;
+using NLog;
 
 namespace Client
 {
     public class AsyncSocketConnector
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private static ManualResetEvent _connectDone = new ManualResetEvent(false);
 
         private readonly IMessageDispatcher _messageDispatcher;
@@ -40,7 +43,7 @@ namespace Client
             }
             catch (Exception ex)
             {
-                //Logger.Error(ex);
+                Logger.Error(ex);
             }
         }
 
@@ -52,13 +55,13 @@ namespace Client
 
                 client.EndConnect(ar);
 
-                //Logger.InfoFormat("Socket connected to {0}", client.RemoteEndPoint);
+                Logger.Info("Socket connected to {0}", client.RemoteEndPoint);
 
                 _connectDone.Set();
             }
             catch (Exception ex)
             {
-                //Logger.Error(ex);
+                Logger.Error(ex);
             }
         }
 
@@ -72,7 +75,7 @@ namespace Client
             }
             catch (Exception ex)
             {
-                //Logger.Error(ex);
+                Logger.Error(ex);
             }
         }
 
@@ -88,13 +91,13 @@ namespace Client
                 if (bytesRead > 0)
                 {
                     tcpConnection.AppendData(tcpConnection.Buffer, bytesRead, tcpConnection.Id);
-                    //Logger.InfoFormat("Read {0} bytes from socket. \n Data : {1}", bytesRead, tcpConnection.ReceivedData?.Length ?? 0);
+                    Logger.Info("Read {0} bytes from socket. \n Data : {1}", bytesRead, tcpConnection.ReceivedData?.Length ?? 0);
                     client.BeginReceive(tcpConnection.Buffer, 0, tcpConnection.BufferSize, 0, ReceiveCallback, tcpConnection);
                 }
             }
             catch (Exception ex)
             {
-                //Logger.Error(ex);
+                Logger.Error(ex);
             }
         }
 
@@ -108,7 +111,7 @@ namespace Client
             }
             catch (Exception ex)
             {
-                throw;//sigh until we have a logger that doesnt sucks
+                Logger.Error(ex);
             }
 
         }
@@ -120,11 +123,11 @@ namespace Client
                 Socket client = (Socket)ar.AsyncState;
 
                 int bytesSent = client.EndSend(ar);
-                //Logger.InfoFormat("Sent {0} bytes to server.", bytesSent);
+                Logger.Info("Sent {0} bytes to server.", bytesSent);
             }
             catch (Exception ex)
             {
-                //Logger.Error(ex);
+                Logger.Error(ex);
             }
         }
     }

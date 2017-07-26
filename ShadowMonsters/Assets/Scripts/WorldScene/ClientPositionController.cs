@@ -1,7 +1,6 @@
-﻿using Assets.ServerStubHome;
+﻿using Assets.Scripts.NetworkAgents;
 using Common.Messages.Requests;
 using UnityEngine;
-using UnityStandardAssets.Characters.ThirdPerson;
 
 namespace Assets.Scripts
 {

@@ -54,6 +54,7 @@
     <Compile Include="MessageHandlerRegistrar.cs" />
     <Compile Include="NetworkConnector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="NetworkResponseAction.cs" />
     <Compile Include="UnityCoroutineSimulator.cs" />
   </ItemGroup>
   <ItemGroup>

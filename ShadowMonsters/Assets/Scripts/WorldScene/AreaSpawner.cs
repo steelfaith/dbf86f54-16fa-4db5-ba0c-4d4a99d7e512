@@ -10,7 +10,6 @@ namespace Assets.Scripts
         public int numberTotal;
         public float delayInSeconds;
         public Transform shadePrefab;
-        public Transform spawner;
         List<GameObject> spawnedMonsters = new List<GameObject>();
         private AreaSpawnManager _spawnManager;
 
@@ -40,14 +39,12 @@ namespace Assets.Scripts
                 return;
             }
 
-            var spawnTrigger = spawner.GetComponent<SphereCollider>();
+            var spawnTrigger = GetComponent<SphereCollider>();
 
-            var spawnPosition = new Vector3(Random.insideUnitSphere.x* spawnTrigger.radius + spawner.localPosition.x,
-                transform.position.y, Random.insideUnitSphere.z* spawnTrigger.radius+ spawner.localPosition.z );
+            var spawnPosition = new Vector3(Random.insideUnitSphere.x* spawnTrigger.radius + transform.position.x,
+                transform.position.y, Random.insideUnitSphere.z* spawnTrigger.radius+ transform.position.z );
 
             var spawnedMonster = Instantiate(monsterToSpawn, spawnPosition, Quaternion.identity);
-
-            
 
             spawnedMonsters.Add(spawnedMonster.gameObject);
             _spawnManager.AddSpawn(spawnedMonster.gameObject);

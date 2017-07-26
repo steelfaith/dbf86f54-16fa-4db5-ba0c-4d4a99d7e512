@@ -11,8 +11,6 @@ namespace Assets.Scripts
 
         public List<GameObject> _spawns = new List<GameObject>();
 
-
-
         public void DestroyAllSpawns()
         {
             foreach (GameObject spawn in _spawns)

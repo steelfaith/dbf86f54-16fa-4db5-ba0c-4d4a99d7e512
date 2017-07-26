@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>2017.1.0f3</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -147,50 +145,50 @@
     <Compile Include="Assets\Resources\UnityChan\Scripts\SceneLoader.cs" />
     <Compile Include="Assets\Resources\UnityChan\Scripts\ThirdPersonCamera.cs" />
     <Compile Include="Assets\Resources\UnityChan\Scripts\UnityChanControlScriptWithRgidBody.cs" />
-    <Compile Include="Assets\Scripts\BattleScene\AnimationController.cs" />
     <Compile Include="Assets\Scripts\AnyManager.cs" />
-    <Compile Include="Assets\Scripts\WorldScene\AreaSpawner.cs" />
-    <Compile Include="Assets\Scripts\WorldScene\AreaSpawnManager.cs" />
-    <Compile Include="Assets\Scripts\BattleScene\CastbarScript.cs" />
+    <Compile Include="Assets\Scripts\BattleScene\AnimationController.cs" />
     <Compile Include="Assets\Scripts\BattleScene\BeginCombatPopup.cs" />
-    <Compile Include="Assets\Scripts\BringToFront.cs" />
     <Compile Include="Assets\Scripts\BattleScene\ButtonPowerDownScript.cs" />
     <Compile Include="Assets\Scripts\BattleScene\ButtonPowerUpScript.cs" />
     <Compile Include="Assets\Scripts\BattleScene\ButtonScript.cs" />
+    <Compile Include="Assets\Scripts\BattleScene\CastbarScript.cs" />
     <Compile Include="Assets\Scripts\BattleScene\CombatController.cs" />
     <Compile Include="Assets\Scripts\BattleScene\CombatPlayerController.cs" />
-    <Compile Include="Assets\Scripts\DragHandler.cs" />
     <Compile Include="Assets\Scripts\BattleScene\EnemyController.cs" />
     <Compile Include="Assets\Scripts\BattleScene\FatbicDisplayController.cs" />
     <Compile Include="Assets\Scripts\BattleScene\IncarnationContainer.cs" />
     <Compile Include="Assets\Scripts\BattleScene\IndicatorBarScript.cs" />
     <Compile Include="Assets\Scripts\BattleScene\LevelDisplayScript.cs" />
+    <Compile Include="Assets\Scripts\BattleScene\ScrollingCombatText.cs" />
+    <Compile Include="Assets\Scripts\BattleScene\ScrollingCombatTextController.cs" />
+    <Compile Include="Assets\Scripts\BringToFront.cs" />
+    <Compile Include="Assets\Scripts\DragHandler.cs" />
     <Compile Include="Assets\Scripts\LightController.cs" />
-    <Compile Include="Assets\Scripts\LoadScene.cs" />
-    <Compile Include="Assets\Scripts\LoginScene\LoginScript.cs" />
+    <Compile Include="Assets\Scripts\LoginScene\LoginButton.cs" />
     <Compile Include="Assets\Scripts\MonsterCave.cs" />
     <Compile Include="Assets\Scripts\MonsterSpawner.cs" />
+    <Compile Include="Assets\Scripts\NetworkAgents\AuthenticationAgent.cs" />
+    <Compile Include="Assets\Scripts\NetworkAgents\BattleInstanceAgent.cs" />
+    <Compile Include="Assets\Scripts\NetworkAgents\ClientConnectionManager.cs" />
+    <Compile Include="Assets\Scripts\NetworkAgents\WorldRegionAgent.cs" />
     <Compile Include="Assets\Scripts\PlaneswalkerTrigger.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\ResourceCollectorScript.cs" />
-    <Compile Include="Assets\Scripts\BattleScene\ScrollingCombatText.cs" />
-    <Compile Include="Assets\Scripts\BattleScene\ScrollingCombatTextController.cs" />
     <Compile Include="Assets\Scripts\Shadow.cs" />
-    <Compile Include="Assets\Scripts\WorldScene\ShadowCollider.cs" />
     <Compile Include="Assets\Scripts\StatusController.cs" />
     <Compile Include="Assets\Scripts\TeamController.cs" />
     <Compile Include="Assets\Scripts\TextLogDisplayManager.cs" />
-    <Compile Include="Assets\Scripts\UnloadSceneTrigger.cs" />
     <Compile Include="Assets\Scripts\WanderScript.cs" />
+    <Compile Include="Assets\Scripts\WorldScene\AreaSpawner.cs" />
+    <Compile Include="Assets\Scripts\WorldScene\AreaSpawnManager.cs" />
     <Compile Include="Assets\Scripts\WorldScene\ClientPositionController.cs" />
+    <Compile Include="Assets\Scripts\WorldScene\ShadowCollider.cs" />
     <Compile Include="Assets\ServerStubHome\AffinityMatchupDamageMultiplier.cs" />
     <Compile Include="Assets\ServerStubHome\AiAttackStyles\ButtonMasher.cs" />
     <Compile Include="Assets\ServerStubHome\AiAttackStyles\IAiAttackStyle.cs" />
     <Compile Include="Assets\ServerStubHome\AttackHelper.cs" />
     <Compile Include="Assets\ServerStubHome\AttackInstance.cs" />
-    <Compile Include="Assets\ServerStubHome\AuthenticationAgent.cs" />
     <Compile Include="Assets\ServerStubHome\BattleInstanceMessageHandler.cs" />
-    <Compile Include="Assets\ServerStubHome\ClientConnectionManager.cs" />
     <Compile Include="Assets\ServerStubHome\Colors.cs" />
     <Compile Include="Assets\ServerStubHome\DnaFactory.cs" />
     <Compile Include="Assets\ServerStubHome\KnownAttacks.cs" />
@@ -203,7 +201,6 @@
     <Compile Include="Assets\ServerStubHome\Monsters\RhinoVirus.cs" />
     <Compile Include="Assets\ServerStubHome\Monsters\RobotShockTrooper.cs" />
     <Compile Include="Assets\ServerStubHome\Monsters\Tripod.cs" />
-    <Compile Include="Assets\ServerStubHome\RemoteActorMovementAgent.cs" />
     <Compile Include="Assets\ServerStubHome\ServerStub.cs" />
   </ItemGroup>
   <ItemGroup>

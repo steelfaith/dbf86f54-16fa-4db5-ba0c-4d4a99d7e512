@@ -1,9 +1,18 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.NetworkAgents;
+using Common.Messages.Requests;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
     public class ShadowCollider : MonoBehaviour
     {
+        private ClientConnectionManager _connectionManager;
+
+        private void Awake()
+        {
+            _connectionManager = GetComponentInParent<ClientConnectionManager>();
+        }
+
         void OnTriggerEnter(Collider collider)
         {
             var shadow = collider.gameObject.GetComponent<Shadow>();
@@ -21,11 +30,11 @@ namespace Assets.Scripts
                 //textLogDisplayManager.AddText("You are caught between the planes and cannot fight.  You need to find a planeswaker to return you to your realm first.", AnnouncementType.System);
                 //return;
             }
+            _connectionManager.SendMessage(new CreateBattleInstanceRequest());
 
-            //we will eventually need to pass data through this more research on that later i suppose
-            //this is also currently nasty it just flash switches the entire view lol 
-            if (AnyManager._anyManager.LoadCombatScene())
-                Destroy(shadow);
+            //we need to call the battle instance here!!
+
+            Destroy(shadow);
         }
     }
 }

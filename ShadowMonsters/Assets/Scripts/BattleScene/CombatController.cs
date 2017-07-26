@@ -223,7 +223,7 @@ namespace Assets.Scripts
         {
             _monsterSpawner.DestroyAllSpawns();
             _areaSpawnManager.DestroyAllSpawns();
-            AnyManager._anyManager.UnloadCombatScene();
+            //AnyManager._anyManager.UnloadCombatScene();
         }
     }
 }

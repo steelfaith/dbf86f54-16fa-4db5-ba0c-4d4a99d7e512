@@ -2,20 +2,24 @@
 
 namespace Common.Messages
 {
+    /// <summary>
+    /// Probably come up with a new name for this later, routeable isnt really clear whats being routed
+    /// really the TcpConnectionId, is the client connection Id and routeable means client directable
+    /// </summary>
     public class RouteableMessage
     {
         public Message Message { get; }
-        public Guid ConnectionId { get; }
+        public Guid TcpConnectionId { get; }
 
-        public RouteableMessage(Guid connectionId, Message message)
+        public RouteableMessage(Guid tcpConnectionId, Message message)
         {
             if (message == null)
                 throw new ArgumentNullException(nameof(message));
 
-            if (connectionId == Guid.Empty)
-                throw new ArgumentException(nameof(connectionId));
+            if (tcpConnectionId == Guid.Empty)
+                throw new ArgumentException(nameof(tcpConnectionId));
 
-            ConnectionId = connectionId;
+            TcpConnectionId = tcpConnectionId;
             Message = message;
         }
 

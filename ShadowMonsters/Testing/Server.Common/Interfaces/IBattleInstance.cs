@@ -5,6 +5,6 @@ namespace Server.Common.Interfaces
 {
     public interface IBattleInstance : IServerInstance
     {
-        void AttemptRun(RouteableMessage routeableMessages);
+        void AttemptRun(InstanceMessage instanceMessage);
     }
 }

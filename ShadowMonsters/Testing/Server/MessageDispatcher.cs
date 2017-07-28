@@ -5,6 +5,8 @@ using Common;
 using Common.Interfaces;
 using Common.Messages;
 using NLog;
+using Server.Common;
+using Server.Common.Interfaces;
 
 namespace Server
 {
@@ -40,11 +42,25 @@ namespace Server
                     RouteableMessage routeableMessage;
                     if (_incomingMessages.TryDequeue(out routeableMessage))
                     {
-                        var handler = _messageHandlerRegistrar.Resolve(routeableMessage.Message.OperationCode);
-                        if(handler == null)
-                            Logger.Warn("No handler found for operationcode {0}", routeableMessage.Message.OperationCode);
+                        if (routeableMessage.Message is InstanceMessage)
+                        {
+                            var instanceMessage = routeableMessage.Message as InstanceMessage;
+
+                            var handler = _messageHandlerRegistrar.Resolve(new InstanceRoute(instanceMessage.InstanceId, instanceMessage.OperationCode));
+                            if (handler == null)
+                                Logger.Warn("No handler found for operationcode {0}", routeableMessage.Message.OperationCode);
+                            else
+                                handler.Invoke(instanceMessage);
+                        }
                         else
-                            handler.Invoke(routeableMessage);
+                        {
+                            var handler = _messageHandlerRegistrar.Resolve(routeableMessage.Message.OperationCode);
+                            if (handler == null)
+                                Logger.Warn("No handler found for operationcode {0}", routeableMessage.Message.OperationCode);
+                            else
+                                handler.Invoke(routeableMessage);
+                        }
+
 
                         //Logger.Info("Attempting to process a message");
                         //Logger.Info("Message Type {0} Message Op Code {1} Content Length {2}"
@@ -58,6 +74,7 @@ namespace Server
                 }
             }
         }
+
 
         public void DispatchMessage(RouteableMessage message)
         {

@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AsyncSocketConnector.cs" />
+    <Compile Include="IMessageHandlerRegistrar.cs" />
     <Compile Include="MessageDispatcher.cs" />
     <Compile Include="MessageHandlerRegistrar.cs" />
     <Compile Include="NetworkConnector.cs" />

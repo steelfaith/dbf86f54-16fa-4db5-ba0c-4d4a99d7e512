@@ -50,8 +50,8 @@
     <Compile Include="Enums\MonsterSize.cs" />
     <Compile Include="Interfaces\IMessageDispatcher.cs" />
     <Compile Include="Interfaces\IMessageHandler.cs" />
-    <Compile Include="Interfaces\IMessageHandlerRegistrar.cs" />
     <Compile Include="Interfaces\IMonsterDna.cs" />
+    <Compile Include="Messages\InstanceMessage.cs" />
     <Compile Include="Messages\Message.cs" />
     <Compile Include="Messages\Events\PlayerConnectedEvent.cs" />
     <Compile Include="Messages\Events\PlayerMoveEvent.cs" />

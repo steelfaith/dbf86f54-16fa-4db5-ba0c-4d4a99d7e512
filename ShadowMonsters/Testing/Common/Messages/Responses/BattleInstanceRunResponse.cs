@@ -1,8 +1,10 @@
-﻿using Common;
+﻿using System;
+using Common;
 
 namespace Common.Messages.Responses
 {
-    public class BattleInstanceRunResponse : Message
+    [Serializable]
+    public class BattleInstanceRunResponse : InstanceMessage
     {
         public override OperationType OperationType => OperationType.Response;
         public override OperationCode OperationCode => OperationCode.BattleInstanceRunResponse;

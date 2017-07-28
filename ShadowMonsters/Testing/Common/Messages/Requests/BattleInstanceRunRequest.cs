@@ -3,7 +3,8 @@ using Common;
 
 namespace Common.Messages.Requests
 {
-    public class BattleInstanceRunRequest : Message
+    [Serializable]
+    public class BattleInstanceRunRequest : InstanceMessage
     {
         public override OperationType OperationType => OperationType.Request;
         public override OperationCode OperationCode => OperationCode.BattleInstanceRunRequest;

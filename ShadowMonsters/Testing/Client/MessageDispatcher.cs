@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using Client;
 using Common.Interfaces;
 using Common.Messages;
 using NLog;

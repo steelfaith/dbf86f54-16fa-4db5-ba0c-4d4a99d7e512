@@ -1,7 +1,7 @@
 ﻿using System;
 using Common.Messages;
 
-namespace Common.Interfaces
+namespace Client
 {
     public interface IMessageHandlerRegistrar
     {

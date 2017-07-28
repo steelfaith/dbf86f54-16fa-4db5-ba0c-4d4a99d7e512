@@ -42,8 +42,8 @@ namespace Server.Instances
                 throw new ArgumentException("Failed to convert message to appropriate handler type.");
 
             IClientConnection clientConnection;
-            if (!_connectionManager.TryGetClientConnection(routeableMessage.ConnectionId, out clientConnection))
-                Logger.Error($"Login failed for user {request.ClientId}, with connection id {routeableMessage.ConnectionId}");
+            if (!_connectionManager.TryGetClientConnection(routeableMessage.TcpConnectionId, out clientConnection))
+                Logger.Error($"Login failed for user {request.ClientId}, with connection id {routeableMessage.TcpConnectionId}");
 
             lock (_clientLock)
             {
@@ -51,12 +51,12 @@ namespace Server.Instances
                 request.ClientId = _clientIds;//TODO: remove this once we have some real auth in place
             }
 
-            var user = new User(request.ClientId, routeableMessage.ConnectionId);
+            var user = new User(request.ClientId, routeableMessage.TcpConnectionId);
             _userController.AddUser(user);
 
             var results = _userController.GetCharacters(request.ClientId);
 
-            //_connectionManager.Send(new RouteableMessage(routeableMessage.ConnectionId, new ConnectResponse { Id = request.Id, Characters = results.Select(x => x.Name).ToList() }));
+            //_connectionManager.Send(new RouteableMessage(routeableMessage.TcpConnectionId, new ConnectResponse { Id = request.Id, Characters = results.Select(x => x.Name).ToList() }));
             _userController.Send(request.ClientId, new ConnectResponse { ClientId = request.ClientId, Characters = results.Select(x => x.Name).ToList() });
         }
         public void CharacterSelected(RouteableMessage routeableMessage)

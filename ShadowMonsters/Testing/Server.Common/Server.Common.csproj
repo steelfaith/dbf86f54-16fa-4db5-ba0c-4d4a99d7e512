@@ -62,11 +62,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Character.cs" />
+    <Compile Include="InstanceRoute.cs" />
     <Compile Include="Interfaces\IAuthenticationInstance.cs" />
     <Compile Include="Interfaces\IBattleInstance.cs" />
     <Compile Include="Interfaces\IConnectionManager.cs" />
     <Compile Include="Interfaces\IInstanceCoordinator.cs" />
     <Compile Include="Interfaces\IBattleInstanceStorageProvider.cs" />
+    <Compile Include="Interfaces\IMessageHandlerRegistrar.cs" />
     <Compile Include="Interfaces\IServerInstance.cs" />
     <Compile Include="Interfaces\IWorldManager.cs" />
     <Compile Include="Interfaces\IWorldRegionInstance.cs" />

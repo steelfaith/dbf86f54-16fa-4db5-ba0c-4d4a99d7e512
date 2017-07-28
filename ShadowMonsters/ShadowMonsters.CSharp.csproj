@@ -168,7 +168,6 @@
     <Compile Include="Assets\Scripts\MonsterCave.cs" />
     <Compile Include="Assets\Scripts\MonsterSpawner.cs" />
     <Compile Include="Assets\Scripts\NetworkAgents\AuthenticationAgent.cs" />
-    <Compile Include="Assets\Scripts\NetworkAgents\BattleInstanceAgent.cs" />
     <Compile Include="Assets\Scripts\NetworkAgents\ClientConnectionManager.cs" />
     <Compile Include="Assets\Scripts\NetworkAgents\WorldRegionAgent.cs" />
     <Compile Include="Assets\Scripts\PlaneswalkerTrigger.cs" />
@@ -181,6 +180,7 @@
     <Compile Include="Assets\Scripts\WanderScript.cs" />
     <Compile Include="Assets\Scripts\WorldScene\AreaSpawner.cs" />
     <Compile Include="Assets\Scripts\WorldScene\AreaSpawnManager.cs" />
+    <Compile Include="Assets\Scripts\WorldScene\BattleInstanceRequestor.cs" />
     <Compile Include="Assets\Scripts\WorldScene\ClientPositionController.cs" />
     <Compile Include="Assets\Scripts\WorldScene\ShadowCollider.cs" />
     <Compile Include="Assets\ServerStubHome\AffinityMatchupDamageMultiplier.cs" />

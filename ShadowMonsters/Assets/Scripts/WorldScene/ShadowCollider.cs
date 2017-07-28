@@ -6,11 +6,11 @@ namespace Assets.Scripts
 {
     public class ShadowCollider : MonoBehaviour
     {
-        private ClientConnectionManager _connectionManager;
+        private ClientConnectionManager _clientConnectionManager;
 
         private void Awake()
         {
-            _connectionManager = GetComponentInParent<ClientConnectionManager>();
+            _clientConnectionManager = FindObjectOfType(typeof(ClientConnectionManager)) as ClientConnectionManager;
         }
 
         void OnTriggerEnter(Collider collider)
@@ -30,7 +30,8 @@ namespace Assets.Scripts
                 //textLogDisplayManager.AddText("You are caught between the planes and cannot fight.  You need to find a planeswaker to return you to your realm first.", AnnouncementType.System);
                 //return;
             }
-            _connectionManager.SendMessage(new CreateBattleInstanceRequest());
+
+            _clientConnectionManager.SendMessage(new CreateBattleInstanceRequest());
 
             //we need to call the battle instance here!!
 

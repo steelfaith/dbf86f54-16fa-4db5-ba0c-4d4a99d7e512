@@ -26,7 +26,7 @@ namespace Server.Instances
             _container.RegisterType<IBattleInstance, BattleInstance>(new PerResolveLifetimeManager());
             _container.RegisterType<IWorldRegionInstance, WorldRegionInstance>(new PerResolveLifetimeManager());
 
-            messageHandlerRegistrar.Register(OperationCode.CreateBattleInstanceResponse, CreateBattleInstance);
+            messageHandlerRegistrar.Register(OperationCode.CreateBattleInstanceRequest, CreateBattleInstance);
             _userController = userController;
             _connectionManager = connectionManager;
         }
@@ -56,8 +56,7 @@ namespace Server.Instances
 
             user.BattleInstanceId = CreateBattleInstance();
 
-            //_connectionManager.Send(new RouteableMessage(routeableMessage.ConnectionId, new CreateBattleInstanceResponse { Id = user.Id }));
-            _userController.Send(request.ClientId, new CreateBattleInstanceResponse { ClientId = user.Id });
+            _userController.Send(request.ClientId, new CreateBattleInstanceResponse { ClientId = user.Id, InstanceId = user.BattleInstanceId.Value});
         }
 
         public IBattleInstance GetBattleInstance(Guid instanceId)

@@ -8,23 +8,22 @@ namespace Assets.Scripts.NetworkAgents
     {
         public AuthenticationAgent AuthenticationAgent;
         public WorldRegionAgent WorldRegionAgent;
-        public BattleInstanceAgent BattleInstanceAgent;
-        private NetworkConnector _connection;
+        public NetworkConnector Connection;
         private static ClientConnectionManager _clientConnectionManager;
 
         public int ClientId { get; set; }
 
         void Awake()
         {
+            Application.runInBackground = true;
             DontDestroyOnLoad(this);
             InstantiateAgents();
+            Connection = new NetworkConnector();
         }
 
         private void Start()
         {
-            Application.runInBackground = true;
-            _connection = new NetworkConnector();
-            _connection.Connect();
+            Connection.Connect();
             RegisterMessageHandlers();
         }
 
@@ -33,21 +32,18 @@ namespace Assets.Scripts.NetworkAgents
             AuthenticationAgent = Instantiate(AuthenticationAgent, transform);
             AuthenticationAgent.ConnectionManager = this;
             WorldRegionAgent = Instantiate(WorldRegionAgent, transform);
-            BattleInstanceAgent = Instantiate(BattleInstanceAgent, transform);
         }
 
         private void RegisterMessageHandlers()
         {
-            _connection.RegisterHandler(OperationCode.ConnectResponse,  AuthenticationAgent.HandleConnectionResponse);
-            _connection.RegisterHandler(OperationCode.SelectCharacterResponse, AuthenticationAgent.HandleSelectCharacterResponse);
-            _connection.RegisterHandler(OperationCode.PlayerMoveEvent, WorldRegionAgent.RemoteActorMoved);
-            _connection.RegisterHandler(OperationCode.CreateBattleInstanceRequest, BattleInstanceAgent.BattleInstanceCreatedResponse);
+            Connection.RegisterHandler(OperationCode.SelectCharacterResponse, AuthenticationAgent.HandleSelectCharacterResponse);
+            Connection.RegisterHandler(OperationCode.PlayerMoveEvent, WorldRegionAgent.RemoteActorMoved);
         }
 
         public void SendMessage(Message message)
         {
             message.ClientId = ClientId;
-            _connection.SendMessage(message);
+            Connection.SendMessage(message);
         }
 
         public static ClientConnectionManager Instance()

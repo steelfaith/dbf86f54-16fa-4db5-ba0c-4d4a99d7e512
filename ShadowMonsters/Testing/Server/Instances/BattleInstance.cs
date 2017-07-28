@@ -28,6 +28,9 @@ namespace Server.Instances
             _userController = userController;
         }
 
+        public void CreateBattleInstance(RouteableMessage routeableMessage)
+        { }
+
         public void AttemptRun(RouteableMessage routeableMessage)
         {
             BattleInstanceRunRequest request = routeableMessage.Message as BattleInstanceRunRequest;

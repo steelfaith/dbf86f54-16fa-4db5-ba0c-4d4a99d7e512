@@ -13,7 +13,10 @@ namespace Assets.Scripts
         List<GameObject> spawnedMonsters = new List<GameObject>();
         private AreaSpawnManager _spawnManager;
 
-
+        private void Awake()
+        {
+            
+        }
 
         // Use this for initialization
         void Start()

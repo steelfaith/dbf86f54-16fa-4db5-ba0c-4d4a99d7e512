@@ -1,48 +1,64 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using Assets.Scripts.NetworkAgents;
 using Client;
 using Common.Messages;
+using Common.Messages.Requests;
 using Common.Messages.Responses;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LoginButton : MonoBehaviour {
+public class LoginButton : NetworkScriptBase<ConnectResponse>
+{
 
     private readonly int _timeout = 30; // in seconds
     private bool _waitingOnLoginResponse;
     private DateTime? requestTime;
-    private AuthenticationAgent _authenticationAgent;
+    private ClientConnectionManager _clientConnectionManager;
     private Button _button;
+
+    private void Awake()
+    {
+        _clientConnectionManager = FindObjectOfType(typeof(ClientConnectionManager)) as ClientConnectionManager;
+    }
 
     private void Start()
     {
-        _authenticationAgent = FindObjectOfType(typeof(AuthenticationAgent)) as AuthenticationAgent;
-        _authenticationAgent.RegisterForResponse("LoginScript", new NetworkResponseAction(LoginSuccessful, typeof(ConnectResponse)));
+        if (_clientConnectionManager != null)
+            Start(_clientConnectionManager.Connection, OperationCode.ConnectResponse);
     }
+
 
     public void Update()
     {
         if (_waitingOnLoginResponse)
         {
-            var now = DateTime.UtcNow;
-            var elapsed = now.Subtract(requestTime.GetValueOrDefault());
-            if (elapsed.Seconds > _timeout)
+            ConnectResponse response;
+            if (TryGetResponse(out response))//try get response will lock the incoming response queue
             {
                 _waitingOnLoginResponse = false;
-                _button.interactable = true;
-                requestTime = null;
+                _clientConnectionManager.ClientId = response.ClientId;//this is also temporary, resolve in a better way after we have a user from the db
+                SceneManager.LoadSceneAsync("TestScene", LoadSceneMode.Single);
+            }
+            else
+            {
+                var now = DateTime.UtcNow;
+                var elapsed = now.Subtract(requestTime.GetValueOrDefault());
+                if (elapsed.Seconds > _timeout)
+                {
+                    _waitingOnLoginResponse = false;
+                    _button.interactable = true;
+                    requestTime = null;
+                }
             }
 
-            //StartCoroutine(CheckAuthenticationAgentForSuccess());
         }
     }
 
     public void OnClicked(Button button)
     {
-        if (_authenticationAgent == null)
+        if (_clientConnectionManager == null)
             return;
 
         if (button == null)
@@ -55,30 +71,16 @@ public class LoginButton : MonoBehaviour {
         requestTime = DateTime.UtcNow;
         _waitingOnLoginResponse = true;
 
-        _authenticationAgent.Login();
+        _clientConnectionManager.SendMessage(new ConnectRequest());
     }
 
-    public IEnumerator CheckAuthenticationAgentForSuccess()
+    private void LoginResponseReceived(ConnectResponse response)
     {
-        if (_authenticationAgent == null)
-            yield return null;
-
-        if (_authenticationAgent.LoginSuccessful)
-        {
-            _waitingOnLoginResponse = false;
-            SceneManager.LoadSceneAsync("TestScene", LoadSceneMode.Single);
-        }
-
-    }
-
-    private void LoginSuccessful(Message message)
-    {
-        ConnectResponse response = message as ConnectResponse;
         if (response == null)
             return;
 
         _waitingOnLoginResponse = false;
-        SceneManager.LoadSceneAsync("TestScene", LoadSceneMode.Single);
+        
     }
 
 }

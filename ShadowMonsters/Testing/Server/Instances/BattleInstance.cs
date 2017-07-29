@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Threading;
 using Common;
 using Common.Interfaces;
 using Common.Messages;
@@ -12,26 +16,50 @@ namespace Server.Instances
 {
     public class BattleInstance : IBattleInstance
     {
+        private const int ThirtyFps = 33;//I know its 33 think about it ;) 
+
+        private static Logger Logger = LogManager.GetCurrentClassLogger();
+
         private readonly IConnectionManager _connectionManager;
         private readonly IInstanceCoordinator _instanceCoordinator;
         private readonly IUserController _userController;
+        private readonly Timer _eventProcessTimer;
 
         public Guid InstanceId { get; }
 
         public BattleInstance(IMessageHandlerRegistrar messageHandlerRegistrar,
-            IConnectionManager connectionManager, IInstanceCoordinator instanceCoordinator, IUserController userController)
+            IConnectionManager connectionManager, IInstanceCoordinator instanceCoordinator,
+            IUserController userController)
         {
             InstanceId = Guid.NewGuid();
-            messageHandlerRegistrar.Register(new InstanceRoute(InstanceId,OperationCode.BattleInstanceRunRequest), AttemptRun);
+            messageHandlerRegistrar.Register(new InstanceRoute(InstanceId, OperationCode.BattleInstanceRunRequest),
+                AttemptRun);
             _connectionManager = connectionManager;
             _instanceCoordinator = instanceCoordinator;
             _userController = userController;
+            _eventProcessTimer = new Timer(OnEventTimer,null, ThirtyFps, Timeout.Infinite);
         }
 
-        //now we need to figure some things out, the battle instance shouldnt register for all requests,
-        //they need to be routed based on user.BattleInstanceId which makes things complicated. The other
-        //possible solution is that we should spin up a new connection for every battle instance, and the response
-        //message from the instance coordinator should give us the address of the new instance
+        private void OnEventTimer(object state)
+        {
+            var stopwatch = Stopwatch.StartNew();
+            try
+            {
+                
+
+                
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+            }
+            finally
+            {
+                stopwatch.Stop();
+                Logger.Info($"Battle instance {InstanceId} event timer took {stopwatch.Elapsed}");
+                _eventProcessTimer.Change(ThirtyFps, Timeout.Infinite);
+            }
+        }
 
         public void AttemptRun(InstanceMessage instanceMessage)
         {
@@ -50,9 +78,8 @@ namespace Server.Instances
 
             var result = true; // need some implementation lol
 
-            _userController.Send(request.ClientId, new BattleInstanceRunResponse { Successful = result, ClientId = user.Id });
+            _userController.Send(request.ClientId,
+                new BattleInstanceRunResponse {Successful = result, ClientId = user.Id});
         }
-
-        
     }
 }

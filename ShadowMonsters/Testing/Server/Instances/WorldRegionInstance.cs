@@ -17,7 +17,7 @@ namespace Server.Instances
 {
     /// <summary>
     /// Represent a physical area a player can be located in, currently they do not support
-    /// stacking or player separation by population however this is comething we should 
+    /// stacking or player separation by population however this is something we should 
     /// add in the future. In the interim world regions are used as a low grade
     /// region of interest filter
     /// </summary>
